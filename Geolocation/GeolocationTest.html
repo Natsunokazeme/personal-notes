@@ -4,12 +4,14 @@
 <head>
     <script>
 
-        var location = navigator.geolocation.getCurrentPosition(position => console.log(position))
+        var location = ()=>{
+            return navigator.geolocation.getCurrentPosition(position => console.log(position))
+        } 
     </script>
 </head>
 
 <body>
-    <button onclick="location"></button>
+    <button onclick="location">wtf</button>
 </body>
 
 </html>
