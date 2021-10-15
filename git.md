@@ -1,5 +1,6 @@
-1.clone github上远程项目时，把https改为git(该协议不支持push，建议还是改为https+vpn)
+1.clone github上远程项目时，把https改为git(该协议不支持push，建议还是改为http/https+取消代理)
 2.git commit只是提交修改到本地，要提交修改到远程还需git push
+    commit的时候需要git commit -m"message" 添加message说明
 3.idea的branch选择在右下角
 git bash 选择git 运行的目录位置
 git merge name1 合并分支name1到当前分支后的一个新节点上
