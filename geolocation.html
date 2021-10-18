@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/javascript"
+        src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=KvgR49ER9CzfjXWoMpNaW8PbpyGKVYrM">
+        </script>
+    <script type="text/javascript">
+        navigator.geolocation.getCurrentPosition((position) => {
+            console.log(position)
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var ggPoint = new BMapGL.Point(longitude, latitude);
+            // var shanghai = [121.48,31.24] 上海经纬度
+
+
+            console.log( longitude+ " " +latitude );
+            setTimeout(() => {
+                var convertor = new BMapGL.Convertor();
+                var pointArr = [];
+                pointArr.push(ggPoint);
+                convertor.translate(pointArr, COORDINATES_WGS84, COORDINATES_BD09, getaddress)
+            }, 1000);
+            
+        
+
+
+        
+        })
+        var getaddress = (data) => {
+            var myGeo = new BMapGL.Geocoder();
+            // 根据坐标得到地址描述    
+            myGeo.getLocation(data.points[0], function (result) {
+                if (result) {
+                    console.log(result);
+                    alert(result.address);
+                }
+            });
+        }
+
+    </script>
+</body>
+
+</html>
