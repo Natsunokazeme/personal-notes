@@ -12,41 +12,43 @@
 <body>
     <div id="container"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- 若不引入jquery则$未定义报错，若引入则跨域 -->
+    <!-- 跨域处理，采用script标签引入jquery,在jquery中采用jsonp格式跨域 -->
     <script type="text/javascript">
-        var dealresult = (data) => {
-            console.log(data.result.formatted_address)
-            console.log(data.result.addressComponent.country_code_iso);
-        }
-        // onload=() => {
-        $.ajax({
-            type: "get",
-            url: "http://api.map.baidu.com/reverse_geocoding/v3/?ak=KvgR49ER9CzfjXWoMpNaW8PbpyGKVYrM&output=json&coordtype=wgs84ll&location=31.225696563611,121.49884033194",
-            dataType: "jsonp",
-            contentType: 'application/json',
-            success: function (data) {
-                console.log(data.result.formatted_address)
-                console.log(data.result.addressComponent.country_code_iso);
-            },
-            error: function (data) { console.log("error"); }
-        });
+        var latitude, longitude;
+        var geolocation = navigator.geolocation.getCurrentPosition((position) => {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            var location = "" + latitude + ',' + longitude;
+            console.log(location);
+            $.ajax({
+                type: "get",
+                url: "http://api.map.baidu.com/reverse_geocoding/v3/?ak=KvgR49ER9CzfjXWoMpNaW8PbpyGKVYrM&output=json&coordtype=wgs84ll&location=" + location,
+                dataType: "jsonp",
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data.result.formatted_address)
+                    console.log(data.result.addressComponent.country_code_iso);
+                },
+                error: function (data) { console.log("error"); }
+            });
+        })
 
-        function format_ajax(){
-            var request = new XMLHttpRequest();
-            request.onreadystatechange = () => {
-                if(request.readyState==4&&request.status==200){
-                    console.log(request.response); 
-                }else{
-                    console.log(request.response); 
-                }
-            }
-            request.open("GET","http://api.map.baidu.com/reverse_geocoding/v3/?ak=KvgR49ER9CzfjXWoMpNaW8PbpyGKVYrM&output=json&coordtype=wgs84ll&location=31.225696563611,121.49884033194",true);
-            request.setRequestHeader("Accept","jsonp");
-            request.setRequestHeader("contentType",'application/json')
-            request.send();
-        }
-           
+
+        // function format_ajax() {
+        //     var request = new XMLHttpRequest();
+        //     request.onreadystatechange = () => {
+        //         if (request.readyState == 4 && request.status == 200) {
+        //             console.log(request.response);
+        //         } else {
+        //             console.log(request.response);
+        //         }
+        //     }
+        //     request.open("GET", "http://api.map.baidu.com/reverse_geocoding/v3/?ak=KvgR49ER9CzfjXWoMpNaW8PbpyGKVYrM&output=json&coordtype=wgs84ll&location=31.225696563611,121.49884033194", true);
+        //     request.setRequestHeader("Accept", "jsonp");
+        //     request.setRequestHeader("contentType", 'application/json')
+        //     request.send();
         // }
+
 
     </script>
 </body>
