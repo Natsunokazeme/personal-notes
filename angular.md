@@ -85,6 +85,14 @@ EventEmitter 事件传出
 router
 {path：/**/ component：NOT_FOUND}//路径错误时采用本路径模板
 
+引入angular material的知识点
+1.在material V9及以上版本时需按需引入组件module
+2.引入是写在app.module.ts内，按需import之后在
+@NgModule({imports:[
+
+]})内写入，引入到核心module
+3.在需要使用该组件时直接使用对应的组件名
+
 RxJS
 opreater
 fromEvent
