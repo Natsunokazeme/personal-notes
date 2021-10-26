@@ -15,3 +15,9 @@
 当value是array时，'name|1':array表随机抽取一个元素
 'name|+1':array表顺序抽取一个元素
 min-max|count表array重复次数
+
+‘name’：function{
+
+return 
+
+}	//可返回任意数据并且每次调用都返回不一样的数据
