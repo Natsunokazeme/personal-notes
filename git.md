@@ -27,7 +27,7 @@ name1~3 // ~(num) ，表示name1分支的第前3个修改
 git cherry-pick name1 name2 hash3   //将name1和name2指向的修改以及hash3修改按顺序复制到当前修改后，并将hash3设为该分支最新修改
 git rebase -i name1     //将位于当前分支上且name1分支上没有的修改选中，弹出一个界面，可排序或删除修改们，并将结果commit到name1后面，当前分支指向该结果最新修改 
 
-git flow
+git flow    //一种格式
 git fetch   //从远程仓库下载本地仓库中缺失的提交记录并更新远程分支指针(如 o/main) 注意：只下载了缺少的远程修改，但并未改变本地分支指针
 git pull    //从远程仓库下载本地仓库中缺失的提交记录并更新远程分支指针(如 o/main)并将缺少的远程修改合并到本地分支
 
