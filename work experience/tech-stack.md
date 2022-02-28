@@ -15,3 +15,8 @@ need to learn:
 react
 node
 aem
+
+good at
+date
+blob
+geolocation
