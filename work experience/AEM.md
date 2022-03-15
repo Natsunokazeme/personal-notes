@@ -10,3 +10,5 @@ mvn -B archetype:generate \
  -D groupId="com.adobe.aem.guides.wkndspa.react" \
  -D frontendModule="react" \
  -D aemVersion="cloud"
+
+shit

@@ -127,3 +127,12 @@ connect(mapStateToProps, mapDispatchToProps)(Component)
 
 function mapStateToProps(state, ownProps?)
 返回一个 connected 的组件需要的数据，每一次 state 改变的时候都会自动订阅,是 connect 的第一个参数，可用 null 或 undefined 替代，取消该方法
+
+when state or props changed, the components will render again.
+no need to change child state from parent components. props are enough to do that.
+child can change parent component's state by callback function in props supered from parent.
+if state render in react can just write in the render function as js.
+In render function, we could use map replace of for to render repetition components.(In functional components,just return is ok for render)
+style in jsx is used as style={{key:value}}.its key is camel
+
+const [a,setA] =useState(initVal);
