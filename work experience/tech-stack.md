@@ -10,9 +10,9 @@ azure
 rxjs
 dayjs
 ng-zorro
+react
 
 need to learn:
-react
 node
 aem
 
