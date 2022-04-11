@@ -8,3 +8,8 @@
 11.PBI，feature 和 task 都以动词开头，组件名不能用动词 12.字符串首尾空格删除
 13.margin-bottom 采用 margin-top 替代
 14.transation 以当前位置为出发点进行移动，但还是推荐 animation
+15.image 经常有 3px margin at bottom 是因为 the image behaving like a character of text。可设置 vertical-align;
+16.setState 会把它的多次调用合成一次，只 render 一次
+17.useEffect 第二个参数[value]表示该值改变且处于 update 时执行
+若为[]则表示只在 mount 和 unmount 时执行
+若无表每一次 update 都执行
