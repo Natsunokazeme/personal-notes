@@ -1,9 +1,14 @@
+ng new xxx //创建新项目
+ng g c xxx //创建新组件
+ng g m xxx //创建新模块
+ng g s xxx //创建新服务
+
+
 组件分为三部分
 @component({
     selector
     template/templateUrl
     style/styleUrls
-
 })
 例：import { Component } from '@angular/core';
 

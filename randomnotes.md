@@ -12,12 +12,21 @@
 16.setState 会把它的多次调用合成一次，只 render 一次
 17.useEffect 第二个参数[value]表示该值改变且处于 update 时执行
 若为[]则表示只在 mount 和 unmount 时执行
-若无表每一次 update 都执行
+若无表每一次 update 都执行 
 18.下载功能实现
 const link = document.createElement('a')
-    link.download = fileName
-    link.style.display = 'none'
-    link.href = src
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+link.download = fileName
+link.style.display = 'none'
+link.href = src
+document.body.appendChild(link)
+link.click()
+document.body.removeChild(link)
+19.padding 使用百分比时是按照宽度来计算的 
+20.宽高相等，1 使用 vw，vh,2 使用 js
+21.grid 的 1fr 可代替高和宽部分 calc 
+22.可通过 js 内字符串拼接来实现 calc
+23.node 版本管理可通过 npm i -g n 实现控制
+24.angular 的 rxjs 的 observable 与 promise 不兼容
+25.observable 方法，pipe 用于管道，subscribe 用于订阅，switchMap 用于切换,需要返回 observable,map 用于映射,take 用于取前几个,takeUntil 用于取直到某个时间点,takeWhile 用于取直到某个条件为 false, 
+26.在浏览器 debug(未编译的代码)，直接打开控制台的 source，在里面直接加断点，通过 cmd+shift+p 搜索文件
+27.tailwindcss 的基本用法，可以通过 tailwindcss.config.js 来自定义，是一种写在html上的css样式集合
