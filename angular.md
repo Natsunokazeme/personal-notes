@@ -3,32 +3,29 @@ ng g c xxx //创建新组件
 ng g m xxx //创建新模块
 ng g s xxx //创建新服务
 
-
 组件分为三部分
 @component({
-    selector
-    template/templateUrl
-    style/styleUrls
+selector
+template/templateUrl
+style/styleUrls
 })
 例：import { Component } from '@angular/core';
 
 @Component({
-  selector: 'hello-world',
-  template: `
-    <h2>Hello World</h2>
-    <p>This is my first component!</p>
-    `,
+selector: 'hello-world',
+template: ` <h2>Hello World</h2> <p>This is my first component!</p> `,
 })
 export class HelloWorldComponent {
-  // The code in this class drives the component's behavior.
-  //该行相当于该组件的script部分
+// The code in this class drives the component's behavior.
+//该行相当于该组件的 script 部分
 }
-与vue类似，可在html模板中使用{{}}获取插值
-在angular中，html模板内绑定属性采用[]//类似v-bind,绑定事件采用()//类似v-on
+与 vue 类似，可在 html 模板中使用{{}}获取插值
+在 angular 中，html 模板内绑定属性采用[]//类似 v-bind,绑定事件采用()//类似 v-on
 例：<button (click)="sayMessage()" [disabled]="canClick">Trigger alert message</button>
 
-*ngIf类似于vue中v-if
-用法：当为true时采用div原本模板，当为false时采用else后编号的ng-template模板
+\*ngIf 类似于 vue 中 v-if
+用法：当为 true 时采用 div 原本模板，当为 false 时采用 else 后编号的 ng-template 模板
+
 <div *ngIf="canEdit; else noEdit">
     <p>You can edit the following paragraph.</p>
 </div>
@@ -38,38 +35,38 @@ export class HelloWorldComponent {
 
 依赖注入
 例：
-//注册一个可注入方法logger.service.ts
+//注册一个可注入方法 logger.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class Classname {
-  writeCount(count: number) {
-    console.warn(count);
-  }
+writeCount(count: number) {
+console.warn(count);
+}
 }
 //在组件中注入
 import { Component } from '@angular/core';
 import { Logger } from '../logger.service';
 
 @Component({
-  selector: 'hello-world-di',
-  templateUrl: './hello-world-di.component.html'
+selector: 'hello-world-di',
+templateUrl: './hello-world-di.component.html'
 })
-export class HelloWorldDependencyInjectionComponent  {
-  count = 0;
+export class HelloWorldDependencyInjectionComponent {
+count = 0;
 
-  constructor(private logger: Logger) {
-  }
-
-  onLogMe() {
-    this.logger.writeCount(this.count);
-    this.count++;
-  }
+constructor(private logger: Logger) {
 }
 
-在angular项目中，component需要在module中注册引用后才可在其他组件中引用
+onLogMe() {
+this.logger.writeCount(this.count);
+this.count++;
+}
+}
 
-angular生命周期函数 onchanges可监听变化
+在 angular 项目中，component 需要在 module 中注册引用后才可在其他组件中引用
+
+angular 生命周期函数 onchanges 可监听变化
 
 @Input() 传入
 @Output() 传出
@@ -78,6 +75,7 @@ EventEmitter 事件传出
 父组件引用子组件属性与方法
 通过在父组件模板中的子组件标签内放入一个本地变量(以#为标记)，代表子组件的引用；
 例如：<button (click)="timer.stop()">Stop</button>
+
   <div class="seconds">{{timer.seconds}}</div>
   <app-countdown-timer #timer></app-countdown-timer>
 
@@ -88,15 +86,12 @@ EventEmitter 事件传出
 双向绑定语法只是属性绑定和事件绑定的组合的简写形式，
 
 router
-{path：/**/ component：NOT_FOUND}//路径错误时采用本路径模板
+{path：/\*\*/ component：NOT_FOUND}//路径错误时采用本路径模板
 
-引入angular material的知识点
-1.在material V9及以上版本时需按需引入组件module
-2.引入是写在app.module.ts内，按需import之后在
+引入 angular material 的知识点 1.在 material V9 及以上版本时需按需引入组件 module 2.引入是写在 app.module.ts 内，按需 import 之后在
 @NgModule({imports:[
 
-]})内写入，引入到核心module
-3.在需要使用该组件时直接使用对应的组件名
+]})内写入，引入到核心 module 3.在需要使用该组件时直接使用对应的组件名
 
 RxJS
 opreater
@@ -109,7 +104,10 @@ take
 timer
 interval
 
+生命周期
+constructor 初始化，输入值为 undefined
+ngOnInit 输入值将在这里获取
 
-
-
-
+angular output
+@Output() quantityChange = new EventEmitter<number>();
+this.quantityChange.emit(this.quantity);
