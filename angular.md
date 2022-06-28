@@ -111,3 +111,5 @@ ngOnInit 输入值将在这里获取
 angular output
 @Output() quantityChange = new EventEmitter<number>();
 this.quantityChange.emit(this.quantity);
+
+angular setter 和 getter 方法可在获取或设置属性前执行一些操作，比如可替代ngOnChanges
