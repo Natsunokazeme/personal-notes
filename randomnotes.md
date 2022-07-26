@@ -29,3 +29,19 @@ document.body.removeChild(link)
 28.input type 为 number 时右侧会有按钮，影响布局，可通过 input[type='number']::-webkit-inner-spin-button {
 -webkit-appearance: none;
 }隐藏掉
+29.clear:both 清除float
+30.tailwind 推荐用 float-right:boolean 而不是float-{{right}}.
+31.nx dep-gragh 用于查看依赖关系
+32.ngOnchanges 参数changes:SimpleChanges 可以查看改变的属性，可以用来判断是否改变了某个属性
+33.ngFor 可以根据值动态渲染
+34.customEvent
+document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' } }))
+全局发送特殊事件
+35.input和select 都自带outline
+36.forkJoin(observable1, observable2, ...) 用于等待多个 observable 发送完成，然后执行一个函数
+37.select 和option 的 value 必须是字符串，不能是数字，否则会报错,如果是对象，可以用 JSON.stringify 来转换成字符串
+38.unit test中，获取元素的方法，可以用 querySelector 或者 querySelectorAll，也可以用 getElementById 或者 getElementsByClassName 或者 getElementsByTagName
+39.比较两个对象是否相等时，最好用 JSON.stringify 来转换成字符串，因为对象的属性是引用类型，如果用 === 比较，会出现不相等的情况。但注意的是，转换成字符串时，会按照字符串的排序来比较，所以如果属性的顺序不一致，就会出现不相等的情况。
+40.可通过$any($event.target).value来规避$event.target.value的问题
+41.直接spyOn localStorage 无法监听，可以用监听原型jest.spyOn(Storage.prototype, 'setItem');的方式监听
+

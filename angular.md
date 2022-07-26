@@ -13,7 +13,7 @@ style/styleUrls
 
 @Component({
 selector: 'hello-world',
-template: ` <h2>Hello World</h2> <p>This is my first component!</p> `,
+template: `<h2>Hello World</h2> <p>This is my first component!</p>`,
 })
 export class HelloWorldComponent {
 // The code in this class drives the component's behavior.
@@ -112,4 +112,17 @@ angular output
 @Output() quantityChange = new EventEmitter<number>();
 this.quantityChange.emit(this.quantity);
 
-angular setter 和 getter 方法可在获取或设置属性前执行一些操作，比如可替代ngOnChanges
+angular setter 和 getter 方法可在获取或设置属性前执行一些操作，比如可替代 ngOnChanges
+
+angular cookbook
+components communication
+1.Input Output
+2.service
+3.setter getter
+4.ogOnChanges
+5.id of child component in template (componentRef)
+6.viewChild component
+@viewChild(ClassName) child1: ClassName;
+并将componentRef赋值给child1
+7.dynamic component(componentFactory and viewContainerRef)
+
