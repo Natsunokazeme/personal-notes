@@ -52,4 +52,7 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 40.可通过$any($event.target).value 来规避$event.target.value 的问题 
 41.直接 spyOn localStorage 无法监听，可以用监听原型 jest.spyOn(Storage.prototype, 'setItem');的方式监听 
 42. eventListener 在跳转前一定要销毁，否则可能导致二次进入页面时，一次触发事件多次执行监听函数(5h) 
-43.
+43.console台里不出现后端请求原因分析：1.mocked http request。2特殊的http请求不被console台获取 3.network做了筛选
+44. string.prototype.search(regex);会将参数自动转化为regex，若找到返回index，否则返回-1
+45.array.prototype.join()会将数组中的每个元素转化为字符串，然后用逗号拼接起来，返回一个字符串。
+46.array.prototype.toString()会将数组去掉中括号直接转化为字符串，返回一个字符串。
