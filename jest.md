@@ -41,3 +41,4 @@ component = fixture.point.componentInstance;
 });
 it('should create', () => {...});
 });
+11.jest.useFakeTimers(),jest.runAllTimers() to mock the time executor.
