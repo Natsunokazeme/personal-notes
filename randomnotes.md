@@ -56,3 +56,7 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 44. string.prototype.search(regex);会将参数自动转化为regex，若找到返回index，否则返回-1
 45.array.prototype.join()会将数组中的每个元素转化为字符串，然后用逗号拼接起来，返回一个字符串。
 46.array.prototype.toString()会将数组去掉中括号直接转化为字符串，返回一个字符串。
+47.可用解构来定义interface并使用，例如{ data }: { data: {successList: GoodsList[]} } 等于 res：{data:{successList:GoodsList[]} }
+48. 原生select无法用js打开下拉框
+49.react里hashroute不能使用useHistory,可以用useLocation
+50.react里，route的element是一个组件，可以用children来获取其子组件，也可以用子route来继承其route，冒号后表params，可以用match.params来获取
