@@ -60,3 +60,4 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 48. 原生select无法用js打开下拉框
 49.react里hashroute不能使用useHistory,可以用useLocation
 50.react里，route的element是一个组件，可以用children来获取其子组件，也可以用子route来继承其route，冒号后表params，可以用match.params来获取
+51. aspect-ratio 可以设置宽高比，可以用css来设置宽高比，可以用style来设置宽高比，可以用className来设置宽高比

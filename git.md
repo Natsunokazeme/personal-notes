@@ -30,3 +30,9 @@ git rebase -i name1 //将位于当前分支上且 name1 分支上没有的修改
 git flow //一种规范格式
 git fetch //从远程仓库下载本地仓库中缺失的提交记录并更新远程分支指针(如 o/main) 注意：只下载了缺少的远程修改，但并未改变本地分支指针
 git pull //从远程仓库下载本地仓库中缺失的提交记录并更新远程分支指针(如 o/main)并将缺少的远程修改合并到本地分支
+
+
+撤销commit{
+  1.only committed in local branch, git reset head^
+  2.committed in remote branch , git revert HEAD
+}
