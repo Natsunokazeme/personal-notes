@@ -60,4 +60,10 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 48. 原生select无法用js打开下拉框
 49.react里hashroute不能使用useHistory,可以用useLocation
 50.react里，route的element是一个组件，可以用children来获取其子组件，也可以用子route来继承其route，冒号后表params，可以用match.params来获取
-51. aspect-ratio 可以设置宽高比，可以用css来设置宽高比，可以用style来设置宽高比，可以用className来设置宽高比
+51.function里传的值是基本值的复制值或引用值的复制值，即object时传的是object的指针的复制，该复制也指向object真实值
+52. aspect-ratio 可以设置宽高比，可以用css来设置宽高比，可以用style来设置宽高比，可以用className来设置宽高比
+53.为使 overflow 有效果，块级容器必须有一个指定的高度（height或者max-height）或者将white-space设置为nowrap。
+54. display:flex-root ,将该元素变成block formatting context
+55.box-shadow: x y fuzzy-r diffusion-r color
+56.react 没有样式穿透，只有引入css-module包才能用 :global(.className)
+57.overflow:hidden是根据父元素的boder内边距来计算的，可通过position absolute来跳出父元素的border
