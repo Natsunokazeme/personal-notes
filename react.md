@@ -136,3 +136,12 @@ In render function, we could use map replace of for to render repetition compone
 style in jsx is used as style={{key:value}}.its key is camel
 
 const [a,setA] =useState(initVal);
+
+react hooks
+useState<T>(()=>T)
+useEffect(()=>void,[])
+如果 useEffect 的第二个参数是空数组，那么它只会在组件挂载的时候执行一次，如果是不传第二个参数，那么它会在组件挂载的时候执行一次，组件更新的时候也会执行一次，如果是传入一个数组，那么它会在组件挂载的时候执行一次，当数组中的值发生变化的时候也会执行一次。useEffect return 一个函数，这个函数会在 useEffect 再次执行前或组件销毁前执行，这个函数可以用来清除副作用。
+
+react hook return 内进行的操作会在组件更新的时候执行，而不是在组件挂载的时候执行，并且对 let 声明的变量只会在 return 内生效，不会影响外部变量。
+
+useContext 用于在 provider 包裹的函数组件中访问 context，即可在孙子组件中访问父组件的 context，不需要一层层传递。context 包含的是一个对象，可以在对象中添加多个属性，然后在子组件中通过 useContext 访问。

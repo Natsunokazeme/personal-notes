@@ -67,3 +67,6 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 55.box-shadow: x y fuzzy-r diffusion-r color
 56.react 没有样式穿透，只有引入css-module包才能用 :global(.className)
 57.overflow:hidden是根据父元素的boder内边距来计算的，可通过position absolute来跳出父元素的border
+58.overflow:clip类似于overflow:hidden，但是hidden可通过js设置scroll，clip不能设置scroll
+59.font awesome 可以用字体的特殊符号表示icon
+60.pointer-events:none;可以使元素及其子元素不响应鼠标事件,但也会造成cursor样式失效
