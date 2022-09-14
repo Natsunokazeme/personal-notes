@@ -70,3 +70,9 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 58.overflow:clip类似于overflow:hidden，但是hidden可通过js设置scroll，clip不能设置scroll
 59.font awesome 可以用字体的特殊符号表示icon
 60.pointer-events:none;可以使元素及其子元素不响应鼠标事件,但也会造成cursor样式失效
+61.触摸屏的浏览器自带下拉刷新，可通过touch-action来设置为none来禁止触摸屏下当前元素区域(不能继承)的触摸效果来禁止下拉刷新
+62.overscroll-behavior:滚动到该scroll的边界时的滚动溢出效果，为auto时，会继续滚动相邻的scroll或触发页面触底效果甚至下拉刷新，为contain时，页面效果不变，但不会滚动相邻scroll，为none时，不滚动也不触发。
+63.阻止页面下拉刷新，在body里设置css overscroll-behavior:none和overflow:hidden
+64.在移动端浏览器中，100vh包含了top search bar 高度。会影响布局,可用innerHeight代替
+65.refresh 不会销毁组件
+66.
