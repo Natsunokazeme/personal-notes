@@ -136,6 +136,7 @@ In render function, we could use map replace of for to render repetition compone
 style in jsx is used as style={{key:value}}.its key is camel
 
 const [a,setA] =useState(initVal);
+useState有2个参数，第二个是callback，用于state更新后的回调函数
 
 react hooks
 useState<T>(()=>T)

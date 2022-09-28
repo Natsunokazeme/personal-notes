@@ -26,3 +26,5 @@ seal 封装
 concatenate 连结
 dispatch 派遣
 impose 强制
+flag 变量
+

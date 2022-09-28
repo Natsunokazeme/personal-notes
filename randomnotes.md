@@ -75,4 +75,6 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 63.阻止页面下拉刷新，在body里设置css overscroll-behavior:none和overflow:hidden
 64.在移动端浏览器中，100vh包含了top search bar 高度。会影响布局,可用innerHeight代替
 65.refresh 不会销毁组件
-66.
+66.process.env 获取定义在.env文件内的变量，.env有test，production，development及以上三个环境的变量，可用cross-env来设置环境变量
+67.代理软件无法在terminal里代理，所以得单独在terminal里设置代理
+68.表单里第一个button的type默认为submit，所有可能误触发表单提交
