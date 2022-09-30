@@ -146,3 +146,35 @@ useEffect(()=>void,[])
 react hook return 内进行的操作会在组件更新的时候执行，而不是在组件挂载的时候执行，并且对 let 声明的变量只会在 return 内生效，不会影响外部变量。
 
 useContext 用于在 provider 包裹的函数组件中访问 context，即可在孙子组件中访问父组件的 context，不需要一层层传递。context 包含的是一个对象，可以在对象中添加多个属性，然后在子组件中通过 useContext 访问。
+
+react中，数据单向流动，父组件的数据可以通过 props 传递给子组件，但是子组件不能直接修改父组件的数据，只能通过父组件传递给子组件的函数修改父组件的数据。
+
+在hook组件中，只有state或来自父组件的props发生变化时，才会重新渲染组件。
+在render函数中对变量进行操作，不会影响到外部变量，只会影响到render函数中的变量。
+
+react route :
+1. <Route path="/" component={App} />
+  {/* 当 url 为/时渲染 Home */}
+   <IndexRoute component={Home} />
+2. <Route path="about" component={About}/>
+   <Route path="inbox" component={Inbox}>
+    <Route path="/messages/:id" component={Message} />
+
+        {/* 跳转 /inbox/messages/:id 到 /messages/:id */}
+    <Redirect from="messages/:id" to="/messages/:id" />
+    </Route>
+    URL	  组件
+    /	    App
+    /about	App -> About
+    /inbox	App -> Inbox
+    /messages/:id	App -> Inbox -> Message
+
+    Route 可以定义 onEnter 和 onLeave 两个 hook ，这些hook会在页面跳转确认时触发一次。这些 hook 对于一些情况非常的有用，例如权限验证或者在路由跳转前将一些数据持久化保存起来。
+    在路由跳转过程中，onLeave hook 会在所有将离开的路由中触发，从最下层的子路由开始直到最外层父路由结束。然后onEnter hook会从最外层的父路由开始直到最下层子路由结束。
+
+react router 路径语法
+:paramName – 匹配一段位于 /、? 或 # 之后的 URL。 命中的部分将被作为一个参数
+() – 在它内部的内容被认为是可选的
+* – 匹配任意字符（非贪婪的）直到命中下一个字符或者整个 URL 的末尾，并创建一个 splat 参数
+
+优先级：自上而下，深度优先遍历
