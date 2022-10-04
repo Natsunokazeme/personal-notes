@@ -136,7 +136,7 @@ In render function, we could use map replace of for to render repetition compone
 style in jsx is used as style={{key:value}}.its key is camel
 
 const [a,setA] =useState(initVal);
-useState有2个参数，第二个是callback，用于state更新后的回调函数
+useState 有 2 个参数，第二个是 callback，用于 state 更新后的回调函数
 
 react hooks
 useState<T>(()=>T)
@@ -147,34 +147,52 @@ react hook return 内进行的操作会在组件更新的时候执行，而不�
 
 useContext 用于在 provider 包裹的函数组件中访问 context，即可在孙子组件中访问父组件的 context，不需要一层层传递。context 包含的是一个对象，可以在对象中添加多个属性，然后在子组件中通过 useContext 访问。
 
-react中，数据单向流动，父组件的数据可以通过 props 传递给子组件，但是子组件不能直接修改父组件的数据，只能通过父组件传递给子组件的函数修改父组件的数据。
+react 中，数据单向流动，父组件的数据可以通过 props 传递给子组件，但是子组件不能直接修改父组件的数据，只能通过父组件传递给子组件的函数修改父组件的数据。
 
-在hook组件中，只有state或来自父组件的props发生变化时，才会重新渲染组件。
-在render函数中对变量进行操作，不会影响到外部变量，只会影响到render函数中的变量。
+在 hook 组件中，只有 state 或来自父组件的 props 发生变化时，才会重新渲染组件。
+在 render 函数中对变量进行操作，不会影响到外部变量，只会影响到 render 函数中的变量。
 
 react route :
-1. <Route path="/" component={App} />
-  {/* 当 url 为/时渲染 Home */}
-   <IndexRoute component={Home} />
-2. <Route path="about" component={About}/>
-   <Route path="inbox" component={Inbox}>
-    <Route path="/messages/:id" component={Message} />
 
-        {/* 跳转 /inbox/messages/:id 到 /messages/:id */}
-    <Redirect from="messages/:id" to="/messages/:id" />
-    </Route>
-    URL	  组件
-    /	    App
-    /about	App -> About
-    /inbox	App -> Inbox
-    /messages/:id	App -> Inbox -> Message
+1.  <Route path="/" component={App} />
+    {/* 当 url 为/时渲染 Home */}
+     <IndexRoute component={Home} />
+2.  <Route path="about" component={About}/>
+    <Route path="inbox" component={Inbox}>
+     <Route path="/messages/:id" component={Message} />
 
-    Route 可以定义 onEnter 和 onLeave 两个 hook ，这些hook会在页面跳转确认时触发一次。这些 hook 对于一些情况非常的有用，例如权限验证或者在路由跳转前将一些数据持久化保存起来。
-    在路由跳转过程中，onLeave hook 会在所有将离开的路由中触发，从最下层的子路由开始直到最外层父路由结束。然后onEnter hook会从最外层的父路由开始直到最下层子路由结束。
+         {/* 跳转 /inbox/messages/:id 到 /messages/:id */}
+
+     <Redirect from="messages/:id" to="/messages/:id" />
+     </Route>
+     URL	  组件
+     /	    App
+     /about	App -> About
+     /inbox	App -> Inbox
+     /messages/:id	App -> Inbox -> Message
+
+    Route 可以定义 onEnter 和 onLeave 两个 hook ，这些 hook 会在页面跳转确认时触发一次。这些 hook 对于一些情况非常的有用，例如权限验证或者在路由跳转前将一些数据持久化保存起来。
+    在路由跳转过程中，onLeave hook 会在所有将离开的路由中触发，从最下层的子路由开始直到最外层父路由结束。然后 onEnter hook 会从最外层的父路由开始直到最下层子路由结束。
 
 react router 路径语法
 :paramName – 匹配一段位于 /、? 或 # 之后的 URL。 命中的部分将被作为一个参数
 () – 在它内部的内容被认为是可选的
-* – 匹配任意字符（非贪婪的）直到命中下一个字符或者整个 URL 的末尾，并创建一个 splat 参数
+
+- – 匹配任意字符（非贪婪的）直到命中下一个字符或者整个 URL 的末尾，并创建一个 splat 参数
 
 优先级：自上而下，深度优先遍历
+
+组件的 props 可直接用一个对象传进去，组件必须以大写开头命名
+
+jsx 其实是 React.createElement(component,props,...children)的语法糖
+可将任何东西作为子元素传递给自定义组件，只要确保在该组件渲染之前能够被转换成 React 理解的对象。这种用法并不常见，但可以用于扩展 JSX。
+例：<Repeat numTimes={10}>
+{(index) => <div key={index}>This is item {index} in the list</div>}
+</Repeat>
+将回调函数当作 children 传给 Repeat 组件，Repeat 组件会调用回调函数，将 index 作为参数传入，然后将返回的 React 元素渲染到页面上。
+
+ReactDOM.createPortal(
+this.props.children,
+domNode
+);
+将子元素挂载到一个不同的 DOM 节点上，这个节点存在于当前组件的层级之外。可用于父组件有 overflow: hidden 或 z-index 样式，但是需要子组件能够在视觉上“跳出”其容器的情况。
