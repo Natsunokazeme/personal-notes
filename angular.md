@@ -123,6 +123,9 @@ components communication
 5.id of child component in template (componentRef)
 6.viewChild component
 @viewChild(ClassName) child1: ClassName;
-并将componentRef赋值给child1
+并将 componentRef 赋值给 child1
 7.dynamic component(componentFactory and viewContainerRef)
 
+8.animation
+angular 有自定义的 animation 方式，
+在需要动画的组件中引入 Trigger, State, Style, Transition, animate,grounp, query, stagger, keyframes
