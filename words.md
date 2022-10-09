@@ -27,4 +27,7 @@ concatenate 连结
 dispatch 派遣
 impose 强制
 flag 变量
-
+self-help： a type of book solving readers problem
+interpret 解释
+incentives 激励
+razor 剃须刀，刀片
