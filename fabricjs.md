@@ -5,3 +5,5 @@ fabric 是 canvas 的 extend
 const canvas = new fabric.Canvas('canvas', {
 ...config
 })
+
+踩坑 基于 canvas new 一个 canvas 或 image 时，原 canvas 的 style 会被重置为真实大小

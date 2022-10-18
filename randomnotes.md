@@ -78,3 +78,7 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 66.process.env 获取定义在.env文件内的变量，.env有test，production，development及以上三个环境的变量，可用cross-env来设置环境变量
 67.代理软件无法在terminal里代理，所以得单独在terminal里设置代理
 68.表单里第一个button的type默认为submit，所有可能误触发表单提交
+69.requestAnimFrame(callback) 下一次重绘前调用回调函数
+70. styled()是mui等UI库调用的js生成class的API，可以用来生成class，也可以用来生成组件
+71. background-clip 基于当前元素设置background的index，text是基于文字，padding-box是基于padding，border-box是基于border，content-box是基于content
+72.word-break: break-all; 可以让单词在任意位置断开,方便折行显示
