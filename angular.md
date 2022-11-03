@@ -66,7 +66,6 @@ this.count++;
 
 在 angular 项目中，component 需要在 module 中注册引用后才可在其他组件中引用
 
-angular 生命周期函数 onchanges 可监听变化
 
 @Input() 传入
 @Output() 传出
@@ -104,9 +103,7 @@ take
 timer
 interval
 
-生命周期
-constructor 初始化，输入值为 undefined
-ngOnInit 输入值将在这里获取
+
 
 angular output
 @Output() quantityChange = new EventEmitter<number>();
@@ -129,3 +126,14 @@ components communication
 8.animation
 angular 有自定义的 animation 方式，
 在需要动画的组件中引入 Trigger, State, Style, Transition, animate,grounp, query, stagger, keyframes
+
+life-circle生命周期
+constructor 初始化，但此时@Input，@ViewChild等都不存在
+ngOnChanges @Input 的值发生变化时触发
+ngOnInit 输入值将在这里获取
+ngDoCheck 只要有任何 change detection就执行，非常消耗性能
+ngAfterContentInit 组件内容初始化后执行,只执行一次
+ngAfterContentChecked 组件内容每次变更后执行
+ngAfterViewInit 组件视图初始化后执行，只执行一次
+ngAfterViewChecked 组件视图每次变更后执行
+ngOnDestroy 组件销毁前执行

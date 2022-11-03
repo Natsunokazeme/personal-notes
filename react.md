@@ -196,3 +196,9 @@ this.props.children,
 domNode
 );
 将子元素挂载到一个不同的 DOM 节点上，这个节点存在于当前组件的层级之外。可用于父组件有 overflow: hidden 或 z-index 样式，但是需要子组件能够在视觉上“跳出”其容器的情况。
+
+forwardRef
+ 接收一个渲染函数，React 将会把 ref 当作第二个参数传入这个函数，这样就可以在函数组件内部使用 ref 了。可用于隔代ref获取引用，react不允许ref通过props传递，因为组件上已经有 ref 这个属性,在组件调和过程中，已经被特殊处理，forwardRef出现就是解决这个问题，把ref转发到自定义的forwardRef定义的属性上，让ref，可以通过props传递。
+ 例：const NewFather = React.forwardRef((props,ref)=><Father grandRef={ref}  {...props} />  )
+
+ 高阶组件 HOC 将组件作为参数，并返回一个新的组件。新的组件会渲染传入的组件，同时还会提供额外的功能。HOC 通常用于代码复用、逻辑抽象和状态抽象。

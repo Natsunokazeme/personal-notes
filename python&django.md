@@ -1,0 +1,1 @@
+1.python 要启动虚拟环境,这是因为不同项目需要不同的第三方工具,source env/bin/activate 2.启动 django 项目,python manage.py runserver 3.创建 django 项目, django-admin startproject mysite 4.创建 app, python manage.py startapp polls 5.创建数据库, python manage.py migrate 6.创建超级用户, python manage.py createsuperuser 7.创建数据库表, python manage.py makemigrations polls 8.

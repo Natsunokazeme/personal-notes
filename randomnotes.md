@@ -82,3 +82,10 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 70. styled()是mui等UI库调用的js生成class的API，可以用来生成class，也可以用来生成组件
 71. background-clip 基于当前元素设置background的index，text是基于文字，padding-box是基于padding，border-box是基于border，content-box是基于content
 72.word-break: break-all; 可以让单词在任意位置断开,方便折行显示
+73.在safari里video 不能在js里play，必须在用户交互事件里play。
+74.在safari里 canvas 不能在js里toDataURL，必须在用户交互事件里toDataURL.
+75.在safari的graphies里，canvas的toDataURL会导致内存泄漏，所以在safari里不要用canvas的toDataURL
+76.video的src未加载时调用play会报错，所以要先判断video的src是否加载完成，可直接用video.oncanplaythrough来进行加载好后的回调
+77.巧用兄弟选择器，如.a+.a{margin-top:10px}，可用来设置相邻元素的间距
+78.多列布局：column-count: 3; column-gap: 10px; column-rule: 1px solid #ccc; column-span: all; column-width: 200px; 可直接将元素分成多列，可设置间距，边框，跨列，列宽
+79.启用本机ip访问，react: HTTPS=true npm start;angular: ng serve --host 0.0.0.0
