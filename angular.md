@@ -137,3 +137,45 @@ ngAfterContentChecked 组件内容每次变更后执行
 ngAfterViewInit 组件视图初始化后执行，只执行一次
 ngAfterViewChecked 组件视图每次变更后执行
 ngOnDestroy 组件销毁前执行
+
+钩子方法	用途	时机
+ngOnChanges()	当 Angular 设置或重新设置数据绑定的输入属性时响应。 该方法接受当前和上一属性值的 SimpleChanges 对象	如果组件绑定过输入属性，那么在 ngOnInit() 之前以及所绑定的一个或多个输入属性的值发生变化时都会调用。
+	注意，这发生的非常频繁，所以你在这里执行的任何操作都会显著影响性能。 欲知详情，参阅本文档的使用变更检测钩子。	注意，如果你的组件没有输入属性，或者你使用它时没有提供任何输入属性，那么框架就不会调用 ngOnChanges()。
+ngOnInit()	在 Angular 第一次显示数据绑定和设置指令/组件的输入属性之后，初始化指令/组件。 欲知详情，参阅本文档中的初始化组件或指令。	在第一轮 ngOnChanges() 完成之后调用，只调用一次。而且即使没有调用过 ngOnChanges()，也仍然会调用 ngOnInit()（比如当模板中没有绑定任何输入属性时）。
+ngDoCheck()	检测，并在发生 Angular 无法或不愿意自己检测的变化时作出反应。 欲知详情和范例，参阅本文档中的自定义变更检测。	紧跟在每次执行变更检测时的 ngOnChanges() 和 首次执行变更检测时的 ngOnInit() 后调用。
+ngAfterContentInit()	当 Angular 把外部内容投影进组件视图或指令所在的视图之后调用。	第一次 ngDoCheck() 之后调用，只调用一次。
+	欲知详情和范例，参阅本文档中的响应内容中的变更。
+ngAfterContentChecked()	每当 Angular 检查完被投影到组件或指令中的内容之后调用。	ngAfterContentInit() 和每次 ngDoCheck() 之后调用
+	欲知详情和范例，参阅本文档中的响应被投影内容的变更。
+ngAfterViewInit()	当 Angular 初始化完组件视图及其子视图或包含该指令的视图之后调用。	第一次 ngAfterContentChecked() 之后调用，只调用一次。
+	欲知详情和范例，参阅本文档中的响应视图变更。
+ngAfterViewChecked()	每当 Angular 做完组件视图和子视图或包含该指令的视图的变更检测之后调用。	ngAfterViewInit() 和每次 ngAfterContentChecked() 之后调用。
+ngOnDestroy()	每当 Angular 每次销毁指令/组件之前调用并清扫。 在这儿反订阅可观察对象和分离事件处理器，以防内存泄漏。 欲知详情，参阅本文档中的在实例销毁时进行清理。	在 Angular 销毁指令或组件之前立即调用。
+
+
+Pipe
+Pipe是一些在模版表达式(html)中使用的快捷处理方法，常用于格式化数据
+操作符为｜ ，后接pipe名称。
+例如：<p>The hero's birthday is {{ birthday | date}}</p>
+如果管道能接受多个参数，就用冒号分隔这些值。例如，{{ amount | currency:'EUR':'Euros '}}
+管道可链式调用，第一个管道的返回值作为第二个管道的传入值
+Angular 自带一些内置pipe 如uppercase lowercase  titlecase date currency percent  
+内置管道的完整列表详情可查看管道 API 文档 
+	1. 自定义pipe
+1.1 把类用@Pipe装饰为管道，并在Ngmodule中的declarations内声明
+ng g pipe 自动注册管道
+1.2 在自定义管道类中实现 PipeTransform 接口来执行转换
+Angular 调用 transform 方法，该方法使用绑定的值作为第一个参数，把其它任何参数都以列表的形式作为第二个参数，并返回转换后的值。
+	1. 管道会检测输入值的变化，并再次执行管道,管道默认为纯管道，即会忽略复合类型的变化，只检测基本类型原始值和复合类型引用
+若要检测非纯变更，需要对自定义管道进行进一步定义
+@Pipe({name: 'flyingHeroesImpure’,pure:false})
+	2. 异步管道AsyncPipe 
+该管道接受一个可观察对象作为输入，并自动订阅输入。并在销毁时自动取消订阅
+{{ message$ | async }}
+message$: Observable<string>;
+4.管道优先级比三目运算符高
+
+directives
+类似react的高阶组件，可对组件进行扩展，增加新的功能
+  1. 自定义指令
+ng generate directive directiveName
