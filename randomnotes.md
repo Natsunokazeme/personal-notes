@@ -89,3 +89,5 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 77.巧用兄弟选择器，如.a+.a{margin-top:10px}，可用来设置相邻元素的间距
 78.多列布局：column-count: 3; column-gap: 10px; column-rule: 1px solid #ccc; column-span: all; column-width: 200px; 可直接将元素分成多列，可设置间距，边框，跨列，列宽
 79.启用本机ip访问，react: HTTPS=true npm start;angular: ng serve --host 0.0.0.0
+80. array.at(index) 返回数组中指定位置的元素，如果index为负数，则从数组末尾开始计算,可用来代替array[array.length+index]
+81. select 不能在js里打开droplist，必须在用户交互事件里打开
