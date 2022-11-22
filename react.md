@@ -202,3 +202,30 @@ forwardRef
  例：const NewFather = React.forwardRef((props,ref)=><Father grandRef={ref}  {...props} />  )
 
  高阶组件 HOC 将组件作为参数，并返回一个新的组件。新的组件会渲染传入的组件，同时还会提供额外的功能。HOC 通常用于代码复用、逻辑抽象和状态抽象。
+
+ PureComponent 会自动实现 shouldComponentUpdate()，并且浅层对比 props 和 state 的变化。如果没有变化，就不会触发重新渲染。一般用于性能优化，减少render次数但是如果 props 或 state 是复杂数据结构，可能会因为无法检测到变化而产生 bug。
+
+ React.memo() 是一个高阶组件，接收两个参数，第一个是组件，第二个是比较更新前后的props控制组件是否渲染的函数，返回true不渲染，false渲染。 memo与 PureComponent 非常类似，但它只会对函数props进行比较。
+
+ Profiler 用于性能检测，检测组件渲染的时间，以及渲染的次数。可用于性能优化。
+ Profiler 需要两个参数：第一个参数：是 id，用于表识唯一性的Profiler。第二个参数：onRender回调函数，用于渲染完成，接受渲染参数
+
+ createElement 将 JSX 转换为 React 元素。React.createElement(type, [props], [...children])，type 可以是 HTML 标签名、React 组件或者 React.Fragment。props 是一个对象，表示元素的属性。children 是一个数组，表示元素的子元素。如果没有子元素，可以省略这个参数。如果有多个子元素，可以把它们放在一个数组里。如果子元素是一个字符串，可以直接放在 props 里。
+
+ cloneElement 以 element 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。用于代理劫持子元素
+
+ createContext 用于创建一个Context对象，createContext对象中，包括用于传递 Context 对象值 value的Provider，和接受value变化订阅的Consumer
+
+ useMemo和useCallback的区别，useMemo是缓存计算结果，useCallback是缓存函数，useMemo和useCallback的依赖项都是一个数组
+
+useContext 可以代替 context.Consumer 来获取 Provider 中保存的 value 值。都得有context.provider，但context.provider中的value值发生变化时，useContext不会重新渲染，需要配合useReducer或者useMemo来实现
+
+React-dom API
+render用于渲染一个react元素，一般react项目我们都用它，渲染根部容器app。
+ReactDOM.render(element, container[, callback])
+例：ReactDOM.render(
+    < App / >,
+    document.getElementById('app')
+)
+
+createPortal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。createPortal(child, container)。第一个参数（child）是任何可渲染的 React 子元素，例如一个元素，字符串或 fragment。第二个参数（container）是一个 DOM 元素。
