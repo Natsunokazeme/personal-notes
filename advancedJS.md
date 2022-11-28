@@ -157,3 +157,14 @@ ssr是服务端渲染，传统的客户端渲染是通过框架用JS生成html�
 SSR实现都是基于Node，但Node原生不支持ES6的模块化也不能识别JSX语法，所以需要使用babel来转换代码，然后使用webpack打包，最后使用express来启动服务。
 SSG(预渲染)是静态站点生成，是在构建时生成的，不需要服务端，所以不需要express，只需要webpack打包，然后将打包后的文件放到服务器上就可以了。
 因为是在构建时生成的，所以不支持动态数据，只能用静态数据，所以只适合一些不需要动态数据的网站如policy或一个相同的入口。但SSG的优点是首屏加载速度快，SEO好，不需要服务端，所以成本低。
+7.web workers,用于js的多线程处理，但是workers和主代码运行在完全分离的环境中，只有通过相互发送消息来进行交互。特别是，这意味着 workers 不能访问 DOM（窗口、文档、页面元素等等,一般用于处理一些耗时的任务，比如计算。
+const worker = new Worker('./generate.js');
+ worker.postMessage({
+    command: 'generate',
+    quota: quota
+  });
+  worker.addEventListener('message', message => {//todo}
+
+8.序列化动画，即上一个动画结束后，下一个动画才开始。
+animate1.animate().finished.then(()=>animate2.animate())
+animate() 方法返回 Animation 对象。这个对象有一个 finished 属性，这是会在一个在动画播放结束时兑现（fulfilled）的 Promise。所以我们可以利用这个 Promise 获得开始下一个动画的时机。
