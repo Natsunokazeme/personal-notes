@@ -91,3 +91,10 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 79.启用本机ip访问，react: HTTPS=true npm start;angular: ng serve --host 0.0.0.0
 80. array.at(index) 返回数组中指定位置的元素，如果index为负数，则从数组末尾开始计算,可用来代替array[array.length+index]
 81. select 不能在js里打开droplist，必须在用户交互事件里打开
+82. background: url() no-repeat left 10px top 10px; 可以设置背景图片的位置
+83. transform 设置元素的变换，如translate(x,y)平移，scale(x,y)缩放，roate(x)旋转，skew(x,y)倾斜，matrix(a,b,c,d,e,f)矩阵变换
+84. transition 规定过渡效果，第一个参数是属性，第二个参数是过渡时间，第三个参数是过渡函数，第四个参数是延迟时间
+85. height 不在transition里，会导致transition失效，可用max-height代替
+86.  document.getElementsByTagName('xxx')得到的是一个类数组，不是数组，所以不能用数组的方法，如map，filter，forEach等，可用Array.from()转换成数组。并且必须在dom加载完成后才能获取到dom，否则获取到的是空数组
+87.  addEventListener('DOMContentLoaded',()=>{}) 可以在dom加载完成后执行回调函数
+88.  
