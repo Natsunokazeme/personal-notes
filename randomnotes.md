@@ -97,4 +97,5 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 85. height 不在transition里，会导致transition失效，可用max-height代替
 86.  document.getElementsByTagName('xxx')得到的是一个类数组，不是数组，所以不能用数组的方法，如map，filter，forEach等，可用Array.from()转换成数组。并且必须在dom加载完成后才能获取到dom，否则获取到的是空数组
 87.  addEventListener('DOMContentLoaded',()=>{}) 可以在dom加载完成后执行回调函数
-88.  
+88.  ::placeholder 是设置placeholder样式的伪元素，只能设置字体并且inspect里看不到。
+89.  vue 的 css scoped 只能作用于当前组件，不能作用于子组件，所以如果要作用于子组件，需要在子组件里再写一遍样式
