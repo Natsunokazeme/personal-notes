@@ -99,3 +99,4 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 87.  addEventListener('DOMContentLoaded',()=>{}) 可以在dom加载完成后执行回调函数
 88.  ::placeholder 是设置placeholder样式的伪元素，只能设置字体并且inspect里看不到。
 89.  vue 的 css scoped 只能作用于当前组件，不能作用于子组件，所以如果要作用于子组件，需要在子组件里再写一遍样式
+90.  插件 gray-matter 可以解析md文件的头部信息,如title，date，tags等;clsx 可以根据条件更改class;
