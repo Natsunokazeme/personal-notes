@@ -42,3 +42,6 @@ component = fixture.point.componentInstance;
 it('should create', () => {...});
 });
 11.jest.useFakeTimers(),jest.runAllTimers() to mock the time executor.
+
+38.unit test 中，获取元素的方法，可以用 querySelector 或者 querySelectorAll，也可以用 getElementById 或者 getElementsByClassName 或者 getElementsByTagName
+41.直接 spyOn localStorage 无法监听，可以用监听原型 jest.spyOn(Storage.prototype, 'setItem');的方式监听

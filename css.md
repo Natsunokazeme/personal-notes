@@ -553,3 +553,34 @@ overflow不为visible的元素
 
 advanced css
 1.:is() css伪类 匹配列表中任意一个选择器可以选择的元素,但不能匹配伪元素; :where() css伪类 优先级为0 匹配列表中任意一个选择器可以选择的元素; :has() css伪类 匹配列表中任意一个选择器的父元素; :not() css伪类 匹配不满足列表中任意一个选择器的元素。除not外都是可容错的选择器。
+2. ::placeholder 是设置placeholder样式的伪元素，只能设置字体并且inspect里看不到。
+3. height 不在transition里，会导致transition失效，可用max-height代替
+4. background: url() no-repeat left 10px top 10px; 可以设置背景图片的位置
+5. transform 设置元素的变换，如translate(x,y)平移，scale(x,y)缩放，roate(x)旋转，skew(x,y)倾斜，matrix(a,b,c,d,e,f)矩阵变换
+6. transition 规定过渡效果，第一个参数是属性，第二个参数是过渡时间，第三个参数是过渡函数，第四个参数是延迟时间
+7. 巧用兄弟选择器，如.a+.a{margin-top:10px}，可用来设置相邻元素的间距
+8. 多列布局：column-count: 3; column-gap: 10px; column-rule: 1px solid #ccc; column-span: all; column-width: 200px; 可直接将元素分成多列，可设置间距，边框，跨列，列宽
+9. word-break: break-all; 可以让单词在任意位置断开,方便折行显示
+10. 在移动端浏览器中，100vh包含了top search bar 高度。会影响布局,可用innerHeight代替
+11. transition 以当前位置为出发点进行移动，但还是推荐 animation
+12. image 经常有 3px margin at bottom 是因为 the image behaving like a character of text。可设置 vertical-align; (节省一次时间
+13. padding 使用百分比时是按照宽度来计算的
+14. 宽高相等，1 使用 vw，vh,2 使用 js,3 aspect-ratio: 1/1;
+15. grid 的 1fr 可代替高和宽部分 calc
+16. input type 为 number 时右侧会有按钮，影响布局，可通过 input[type='number']::-webkit-inner-spin-button {-webkit-appearance: none;}隐藏掉
+17. clear:both 清除 float
+18. input 和 select 都自带 outline
+19. aspect-ratio 可以设置宽高比，可以用css来设置宽高比，可以用style来设置宽高比，可以用className来设置宽高比
+20. 为使 overflow 有效果，块级容器必须有一个指定的高度（height或者max-height）或者将white-space设置为nowrap。
+21. display:flex-root ,将该元素变成block formatting context
+22. box-shadow: x y fuzzy-r diffusion-r color
+23. overflow:hidden是根据父元素的boder内边距来计算的，可通过position absolute来跳出父元素的border
+24. overflow:clip类似于overflow:hidden，但是hidden可通过js设置scroll，clip不能设置scroll
+25. font awesome 可以用字体的特殊符号表示icon
+26. pointer-events:none;可以使元素及其子元素不响应鼠标事件,但也会造成cursor样式失效
+27. 触摸屏的浏览器自带下拉刷新，可通过touch-action来设置为none来禁止触摸屏下当前元素区域(不能继承)的触摸效果来禁止下拉刷新
+28. overscroll-behavior:滚动到该scroll的边界时的滚动溢出效果，为auto时，会继续滚动相邻的scroll或触发页面触底效果甚至下拉刷新，为contain时，页面效果不变，但不会滚动相邻scroll，为none时，不滚动也不触发。
+29. 阻止页面下拉刷新，在body里设置css overscroll-behavior:none和overflow:hidden
+30. background-clip 基于当前元素设置background的index，text是基于文字，padding-box是基于padding，border-box是基于border，content-box是基于content
+
+

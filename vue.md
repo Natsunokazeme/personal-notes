@@ -995,3 +995,6 @@ onSelect($event){ var curNode=$event.target;
 更新过程
 父组件 beforeupdate=>子组件beforeupdate=>子组件updated=>父组件updated
 
+vue 的 css scoped 只能作用于当前组件
+
+

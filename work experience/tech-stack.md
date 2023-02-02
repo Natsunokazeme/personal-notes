@@ -14,7 +14,6 @@ react
 
 need to learn:
 node
-aem
 
 good at
 date

@@ -1526,5 +1526,30 @@ JS会首先判断代码是同步还是异步，同步进入主线程，异步进
 
 
 advanced js
-1.  structuredClone() 可以用来拷贝对象，但是不能拷贝函数或者Dom节点
+1.  structuredClone() 可以用来拷贝对象，但是不能拷贝函数或者Dom节点;
+2.  下载功能实现
+const link = document.createElement('a')
+link.download = fileName
+link.style.display = 'none'
+link.href = src
+document.body.appendChild(link)
+link.click()
+document.body.removeChild(link)
+3. customEvent
+document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' } }))
+全局发送特殊事件
+4. 可通过$any($event.target).value 来规避$event.target.value 的问题 
+5. eventListener 在跳转前一定要销毁，否则可能导致二次进入页面时，一次触发事件多次执行监听函数(5h) 
+6. string.prototype.search(regex);会将参数自动转化为regex，若找到返回index，否则返回-1
+7. array.prototype.join()会将数组中的每个元素转化为字符串，然后用逗号拼接起来，返回一个字符串。
+8. array.prototype.toString()会将数组去掉中括号直接转化为字符串，返回一个字符串。
+9. 可用解构来定义interface并使用，例如{ data }: { data: {successList: GoodsList[]} } 等于 res：{data:{successList:GoodsList[]} }
+10. function里传的值是基本值的复制值或引用值的复制值，即object时传的是object的指针的复制，该复制也指向object真实值
+11. array.at(index) 返回数组中指定位置的元素，如果index为负数，则从数组末尾开始计算,可用来代替array[array.length+index]
+12. document.getElementsByTagName('xxx')得到的是一个类数组，不是数组，所以不能用数组的方法，如map，filter，forEach等，可用Array.from()转换成数组。并且必须在dom加载完成后才能获取到dom，否则获取到的是空数组
+13. addEventListener('DOMContentLoaded',()=>{}) 可以在dom树加载完成后执行回调函数
+14. video的src未加载时调用play会报错，所以要先判断video的src是否加载完成，可直接用video.oncanplaythrough来进行加载好后的回调
+15. 比较两个对象是否相等时，最好用 JSON.stringify 来转换成字符串，因为对象的属性是引用类型，如果用 === 比较，会出现不相等的情况。但注意的是，转换成字符串时，会按照字符串的排序来比较，所以如果属性的顺序不一致，就会出现不相等的情况。 
+16. process.env 获取定义在.env文件内的变量，.env有test，production，development及以上三个环境的变量，可用cross-env来设置环境变量
+
 
