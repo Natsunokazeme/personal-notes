@@ -32,3 +32,5 @@
 65.refresh 不会销毁组件
 
 100. proxy代理设置， target将location的origin替代为target，pathrewrite将origin之后的path部分替换
+
+101. getElementsByClassName() 方法返回NodeList 对象,不是数组

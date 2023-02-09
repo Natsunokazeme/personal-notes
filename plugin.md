@@ -20,5 +20,21 @@ tailwindcss
   node 版本管理可通过 npm i -g n 实现控制 切换node时需要sudo
   nx dep-gragh 用于查看依赖关系
 
+  bootstrap
+  1.collapse 用于折叠 可直接加css  展开的css为 .collapse.show，折叠的css为.collapse, 期间的动画css为.collapsing
+  2.collapse 通过js控制，需要先引入jquery，然后通过 $('#id').collapse('show')来控制，否则通过getElementsByClassName等方法取的dom，再通过
+   var bsCollapse = new bootstrap.Collapse(el, {
+            toggle: false
+          })
+    bsCollapse.hide();
+  控制。
+  3.可以使用带有href属性的连接或是带有data-bs-target属性的按钮。在这两种情形下， data-bs-toggle="collapse"都是必要的。
+  <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  Link with href
+  </a>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Button with data-bs-target
+  </button>
+ 它们一起控制id为collapseExample的元素
 
 
