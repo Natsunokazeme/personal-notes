@@ -30,3 +30,5 @@
 
 56.react 没有样式穿透，只有引入css-module包才能用 :global(.className)
 65.refresh 不会销毁组件
+
+100. proxy代理设置， target将location的origin替代为target，pathrewrite将origin之后的path部分替换
