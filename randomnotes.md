@@ -34,3 +34,8 @@
 100. proxy代理设置， target将location的origin替代为target，pathrewrite将origin之后的path部分替换
 
 101. getElementsByClassName() 方法返回NodeList 对象,不是数组
+
+102. scrollHeight 元素全部高度;clientHeight:包括padding的可见区域高度;offsetHeight:包括border，滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离，也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离，也就是元素被遮住的宽度;
+103. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高css关键字的性能
+
+补充知识:一般来说,元素在进行一些操作如3D变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过GPU而不是CPU渲染的话,性能会得到提升.因此，之前我们会用transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染
