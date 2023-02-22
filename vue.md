@@ -997,4 +997,14 @@ onSelect($event){ var curNode=$event.target;
 
 vue 的 css scoped 只能作用于当前组件
 
+vue2 unit test jest vue-cli {
+  vue-i18n:{
+    beforeCreate() {
+      this.$t = jest.fn((key: string) => key);
+    }
+    //花了我1天半时间解决
+  }
+}
+
+
 
