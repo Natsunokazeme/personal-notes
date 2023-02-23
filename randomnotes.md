@@ -36,6 +36,19 @@
 101. getElementsByClassName() 方法返回NodeList 对象,不是数组
 
 102. scrollHeight 元素全部高度;clientHeight:包括padding的可见区域高度;offsetHeight:包括border，滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离，也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离，也就是元素被遮住的宽度;
-103. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高css关键字的性能
+103. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高css关键字的性能 
+      补充知识:一般来说,元素在进行一些操作如3D变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过GPU而不是CPU渲染的话,性能会得到提升.因此，之前我们会用transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染
 
-补充知识:一般来说,元素在进行一些操作如3D变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过GPU而不是CPU渲染的话,性能会得到提升.因此，之前我们会用transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染
+104. css属性选择器
+     a[title='1'] // title为1的a标签
+      a[title^='1'] // title以1开头的a标签
+      a[title$='1'] // title以1结尾的a标签
+      a[title*='1'] // title包含1的a标签
+      a[title~='1'] // title是一个以空格作为分隔的值列表，其中至少有一个值  为1的a标签
+      a[title|='1'] // title是一个以连字符作为分隔的值列表，其中至少有一个值 为1的a标签
+
+105. 双层slot 
+      <slot name="curent" slot='son-slot' ></slot>
+
+
+
