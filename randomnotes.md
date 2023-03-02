@@ -50,5 +50,9 @@
 105. 双层slot 
       <slot name="curent" slot='son-slot' ></slot>
 
+106. accent-color:#fff ; // 设置checkbox勾选颜色
+
+107. Element.getBoundingClientRect() // 返回元素的大小及其相对于视口的位置
+
 
 
