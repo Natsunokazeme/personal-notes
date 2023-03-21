@@ -586,6 +586,18 @@ advanced css
 31. flex: 1; == flex: 1 1 0
 32. order: 1; 该属性规定了弹性容器中的可伸缩项目在布局时的顺序。元素按照 order 属性的值的增序进行布局，可以为负值。
 33. font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小
+34. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高css关键字的性能 
+      补充知识:一般来说,元素在进行一些操作如3D变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过GPU而不是CPU渲染的话,性能会得到提升.因此，之前我们会用transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染
+35. css属性选择器
+     a[title='1'] // title为1的a标签
+      a[title^='1'] // title以1开头的a标签
+      a[title$='1'] // title以1结尾的a标签
+      a[title*='1'] // title包含1的a标签
+      a[title~='1'] // title是一个以空格作为分隔的值列表，其中至少有一个值  为1的a标签
+      a[title|='1'] // title是一个以连字符作为分隔的值列表，其中至少有一个值 为1的a标签
+36. accent-color:#fff ; // 设置checkbox勾选颜色
+
+
 
 SCSS
 1. @if 当@if后的条件不返回false 或者 null 时，@if后的代码块会被执行，否则不会被执行

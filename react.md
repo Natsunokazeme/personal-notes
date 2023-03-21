@@ -229,3 +229,15 @@ ReactDOM.render(element, container[, callback])
 )
 
 createPortal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。createPortal(child, container)。第一个参数（child）是任何可渲染的 React 子元素，例如一个元素，字符串或 fragment。第二个参数（container）是一个 DOM 元素。
+
+16.setState 会把它的多次调用合成一次，只 render 一次
+17.useEffect 第二个参数[value]表示该值改变且处于 update 时执行
+若为[]则表示只在 mount 和 unmount 时执行
+若无表每一次 update 都执行 
+
+
+49.react里hashroute不能使用useHistory,可以用useLocation
+
+50.react里，route的element是一个组件，可以用children来获取其子组件，也可以用子route来继承其route，冒号后表params，可以用match.params来获取
+
+56.react 没有样式穿透，只有引入css-module包才能用 :global(.className)

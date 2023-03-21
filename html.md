@@ -354,3 +354,6 @@ advanced HTML
 1. 表单里第一个button的type默认为submit，可能误触发表单提交
 2. select 和 option 的 value 必须是字符串，不能是数字，否则会报错,如果是对象，可以用 JSON.stringify 来转换成字符串
 3. select标签 无法在js里打开droplist，必须在用户交互事件里打开
+4. 双层slot 
+      <slot name="curent" slot='son-slot' ></slot>
+5. 关闭iframe的PDF默认控制栏，在src的末尾加上‘#toolbar=0’

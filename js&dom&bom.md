@@ -1551,5 +1551,15 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 14. video的src未加载时调用play会报错，所以要先判断video的src是否加载完成，可直接用video.oncanplaythrough来进行加载好后的回调
 15. 比较两个对象是否相等时，最好用 JSON.stringify 来转换成字符串，因为对象的属性是引用类型，如果用 === 比较，会出现不相等的情况。但注意的是，转换成字符串时，会按照字符串的排序来比较，所以如果属性的顺序不一致，就会出现不相等的情况。 
 16. process.env 获取定义在.env文件内的变量，.env有test，production，development及以上三个环境的变量，可用cross-env来设置环境变量
+17. getElementsByClassName() 方法返回NodeList 对象,不是数组
+18. scrollHeight 元素全部高度;clientHeight:包括padding的可见区域高度;offsetHeight:包括border，滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离，也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离，也就是元素被遮住的宽度;
+19. Element.getBoundingClientRect() // 返回元素的大小及其相对于视口的位置
+20. requestAnimFrame(callback) 下一次重绘前调用回调函数
+21. 在safari里video 不能在js里play，必须在用户交互事件里play。
+22. 在safari里 canvas 不能在js里toDataURL，必须在用户交互事件里toDataURL.
+23. 在safari的graphies里，canvas的toDataURL会导致内存泄漏，所以在safari里不要用canvas的toDataURL
+24. console台里不出现后端请求原因分析：1.mocked http request。2特殊的http请求不被console台获取 3.network做了筛选
+25. 在浏览器 debug(未编译的代码)，直接打开控制台的 source，在里面直接加断点，通过 cmd+shift+p 搜索文件
+65.refresh 不会销毁组件
 
 
