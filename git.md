@@ -36,3 +36,17 @@ git pull //从远程仓库下载本地仓库中缺失的提交记录并更新远
   1.only committed in local branch, git reset head^
   2.committed in remote branch , git revert HEAD
 }
+
+git branch //查看本地分支
+git branch -d  //删除更改都已经被合并到其他分支的本地分支
+git branch -D  //强制删除本地分支
+grep， xargs，| 三个都是 Linux 提供的命令。
+｜ : 管道符，将前面的命令的输出作为后面命令的输入, 例如：ls -l | grep "test"  //将ls -l的输出作为grep "test"的输入
+grep : 搜索文件内容，例如：grep "test" test.txt //搜索test.txt中包含test的行
+xargs : 将前面命令的输出作为后面命令的参数，例如：ls -l | grep "test" | xargs rm //将ls -l | grep "test"的输出作为rm的参数
+
+因此， git branch | grep "feature" | xargs git branch -D //删除本地所有以 feature 开头的分支
+
+git blame //查看某个文件的每一行的最后一次修改
+git blame -L 1,10 //查看某个文件的第1行到第10行的最后一次修改
+git show //查看某个文件的最后一次修改

@@ -736,6 +736,7 @@ JavaScript版本ES6
 当只有一个参数时（）可省略。
 高级语法：//加括号的函数体返回对象字面量表达式：params => ({foo: bar})
 this：箭头函数不会创建自己的this,它只会从自己的作用域链的上一层继承this。
+
 promise
 Promise 对象用于表示一个异步操作的最终完成 (或失败)及其结果值。
 本质上 Promise 是一个函数返回的对象，我们可以在它上面绑定回调函数，这样我们就不需要在一开始把回调函数作为参数传入这个函数了。
@@ -1560,6 +1561,7 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 23. 在safari的graphies里，canvas的toDataURL会导致内存泄漏，所以在safari里不要用canvas的toDataURL
 24. console台里不出现后端请求原因分析：1.mocked http request。2特殊的http请求不被console台获取 3.network做了筛选
 25. 在浏览器 debug(未编译的代码)，直接打开控制台的 source，在里面直接加断点，通过 cmd+shift+p 搜索文件
-65.refresh 不会销毁组件
+26. refresh 不会销毁组件
+27. Array.prototype.flatMap() 会先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值 1 的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率更高。
 
 

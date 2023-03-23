@@ -202,4 +202,5 @@ ng generate directive directiveName
 9.subject 对象是一个observable，它可以存储一个值，并且可以通过subscribe来获取这个值。它可以被订阅多次，每次订阅都会获取到最新的值。subject同时是一个observer，它可以通过next方法来存储一个值。
 例如：const subject = new Subject(); subject.subscribe((value) => console.log(value)); subject.next(1); subject.next(2); subject.next(3); // 1 2 3
 10.observable
+1.  ActivatedRoute 用于获取路由参数, ActivatedRoute.snapshot:获取当前路由参数，但不会随着路由参数的变化而变化；ActivatedRoute.params:获取当前路由参数，会随着路由参数的变化而变化；ActivatedRoute.queryParams:获取当前路由参数，会随着路由参数的变化而变化；ActivatedRoute.fragment:获取当前路由参数，会随着路由参数的变化而变化；
 

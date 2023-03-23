@@ -490,31 +490,38 @@ div{
             background-color: blue;
             border-radius: 100px 100px 0 0;//从左上开始顺时针，右上，右下，左下
         }
+
 画一条0.5px的线
 先画一条1px的线再
 1.	缩放transfrom：scale（0.5）；
 2.	渐变 background-image: linear-gradient(0deg, #f00 50%, transparent 50%);
+
 css animation和transition的区别
 Animation和transition大部分属性是相同的，他们都是随时间改变元素的属性值，他们的主要区别是transition需要触发一个事件才能改变属性，而animation不需要触发任何事件的情况下能随时间改变属性值，并且transition为2帧，从from .... to，而animation可以一帧一帧的。
+
 visibility=hidden, opacity=0，display:none的区别
 opacity=0只是变透明了，还会响应
 visibility=hidden只是隐藏该元素，不能响应，但不改变布局
 display:none则相当于从原来的渲染树中删除该元素。改变了布局，导致重排
 // z-index涂层遮盖只是遮盖了该元素(无法响应)
+
 opacity和rgba的a的区别
 opacity有继承性，子元素默认继承，rgba的a则只用于当前元素
+
 BFC
 （block formatting context，用于清除浮动，防止margin重叠等）
 直译成：块级格式化上下文，是一个独立的渲染区域，并且有一定的布局规则。
 BFC区域不会与float box重叠
 BFC是页面上的一个独立容器，子元素不会影响到外面
 计算BFC的高度时，浮动元素也会参与计算
+
 哪些元素会生成BFC：
 根元素
 float不为none的元素
 position为fixed和absolute的元素
 display为inline-block、table-cell、table-caption，flex，inline-flex的元素
 overflow不为visible的元素
+
 综合
 元素在容器中居中
 1.父元素固定宽高，利用定位及设置子元素margin值为自身的一半。
