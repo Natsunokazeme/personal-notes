@@ -16,3 +16,4 @@
 100. proxy代理设置， target将location的origin替代为target，pathrewrite将origin之后的path部分替换
 109. packege.json 里的script定义 npm 执行脚本， 用 npm run xxx 运行 xxx对应的脚本
 
+110. 设置pipeline：1.需从azure上读值，先在pipeline的library上设置变量的key和value(前端library叫frontend-deploy)；2. 在代码库里设置environment3.将设置的environment的值与library上的key在代码库里的pipeline yml文件中对应，如：echo "##vso[task.setvariable variable=api_community_bebaseurl]$(api_community_bebaseurl_dev)" //api_community_bebaseurl_dev是library上的key，api_community_bebaseurl是代码库里的key，这样就可以在代码库里的environment中使用了

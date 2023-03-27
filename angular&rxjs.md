@@ -175,10 +175,6 @@ Angular 调用 transform 方法，该方法使用绑定的值作为第一个参�
 message$: Observable<string>;
 4.管道优先级比三目运算符高
 
-directives
-类似react的高阶组件，可对组件进行扩展，增加新的功能
-  1. 自定义指令
-ng generate directive directiveName
 
 
 24.angular 的 rxjs 的 observable 与 promise 不兼容
@@ -203,4 +199,15 @@ ng generate directive directiveName
 例如：const subject = new Subject(); subject.subscribe((value) => console.log(value)); subject.next(1); subject.next(2); subject.next(3); // 1 2 3
 10.observable
 1.  ActivatedRoute 用于获取路由参数, ActivatedRoute.snapshot:获取当前路由参数，但不会随着路由参数的变化而变化；ActivatedRoute.params:获取当前路由参数，会随着路由参数的变化而变化；ActivatedRoute.queryParams:获取当前路由参数，会随着路由参数的变化而变化；ActivatedRoute.fragment:获取当前路由参数，会随着路由参数的变化而变化；
+
+2. angular 自定义 directive 
+directives
+类似react的高阶组件，嵌在组件上,可对组件进行扩展，增加新的功能
+   自定义指令
+			ng generate directive directiveName
+	 用@Directive装饰器装饰类，selector为指令名称，可用在组件模版中；standalone为true时，可直接使用，false则只能在ngModule中声明后使用；
+	 @Directive({
+  selector: '[rqeTranslation]',
+  standalone: true,
+})
 
