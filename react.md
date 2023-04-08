@@ -241,3 +241,8 @@ createPortal 提供了一种将子节点渲染到存在于父组件以外的 DOM
 50.react里，route的element是一个组件，可以用children来获取其子组件，也可以用子route来继承其route，冒号后表params，可以用match.params来获取
 
 56.react 没有样式穿透，只有引入css-module包才能用 :global(.className)
+
+1.  useState更新会触发组件重新渲染，useRef可保存变量，不会触发组件重新渲染，也不会重新渲染时丢失
+2.  useEffect可多处使用
+3.  react子传父用props的回调函数
+4.  

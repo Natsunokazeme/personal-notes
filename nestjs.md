@@ -34,3 +34,11 @@ route 参数支持正则
   "url": string,
   "statusCode": number
 }，这会override decorator的参数
+
+
+typeORM是一个用于处理数据库的ORM库，支持mysql, postgres, mssql, sqlite, mongodb, cordova, react-native, nativescript, expo, and web browser。
+推荐在nestjs中使用typeorm，因为typeorm支持nestjs的dependency injection，而typeorm的repository是用来处理数据库的，所以在nestjs中使用typeorm的repository是最好的选择。
+typeorm里 不能直接对已存在的表新增列，必须通过迁移。
+
+entity中的装饰器
+@CreateDateColumn和@UpdateDateColumn都会自动更新时间，但是@CreateDateColumn只会在创建时更新，而@UpdateDateColumn会在每次更新时更新

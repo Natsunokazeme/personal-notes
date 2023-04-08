@@ -17,3 +17,7 @@
 109. packege.json 里的script定义 npm 执行脚本， 用 npm run xxx 运行 xxx对应的脚本
 
 110. 设置pipeline：1.需从azure上读值，先在pipeline的library上设置变量的key和value(前端library叫frontend-deploy)；2. 在代码库里设置environment3.将设置的environment的值与library上的key在代码库里的pipeline yml文件中对应，如：echo "##vso[task.setvariable variable=api_community_bebaseurl]$(api_community_bebaseurl_dev)" //api_community_bebaseurl_dev是library上的key，api_community_bebaseurl是代码库里的key，这样就可以在代码库里的environment中使用了
+111. event.target 对应的type是EventTarget,只有转化为HTMLInputElement才能使用value属性
+112. fetch mode: cors, no-cors, same-origin,填cors*无效
+113. which xxx. linux命令，查看xxx所在路径
+114. number.toString(2) 将number转化为二进制字符串
