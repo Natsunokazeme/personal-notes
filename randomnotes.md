@@ -21,3 +21,4 @@
 112. fetch mode: cors, no-cors, same-origin,填cors*无效
 113. which xxx. linux命令，查看xxx所在路径
 114. number.toString(2) 将number转化为二进制字符串
+115. 
