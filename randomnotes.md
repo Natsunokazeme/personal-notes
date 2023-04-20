@@ -21,4 +21,19 @@
 112. fetch mode: cors, no-cors, same-origin,填cors*无效
 113. which xxx. linux命令，查看xxx所在路径
 114. number.toString(2) 将number转化为二进制字符串
-115. 
+115. sticky 要求父元素高度比自身高，且overflow不为hidden。
+116. function.length 返回函数的参数个数
+117. lambda演算 ℷx.x+1(1) 表示对x的ℷ演算，ℷx声明这是参数为x的ℷ演算，ℷx.x+1表示传入x后返回x+1，ℷx.x(1)表示传入1后返回2
+118. 柯利化，将函数作为参数传入另一个函数。
+119. parseInt 第二个参数表示进制,2-36,默认为0(根据字符串前缀判断)
+120. ng-template 用于动态创建组件，ng-container 用于包裹元素，不会在dom中生成对应的标签，ng-content 用于slot，只有select属性,用于选择器匹配
+121. elementRef 是对原生dom的封装，nativeElement是原生dom，viewContainerRef是对当前元素的视图宿主的引用，内部有各种方法来删除，插入，移动，替换视图等，viewRef是对当前元素的视图的引用，可以通过viewRef.rootNodes获取当前元素的所有子元素，templateRef是对模板的引用。
+122. fill:currentColor 使svg和path的颜色继承父元素的颜色，但只能用与html标签，不能用于image url 和 background-image
+123. inline-flex 让元素flex的同时不占据一行
+124. 创建基础组建时样式不重要，可以通过deep selector来覆盖
+125. angular中 [class.xxx]="boolean" 会在true时将xxx添加到class中，false时将xxx从class中删除
+126. input不是一个container，不能有子元素，因此伪元素不会生效
+127. 推荐用 last-of-type:mr-0 来替代first-of-type:ml-0,因为换行后下一行元素第一个元素会有margin-left
+128.  selector无法指定value，只能通过option的value属性来指定
+129.  angular animation tigger state transition style animate todo
+130.  angular ngTemplateOutlet 指令 将对应的templateRef嵌入到宿主视图中，ngTemplateOutletContext 指令， 将宿主的context传给templateRef，使template可使用宿主内的变量
