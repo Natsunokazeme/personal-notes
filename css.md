@@ -579,7 +579,7 @@ advanced css
 17. clear:both 清除 float
 18. input 和 select 都自带 outline
 19. aspect-ratio 可以设置宽高比，可以用css来设置宽高比，可以用style来设置宽高比，可以用className来设置宽高比
-20. 为使 overflow 有效果，块级容器必须有一个指定的高度（height或者max-height）或者将white-space设置为nowrap。
+20. 为使 overflow 有效果`，块级容器必须有一个指定的高度（height或者max-height）或者将white-space设置为nowrap。
 21. display:flex-root ,将该元素变成block formatting context
 22. box-shadow: x y fuzzy-r diffusion-r color
 23. overflow:hidden是根据父元素的boder内边距来计算的，可通过position absolute来跳出父元素的border
@@ -603,6 +603,12 @@ advanced css
       a[title~='1'] // title是一个以空格作为分隔的值列表，其中至少有一个值  为1的a标签
       a[title|='1'] // title是一个以连字符作为分隔的值列表，其中至少有一个值 为1的a标签
 36. accent-color:#fff ; // 设置checkbox勾选颜色
+37.  sticky 要求父元素高度比自身高，且overflow不为hidden。
+38. inline-flex 让元素flex的同时可指定宽高
+39. fill:currentColor 使svg和path的颜色继承父元素的颜色，但只能用与html标签，不能用于image url 和 background-image
+40.  创建基础组建时样式不重要，可以通过deep selector来覆盖
+41.  input不是一个container，不能有子元素，因此伪元素不会生效
+42.  推荐用 last-of-type:mr-0 来替代first-of-type:ml-0,因为换行后下一行元素第一个元素会有margin-left
 
 
 
@@ -610,5 +616,7 @@ SCSS
 1. @if 当@if后的条件不返回false 或者 null 时，@if后的代码块会被执行，否则不会被执行
 2. @for 从一个数字开始，到另一个数字结束，每次循环增加一个数字，然后执行代码块
 3. @while 当@while后的条件不返回false 或者 null 时，@while后的代码块会被执行，否则不会被执行
+
+
 
 

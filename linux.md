@@ -6,3 +6,6 @@
 6. echo 输出字符串
 7. pkill 杀死指定进程
 8. !! 返回上一条指令
+9. which xxx. linux命令，查看xxx所在路径
+10. whereis xxx. linux命令，查看xxx所在路径
+11. ip addr. linux命令，查看ip地址

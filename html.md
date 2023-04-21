@@ -357,3 +357,5 @@ advanced HTML
 4. 双层slot 
       <slot name="curent" slot='son-slot' ></slot>
 5. 关闭iframe的PDF默认控制栏，在src的末尾加上‘#toolbar=0’
+6. selector无法指定value，只能通过option的value属性来指定
+

@@ -1540,28 +1540,35 @@ document.body.removeChild(link)
 document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' } }))
 全局发送特殊事件
 4. 可通过$any($event.target).value 来规避$event.target.value 的问题 
-5. eventListener 在跳转前一定要销毁，否则可能导致二次进入页面时，一次触发事件多次执行监听函数(5h) 
-6. string.prototype.search(regex);会将参数自动转化为regex，若找到返回index，否则返回-1
-7. array.prototype.join()会将数组中的每个元素转化为字符串，然后用逗号拼接起来，返回一个字符串。
-8. array.prototype.toString()会将数组去掉中括号直接转化为字符串，返回一个字符串。
-9. 可用解构来定义interface并使用，例如{ data }: { data: {successList: GoodsList[]} } 等于 res：{data:{successList:GoodsList[]} }
-10. function里传的值是基本值的复制值或引用值的复制值，即object时传的是object的指针的复制，该复制也指向object真实值
-11. array.at(index) 返回数组中指定位置的元素，如果index为负数，则从数组末尾开始计算,可用来代替array[array.length+index]
-12. document.getElementsByTagName('xxx')得到的是一个类数组，不是数组，所以不能用数组的方法，如map，filter，forEach等，可用Array.from()转换成数组。并且必须在dom加载完成后才能获取到dom，否则获取到的是空数组
-13. addEventListener('DOMContentLoaded',()=>{}) 可以在dom树加载完成后执行回调函数
-14. video的src未加载时调用play会报错，所以要先判断video的src是否加载完成，可直接用video.oncanplaythrough来进行加载好后的回调
-15. 比较两个对象是否相等时，最好用 JSON.stringify 来转换成字符串，因为对象的属性是引用类型，如果用 === 比较，会出现不相等的情况。但注意的是，转换成字符串时，会按照字符串的排序来比较，所以如果属性的顺序不一致，就会出现不相等的情况。 
-16. process.env 获取定义在.env文件内的变量，.env有test，production，development及以上三个环境的变量，可用cross-env来设置环境变量
-17. getElementsByClassName() 方法返回NodeList 对象,不是数组
-18. scrollHeight 元素全部高度;clientHeight:包括padding的可见区域高度;offsetHeight:包括border，滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离，也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离，也就是元素被遮住的宽度;
-19. Element.getBoundingClientRect() // 返回元素的大小及其相对于视口的位置
-20. requestAnimFrame(callback) 下一次重绘前调用回调函数
-21. 在safari里video 不能在js里play，必须在用户交互事件里play。
-22. 在safari里 canvas 不能在js里toDataURL，必须在用户交互事件里toDataURL.
-23. 在safari的graphies里，canvas的toDataURL会导致内存泄漏，所以在safari里不要用canvas的toDataURL
-24. console台里不出现后端请求原因分析：1.mocked http request。2特殊的http请求不被console台获取 3.network做了筛选
-25. 在浏览器 debug(未编译的代码)，直接打开控制台的 source，在里面直接加断点，通过 cmd+shift+p 搜索文件
-26. refresh 不会销毁组件
-27. Array.prototype.flatMap() 会先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值 1 的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率更高。
+5. event.target 对应的type是EventTarget,只有转化为HTMLInputElement才能使用value属性
+6. eventListener 在跳转前一定要销毁，否则可能导致二次进入页面时，一次触发事件多次执行监听函数(5h) 
+7. string.prototype.search(regex);会将参数自动转化为regex，若找到返回index，否则返回-1
+8. array.prototype.join()会将数组中的每个元素转化为字符串，然后用逗号拼接起来，返回一个字符串。
+9. array.prototype.toString()会将数组去掉中括号直接转化为字符串，返回一个字符串。
+10. 可用解构来定义interface并使用，例如{ data }: { data: {successList: GoodsList[]} } 等于 res：{data:{successList:GoodsList[]} }
+11. function里传的值是基本值的复制值或引用值的复制值，即object时传的是object的指针的复制，该复制也指向object真实值
+12. array.at(index) 返回数组中指定位置的元素，如果index为负数，则从数组末尾开始计算,可用来代替array[array.length+index]
+13. document.getElementsByTagName('xxx')得到的是一个类数组，不是数组，所以不能用数组的方法，如map，filter，forEach等，可用Array.from()转换成数组。并且必须在dom加载完成后才能获取到dom，否则获取到的是空数组
+14. addEventListener('DOMContentLoaded',()=>{}) 可以在dom树加载完成后执行回调函数
+15. video的src未加载时调用play会报错，所以要先判断video的src是否加载完成，可直接用video.oncanplaythrough来进行加载好后的回调
+16. 比较两个对象是否相等时，最好用 JSON.stringify 来转换成字符串，因为对象的属性是引用类型，如果用 === 比较，会出现不相等的情况。但注意的是，转换成字符串时，会按照字符串的排序来比较，所以如果属性的顺序不一致，就会出现不相等的情况。 
+17. process.env 获取定义在.env文件内的变量，.env有test，production，development及以上三个环境的变量，可用cross-env来设置环境变量
+18. getElementsByClassName() 方法返回NodeList 对象,不是数组
+19. scrollHeight 元素全部高度;clientHeight:包括padding的可见区域高度;offsetHeight:包括border，滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离，也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离，也就是元素被遮住的宽度;
+20. Element.getBoundingClientRect() // 返回元素的大小及其相对于视口的位置
+21. requestAnimFrame(callback) 下一次重绘前调用回调函数
+22. 在safari里video 不能在js里play，必须在用户交互事件里play。
+23. 在safari里 canvas 不能在js里toDataURL，必须在用户交互事件里toDataURL.
+24. 在safari的graphies里，canvas的toDataURL会导致内存泄漏，所以在safari里不要用canvas的toDataURL
+25. console台里不出现后端请求原因分析：1.mocked http request。2特殊的http请求不被console台获取 3.network做了筛选
+26. 在浏览器 debug(未编译的代码)，直接打开控制台的 source，在里面直接加断点，通过 cmd+shift+p 搜索文件
+27. refresh 不会销毁组件
+28. Array.prototype.flatMap() 会先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值 1 的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率更高。
+29.  number.toString(2) 将number转化为二进制字符串
+30.  function.length 返回函数的参数个数
+31.  lambda演算 ℷx.x+1(1) 表示对x的ℷ演算，ℷx声明这是参数为x的ℷ演算，ℷx.x+1表示传入x后返回x+1，ℷx.x(1)表示传入1后返回2
+32.  柯利化，将函数作为参数传入另一个函数。
+33.  parseInt 第二个参数表示进制,2-36,默认为0(根据字符串前缀判断)
+
 
 

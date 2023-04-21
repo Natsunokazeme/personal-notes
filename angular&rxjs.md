@@ -210,4 +210,12 @@ directives
   selector: '[rqeTranslation]',
   standalone: true,
 })
+120. ng-template 用于动态创建组件，ng-container 用于包裹元素，不会在dom中生成对应的标签，ng-content 用于slot，只有select属性,用于选择器匹配
+121. elementRef 是对原生dom的封装，nativeElement是原生dom，viewContainerRef是对当前元素的视图宿主的引用，内部有各种方法来删除，插入，移动，替换视图等，viewRef是对当前元素的视图的引用，可以通过viewRef.rootNodes获取当前元素的所有子元素，templateRef是对模板的引用。
+122. angular中 [class.xxx]="boolean" 会在true时将xxx添加到class中，false时将xxx从class中删除
+129.  angular animation tigger state transition style animate todo
+130.  angular ngTemplateOutlet 指令 将对应的templateRef嵌入到宿主视图中，ngTemplateOutletContext 指令， 将宿主的context传给templateRef，使template可使用宿主内的变量
+131.  observable 是一个函数，它接受一个observer作为参数，返回一个subscription对象。它将内部产生的数据传给observer，observer可以是一个对象，也可以是一个函数。observer对象有三个方法，next，error，complete。next方法用于传递数据，error方法用于传递错误，complete方法用于传递完成信号。subject  能有多个订阅者，而observable只能有一个订阅者。subject是一个observer，也是一个observable。subject有next，error，complete方法，可以通过这些方法来传递数据，错误，完成信号。 operators是个纯函数，它的输入为observable，返回也observable。operators的本质是，描述从一个数据流到另一个数据流之间的关系，也就是observer到observable中间发生的转换，常见的有map,switchMap,forkJoin,merge,take,takeUntil等。
+132.  observable 的next是用于向流里面推送新数据的方法，而subscribe是用于订阅observable并监听数据流变化的方法，subscribe里也有next方法，observable的next执行后产生的新数据传给subscribe里的next。
+133.  takeUntil是通过传入的observable传出数据时，直接使当前observable的subscribe方法执行complete方法，从而结束当前observable的数据流。
 
