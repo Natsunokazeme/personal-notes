@@ -37,4 +37,5 @@ tailwindcss
   </button>
  它们一起控制id为collapseExample的元素
 
+husky 用于在执行git 命令时执行script脚本命令
 
