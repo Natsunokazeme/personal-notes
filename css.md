@@ -1,62 +1,9 @@
 CSS
-css把和颜色，大小位置等信息剥离到<style>中，而html只用关心提供什么样的内容就行了。
-css的语法
-selector {property: value}
-即 选择器{属性:值}
-学习css即学习有哪些选择器，哪些属性以及可以使用什么样的值
-<style>
-p{
-   color:red;
-}
-</style>
-//设置所有p元素为红色字体
-<p style="color:red">这是style为红色的</p>
-//也可以对单独的p元素的style属性赋值
-
-选择器主要分3种：元素选择器；id选择器；类选择器
-元素选择器通过标签名选择元素
-在例子中，所有的p都被设置成红色
-通过id选择元素(给不同元素赋予单独的id属性定位)
-注： 一个元素的id应该是唯一的。另一个元素不应该重复使用
-<style>
-p{
-  color:red;
-}
-#p1{
-  color:blue;
-}
-#p2{
-  color:green;
-}
-</style>
- 
-<p>没有id的p</p>
-<p id="p1">id=p1的p</p>
-<p id="p2">id=p2的p</p>
-类选择器
-当需要多个元素，都使用同样的css的时候，就会使用类选择器
-对类进行css处理，再对每个元素赋予相应的类属性
-.pre{
-  color:blue;
-}
-<p class="pre">css处理过的蓝色类字体</p>
-更准确的选择
-同时根据元素名和class来选择
-<style>
-p.blue{
-  color:blue;
-}
-</style>
-//类为blue且元素为p的才变为蓝色
-优先级：元素内style > 类选择器 > ID选择器 > 元素选择器
-
-style样式中的注释
-以/* 开始，以*/结束，被注释掉的文字会自动隐藏
 
 背景及尺寸
-背景大小：background-size；
+背景大小：background-size；值：auto，cover，contain，100px 100px，100% 100%;
 背景色：background-color；值有预定义的颜色名字，rgb格式，16进制三种方式
-背景图片： background-image:url(/study/background.jpg);、
+背景图片： background-image:url(/study/background.jpg);
 背景重复：background-repeat属性，将设置好的部分背景一直重复直至完全占满背景
 其值有repeat; 水平垂直方向都重复repeat-x,repeat-y,no-repeat
 背景展示方式：background-clip: border-box;  //背景图片会延伸到边框 text; //背景图片只替换文字区域 padding-box; //背景图片会延伸到内边距 content-box; //背景图片会延伸到内容区域
@@ -609,6 +556,11 @@ advanced css
 40.  创建基础组建时样式不重要，可以通过deep selector来覆盖
 41.  input不是一个container，不能有子元素，因此伪元素不会生效
 42.  推荐用 last-of-type:mr-0 来替代first-of-type:ml-0,因为换行后下一行元素第一个元素会有margin-left
+43.  选择器权重:权重是相加比较的，id 永远 > class 永远 > 标签 .权重大小比较只在同级之间比较，不同级之间不比较..权重相同的情况下，后面的样式会覆盖前面的样式.伪类和属性选择器权重和类相同，伪元素权重和标签相同。组合选择器不更改权重规则。级与级之间的权重差根据浏览器实现而不同，因此当级的权重差为1个字节时，256个class累计的权重就会超过1个字节，发生溢出，进而可能覆盖id的权重。
+44.  background-image 可以设置多个，用逗号隔开，前一个会覆盖后一个，可使用linear-gradient()设置渐变色
+45.  linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
+46.  :target 选择器，选中当前页面的锚点，可用于锚点跳转
+47.  css 变量 用--xxx: value;使用var(--xxx)调用value
 
 
 

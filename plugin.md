@@ -39,3 +39,5 @@ tailwindcss
 
 husky 用于在执行git 命令时执行script脚本命令
 
+immer.js 通过proxy实现不可变数据，可以直接修改state，不用再通过深拷贝的方式修改state。只有修改过的地方才会被拷贝，其他地方还是指向原来的地址。但proxy是es6新特性，在之前的版本中会通过Object.defineProperty实现。因此未修改过的地方是===的
+

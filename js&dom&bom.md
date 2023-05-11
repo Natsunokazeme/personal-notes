@@ -1569,6 +1569,7 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 31.  lambda演算 ℷx.x+1(1) 表示对x的ℷ演算，ℷx声明这是参数为x的ℷ演算，ℷx.x+1表示传入x后返回x+1，ℷx.x(1)表示传入1后返回2
 32.  柯利化，将函数作为参数传入另一个函数。
 33.  parseInt 第二个参数表示进制,2-36,默认为0(根据字符串前缀判断)
+34.  虚拟滚动，只渲染可视区域的dom，其他的dom不渲染，可用于大数据量的渲染。为此，父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度，虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的dom进行渲染
 
 
 
