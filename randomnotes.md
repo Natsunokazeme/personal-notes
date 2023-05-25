@@ -19,3 +19,5 @@
 110. 设置pipeline：1.需从azure上读值，先在pipeline的library上设置变量的key和value(前端library叫frontend-deploy)；2. 在代码库里设置environment3.将设置的environment的值与library上的key在代码库里的pipeline yml文件中对应，如：echo "##vso[task.setvariable variable=api_community_bebaseurl]$(api_community_bebaseurl_dev)" //api_community_bebaseurl_dev是library上的key，api_community_bebaseurl是代码库里的key，这样就可以在代码库里的environment中使用了
 112. fetch mode: cors, no-cors, same-origin,填cors*无效
 113. 浏览器会根据用户设置和偏好自动将请求头的accept-language设置为对应的值。当服务器接收到请求时，会根据请求头的accept-language来决定返回的语言。如果服务器没有对应的语言，会返回默认语言。如果服务器没有设置默认语言，会返回第一个语言或者在一些字段上返回空值。（1h）
+114. css默认继承的属性有color，font-size等和文字相关的属性以及visibility，cursor等和显示相关的属性
+115. js array flat 会去空。在非数组对象上调用flat 需要对象有length属性，否则会报错,并根据length从键0开始按序读键值,当键值不为数组时，会直接将其加入到新数组中，当键值为数组时，会根据flat参数depth将其展开后加入到新数组中。
