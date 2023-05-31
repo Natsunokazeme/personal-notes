@@ -229,3 +229,5 @@ message$:Observable<string>;
 
 动态组件
 动态组件是指在运行时动态加载的组件,而不是在编译时加载的组件,举例,通过viewContainerRef.createComponent()方法动态创建组件挂在到宿主组件上,并传入data给动态组件
+
+模版变量
