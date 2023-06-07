@@ -5,201 +5,43 @@
 和css一样,当javascript代码特别多,并且都写在html里的时候,会显得比较繁杂,难以维护。
 这个时候可以采用和css一样的手段,把javascript代码剥离出来,单独放在一个文件里,在html中引用该文件即可。
 
-注释：//单行注释
-/*
-多行注释
-*/
-
-调试(debug)
-1.	使用alert()进行调试
-会弹出一个对话框,里面的内容是()的内容。换句话说,如果弹出了该内容,这个位置以上的代码,都是可以运行的。在此基础上不断将其往下移动,直到某一行之后不弹出,则该行出错
-2.	用浏览器的F12打开界面,其中console是控制台的意思,用于输出一些错误和调试信息。
-3.	console.log()
-类似于 alert进行调试, firebug有一个日志输出工具console.log().
-不同于alert的缺点( 弹出屏幕,阻挡所有其他操作),console.log() 只会把信息输出在console里,而不会影响用户的使用。 用户甚至意识不到console.log()的存在。
-
-JavaScript基本数据类型
-undefined,Boolean,Number,String,null,symbol
-undefined	声明了但未赋值	
-Boolean	布尔	
-Number	数字	
-String	字符串	
-var	动态类型	
-typeof	变量类型判断	
-null	空对象/对象不存在
-
-
-undefined
-当一个变量被声明了,却没有赋值的时候,叫做 undefined
-例：var x;输出x时输出undefined
-Boolean	布尔
-var y=false;
-Number	数字	
-javascript中的Number可以表示十进制,八进制,十六进制整数,浮点数,科学记数法
-var a=10; //十进制
-  var b=012;//第一位是0,表示八进制
-  var c=0xA;//0x开头表示十六进制
-  var d=3.14;//有小数点表示浮点数
-  var e=3.14e2;//使用e的幂表示科学计数法
-String	字符串	
-与java不同的是,javascript中没有字符的概念,只有字符串,所以单引号和双引号,都用 来表示字符串。
-var	动态类型	
-变量的类型是动态的,当值是整数的时候,就是Number类型,当值是字符串的时候,就是String类型
-变量类型判断
-使用typeof来进行判断数据类型
-typeof可以识别出基本类型boolean,number,undefined,string,symbol,但是不能识别null。不能识别引用数据类型,会把null、array、object统一归为object类型,但是可以识别出function。
-例：console.log(typeof bool); //Boolean
-
-instanceof
-instanceof不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
-但是可以检测出引用类型,如array、object、function,同时对于是使用new声明的类型,它还可以检测出多层继承关系。
-instanceof一般用来检测对象类型,以及继承关系。
-arrname instanceof Array;// return true
-constructor
-null、undefined没有construstor属性,因此constructor不能判断undefined和null。
-console.log(arr.constructor === Array);// true
-
-Object.prototype.toString.call
-console.log(Object.prototype.toString.call(num));//[object Number]
-该方法直接返回对应类型的字符串
 类型转换
 伪对象
 伪对象概念：javascript是一门很有意思的语言,即便是基本类型,也是伪对象,所以他们都有属性和方法。
-变量a的类型是字符串,通过调用其为伪对象的属性length获取其长度
-转换为字符串
-无论是Number,Boolean还是String都有一个toString方法,用于转换为字符串
-数字转换为字符串
-默认模式下,数字10转换为十进制的10
-基模式下,数字10转换为二进制的1010
-基模式下,数字10转换为八进制的12
-基模式下,数字10转换为十六进制的a
-a.toString()); //默认模式
-a.toString(2)；//将数字a转换为基模式下二进制。
-转换为数字
-javascript分别提供内置函数 parseInt()和parseFloat(),转换为数字
-注：如果被转换的字符串,同时由数字和字符构成,那么parseInt会一直定位数字,直到出现非字符。 所以"10abc" 会被转换为 10,而”abc10”为NaN
-//判断每一位,直到发现不是数字的那一位就break;返回NaN
-转换为Boolean
-使用内置函数Boolean() 转换为Boolean值
-当转换字符串时：
-非空即为true
-当转换数字时：
-非0即为true
-当转换对象时：
-非null即为true
-Number()和parseInt()的区别
-Number()和parseInt()一样,都可以用来进行数字的转换
-区别在于,当转换的内容包含非数字的时候,Number() 会返回NaN(Not a Number)
-parseInt() 要看情况,如果以数字开头,就会返回开头的合法数字部分,如果以非数字开头,则返回NaN
-String()和toString()的区别
-String()和toString()一样都会返回字符串,区别在于对null的处理
-String()会返回字符串"null"
-toString() 就会报错,无法执行
-
-
-JavaScript函数
-function关键字用于定义一个函数
-print即函数的名称
-()表示参数列表
-{ 表示函数开始
-} 表示函数结束
-光有函数的定义,还不够,它不会自动执行,还需要进行调用
-带返回值的函数,创建函数时不需要声明返回什么,直接在最后一行return + 返回值。
-
-文本框获取的值都视作字符串
 
 作用域：一个参数的作用域就在这个函数内部,超出函数就看不见该参数了
 全局变量：定义在函数之外,即全局变量,所有函数都可以访问
-
 事件：事件是javascript允许html与用户交互的行为。用户任何对网页的操作,都会产生一个事件。事件有很多种,比如鼠标移动,鼠标点击,键盘点击等等。
 
-JavaScript运算符：
-绝对等,绝对不等于
-与==进行值是否相等的判断不同 ,绝对等 ===还会进行 类型的判断
-比如 数字1和 字符串'1'比较,值是相等的,但是类型不同
-所以==会返回true,但是===会返回false
-绝对不等于!== 与上是一个道理
-三目运算符
-三目运算符 ?: 有三个操作数
-如果第一个返回true,就返回第二个操作符
-否则就返回第三个操作符。
-var movie = age<18?"卡通":"你懂的";
-
-注意： 进行循环的时候,一定要设置好自增和结束条件,否则会导致无限循环,浏览器直接无法响应。
- 
 Javascript对象
 常见的对象有数字Number,字符串String,日期Date,数组Array等。
 
 Number
 注: 这里讲的Number是对象Number,和基本数据类型中的基本类型Number是不一样的Number。
-new Number	创建一个数字对象	
-属性MIN_VALUE
-属性MAX_VALUE	最小值 最大值	
-属性NaN	表示不是数字	
-方法toFixed	返回一个数字的小数表达	
-方法toExponential	返回一个数字的科学计数法表达	
-方法valueOf	返回一个数字对象的基本数字类型
+new Number 创建一个数字对象
+属性MIN_VALUE 最小值
+属性MAX_VALUE 最大值
+属性NaN 表示不是数字
+方法toFixed 返回一个数字的小数表达
+方法toExponential 返回一个数字的科学计数法表达
+方法valueOf 返回一个数字对象的基本数字类型
 
 与基本类型的数字不同,对象类型的数字,拥有更多的属性和方法
 
-new Number	创建一个数字对象
+new Number 创建一个数字对象
 var x = new Number(123);//此时它的值虽然是123,但它的类型是object。
 
 Number边界
 Number.MIN_VALUE//Number对象的最小值:5e-324
 Number.MAX_VALUE//Number对象的最大值:1.7976931348623157e+308
 
-NaN(Not a Number),表示不是一个数字
-当通过非数字创建Number的时候,就会得到NaN.
-注意： 不能通过 是否等于Number.NaN来判断 是否 “不是一个数字”,应该使用函数 isNaN()
-
 返回一个数字的小数表达
-a.	toFixed(2)//返回保留2位小数的number a
+a. toFixed(2)//返回保留2位小数的number a
 返回一个Number对象的科学计数法表达
 a.toExponential ()
 返回一个数字对象的基本数字类型
 var b = a.valueOf()//返回a的number类并赋值给b
 
-数组
-javascript中的数组是动态的,即长度是可以发生变化的。
-new Array	创建数组对象	
-属性 length	数组长度	
-for
-for in	遍历一个数组	
-方法 concat	连接数组	
-方法 join	通过指定分隔符,返回一个数组的字符串表达	
-方法 push pop	分别在最后的位置插入数据和获取数据(获取后删除)	
-方法 unshift shift	分别在最开始的位置插入数据和获取数据(获取后删除)	
-方法 sort	对数组的内容进行排序	
-方法 sort(comparator)	自定义排序算法	
-方法 reverse	对数组的内容进行反转	
-方法 slice	获取子数组	
-方法 splice	删除和插入元素
-
-连接数组
-var z = x.concat(y);//x必须是数组
-
-方法 join 通过指定分隔符,返回一个数组的字符串表达
-数组x是:3,1,4
-y = x.join() 得到的是数组x的字符串表达,其值是3,1,4 其类型是 :string
-z = x.join("@");是x的字符串表达,不过分隔符不是默认的"," 而是"@" : 3@1@4
-
-分别在最后的位置插入数据和获取数据(获取后删除)
-方法 push pop,分别在最后的位置插入数据和获取数据(获取后删除)
-就像先入后出的栈一样
-x.push(5);
-
- 分别在最开始的位置插入数据和获取数据(获取后删除)
-方法 unshift shift ,分别在最开始的位置插入数据和获取数据(获取后删除)
-x.unshift (5);
-
-对数组的内容进行排序
-x.sort();//默认从小到大排序
-//sort调用了toString()方法,所以排序10及以上的数字需要自定义排序函数
-自定义排序算法
-如果需要采用自定义排序的算法,就把比较器函数作为参数传递给sort()。
-调用sort函数的时候,把这个比较器函数comparator作为参数传递进去即可
-x.sort(comparator);
 
 对数组的内容进行反转
 方法 reverse,对数组的内容进行反转
@@ -210,29 +52,28 @@ var z = x.slice(1,3);
 左闭右开
 
 删除和插入元素
-方法 splice (不是 slice) 用于删除数组中的元素,奇葩的是 ,它还能用于向数组中插入元素   
+方法 splice (不是 slice) 用于删除数组中的元素,奇葩的是 ,它还能用于向数组中插入元素
 例如：数组x是:3,1,4,1,5,9,2,6
 x.splice (3,2) 表示从位置3开始 ,删除2个元素:3,1,4,9,2,6
 x.splice(3,0,1,5) 从位置3开始,删除0个元素,但是插入1和5,最后得到:3,1,4,1,5,9,2,6
 
-
 JavaScript 日期
-new Date	创建日期对象	
+new Date 创建日期对象
 getFullYear
 getMonth
-getDate	年/月/日	
+getDate 年/月/日
 getHours
 getMinutes
 getSeconds
-getMilliseconds	时:分:秒:毫秒	
-getDay	一周的第几天	
-getTime	经历的毫秒数	
+getMilliseconds 时:分:秒:毫秒
+getDay 一周的第几天
+getTime 经历的毫秒数
 setFullYear
 setMonth
 setDate
 setHours
 setMinutes
-setSeconds	修改日期和时间
+setSeconds 修改日期和时间
 
 需要注意的是,getMonth()返回的月数,是基零的,0代表1月份
 所以需要+1
@@ -240,12 +81,12 @@ setSeconds	修改日期和时间
 
 JavaScript Math
 Math是JavaScript的工具对象,用于常见的数学运算
-属性E PI	自然对数和圆周率	
-方法 abs	绝对值	
-方法 min max	最小最大	
-方法 pow	求幂	
-方法 round	四舍五入	
-方法 random	随机数//取0-1之间的随机数
+属性E PI 自然对数和圆周率
+方法 abs 绝对值
+方法 min max 最小最大
+方法 pow 求幂
+方法 round 四舍五入
+方法 random 随机数//取0-1之间的随机数
 
 JavaScript 自定义对象
 通过new Object()创建一个对象
@@ -266,14 +107,14 @@ function Hero(name){
      document.write(this.name + "正在杀敌<br>");
   }
 }
- 
+
 var gareen = new Hero("盖伦");
 
 为已经存在的对象,增加新的方法
 Hero.prototype.keng = function(){
   document.write(this.name + "正在坑队友<br>");
 //继承虚拟对象？只要在调用新方法或属性之前添加新方法或属性就行。
- 
+
 闭包
 一个函数和对其周围状态（lexical environment,词法环境）的引用捆绑在一起（或者说函数被引用包围）,这样的组合就是闭包（closure）。也就是说,闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中,每当创建一个函数,闭包就会在函数创建的同时被创建出来。
 BOM
@@ -338,16 +179,16 @@ Location的其他属性
 浏览器上常见的弹出框有
 警告框,确认框,提示框 这些都是通过调用window的方法实现的。
 比如警告框用的是window.alert("警告内容"),因为很常用,所以就把window省略掉,直接使用alert
-Alert()	警告框	//警告框 alert,常用于消息提示,比如注册成功等等
-Confirm()	确认框	//常用于危险性操作的确认提示。 比如删除一条记录的时候,弹出确认框
+Alert() 警告框 //警告框 alert,常用于消息提示,比如注册成功等等
+Confirm() 确认框 //常用于危险性操作的确认提示。 比如删除一条记录的时候,弹出确认框
 confirm返回基本类型的Boolean true或者false
-prompt	输入框//输入框 prompt,用于弹出一个输入框,供用户输入相关信息。 因为弹出的界面并不好看,很有可能和网站的风格不一致,所以很少会在实际工作中用到。
+prompt 输入框//输入框 prompt,用于弹出一个输入框,供用户输入相关信息。 因为弹出的界面并不好看,很有可能和网站的风格不一致,所以很少会在实际工作中用到。
 
 计时器
-setTimeout	只执行一次	
-setInterval	不停地重复执行	
-clearInterval	终止重复执行	
-document.write()	不要在setInterval调用的函数中使用document.write();
+setTimeout 只执行一次
+setInterval 不停地重复执行
+clearInterval 终止重复执行
+document.write() 不要在setInterval调用的函数中使用document.write();
 
 只执行一次
 函数setTimeout(functionname, 距离开始时间毫秒数 );
@@ -384,19 +225,19 @@ JavaScript输出
 使用 innerHTML 写入 HTML 元素
 使用 console.log() 写入浏览器控制台
 
-注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML 
+注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML
 
 JavaScript赋值
 用var再次声明时,若第二次未赋值,其值将仍为之前的值。
-js中**为幂运算,var x = x ** 2; 令x=x平方。结果与 Math.pow(x,2)相同
+js中**为幂运算,var x = x** 2; 令x=x平方。结果与 Math.pow(x,2)相同
 运算符优先级
 
-9	&	按位与	x & y
-8	^	按位 XOR	x ^ y
-7	|	按位或	x | y
-6	&&	逻辑与	x && y
-5	||	逻辑否	x || y
-4	? :	条件	? "Yes" : "No"
+9 & 按位与 x & y
+8 ^ 按位 XOR x ^ y
+7 | 按位或 x | y
+6 && 逻辑与 x && y
+5 || 逻辑否 x || y
+4 ? : 条件 ? "Yes" : "No"
 
 JavaScript数据类型
 数字会省略可省略的小数,即34.00变成34。
@@ -426,39 +267,38 @@ this 引用该函数的“拥有者”,此处为fullname的拥有者person对象
 
 JavaScript字符串
 转义字符：为了防止字符串中的’,”,\等特殊符号被误解
-\'	'	单引号
-\"	"	双引号
-\\	\	反斜杠
+\' ' 单引号
+\" " 双引号
+\\ \ 反斜杠
 尽量别用new 构造字符串,它会拖慢执行速度甚至
-var x = new String("Bill");             
+var x = new String("Bill");
 var y = new String("Bill");
 // (x == y) 为 false,因为 x 和 y 是不同的对象,而JavaScript 对象无法进行对比,比较两个对象将始终返回 false。
 
 JavaScript字符串方法
-属性 length	字符串长度	
-方法 indexOf lastIndexOf	子字符串出现的位置	未找到返回-1
+属性 length 字符串长度
+方法 indexOf lastIndexOf 子字符串出现的位置 未找到返回-1
 而且接受第二个参数作为查找的起始位置
 方法 search()搜索特定字符串的位置
 
 提取字符串
-slice(start, end)	若参数为负代表从最后一位往前计数
+slice(start, end) 若参数为负代表从最后一位往前计数
 substring(start, end)
-substr(start, length)	第二个参数代表截取的长度,如果首个参数为负,则从字符串的结尾计算位置。
+substr(start, length) 第二个参数代表截取的长度,如果首个参数为负,则从字符串的结尾计算位置。
 
 替换子字符串
-方法 replace()	//方法不会改变调用它的字符串。它返回的是新字符串。
+方法 replace() //方法不会改变调用它的字符串。它返回的是新字符串。
 
 字符串拼接
-方法 concat()	字符串拼接,可拼接多个字符串	
+方法 concat() 字符串拼接,可拼接多个字符串
 
 trim() 方法删除字符串两端的空白符：
-方法 localeCompare	比较两段字符串是否相同	
-方法 split	根据分隔符,把字符串转换为数组	
-	
+方法 localeCompare 比较两段字符串是否相同
+方法 split 根据分隔符,把字符串转换为数组
+
 返回指定位置的字符
 charAt 返回指定位置的字符,找不到返回空字符串
 charCodeAt 返回指定位置的字符对应的Unicode码
-
 
 比较两段字符串是否相同
 x.localeCompare(y)
@@ -485,7 +325,7 @@ myNumber.toString(16)//返回myNumber的16进制值80
 
 JavaScript数字方法
 toFixed() 返回字符串值,指定保留几位小数。
-3.64.	toFixed(1); //返回3.6
+3.64. toFixed(1); //返回3.6
 toPrecision() 返回字符串值,指定保留几位有效数字。
 
 JavaScript数组
@@ -506,8 +346,8 @@ JavaScript数组方法
 方法 toString() 把数组转换为数组值（逗号分隔）的字符串。
 join() 方法也可将所有数组元素结合为一个字符串并且还可以规定分隔符。
 例：var fruits = ["Banana", "Orange","Apple", "Mango"];
-document.getElementById("demo").innerHTML = fruits.join(" * ");
-//Banana * Orange * Apple * Mango
+document.getElementById("demo").innerHTML = fruits.join(" *");
+//Banana* Orange *Apple* Mango
 
 添加和删除数组元素
 pop():删除末尾并返回最后一个元素
@@ -548,9 +388,6 @@ reverse()方法反转数组中的元素,也是按照字符串顺序对值排序,
 还可以随机排序
 例：points.sort(function(a, b){return 0.5 - Math.random()});
 
-
-
-
 Javascript for-each循环
 for-in
 使用for-in可以遍历数组,但是会存在以下问题：
@@ -578,9 +415,9 @@ replace() 方法返回模式被替换处修改后的字符串。
 var res = str.replace("Microsoft", "W3School");//将Microsoft替换为W3School
 
 修饰符
-i	执行对大小写不敏感的匹配。	
-g	执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。	
-m	执行多行匹配。
+i 执行对大小写不敏感的匹配。
+g 执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。
+m 执行多行匹配。
 JavaScript作用域
 JavaScript 拥有函数作用域：每个函数创建一个新的作用域。
 作用域决定了这些变量的可访问性（可见性）。
@@ -630,36 +467,36 @@ JavaScript this 关键词指的是它所属的对象。
 在事件中,this 指的是接收事件的元素。
 
 javascript版本
-版本		官方名称	描述
-1	ECMAScript 1 (1997)	第一版。
-2	ECMAScript 2 (1998)	只改变编辑方式。
-3	ECMAScript 3 (1999)	•	添加了正则表达式。
-•	添加了 try/catch。
-4	ECMAScript 4	从未发布过。
-5	ECMAScript 5 (2009)
+版本  官方名称 描述
+1 ECMAScript 1 (1997) 第一版。
+2 ECMAScript 2 (1998) 只改变编辑方式。
+3 ECMAScript 3 (1999) • 添加了正则表达式。
+• 添加了 try/catch。
+4 ECMAScript 4 从未发布过。
+5 ECMAScript 5 (2009)
 阅读更多：JS ES5
-•	添加了“严格模式”。
-•	添加了 JSON 支持。
-•	添加了 String.trim()。
-•	添加了 Array.isArray()。
-•	添加了数组迭代方法。
-5.1	ECMAScript 5.1 (2011)	编辑改变。
-6	ECMAScript 2015
+• 添加了“严格模式”。
+• 添加了 JSON 支持。
+• 添加了 String.trim()。
+• 添加了 Array.isArray()。
+• 添加了数组迭代方法。
+5.1 ECMAScript 5.1 (2011) 编辑改变。
+6 ECMAScript 2015
 阅读更多：JS ES6
-•	添加了 let 和 const
-•	添加了默认参数值
-•	添加了 Array.find()
-•	添加了 Array.findIndex()
-7	ECMAScript 2016	•	添加了指数运算符（**）。
-•	添加了 Array.prototype.includes。
-8	ECMAScript 2017	•	添加了字符串填充。
-•	添加了新的 Object 属性。
-•	添加了异步功能。
-•	添加了共享内存。
-9	ECMAScript 2018	•	添加了 rest / spread 属性。
-•	添加了异步迭代。
-•	添加了 Promise.finally()。
-•	增加 RegExp。
+• 添加了 let 和 const
+• 添加了默认参数值
+• 添加了 Array.find()
+• 添加了 Array.findIndex()
+7 ECMAScript 2016 • 添加了指数运算符（**）。
+• 添加了 Array.prototype.includes。
+8 ECMAScript 2017 • 添加了字符串填充。
+• 添加了新的 Object 属性。
+• 添加了异步功能。
+• 添加了共享内存。
+9 ECMAScript 2018 • 添加了 rest / spread 属性。
+• 添加了异步迭代。
+• 添加了 Promise.finally()。
+• 增加 RegExp。
 
 ECMAScript 通常缩写为 ES。
 所有浏览器都完全支持 ECMAScript 3。
@@ -667,39 +504,39 @@ ECMAScript 通常缩写为 ES。
 
 JavaScript版本ES5
 新特性
-•	"use strict" 指令
-•	String.trim()
-•	Array.isArray()
-•	Array.forEach()
-•	Array.map()
-•	Array.filter()
-•	Array.reduce()
-•	Array.reduceRight()
-•	Array.every()
-•	Array.some()
-•	Array.indexOf()
-•	Array.lastIndexOf()
-•	JSON.parse()
-•	JSON.stringify()
-•	Date.now()
-•	属性 Getter 和 Setter
-•	新的对象属性和方法
+• "use strict" 指令
+• String.trim()
+• Array.isArray()
+• Array.forEach()
+• Array.map()
+• Array.filter()
+• Array.reduce()
+• Array.reduceRight()
+• Array.every()
+• Array.some()
+• Array.indexOf()
+• Array.lastIndexOf()
+• JSON.parse()
+• JSON.stringify()
+• Date.now()
+• 属性 Getter 和 Setter
+• 新的对象属性和方法
 
 JavaScript版本ES6
 新特性
-•	 let
-•	const
-•	幂 (**)
-•	默认参数值
-•	Array.find()
-•	Array.findIndex()
-•	set和map数据结构
-•	promise对象
-•	Generator 函数
-•	symbol
-•	箭头函数
-•	Class（类）
-•	module（模块）
+•  let
+• const
+• 幂 (**)
+• 默认参数值
+• Array.find()
+• Array.findIndex()
+• set和map数据结构
+• promise对象
+• Generator 函数
+• symbol
+• 箭头函数
+• Class（类）
+• module（模块）
 
 箭头函数
 箭头函数表达式的语法比函数表达式更简洁,并且没有自己的this,arguments,super或new.target。箭头函数表达式更适用于那些本来需要匿名函数的地方,并且它不能用作构造函数。
@@ -731,18 +568,7 @@ Promise.race 方法同样是将多个 Promise 实例,包装成一个新的 Promi
 promise.finally()
 无论如何最终都会执行的语句,类似Java多线程
 
- 
-
 JavaScript对象
-
-
-
-
-
-
-
-
-
 
 JavaScript函数
 匿名函数（没有名称的函数）
@@ -784,27 +610,16 @@ call的参数还需要根据调用的函数所需参数决定。
 
 注：call 和apply存在于每一个方法中。
 
-
-
-
-
-
-
-
- 
-
 HTML DOM
 DOM 是Document Object Model( 文档对象模型 )的缩写。
 DOM是把html里面的各种数据当作对象进行操作的一种思路。
 比如一个超链,作为一个DOM对象,就可以使其隐藏,修改其href指向的地址。
- 
-
 
 获取节点
-document.getElementById	通过id获取元素节点	
-document.getElementsByTagName	通过标签名称获取元素节点	
-document.getElementsByClassName	通过类名获取元素节点	
-document.getElementsByName	通过表单元素的name获取元素节点
+document.getElementById 通过id获取元素节点
+document.getElementsByTagName 通过标签名称获取元素节点
+document.getElementsByClassName 通过类名获取元素节点
+document.getElementsByName 通过表单元素的name获取元素节点
 表单元素都有name属性,通过getElementsByName可以根据name属性的值,获取元素节点。
 获取属性节点
 获取元素节点,然后通过元素节点的attributes获取其下所有的属性节点。
@@ -812,7 +627,7 @@ document.getElementsByName	通过表单元素的name获取元素节点
 如果要获取一个指定属性的值,可以采用如下风格,as表示所有的属性,as["id"]取出名称是id的属性
 as["id"].nodeValue
 <html>
-   
+
 <div id="d1" align="center" class="abc">hello HTML DOM</div>
 <script>
 var  div1 = document.getElementById("d1");
@@ -827,17 +642,17 @@ document.write(as[i].nodeValue);
 }
 document.write("<br>");
 document.write("div的id属性值是："+ as["id"].nodeValue);
- 
+
 </script>
 </html>
 
 获取内容节点
 获取元素节点,然后通过childNodes获取其所有的子节点。 其中第一个子节点,就是其内容节点。然后借助nodeName和nodeValue把内容节点的名称和值打印出来。
-setTimeout() 
+setTimeout()
 setTimeout() 方法用于在指定的毫秒数后调用函数或计算表达式。
 setTimeout(code,millisec)
-code	必需。要调用的函数后要执行的 JavaScript 代码串。
-millisec	必需。在执行代码前需等待的毫秒数。
+code 必需。要调用的函数后要执行的 JavaScript 代码串。
+millisec 必需。在执行代码前需等待的毫秒数。
 调用该方法后,code里的内容进入任务列队,会等到millisec之后再一起执行。
 clearTimeout()
 用于取消setTimeout()
@@ -847,18 +662,17 @@ setinterval()是定时调用的函数,可按照指定的周期（以毫秒计）
 setInterval() 方法会不停地调用函数,直到 clearInterval() 被调用或窗口被关闭。
 setInterval(function,interval,[arg1,arg2,......argn])//默认语法,interval设置间隔时间。之后的参数为传入function的值。
 节点属性
-nodeName	节点名称	
-nodeValue	节点值	
-nodeType		节点类型	
-innerHTML	元素的文本内容	
+nodeName 节点名称
+nodeValue 节点值
+nodeType  节点类型
+innerHTML 元素的文本内容
 id
 value
-className	元素上的属性
+className 元素上的属性
 
 节点类型
 nodeType表示一个节点的类型
 不同的节点类型,对应的节点类型值是不一样的
- 
 
 元素文本内容
 修改与获取内容的值可以通过 childNodes[0].nodeValue进行；还有个简便办法就是通过innerHTML进行。 效果是一样的。
@@ -877,26 +691,26 @@ DOM元素样式
 注：Javascript并不提供这样的解决方案,但是到了JQuery就提供了这样的解决方案
 
 DOM 事件
-onfocus			获取焦点事件
-onblur			失去焦点事件	
-onmousedown	鼠标按下事件	
-onmouseup		鼠标弹起事件	
-onmousemove	鼠标经过事件	注：每次移动都会触发
-onmouseover		鼠标进入事件
-onmouseout		鼠标离开事件
-onkeydown		键盘按下事件	
-onkeypress		键盘按下事件	
-onkeyup			键盘弹起事件	
-onclick			单击事件	注1：在组件上,按下空格或则回车键也可以造成单击的效果,但是却不能造成双击的效果
-ondblclick		双击事件	
-onchange			变化事件	注：对于输入框而言,只有在失去焦点的时候,才会触发 
-onsubmit			提交事件	
-onload			加载事件	
-this				当前组件	this表示触发事件的组件,可以在调用函数的时候,作为参数传进去
-return false		阻止事件的发生
+onfocus   获取焦点事件
+onblur   失去焦点事件
+onmousedown 鼠标按下事件
+onmouseup  鼠标弹起事件
+onmousemove 鼠标经过事件 注：每次移动都会触发
+onmouseover  鼠标进入事件
+onmouseout  鼠标离开事件
+onkeydown  键盘按下事件
+onkeypress  键盘按下事件
+onkeyup   键盘弹起事件
+onclick   单击事件 注1：在组件上,按下空格或则回车键也可以造成单击的效果,但是却不能造成双击的效果
+ondblclick  双击事件
+onchange   变化事件 注：对于输入框而言,只有在失去焦点的时候,才会触发
+onsubmit   提交事件
+onload   加载事件
+this    当前组件 this表示触发事件的组件,可以在调用函数的时候,作为参数传进去
+return false  阻止事件的发生
 
-DOM	节点关系
- 
+DOM 节点关系
+
 <div id="parentDiv">
  <div id="d1">第一个div</div>
  <div id="d2">第二个div</div>
@@ -916,18 +730,18 @@ childNodes和children的区别
 childNodes和children都可以获取一个元素节点的子节点。
 childNodes 会包含文本节点；children 会排除文本节点
 创建节点
-createElement		创建元素节点	例：var hr=document.createElement("hr");注：标签类型用双引号
-appendChild 		添加子节点		div1.appendChild(hr);
-createTextNode	创建文本节点	可加入到文本型节点如<p>里作为值
-createAttribute	创建属性节点	然后用setAttributeNode把该属性设置到元素节点a上
+createElement  创建元素节点 例：var hr=document.createElement("hr");注：标签类型用双引号
+appendChild   添加子节点  div1.appendChild(hr);
+createTextNode 创建文本节点 可加入到文本型节点如<p>里作为值
+createAttribute 创建属性节点 然后用setAttributeNode把该属性设置到元素节点a上
 var href = document.createAttribute("href");
-  href.nodeValue="http://12306.com";
+  href.nodeValue="<http://12306.com>";
   a.setAttributeNode(href);
 
 删除节点
-removeChild		删除元素节点	
-removeAttribute	删除属性节点	
-removeChild		删除文本节点
+removeChild  删除元素节点
+removeAttribute 删除属性节点
+removeChild  删除文本节点
 要删除某个元素节点有两步
 第一：先获取该元素的父节点
 第二：通过父节点,调用removeChild 删除该节点
@@ -935,6 +749,7 @@ removeChild		删除文本节点
 第一：先获取该元素节点
 第二：元素节点,调用removeAttribute删除指定属性节点
 删除文本节点
+
 1. 通过childNodes[0] 获取文本节点
 注:children[0] 只能获取第一个子元素节点,不能获取文本节点
 1. 通过removeChild删除该文本节点
@@ -942,10 +757,9 @@ removeChild		删除文本节点
 注: 通过innerHTML=""的方式,同样会导致文本子节点被删除。
 parentDiv.innerHTML="";
 
-
-
 替换节点
 替换节点也需要先获取父节点,然后通过父节点替换子节点。
+
 1. 获取父节点
 2. 创建子节点
 3. 获取被替换子节点
@@ -954,14 +768,9 @@ parentDiv.innerHTML="";
 parentNode.replaceChild(kept,replaced);
 
 插入节点
-appendChild	追加节点	只能加在最后面
-insertBefore	在前方插入节点	在指定位置插入节点
-parentNode.insertBefore(d25,d3);	//将d25节点插入到d3节点前
-
-
-
-
- 
+appendChild 追加节点 只能加在最后面
+insertBefore 在前方插入节点 在指定位置插入节点
+parentNode.insertBefore(d25,d3); //将d25节点插入到d3节点前
 
 JSON
 JSON JavaScript 对象表示法（JavaScript Object Notation） 是一种存储数据的方式。JSON 格式是纯文本
@@ -976,14 +785,6 @@ JSON 数组在方括号中书写。
 var array = ‘{“arrayname”:[‘+'{"firstName":"Bill","lastName":"Gates" },' +
 '{"firstName":"Steve","lastName":"Jobs" },' +
 '{"firstName":"Elon","lastName":"Musk" }]}';
-
-
-
-
-
-
-
-
 
 cookie和session的区别和用法
 存储位置：cookie数据存放在客户的浏览器上,session数据放在服务器上。
@@ -1004,7 +805,7 @@ Token,其实就是服务端生成的一串加密字符串,储存在本地用于�
 3、资源引入gzip压缩:它的工作原理是在发送HTML和CSS文件到浏览器之前压缩文件大小
 4、异步脚本:网页负载就不必依赖于这些异步脚本
 5、网络原理内容分发网络（CDN）:CDN是位于不同地理位置的服务器组成的网络。每个服务器都拥有所有网站的文件副本。有网站访问者请求文件和网页时就可以直接从就近网站服务器发送过来（也可以是从负载最小的服务器）
-6、优化JavaScript、HTML和CSS:删除所有不必要的空	格和注释从而减小文件大小
+6、优化JavaScript、HTML和CSS:删除所有不必要的空 格和注释从而减小文件大小
 7、资源引入置于顶部的样式表和底部的脚本
 8、资源引入避免阻塞型的JavaScript和CSS
 9、资源引入JavaScript的延迟解析
@@ -1073,43 +874,43 @@ etag: 是基于资源的内容编码生成的一串唯一的标识字符串,启�
 源：如果两个页面（接口）的协议,端口或者域名都相同,那么两个页面就有相同的源。
 浏览器为了安全会限制跨域http请求
 解决方案
-1、	CORS
+1、 CORS
 （Cross-Origin Resource Sharing）,跨域资源共享
 当使用XMLHttpRequest发送请求时,如果浏览器发现请求违反了同源策略就会自动加上一个额外的http请求头 origin；后端在接受到请求后确定响应后会在 Response Headers 中加入一个属性 Access-Control-Allow-Origin；浏览器判断响应中的 Access-Control-Allow-Origin 值是否和当前的地址相同,匹配成功后才继续响应处理,否则报错
 缺点：忽略 cookie,浏览器版本有一定要求
-2、	代理
+2、 代理
 服务端请求不会跨域的特性；
 前端向服务器发送请求,经过代理,请求需要的服务器资源,让接口和当前站点同域。
 缺点：需要额外的代理服务器
-3、	JSONP等
+3、 JSONP等
 标签能跨域加载资源的特性,但是js读不到其中的内容。<script src="..."></script>,<img>,<link>,<iframe>等。代表为JSONP：通过动态创建<script src=”anotherOrigin”>,再请求一个带参网址实现跨域通信。缺点：易受xss攻击,只能用get请求
 例：<script>
  var script = document.createElement('script');
-    script.type = 'text/javascript';   
+    script.type = 'text/javascript';
  // 传参并指定回调执行函数为onBack
  script.src = 'http://www.domain2.com:8080/
-              login?user=admin&callback=onBack';    
- document.head.appendChild(script);    
+              login?user=admin&callback=onBack';
+ document.head.appendChild(script);
  // 回调执行函数
     function onBack(res) {
         alert(JSON.stringify(res));
     } </script>
-4、	websocket
-	客户端和服务器之间存在持久的连接,而且双方都可以随时开始发送数据,绕过http协议。发送给后端,利用后端代理
-5、	location.href	location.href不受浏览器跨域限制
-6、	postMessage
+4、 websocket
+ 客户端和服务器之间存在持久的连接,而且双方都可以随时开始发送数据,绕过http协议。发送给后端,利用后端代理
+5、 location.href location.href不受浏览器跨域限制
+6、 postMessage
 window.postMessage(message,targetOrigin) 方法是html5新引进的特性,可以使用它来向其它的window对象发送消息,无论这个window对象是属于同源或不同源
 
-
 js内存泄漏
-1.	闭包
-2.	全局变量
-3.	定时器如setInterval
-4.	递归的终止条件
-5.	while(true)等代码终止条件
+
+1. 闭包
+2. 全局变量
+3. 定时器如setInterval
+4. 递归的终止条件
+5. while(true)等代码终止条件
 router实现原理
-1.	Hash路由	利用url上hash的改变,以#开头
-2.	history路由	基于html5规范,利用history.pushState || history.replaceState 来进行路由控制。
+1. Hash路由 利用url上hash的改变,以#开头
+2. history路由 基于html5规范,利用history.pushState || history.replaceState 来进行路由控制。
 JavaScript&DOM
 javascript放置位置
 在 HTML 中,JavaScript 代码必须位于 <script> 与 </script> 标签之间。
@@ -1148,7 +949,7 @@ reverse()
 forEach()
 不会改变原数组的方法,即返回新数组
 filter()
-concat() 
+concat()
 slice()
 map()
 
@@ -1198,8 +999,9 @@ this的指向
 当函数被用作事件处理函数时,它的 this 指向触发事件的元素。
 当代码被内联 on-event 处理函数 调用时,它的this指向监听器所在的DOM元素
 获取所有节点
-1.	获取根节点html
-2.	获取html的所有子节点
+
+1. 获取根节点html
+2. 获取html的所有子节点
 img加载失败时显示默认图片
 <img src="图片的url地址" alt="图片XX" onerror="this.src='默认图片的url地址'"/>
 除此之外,还可通过onerror设置各种img样式,方法等
@@ -1208,51 +1010,52 @@ Webpack
 webpack是一个前端模块化方案,更侧重模块打包,我们可以把开发中的所有资源（图片、js文件、css文件等）都看成模块,通过loader（加载器）和plugins（插件）对资源进行处理,打包成符合生产环境部署的前端资源。
 HTML
 元素
-<html>	HTML <html> 元素 表示一个HTML文档的根（顶级元素）,所以它也被称为根元素。所有其他元素必须是此元素的后代。
-<head>	HTML head 元素 规定文档相关的配置信息（元数据）,包括文档的标题,引用的文档样式和脚本等。
+
+<html> HTML <html> 元素 表示一个HTML文档的根（顶级元素）,所以它也被称为根元素。所有其他元素必须是此元素的后代。
+<head> HTML head 元素 规定文档相关的配置信息（元数据）,包括文档的标题,引用的文档样式和脚本等。
 <body> 元素定义了 HTML 文档的主体。这个元素拥有一个开始标签 <body>,以及一个结束标签 </body>。
-<link>	HTML外部资源链接元素 (<link>) 规定了当前文档与外部资源的关系。该元素最常用于链接样式表,此外也可以被用来创建站点图标(比如PC端的“favicon”图标和移动设备上用以显示在主屏幕的图标) 。
-<meta>	HTML <meta> 元素表示那些不能由其它 HTML 元相关（meta-related）元素（(base、link, script、style 或 title）之一表示的任何Metadata信息。
-<style>	HTML的<style>元素包含文档的样式信息或者文档的部分内容。默认情况下,该标签的样式信息通常是CSS的格式。
-<title>	HTML <title> 元素 定义文档的标题,显示在Browser的标题栏或标签页上。它只应该包含文本,若是包含有标签,则它包含的任何标签都将被忽略。
-<nav>	HTML <nav>元素表示页面的一部分,其目的是在当前文档或其他文档中提供导航链接。导航部分的常见示例是菜单,目录和索引。
+<link> HTML外部资源链接元素 (<link>) 规定了当前文档与外部资源的关系。该元素最常用于链接样式表,此外也可以被用来创建站点图标(比如PC端的“favicon”图标和移动设备上用以显示在主屏幕的图标) 。
+<meta> HTML <meta> 元素表示那些不能由其它 HTML 元相关（meta-related）元素（(base、link, script、style 或 title）之一表示的任何Metadata信息。
+<style> HTML的<style>元素包含文档的样式信息或者文档的部分内容。默认情况下,该标签的样式信息通常是CSS的格式。
+<title> HTML <title> 元素 定义文档的标题,显示在Browser的标题栏或标签页上。它只应该包含文本,若是包含有标签,则它包含的任何标签都将被忽略。
+<nav> HTML <nav>元素表示页面的一部分,其目的是在当前文档或其他文档中提供导航链接。导航部分的常见示例是菜单,目录和索引。
 文本内容
-<li>	HTML <li> 元素 （或称 HTML 列表条目元素） 用于表示列表里的条目。它必须包含在一个父元素里：一个有序列表(ol),一个无序列表(ul),或者一个菜单 (menu)。在菜单或者无序列表里,列表条目通常用点排列显示；在有序列表里,列表条目通常在左边显示按升序排列的计数,例如数字或者字母。
-<div>	HTML <div> 元素 (或 HTML 文档分区元素) 是一个通用型的流内容容器,在不使用CSS的情况下,其对内容或布局没有任何影响。
-<ol>	HTML <ol> 元素表示有序列表,通常渲染为一个带编号的列表。
+<li> HTML <li> 元素 （或称 HTML 列表条目元素） 用于表示列表里的条目。它必须包含在一个父元素里：一个有序列表(ol),一个无序列表(ul),或者一个菜单 (menu)。在菜单或者无序列表里,列表条目通常用点排列显示；在有序列表里,列表条目通常在左边显示按升序排列的计数,例如数字或者字母。
+<div> HTML <div> 元素 (或 HTML 文档分区元素) 是一个通用型的流内容容器,在不使用CSS的情况下,其对内容或布局没有任何影响。
+<ol> HTML <ol> 元素表示有序列表,通常渲染为一个带编号的列表。
 内联文本语义
 使用 HTML 内联文本语义（Inline text semantics）定义一个单词、一行内容,或任意文字的语义、结构或样式。
-<a>	HTML <a> 元素（或称锚元素）可以创建通向其他网页、文件、同一页面内的位置、电子邮件地址或任何其他 URL 的超链接。
-<b>	HTML提醒注意（Bring Attention To）元素（<b>）用于吸引读者的注意到该元素的内容上（如果没有另加特别强调）。这个元素过去被认为是粗体（Boldface）元素,并且大多数浏览器仍然将文字显示为粗体。尽管如此,你不应将 <b> 元素用于显示粗体文字；替代方案是使用 CSS font-weight 属性来创建粗体文字。
-<br>	HTML <br> 元素在文本中生成一个换行（回车）符号。此元素在写诗和地址时很有用,这些地方的换行都非常重要。
-<code>	HTML <code> 元素呈现一段计算机代码. 默认情况下, 它以浏览器的默认等宽字体显示.
-<i>	HTML元素 <i> 用于表现因某些原因需要区分普通文本的一系列文本。例如技术术语、外文短语或是小说中人物的思想活动等,它的内容通常以斜体显示。
-<span>	HTML <span> 元素是短语内容的通用行内容器,并没有任何特殊语义。可以使用它来编组元素以达到某种样式意图（通过使用类或者Id属性）,或者这些元素有着共同的属性,比如lang。应该在没有其他合适的语义元素时才使用它。<span> 与 div 元素很相似,但 div 是一个 块元素 而 <span> 则是 行内元素 .
-<strong>	Strong 元素 (<strong>)表示文本十分重要,一般用粗体显示。
+<a> HTML <a> 元素（或称锚元素）可以创建通向其他网页、文件、同一页面内的位置、电子邮件地址或任何其他 URL 的超链接。
+<b> HTML提醒注意（Bring Attention To）元素（<b>）用于吸引读者的注意到该元素的内容上（如果没有另加特别强调）。这个元素过去被认为是粗体（Boldface）元素,并且大多数浏览器仍然将文字显示为粗体。尽管如此,你不应将 <b> 元素用于显示粗体文字；替代方案是使用 CSS font-weight 属性来创建粗体文字。
+<br> HTML <br> 元素在文本中生成一个换行（回车）符号。此元素在写诗和地址时很有用,这些地方的换行都非常重要。
+<code> HTML <code> 元素呈现一段计算机代码. 默认情况下, 它以浏览器的默认等宽字体显示.
+<i> HTML元素 <i> 用于表现因某些原因需要区分普通文本的一系列文本。例如技术术语、外文短语或是小说中人物的思想活动等,它的内容通常以斜体显示。
+<span> HTML <span> 元素是短语内容的通用行内容器,并没有任何特殊语义。可以使用它来编组元素以达到某种样式意图（通过使用类或者Id属性）,或者这些元素有着共同的属性,比如lang。应该在没有其他合适的语义元素时才使用它。<span> 与 div 元素很相似,但 div 是一个 块元素 而 <span> 则是 行内元素 .
+<strong> Strong 元素 (<strong>)表示文本十分重要,一般用粗体显示。
 图片和多媒体
-<img>	HTML <img> 元素将一份图像嵌入文档
-<video>	HTML <video> 元素 用于在HTML或者XHTML文档中嵌入媒体播放器,用于支持文档内的视频播放。
-<audio>	HTML <audio> 元素用于在文档中嵌入音频内容。 <audio> 元素可以包含一个或多个音频资源, 这些音频资源可以使用 src 属性或者source 元素来进行描述：浏览器将会选择最合适的一个来使用。也可以使用 MediaStream 将这个元素用于流式媒体。
+<img> HTML <img> 元素将一份图像嵌入文档
+<video> HTML <video> 元素 用于在HTML或者XHTML文档中嵌入媒体播放器,用于支持文档内的视频播放。
+<audio> HTML <audio> 元素用于在文档中嵌入音频内容。 <audio> 元素可以包含一个或多个音频资源, 这些音频资源可以使用 src 属性或者source 元素来进行描述：浏览器将会选择最合适的一个来使用。也可以使用 MediaStream 将这个元素用于流式媒体。
 内嵌内容
 表格内容
 表单元素
 name属性主要是表单元素里才有的属性。与id都可以标识元素,但name可以重复,且
-<button>	HTML <button> 元素表示一个可点击的按钮,可以用在表单或文档其它需要使用简单标准按钮的地方。
-<form>	HTML <form> 元素表示文档中的一个区域,此区域包含交互控件,用于向 Web 服务器提交信息。
-<input>	HTML <input> 元素用于为基于Web的表单创建交互式控件,以便接受来自用户的数据; 可以使用各种类型的输入数据和控件小部件,具体取决于设备和user agent。
-<label>	HTML <label> 元素（标签）表示用户界面中某个元素的说明。
-<output>	HTML <output> 标签表示计算或用户操作的结果。
+<button> HTML <button> 元素表示一个可点击的按钮,可以用在表单或文档其它需要使用简单标准按钮的地方。
+<form> HTML <form> 元素表示文档中的一个区域,此区域包含交互控件,用于向 Web 服务器提交信息。
+<input> HTML <input> 元素用于为基于Web的表单创建交互式控件,以便接受来自用户的数据; 可以使用各种类型的输入数据和控件小部件,具体取决于设备和user agent。
+<label> HTML <label> 元素（标签）表示用户界面中某个元素的说明。
+<output> HTML <output> 标签表示计算或用户操作的结果。
 
 HTML 提示：使用小写标签
 HTML 标签对大小写不敏感：<P> 等同于 <p>。许多网站都使用大写的 HTML 标签。
 HTML5
 新元素
-<article>		定义文档内的文章。
-<footer>		定义文档或节的页脚。
-<header>	定义文档或节的页眉。
-<audio>		定义音频内容
-<video> 	标签定义视频,比如电影片段或其他视频流
-<canvas>	定义图形,比如图表和其他图像,标签只是图形容器,您必须使用脚本来绘制图形
+<article>  定义文档内的文章。
+<footer>  定义文档或节的页脚。
+<header> 定义文档或节的页眉。
+<audio>  定义音频内容
+<video>  标签定义视频,比如电影片段或其他视频流
+<canvas> 定义图形,比如图表和其他图像,标签只是图形容器,您必须使用脚本来绘制图形
 拖放特性：拖放是一种常见的特性,即抓取对象以后拖到另一个位置。在 HTML5 中,拖放是标准的一部分,任何元素都能够拖放。
 新的 Input 类型 date,number,email。
 CSS
@@ -1314,11 +1117,6 @@ CSS width 属性指定元素内容区域的宽度。内容区域是元素（盒�
 因此,如果元素拥有指定的宽度,则添加到该元素的内边距会添加到元素的总宽度中。这通常是不希望的结果。即总宽度=元素指定宽度+2*内边距
 若要元素指定宽度保持不变,无论填充量如何,那么您可以使用 box-sizing：border-box 属性。这将导致元素保持其宽度。如果增加内边距,则可用的内容空间会减少。
 
-
-
-
-
-
 JAVASCRIPTE
 js隐式转换数据
 · 1.1 隐式转换介绍
@@ -1327,30 +1125,30 @@ js隐式转换数据
 · 1.4 坑二：关系运算符：会把其他数据类型转换成number之后再比较关系
 · 1.5 坑三：复杂数据类型在隐式转换时会先转成String,然后再转成Number运算
 · 1.6-坑四：逻辑非隐式转换与关系运算符隐式转换搞混淆
-值	转换为字符串	转换为数字	转换为布尔值	转换为对象
-undefined	“undefined”	NaN	false	throw TypeError
-null	“null”	0	false	throw TypeError
-true	“true”	1		new Boolean(“true”)
-false	“false”	0		new Boolean(“false”)
-“”		0	false	new String("")
-“1.2”		1.2	true	new String(“1.2”)
-“1.2a”		NaN	true	new String(“1.2a”)
-“aaa”		NaN	true	new String(“aaa”)
-0	“0”		false	new Number(0)
--0	“0”		false	new Number(-0)
-1	“1”		true	new Number(1)
-NaN	“NaN”		false	new Number(NaN)
-Infinity	“Infinity”		true	new Number(Infinity)
-[]	“”	0	true	
-[9]	“9”	9	true	
-[“a”, “b”]	“a,b”	NaN	true	
+值 转换为字符串 转换为数字 转换为布尔值 转换为对象
+undefined “undefined” NaN false throw TypeError
+null “null” 0 false throw TypeError
+true “true” 1  new Boolean(“true”)
+false “false” 0  new Boolean(“false”)
+“”  0 false new String("")
+“1.2”  1.2 true new String(“1.2”)
+“1.2a”  NaN true new String(“1.2a”)
+“aaa”  NaN true new String(“aaa”)
+0 “0”  false new Number(0)
+-0 “0”  false new Number(-0)
+1 “1”  true new Number(1)
+NaN “NaN”  false new Number(NaN)
+Infinity “Infinity”  true new Number(Infinity)
+[] “” 0 true
+[9] “9” 9 true
+[“a”, “b”] “a,b” NaN true
 
-prototype、constructor、__proto__
+prototype、constructor、**proto**
 ①__proto__和constructor属性是对象所独有的；② prototype属性是函数所独有的,因为函数也是一种对象,所以函数也拥有__proto__和constructor属性。
 __proto__属性的作用就是当访问一个对象的属性时,如果该对象内部不存在这个属性,那么就会去它的__proto__属性所指向的那个对象（父对象）里找,一直找,直到__proto__属性的终点null,再往上找就相当于在null上取值,会报错。通过__proto__属性将对象连接起来的这条链路即我们所谓的原型链。
-prototype属性的作用就是让该函数所实例化的对象们都可以找到公用的属性和方法,即f1.__proto__ === Foo.prototype。
+prototype属性的作用就是让该函数所实例化的对象们都可以找到公用的属性和方法,即f1.**proto** === Foo.prototype。
 constructor属性的含义就是指向该对象的构造函数,所有函数（此时看成对象了）最终的构造函数都指向Function。
- 
+
 JS继承的实现方式
 每个构造函数都有一个prototype属性,指向函数的原型对象；原型对象中又有一个constructor属性,重新指向构造函数。
 原型链继承
@@ -1373,9 +1171,9 @@ JS继承的实现方式
 核心：结合构造继承与原型链继承。借用构造函数来继承属性,原型链来继承方法。由于是先原型链,所以构造时又重新覆盖了原型的属性。
 
 拷贝继承（原型式继承）
-function object(o){ 
+function object(o){
     function F(){};
-    F.prototype = o; 
+    F.prototype = o;
     return new F();
 
 }
@@ -1384,7 +1182,7 @@ function object(o){
 缺点：改动一个实例的引用类型则所有实例的该引用类型改变。
 
 寄生继承
-核心：封装原型式继承,并在原型式继承返回实例后在实例上修改。最后返回实例 
+核心：封装原型式继承,并在原型式继承返回实例后在实例上修改。最后返回实例
 例：
 function createAnother(original){
     var clone = object(original);//object()函数创建对象
@@ -1396,12 +1194,11 @@ function createAnother(original){
 寄生组合继承
 核心：通过寄生方式,砍掉父类的实例属性,这样,在调用两次父类的构造的时候,就不会初始化两次实例方法/属性,避免的组合继承的缺点
 
-
 闭包
 一个函数和对其周围状态（lexical environment,词法环境）的引用捆绑在一起（或者说函数被引用包围）,这样的组合就是闭包（closure）。也就是说,闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中,每当创建一个函数,闭包就会在函数创建的同时被创建出来。闭包包含在函数创建时作用域中的所有变量。
 函数在定义时的词法作用域以外的地方被调用就会形成闭包。闭包使得函数可以继续访问定义时的词法作用域
 原型链
-每个实例对象（ object ）都有一个私有属性（称之为 __proto__ ）指向它的构造函数的原型对象（prototype ）。该原型对象也有一个自己的原型对象( __proto__ ) ,层层向上直到一个对象的原型对象为 null。根据定义,null 没有原型,并作为这个原型链中的最后一个环节。
+每个实例对象（ object ）都有一个私有属性（称之为 **proto** ）指向它的构造函数的原型对象（prototype ）。该原型对象也有一个自己的原型对象( **proto** ) ,层层向上直到一个对象的原型对象为 null。根据定义,null 没有原型,并作为这个原型链中的最后一个环节。
 作用域
 每个函数都有自己独立的执行环境,在代码完成的时候就确定了自己的作用域。
 执行函数前,会对函数中的关键字var和function进行预解析。就是对变量和函数的声明提前,此时不会给变量赋值,当函数与变量同名时,函数会覆盖掉变量；待变量执行了之后,那个名字才会代表变量。
@@ -1418,9 +1215,9 @@ settimeout是在任务队列清空之后才开始执行,settimeout之间主要�
 
 yield与生成器
 生成器为一种可以用来控制迭代器（iterator）的函数,它可以随时暂停,并可以在任意时候恢复。
-创建生成器：在函数关键词后加*,如function * generator () {}、let generator = function * () {}。
+创建生成器：在函数关键词后加*,如function* generator () {}、let generator = function *() {}。
 yield就是生成器中独特的return,只会返回一次,再次调用时继续执行函数并返回下一个yield。其返回的是一个对象,有两个属性,value和done,value代表应该返回的值,done代表所有yield是否执行完毕,若是则done=true；
-例：function * generator() {
+例：function* generator() {
   yield 5;
 }
 const gen = generator();
@@ -1429,11 +1226,11 @@ gen.next(); // {value: undefined, done: true},之后再执行下一步还是返�
 当然也可以用return返回对象,但return之后的将不再执行。
 yield 委托迭代：yield加*可将它的工作委托给另一个生成器。通过这种方式,你就能将多个生成器连接在一起。
 yield* 是一个表达式,不是语句,所以它会有自己的值。
-yield* g1();//执行并获取g1()中的yield结果,
+yield*g1();//执行并获取g1()中的yield结果,
 yield也可以在 next() 方法调用后返回传递的值
 例：gen.next('A'); // {value: "A", done: false} 执行了 yield（yield）；代码
 我们不仅可以用 next() 来迭代生成器,还可以用 for of 循环来一次得到生成器所有的值（而不是对象）。
-例：function * generator(arr) {
+例：function* generator(arr) {
   for (const el in arr)
     yield el;
 }
@@ -1445,10 +1242,11 @@ Async
 ES7提供的async函数相当于generator函数的语法糖(即高效简化版)
 创建语法：async function(){};//相当于把function后的*换成function前async,将yield替换成await。
 最终会返回成一个promise。
-1.	async函数内部return语句返回的值,会成为then方法回调函数的参数。
-2.	只有async函数内部的异步操作执行完,才会执行then方法指定的回调函数。
-3.	正常情况下,await命令后面是一个Promise对象。如果不是,会被转成一个立即resolve的Promise对象。
-4.	只要一个await语句后面的Promise变为reject,那么整个async函数都会中断执行。
+
+1. async函数内部return语句返回的值,会成为then方法回调函数的参数。
+2. 只有async函数内部的异步操作执行完,才会执行then方法指定的回调函数。
+3. 正常情况下,await命令后面是一个Promise对象。如果不是,会被转成一个立即resolve的Promise对象。
+4. 只要一个await语句后面的Promise变为reject,那么整个async函数都会中断执行。
 await
 await的语句执行完才执行后面的语句
 
@@ -1463,9 +1261,9 @@ javascript 模块（modules）
 一般情况下,事件会从根元素往下传播直到目标元素,这个阶段称为捕捉。到达目标元素之后触发事件,称为目标阶段,之后事件再从目标元素传导到根元素,称为冒泡阶段。事件的默认触发机制为冒泡触发。
 event.stopPropagation()
 阻止事件在DOM中继续传播,即取消进一步的事件捕获或冒泡,防止再触发定义在别的节点上的监听函数,但是不包括在当前节点上新定义的事件监听函数。
-event.target	//事件触发的起源对象
-event.currentTarget	//事件触发的当前对象
-event.srcElement	//event.target的IE版本
+event.target //事件触发的起源对象
+event.currentTarget //事件触发的当前对象
+event.srcElement //event.target的IE版本
 MutationObserver(callback())
 在指定的DOM发生变化时被调用。
 例：// 创建一个观察器实例并传入回调函数
@@ -1498,10 +1296,10 @@ JS会首先判断代码是同步还是异步,同步进入主线程,异步进入�
 即：主线程是微任务,任务队列是宏任务
 事件循环是一个先进先出（FIFO）队列,这说明回调是按照它们被加入队列的顺序执行的。
 
-
 advanced js
-1.  structuredClone() 可以用来拷贝对象,但是不能拷贝函数或者Dom节点;
-2.  下载功能实现
+
+1. structuredClone() 可以用来拷贝对象,但是不能拷贝函数或者Dom节点;
+2. 下载功能实现
 const link = document.createElement('a')
 link.download = fileName
 link.style.display = 'none'
@@ -1512,9 +1310,9 @@ document.body.removeChild(link)
 3. customEvent
 document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' } }))
 全局发送特殊事件
-4. 可通过$any($event.target).value 来规避$event.target.value 的问题 
+4. 可通过$any($event.target).value 来规避$event.target.value 的问题
 5. event.target 对应的type是EventTarget,只有转化为HTMLInputElement才能使用value属性
-6. eventListener 在跳转前一定要销毁,否则可能导致二次进入页面时,一次触发事件多次执行监听函数(5h) 
+6. eventListener 在跳转前一定要销毁,否则可能导致二次进入页面时,一次触发事件多次执行监听函数(5h)
 7. string.prototype.search(regex);会将参数自动转化为regex,若找到返回index,否则返回-1
 8. array.prototype.join()会将数组中的每个元素转化为字符串,然后用逗号拼接起来,返回一个字符串。
 9. array.prototype.toString()会将数组去掉中括号直接转化为字符串,返回一个字符串。
@@ -1524,7 +1322,7 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 13. document.getElementsByTagName('xxx')得到的是一个类数组,不是数组,所以不能用数组的方法,如map,filter,forEach等,可用Array.from()转换成数组。并且必须在dom加载完成后才能获取到dom,否则获取到的是空数组
 14. addEventListener('DOMContentLoaded',()=>{}) 可以在dom树加载完成后执行回调函数
 15. video的src未加载时调用play会报错,所以要先判断video的src是否加载完成,可直接用video.oncanplaythrough来进行加载好后的回调
-16. 比较两个对象是否相等时,最好用 JSON.stringify 来转换成字符串,因为对象的属性是引用类型,如果用 === 比较,会出现不相等的情况。但注意的是,转换成字符串时,会按照字符串的排序来比较,所以如果属性的顺序不一致,就会出现不相等的情况。 
+16. 比较两个对象是否相等时,最好用 JSON.stringify 来转换成字符串,因为对象的属性是引用类型,如果用 === 比较,会出现不相等的情况。但注意的是,转换成字符串时,会按照字符串的排序来比较,所以如果属性的顺序不一致,就会出现不相等的情况。
 17. process.env 获取定义在.env文件内的变量,.env有test,production,development及以上三个环境的变量,可用cross-env来设置环境变量
 18. getElementsByClassName() 方法返回NodeList 对象,不是数组
 19. scrollHeight 元素全部高度;clientHeight:包括padding的可见区域高度;offsetHeight:包括border,滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离,也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离,也就是元素被遮住的宽度;
@@ -1537,17 +1335,18 @@ document.dispatchEvent(new CustomEvent('customEvent', { detail: { name: 'value' 
 26. 在浏览器 debug(未编译的代码),直接打开控制台的 source,在里面直接加断点,通过 cmd+shift+p 搜索文件
 27. refresh 不会销毁组件
 28. Array.prototype.flatMap() 会先使用映射函数映射每个元素,然后将结果压缩成一个新数组。它与 map 和 深度值 1 的 flat 几乎相同,但 flatMap 通常在合并成一种方法的效率更高。
-29.  number.toString(2) 将number转化为二进制字符串
-30.  function.length 返回函数的参数个数
-31.  lambda演算 ℷx.x+1(1) 表示对x的ℷ演算,ℷx声明这是参数为x的ℷ演算,ℷx.x+1表示传入x后返回x+1,ℷx.x(1)表示传入1后返回2
-32.  柯利化,将函数作为参数传入另一个函数。
-33.  parseInt 第二个参数表示进制,2-36,默认为0(根据字符串前缀判断)
-34.  虚拟滚动,只渲染可视区域的dom,其他的dom不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的dom进行渲染
+29. number.toString(2) 将number转化为二进制字符串
+30. function.length 返回函数的参数个数
+31. lambda演算 ℷx.x+1(1) 表示对x的ℷ演算,ℷx声明这是参数为x的ℷ演算,ℷx.x+1表示传入x后返回x+1,ℷx.x(1)表示传入1后返回2
+32. 柯利化,将函数作为参数传入另一个函数。
+33. parseInt 第二个参数表示进制,2-36,默认为0(根据字符串前缀判断)
+34. 虚拟滚动,只渲染可视区域的dom,其他的dom不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的dom进行渲染
 35. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
 36. var let const, var会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let和const不会变量提升,且不可重复声明,const声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是es6新增的
-37. 
+37.function.length 返回函数的参数个数
 
 JS新约
+
 1. javascript代码必须放在script标签中
 script标签可以放在html的任何地方,一般建议放在head标签里
 如果有多段script代码,会按照从上到下,顺序执行,因此引入第三方库的时候,一定要注意顺序
@@ -1556,7 +1355,95 @@ script标签可以放在html的任何地方,一般建议放在head标签里
 4. js 内存管理的垃圾回收算法，最初是引用计数垃圾收集，即当一个对象没有被引用时被回收。现在主流的是标记清除算法，即当一个对象从root不可达时被回收。即全局对象作为root。这样可以避免循环引用的问题。
 5. js 内存模型分为堆，栈，队列，堆用来存储对象，栈用来存储帧，队列用来存储消息。当消息被处理时会被移出队列，并且会创建一个帧，帧中包含了函数的参数，局部变量，返回地址等信息。当函数执行完毕时，帧会被移出栈。若帧中的函数调用了其他函数，则会创建新的帧并压入栈中。直到所有帧都被移出栈，函数执行完毕。开始处理下一个消息。
 6. string.padStart(a,b) 在string前添加字符串b直到整个string长度大于等于a
+7. JavaScript 基本数据类型 undefined,Boolean,Number,String,null,symbol,bigint
+undefined 声明了但未赋值
+Boolean 布尔
+Number 数字
+String 字符串
+null 空对象/对象不存在
+symbol 独一无二的符号,作标识用,当作对象的属性名时,无法被遍历,可以用Object.getOwnPropertySymbols()方法获取,也可以private属性
+BigInt 大整数 可表示2^53-1以上的整数,和number宽松相等,但是不能混用,需要加n,在json里不能直接转化为string,需要加toString()
+undefined
+当一个变量被声明了,却没有赋值的时候,叫做 undefined
+
+Number 数字
+javascript中的Number可以表示十进制,八进制,十六进制整数,浮点数,科学记数法
+var a=10; //十进制
+  var b=012;//第一位是0,表示八进制
+  var c=0xA;//0x开头表示十六进制
+  var d=3.14;//有小数点表示浮点数
+  var e=3.14e2;//使用e的幂表示科学计数法
+
+String 字符串
+与java不同的是,javascript中没有字符的概念,只有字符串,所以单引号和双引号,都用 来表示字符串。
+var 动态类型
+变量的类型是动态的,当值是整数的时候,就是Number类型,当值是字符串的时候,就是String类型
+
+8.4种变量类型判断
+使用typeof来进行判断数据类型
+typeof可以识别出基本类型boolean,number,undefined,string,symbol,bigInt但是不能识别null。不能识别引用数据类型,会把null、array、object统一归为object类型,但是可以识别出function。
+例：console.log(typeof bool); //Boolean
+
+instanceof
+instanceof不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
+但是可以检测出引用类型,如array、object、function,同时对于是使用new声明的类型,它还可以检测出多层继承关系。
+instanceof一般用来检测对象类型,以及继承关系。
+arrname instanceof Array;// return true
+
+constructor
+null、undefined没有construstor属性,因此constructor不能判断undefined和null。
+console.log(arr.constructor === Array);// true
+
+Object.prototype.toString.call
+console.log(Object.prototype.toString.call(num));//[object Number]
+该方法直接返回对应类型的字符串
 
 
+数字转换为字符串
+const a = 123;
+a.toString(); //默认模式为10进制
+a.toString(2)；//将数字a转换为基模式下二进制。
+注意,不能直接用123.toString(),因为这样会被当成小数点,所以要用123..toString()或者123 .toString()或者(123).toString()
+
+转换为数字
+Number()和parseInt()的区别
+Number()和parseInt()一样,都可以用来进行数字的转换
+区别在于,当转换的内容包含非数字的时候,Number() 会返回NaN(Not a Number)
+parseInt() 要看情况,如果以数字开头,就会返回开头的合法数字部分,如果以非数字开头,则返回NaN,并且第二个参数是进制,默认10进制,2-36的整数
+
+数组Array
+
+稀疏数组:数组中的某些位置没有任何值,这时候我们说这个数组是稀疏数组。如[,1,] 有两个元素,第一个元素是一个空槽,是empty;
+
+push,unshift 用于在数组的末尾或者开头插入0个元素,并且返回数组的长度,会修改原数组.
+注意:push和unshift可通过Array.prototype作用在非数组对象上,它会先读取对象的length属性,若没有就设为0,若有则加上新添加的元素长度,然后将新元素加到对应的key为index的属性上(若已存在则覆盖),最后返回新的length属性值。
+例:onst plainObj = {length:5};
+const newlen = Array.prototype.push.call(plainObj, 1, 2); // plainObj: {5: 1, 6: 2, length: 7}; newLen: 7
+
+方法  shift,pop 分别在最开始或末尾的位置删除一个元素,并且返回该元素,会修改原数组
+注意:shift和pop可通过Array.prototype作用在非数组对象上,它会先读取对象的length属性,若没有就设为0,若有则length-1,然后将对应的在length区间内的key-1,最后返回删除的元素(可能为undefined)。
+例:const arrayLike = {
+  length: 3,
+  unrelated: "foo",
+  3: 4,
+  1:2,  
+};
+Array.prototype.shift.call(arrayLike) // undefined
+console.log(arrayLike); // {0: 2, 3: 4, length: 2, unrelated: 'foo'}
+
+连接数组
+var z = x.concat(y); //x必须是数组 返回一个新的数组,包含x和y的所有元素 通过浅复制实现,会保留稀疏数组(null和undefined元素),可concat(y1,y2)同时连接多个数组
+
+分割数组为字符串
+方法 join 通过指定分隔符,返回一个数组的字符串表达,其中空槽被当作undefined,null和undefined元素会被当做空字符串,默认分隔符是逗号
+const x =[3,1,4] y = x.join("@") //3@1@4
+注意:toString()也会将空槽当作undefined,但是不会将null和undefined元素当作空字符串,默认分隔符是逗号
 
 
+对数组的内容进行排序
+x.sort();//默认排序是将元素转换为字符串，然后按照它们的 UTF-16 码元值升序排序。undefined 会被排到末尾并且在空槽前。
+//sort调用了toString()方法,所以排序10及以上的数字需要自定义排序函数
+自定义排序算法
+调用sort函数的时候,把这个比较器函数comparator作为参数传递进去即可,原地排序,不会返回新的数组
+x.sort(comparator);
+compareFunction(a, b) 返回一个number, 小于 0交换,>=0不变;
