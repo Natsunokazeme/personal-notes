@@ -161,7 +161,7 @@ JavaScript 输出
 注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML
 
 JavaScript 赋值
-用 var 再次声明时,若第二次未赋值,其值将仍为之前的值。因为var
+用 var 再次声明时,若第二次未赋值,其值将仍为之前的值。因为 var
 js 中**为幂运算,var x = x** 2; 令 x=x 平方。结果与 Math.pow(x,2)相同
 运算符优先级
 
@@ -1390,3 +1390,11 @@ Array.from() 从类数组对象或者可迭代对象中创建一个新的数组�
 array flat 会去空槽。在非数组对象上调用 flat 需要对象有 length 属性,否则会报错,并根据 length 从键 0 开始按序读键值,当键值不为数组时,会直接将其加入到新数组中,当键值为数组时,会根据 flat 参数 depth 将其展开后加入到新数组中。
 
 14. this 指向,在普通函数和匿名内部,this 是调用时创建的,在箭头函数中,this 是定义时创建的,且不可修改
+15. readOnly 的属性无法通过...展开
+16. 前端模糊查询, 通过 string.includes()判断是否包含来过滤
+17. array.fill(val)是浅拷贝,如果 val 是对象,则每个元素都指向同一个对象,会造成修改一个元素,其他元素也会改变
+18. img 渲染到 canvas,canvas.getContext('2d').drawImage(img,0,0)会报错,因为 img 没有加载完成,可以在 img.onload 里执行 drawImage
+19. canvas 的 toDataURL 方法会将 canvas 转换为 base64 格式的图片
+20. file 类型, file 继承自 blob, input type file
+21. 泛型类型参数,如 T,类似 unknown,但是 unknown 不能赋值给其他类型,而 T 可以,因为 T 是类型参数,而 unknown 是类型,在定义时用 T 占位,实际使用时再传确定的 type
+22. session storage 新页面会深拷贝父页面的 session storage,但是 local storage 不会。每一个页面的 session storage 都是独立的,但是 local storage 是共享的

@@ -198,34 +198,34 @@ domNode
 将子元素挂载到一个不同的 DOM 节点上，这个节点存在于当前组件的层级之外。可用于父组件有 overflow: hidden 或 z-index 样式，但是需要子组件能够在视觉上“跳出”其容器的情况。
 
 forwardRef
- 接收一个渲染函数，React 将会把 ref 当作第二个参数传入这个函数，这样就可以在函数组件内部使用 ref 了。可用于隔代ref获取引用，react不允许ref通过props传递，因为组件上已经有 ref 这个属性,在组件调和过程中，已经被特殊处理，forwardRef出现就是解决这个问题，把ref转发到自定义的forwardRef定义的属性上，让ref，可以通过props传递。
- 例：const NewFather = React.forwardRef((props,ref)=><Father grandRef={ref}  {...props} />  )
+接收一个渲染函数，React 将会把 ref 当作第二个参数传入这个函数，这样就可以在函数组件内部使用 ref 了。可用于隔代 ref 获取引用，react 不允许 ref 通过 props 传递，因为组件上已经有 ref 这个属性,在组件调和过程中，已经被特殊处理，forwardRef 出现就是解决这个问题，把 ref 转发到自定义的 forwardRef 定义的属性上，让 ref，可以通过 props 传递。
+例：const NewFather = React.forwardRef((props,ref)=><Father grandRef={ref} {...props} /> )
 
- 高阶组件 HOC 将组件作为参数，并返回一个新的组件。新的组件会渲染传入的组件，同时还会提供额外的功能。HOC 通常用于代码复用、逻辑抽象和状态抽象。
+高阶组件 HOC 将组件作为参数，并返回一个新的组件。新的组件会渲染传入的组件，同时还会提供额外的功能。HOC 通常用于代码复用、逻辑抽象和状态抽象。
 
- PureComponent 会自动实现 shouldComponentUpdate()，并且浅层对比 props 和 state 的变化。如果没有变化，就不会触发重新渲染。一般用于性能优化，减少render次数但是如果 props 或 state 是复杂数据结构，可能会因为无法检测到变化而产生 bug。
+PureComponent 会自动实现 shouldComponentUpdate()，并且浅层对比 props 和 state 的变化。如果没有变化，就不会触发重新渲染。一般用于性能优化，减少 render 次数但是如果 props 或 state 是复杂数据结构，可能会因为无法检测到变化而产生 bug。
 
- React.memo() 是一个高阶组件，接收两个参数，第一个是组件，第二个是比较更新前后的props控制组件是否渲染的函数，返回true不渲染，false渲染。 memo与 PureComponent 非常类似，但它只会对函数props进行比较。
+React.memo() 是一个高阶组件，接收两个参数，第一个是组件，第二个是比较更新前后的 props 控制组件是否渲染的函数，返回 true 不渲染，false 渲染。 memo 与 PureComponent 非常类似，但它只会对函数 props 进行比较。
 
- Profiler 用于性能检测，检测组件渲染的时间，以及渲染的次数。可用于性能优化。
- Profiler 需要两个参数：第一个参数：是 id，用于表识唯一性的Profiler。第二个参数：onRender回调函数，用于渲染完成，接受渲染参数
+Profiler 用于性能检测，检测组件渲染的时间，以及渲染的次数。可用于性能优化。
+Profiler 需要两个参数：第一个参数：是 id，用于表识唯一性的 Profiler。第二个参数：onRender 回调函数，用于渲染完成，接受渲染参数
 
- createElement 将 JSX 转换为 React 元素。React.createElement(type, [props], [...children])，type 可以是 HTML 标签名、React 组件或者 React.Fragment。props 是一个对象，表示元素的属性。children 是一个数组，表示元素的子元素。如果没有子元素，可以省略这个参数。如果有多个子元素，可以把它们放在一个数组里。如果子元素是一个字符串，可以直接放在 props 里。
+createElement 将 JSX 转换为 React 元素。React.createElement(type, [props], [...children])，type 可以是 HTML 标签名、React 组件或者 React.Fragment。props 是一个对象，表示元素的属性。children 是一个数组，表示元素的子元素。如果没有子元素，可以省略这个参数。如果有多个子元素，可以把它们放在一个数组里。如果子元素是一个字符串，可以直接放在 props 里。
 
- cloneElement 以 element 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。用于代理劫持子元素
+cloneElement 以 element 元素为样板克隆并返回新的 React 元素。返回元素的 props 是将新的 props 与原始元素的 props 浅层合并后的结果。用于代理劫持子元素
 
- createContext 用于创建一个Context对象，createContext对象中，包括用于传递 Context 对象值 value的Provider，和接受value变化订阅的Consumer
+createContext 用于创建一个 Context 对象，createContext 对象中，包括用于传递 Context 对象值 value 的 Provider，和接受 value 变化订阅的 Consumer
 
- useMemo和useCallback的区别，useMemo是缓存计算结果，useCallback是缓存函数，useMemo和useCallback的依赖项都是一个数组
+useMemo 和 useCallback 的区别，useMemo 是缓存计算结果，useCallback 是缓存函数，useMemo 和 useCallback 的依赖项都是一个数组
 
-useContext 可以代替 context.Consumer 来获取 Provider 中保存的 value 值。都得有context.provider，但context.provider中的value值发生变化时，useContext不会重新渲染，需要配合useReducer或者useMemo来实现
+useContext 可以代替 context.Consumer 来获取 Provider 中保存的 value 值。都得有 context.provider，但 context.provider 中的 value 值发生变化时，useContext 不会重新渲染，需要配合 useReducer 或者 useMemo 来实现
 
 React-dom API
-render用于渲染一个react元素，一般react项目我们都用它，渲染根部容器app。
+render 用于渲染一个 react 元素，一般 react 项目我们都用它，渲染根部容器 app。
 ReactDOM.render(element, container[, callback])
 例：ReactDOM.render(
-    < App / >,
-    document.getElementById('app')
+< App / >,
+document.getElementById('app')
 )
 
 createPortal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。createPortal(child, container)。第一个参数（child）是任何可渲染的 React 子元素，例如一个元素，字符串或 fragment。第二个参数（container）是一个 DOM 元素。
@@ -233,16 +233,19 @@ createPortal 提供了一种将子节点渲染到存在于父组件以外的 DOM
 16.setState 会把它的多次调用合成一次，只 render 一次
 17.useEffect 第二个参数[value]表示该值改变且处于 update 时执行
 若为[]则表示只在 mount 和 unmount 时执行
-若无表每一次 update 都执行 
+若无表每一次 update 都执行
 
+49.react 里 hashroute 不能使用 useHistory,可以用 useLocation
 
-49.react里hashroute不能使用useHistory,可以用useLocation
+50.react 里，route 的 element 是一个组件，可以用 children 来获取其子组件，也可以用子 route 来继承其 route，冒号后表 params，可以用 match.params 来获取
 
-50.react里，route的element是一个组件，可以用children来获取其子组件，也可以用子route来继承其route，冒号后表params，可以用match.params来获取
+56.react 没有样式穿透，只有引入 css-module 包才能用 :global(.className)
 
-56.react 没有样式穿透，只有引入css-module包才能用 :global(.className)
+1.  useState 更新会触发组件重新渲染，useRef 可保存变量，不会触发组件重新渲染，也不会重新渲染时丢失
+2.  useEffect 可多处使用
+3.  react 子传父用 props 的回调函数
+4.  创建组件时，没有命令行
 
-1.  useState更新会触发组件重新渲染，useRef可保存变量，不会触发组件重新渲染，也不会重新渲染时丢失
-2.  useEffect可多处使用
-3.  react子传父用props的回调函数
-4.  创建组件时，没有命令行，
+5.  react 写法优化,{a&&template}不推荐,这样 a 为 false 时 template 不计算,也就是不渲染,但也会被创建,占用内存
+6.  react 写法优化 事件绑定时不要用 onClick = {async()=>{}}这样写,因为每次渲染都会创建一个新的函数,可以用 useCallback,useMemo,useRef 等 hook 来优化,或者直接在 jsx 里写 onClick={this.handleClick.bind(this)}这样写,因为 bind 返回的是一个函数,每次渲染都是同一个函数,不会重新创建,也可以用箭头函数,因为箭头函数没有 this,所以不会重新创建,但是这样写会导致每次渲染都会重新绑定事件,所以不推荐
+7.  react 的 useRef 返回一个可变的 ref 对象,其 current 属性被初始化为传入的参数(initialValue),ref 对象的 current 不会随着组件的重新渲染而改变,并且改变 ref 对象的 current 不会引发组件的重新渲染。

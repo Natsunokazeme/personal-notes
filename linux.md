@@ -6,6 +6,9 @@
 6. echo 输出字符串
 7. pkill 杀死指定进程
 8. !! 返回上一条指令
-9. which xxx. linux命令，查看xxx所在路径
-10. whereis xxx. linux命令，查看xxx所在路径
-11. ip addr. linux命令，查看ip地址
+9. which xxx. linux 命令，查看 xxx 所在路径
+10. whereis xxx. linux 命令，查看 xxx 所在路径
+11. ip addr. linux 命令，查看 ip 地址
+12. ｜ : 管道符，将前面的命令的输出作为后面命令的输入, 例如：ls -l | grep "test" //将 ls -l 的输出作为 grep "test"的输入
+13. grep : 搜索文件内容，例如：grep "test" test.txt //搜索 test.txt 中包含 test 的行
+14. xargs : 将前面命令的输出作为后面命令的参数，例如：ls -l | grep "test" | xargs rm //将 ls -l | grep "test"的输出作为 rm 的参数

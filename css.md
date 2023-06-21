@@ -561,14 +561,11 @@ advanced css
 45.  linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
 46.  :target 选择器，选中当前页面的锚点，可用于锚点跳转
 47.  css 变量 用--xxx: value;使用var(--xxx)调用value
-
+48. css 默认继承的属性有 color,font-size 等和文字相关的属性以及 visibility,cursor 等和显示相关的属性
+49.  video 的 videoHeight 和 videoWidth 属性是只读的,且只有在视频加载完成后才能获取到正确的值,即原生视频的大小
 
 
 SCSS
 1. @if 当@if后的条件不返回false 或者 null 时，@if后的代码块会被执行，否则不会被执行
 2. @for 从一个数字开始，到另一个数字结束，每次循环增加一个数字，然后执行代码块
 3. @while 当@while后的条件不返回false 或者 null 时，@while后的代码块会被执行，否则不会被执行
-
-
-
-
