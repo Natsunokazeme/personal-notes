@@ -227,3 +227,5 @@ message$:Observable<string>; 4.管道优先级比三目运算符高,因此若要
 模版变量
 
 rxjs 通过 zonejs 将异步代码包裹成 observable
+
+render2, angular 的渲染器,用于渲染 dom,可用于创建元素,设置属性,添加事件监听器,创建注释,设置样式等
