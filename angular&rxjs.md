@@ -228,4 +228,6 @@ message$:Observable<string>; 4.管道优先级比三目运算符高,因此若要
 
 rxjs 通过 zonejs 将异步代码包裹成 observable
 
+firstValueFrom()方法用于获取 observable 的第一个值,并返回一个 promise 对象,该方法只会获取 observable 的第一个值,并且在获取到第一个值后就会取消订阅,因此该方法只能用于获取单个值,而不能用于获取多个值.
+
 render2, angular 的渲染器,用于渲染 dom,可用于创建元素,设置属性,添加事件监听器,创建注释,设置样式等
