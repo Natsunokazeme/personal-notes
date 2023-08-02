@@ -22,3 +22,7 @@
     7.  图像缓存，即使用浏览器缓存图像,通过设置响应头的 Cache-Control 和 Expires 字段来实现(该方法能缓存比 localStorage 更多的数据并且加载更快)
 10. H.264 是一种视频压缩算法，虽然有损但压缩比大，视频质量损失不大，被广泛使用。H.265 是 H.264 的升级版，压缩比更大，视频质量更好，但是编码速度慢，解码速度快，目前大部分设备不支持 H.265，所以 H.264 仍然是主流。
 11. localStorage 只支持存储字符串，如果要存储对象，需要先将对象转换为字符串，再存储。sessionStorage 也是如此。
+12. 浏览器默认不发送 cookie，需要在请求里设置 withCredentials:true 才会发送 cookie;如果是跨域请求，服务器也需要设置 Access-Control-Allow-Credentials: true, 才能接收到 cookie
+13. nest 需要用 @Res() res: Response 来设置响应头，并且需要用 res.send(re) 来发送响应体re
+14. app.enableCors() 会自动设置 Access-Control-Allow-Origin: \*，Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE,Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+15. scss 

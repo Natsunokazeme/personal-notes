@@ -569,3 +569,11 @@ SCSS
 1. @if 当@if后的条件不返回false 或者 null 时，@if后的代码块会被执行，否则不会被执行
 2. @for 从一个数字开始，到另一个数字结束，每次循环增加一个数字，然后执行代码块
 3. @while 当@while后的条件不返回false 或者 null 时，@while后的代码块会被执行，否则不会被执行
+4. 变量 $xxx: value; 用$xxx调用value
+5. @mixin 定义一个类似方法的混合器，用@include xxx;调用 例：@mixin xxx($xxx){xxx: $xxx;} @include xxx(value);
+
+
+tailwindcss
+1. dark: hover:xxx 用于dark模式下的hover效果, 启用dark模式需要在上层元素上加上class="dark"
+2. 响应式设计 sm md lg xl 2xl //默认最小值 sm: 640px md: 768px lg: 1024px xl: 1280px 2xl: 1536px
+3. custom theme 可以通过在tailwind.config.js中添加theme来自定义主题覆盖tailwind默认主题

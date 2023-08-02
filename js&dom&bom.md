@@ -101,9 +101,9 @@ location.reload();//刷新当前页面
 跳转页面：方法 1：location="/";方法 2：location.assign("/");
 Location 的其他属性
 协议 location.protocol
-主机名 location.hostname
+主域名 location.hostname
 端口号 (默认是 80,没有即表示 80 端口)location.port
-主机加端口号 location.host
+主域名加端口号 location.host
 访问的路径 location.pathname
 锚点 location.hash
 参数列表 location.search
@@ -118,8 +118,8 @@ confirm 返回基本类型的 Boolean true 或者 false
 prompt 输入框//输入框 prompt,用于弹出一个输入框,供用户输入相关信息。 因为弹出的界面并不好看,很有可能和网站的风格不一致,所以很少会在实际工作中用到。
 
 计时器
-setTimeout 只执行一次
-setInterval 不停地重复执行
+setTimeout 只执行一次 setTimeout(函数名, 延迟毫秒数 ); 返回一个计时器 ID,正整数
+setInterval 不停地重复执行 setInterval(函数名, 间隔毫秒数 ); 返回一个计时器 ID,正整数
 clearInterval 终止重复执行
 document.write() 不要在 setInterval 调用的函数中使用 document.write();
 
