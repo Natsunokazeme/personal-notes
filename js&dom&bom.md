@@ -123,20 +123,6 @@ setInterval 不停地重复执行 setInterval(函数名, 间隔毫秒数 ); 返�
 clearInterval 终止重复执行
 document.write() 不要在 setInterval 调用的函数中使用 document.write();
 
-只执行一次
-函数 setTimeout(functionname, 距离开始时间毫秒数 );
-通过 setTimeout 在制定的毫秒数时间后,执行一次 函数 functionname
-本例在 3 秒钟后,打印当前时间。
-document.getElementById 获取 id=time 的 div 元素
-.innerHTML 修改该元素的内容
-
-不停地重复执行
-函数 setInterval(函数名, 重复执行的时间间隔毫秒数 );
-通过 setInterval 重复执行同一个函数,重复的时间间隔由第二个参数指定
-
-终止重复执行
-通过 clearInterval()终止一个不断重复的任务
-
 JavaScript
 javascript 放置位置
 在 HTML 中,JavaScript 代码必须位于 <script> 与 </script> 标签之间。
@@ -175,6 +161,7 @@ js 中**为幂运算,var x = x** 2; 令 x=x 平方。结果与 Math.pow(x,2)相�
 JavaScript 数据类型
 数字会省略可省略的小数,即 34.00 变成 34。
 任何变量均可通过设置值为 undefined 进行清空。其类型也将是 undefined。
+然后js的垃圾回收机制会标识出这个变量,并在下一次垃圾回收时将其回收。
 person = undefined;
 在 JavaScript 中,null 的数据类型是对象,可以通过设置值为 null 清空对象
 Undefined 与 null 的值相等,但类型不相等
@@ -679,7 +666,7 @@ removeChild 删除文本节点
 
 1. 通过 childNodes[0] 获取文本节点
    注:children[0] 只能获取第一个子元素节点,不能获取文本节点
-1. 通过 removeChild 删除该文本节点
+2. 通过 removeChild 删除该文本节点
    但是这种方式比较麻烦,一般都是直接通过 innerHTML 设置为空即可。
    注: 通过 innerHTML=""的方式,同样会导致文本子节点被删除。
    parentDiv.innerHTML="";
