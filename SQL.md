@@ -20,3 +20,19 @@
 20. GROUP BY column1,column2 HAVING condition; // Group the result by column1 and column2, then apply the condition
 21. HAVING // equals to WHERE, used to be combined with functional conditions that WHERE can't be combined with.
 22. 模糊查询 select \* from table where column like '%value%'; value 是要查询的值, %表示任意字符, %value%表示包含 value 的值 和 15 条意义相同
+23. where 和 on 的区别,on 只能用于连接查询,where 可以用于连接查询和普通查询,where 是对查询结果进行过滤,而 on 是对连接的表进行过滤,未找到匹配的行不会出现在结果中,where 是对查询结果进行过滤,未找到匹配的行会出现在结果中
+
+MySQL
+
+1. 下载,直接下载社区版,不用 oracle 账号就行.
+2. 创建账号，默认 root 账号，密码为空，不安全，建议修改密码。
+3. docker 镜像 配置，启动 mysql 容器。
+
+连表查询
+left join right join inner join outer join
+left join 以 left 为主表
+right join 以 right 为主表
+inner join 以两个表的交集为主表
+outer join 以两个表的并集为主表
+select xxx from table1 left join table2 on table1.id = table2.id
+以 table1 为主表，table2 为从表，如果 table2 中的数据没有，那么就显示 null
