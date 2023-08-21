@@ -319,7 +319,7 @@ HTML5标准提供了哪些新的api
 新的input类型 color date datetime datetime-local email
 
 html5有哪些新特性，如何处理html5新标签的浏览器兼容问题，如何区分html和html5？
-1.h5不基于SGML，主要是关于图像、位置、存储、多任务等功能的增加；canvas、video、audio、本地离线存储：localStorage长期存储数据，浏览器关闭后数据不丢失；sessionStorage的数据在浏览器关闭后自动删除；语义化更好的内容元素：article/footer/header/nav/section;表单控件：calendar date、time、email、search；新的技术：webworker、websocket、geolocation
+1.h5不基于SGML，主要是关于图像、位置、存储、多任务等功能的增加；canvas、video、audio、本地离线存储：localStorage长期存储数据，网页关闭后数据不丢失；sessionStorage的数据在网页关闭后自动删除；语义化更好的内容元素：article/footer/header/nav/section;表单控件：calendar date、time、email、search；新的技术：webworker、websocket、geolocation
 因此不需要对dtd进行引用，但是需要doctype来规范浏览器的行为，而html基于sgml，所以需要对dtd进行引用，才能告知浏览器文档使用的文档类型
 2.ie8/7/6支持通过document.createElement方法产生的标签，可以利用这一特性让浏览器支持h5新标签，浏览器支持新标签后还需要添加标签默认的样式，当然也可以使用成熟的框架例
 3.如何区分h5和html：doctype声明、新增的结构元素/功能元素

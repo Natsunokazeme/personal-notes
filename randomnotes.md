@@ -20,13 +20,13 @@
     6.  图像 CDN 加速，即使用 CDN 加速图像加载 后端级别
     7.  图像缓存，即使用浏览器缓存图像,通过设置响应头的 Cache-Control 和 Expires 字段来实现(该方法能缓存比 localStorage 更多的数据并且加载更快)
 9.  H.264 是一种视频压缩算法，虽然有损但压缩比大，视频质量损失不大，被广泛使用。H.265 是 H.264 的升级版，压缩比更大，视频质量更好，但是编码速度慢，解码速度快，目前大部分设备不支持 H.265，所以 H.264 仍然是主流。
-10. localStorage 只支持存储字符串，如果要存储对象，需要先将对象转换为字符串，再存储。sessionStorage 也是如此。
-11. 浏览器默认不发送 cookie，需要在请求里设置 withCredentials:true 才会发送 cookie;如果是跨域请求，服务器也需要设置 Access-Control-Allow-Credentials: true, 才能接收到 cookie
-12. nest 需要用 @Res() res: Response 来设置响应头，并且需要用 res.send(re) 来发送响应体 re
-13. app.enableCors() 会自动设置 Access-Control-Allow-Origin: \*，Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE,Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-14. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;
-15. 创建虚拟机后 要为虚拟机安装执行环境，我以 node 为例，node 版本不能太高，centOS7 不支持，node 版本不能太低，nest 无法执行，推荐 14 版本 node。node 下载安装之后要把 node 添加到环境变量方便所有目录下都能使用，node 版本控制工具 nvm
-16. ping ls kill cd echo code yum node nvm git which Whereis vi sudo !! Mkdir rm ip wget tar service
-17. Linux 分为很多版本，其中 centOS 是 red hat 发行的版本，不同版本的命令和资源库不同，我用的 centOS7
-18. http 请求演化历程 1. 1 个 tcp 发送一个请求,请求结束就断开链接(性能开销) 2. keep-alive 1 个 tcp 发送 1 个请求，请求结束后决定继续发送下一个请求或者断开链接(不能并发) 3.pipeline 1 个 tcp 同时发送多个请求，按照请求顺序依次返回结果(请求堵塞) 4. http2 多路复用 1 个 tcp 发送多个请求，不按照请求顺序返回结果。
-19. http 请求头 accept,accept-encoding,accept-language,authorization,expires,cache-control,connection,cookie,host,if-modified-since,user-agent,keep-alive,set-cookie,allow-access-control-origin,allow-access-control-methods,allow-access-control-headers,origin,content-type,content-language,date
+10. 浏览器默认不发送 cookie，需要在请求里设置 withCredentials:true 才会发送 cookie;如果是跨域请求，服务器也需要设置 Access-Control-Allow-Credentials: true, 才能接收到 cookie
+11. nest 需要用 @Res() res: Response 来设置响应头，并且需要用 res.send(re) 来发送响应体 re
+12. app.enableCors() 会自动设置 Access-Control-Allow-Origin: \*，Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE,Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+13. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;
+14. 创建虚拟机后 要为虚拟机安装执行环境，我以 node 为例，node 版本不能太高，centOS7 不支持，node 版本不能太低，nest 无法执行，推荐 14 版本 node。node 下载安装之后要把 node 添加到环境变量方便所有目录下都能使用，node 版本控制工具 nvm
+15. ping ls kill cd echo code yum node nvm git which Whereis vi sudo !! Mkdir rm ip wget tar service
+16. Linux 分为很多版本，其中 centOS 是 red hat 发行的版本，不同版本的命令和资源库不同，我用的 centOS7
+17. http 请求演化历程 1. 1 个 tcp 发送一个请求,请求结束就断开链接(性能开销) 2. keep-alive 1 个 tcp 发送 1 个请求，请求结束后决定继续发送下一个请求或者断开链接(不能并发) 3.pipeline 1 个 tcp 同时发送多个请求，按照请求顺序依次返回结果(请求堵塞) 4. http2 多路复用 1 个 tcp 发送多个请求，不按照请求顺序返回结果。
+18. http 请求头 accept,accept-encoding,accept-language,authorization,expires,cache-control,connection,cookie,host,if-modified-since,user-agent,keep-alive,set-cookie,allow-access-control-origin,allow-access-control-methods,allow-access-control-headers,origin,content-type,content-language,date
+19. indexedDB 是浏览器提供的本地数据库，可以存储大量数据，但是不支持 sql 查询,类似nosql，只能通过游标来查询，游标是一个指针，指向数据库中的某个位置，可以通过游标来遍历数据库中的数据,限制同源策略，只能在同源网站下访问同源数据库

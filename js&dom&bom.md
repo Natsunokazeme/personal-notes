@@ -1385,3 +1385,5 @@ array flat 会去空槽。在非数组对象上调用 flat 需要对象有 lengt
 20. file 类型, file 继承自 blob, input type file
 21. 泛型类型参数,如 T,类似 unknown,但是 unknown 不能赋值给其他类型,而 T 可以,因为 T 是类型参数,而 unknown 是类型,在定义时用 T 占位,实际使用时再传确定的 type
 22. session storage 新页面会深拷贝父页面的 session storage,但是 local storage 不会。每一个页面的 session storage 都是独立的,但是 local storage 是共享的
+23. localStorage 只支持存储字符串，如果要存储对象，需要先将对象转换为字符串，再存储。sessionStorage 也是如此。
+
