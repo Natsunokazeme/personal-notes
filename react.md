@@ -240,3 +240,99 @@ cloneElement 以 element 元素为样板克隆并返回新的 React 元素。返
 createContext 用于创建一个 Context 对象，createContext 对象中，包括用于传递 Context 对象值 value 的 Provider，和接受 value 变化订阅的 Consumer
 
 createPortal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。createPortal(child, container)。第一个参数（child）是任何可渲染的 React 子元素，例如一个元素，字符串或 fragment。第二个参数（container）是一个 DOM 元素。
+
+# Fiber
+
+Fiber 是 react 16 及以后采用的架构，相比较之前的 Reconciler-Renderer 架构变成了 Scheduler-Reconciler-Renderer;
+
+Scheduler（调度器）—— 调度任务的优先级，高优任务优先进入 Reconciler
+Reconciler（协调器）—— 负责找出变化的组件
+Renderer（渲染器）—— 负责将变化的组件渲染到页面上
+
+Reconciler 工作的阶段被称为 render 阶段。因为在该阶段会调用组件的 render 方法。
+Renderer 工作的阶段被称为 commit 阶段。就像你完成一个需求的编码后执行 git commit 提交代码。commit 阶段会把 render 阶段提交的信息渲染在页面上。
+
+## Scheduler
+
+是调度器队列，它的作用是在浏览器空闲的时候，将任务交给 Reconciler,但如果有优先级更高的任务，如用户交互，动画等，会暂停当前的任务，先执行优先级更高的;
+
+## Reconciler
+
+是递归处理虚拟 dom,如果递归的次数太多，js 会一直占用主线程，阻碍 Renderer 的渲染，导致页面卡顿，所以 react16 采用了 Fiber 架构，将递归改成可中断的循环，每次循环不会太长，如果有优先级更高的任务，会先执行优先级高的任务，这样就不会阻塞主线程，提高了用户体验。
+当前帧没有剩余时间的时候，会将剩余任务放到下一帧。
+只有当所有组件都完成 Reconciler 的工作，才会统一交给 Renderer。
+
+Fiber 的核心思想是将一个异步方法做成可中断的，并且继续执行的时候会复用之前的中间状态
+
+## Fiber 节点
+
+Fiber 节点构成 Fiber 树，Fiber 树是对 React 元素树进一步对应 DOM 树。Fiber 节点是对 React 元素的一种对应，它是一个普通的 JavaScript 对象，包含了当前元素的类型、对应的 DOM 节点、还有对应的 Fiber 节点的子节点、兄弟节点、父节点等信息,还包含了更新该 Fiber 节点状态所需要的信息以及调度优先级相关的信息
+
+## 双缓存
+
+在内存中构建并直接替换的技术。 Fiber 双缓存意味着 DOM 树的创建与更新也是在内存里完成的。这个 Fiber 树称为 workInProgress Fiber,同时还有一个对应正在屏幕上显示的旧 Fiber 树,即 current Fiber. 如果它们的节点复用， 则节点通过 alternate 属性相连(由 diff 算法决定是否复用)。
+currentFiber.alternate === workInProgressFiber;
+workInProgressFiber.alternate === currentFiber;
+
+渲染完成后,fiberRoot 的 current 属性指向 workInProgressFiber 的根节点,workInProgressFiber 变成 currentFiber,然后 workInProgressFiber 又指向 null,这样就完成了替换,下次状态更新再产生一个新的 workInProgressFiber。
+
+通过判断 currentFiber.alternate 是否存在,来判断是否是第一次渲染,如果是第一次渲染,则直接创建 DOM 节点,如果不是,则可以复用 DOM 节点
+
+## render阶段
+Reconciler构建Fiber树的阶段
+
+workInProgress代表当前已创建的workInProgress fiber节点
+performUnitOfWork() 创建workInProgress fiber节点并连接到Fiber树
+shouldYield() 判断是否有剩余时间，如果没有，就将任务交给 Renderer，如果有，就继续执行 Reconciler 的任务，如果有优先级更高的任务，就先执行优先级更高的任务，如果没有，就继续执行 Reconciler 的任务，直到没有任务或者没有剩余时间，将任务交给 Renderer。
+
+### 向下阶段
+从rootFiber开始，深度优先遍历fiber节点并调用beginWork(),通过beginWork创建子Fiber节点，并连接到当前Fiber节点。
+当遍历到叶子节点时开始向上返回，调用completeUnitOfWork()
+function beginWork(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes
+): Fiber | null
+
+### 向上阶段
+completeUnitOfWork() 会判断当前节点是否有兄弟节点，如果有，就返回兄弟节点并调用beginWork，如果没有，就返回父节点。
+update时,已经存在dom节点，所以不需要创建dom节点，只需要更新dom节点的属性
+mount时,需要创建dom节点并连接到dom树上并更新dom节点的属性
+
+遍历完所有节点后completeUnitOfWork返回rootFiber，进入commit阶段
+
+### reconcileChildren
+这是Reconciler模块的核心部分。在beginWork中，根据workInProgress.tag决定是否调用reconcileChildren方法。
+
+export function reconcileChildren(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  nextChildren: any,
+  renderLanes: Lanes
+) {
+  if (current === null) {
+    // 对于mount的组件
+    workInProgress.child = mountChildFibers(
+      workInProgress,
+      null,
+      nextChildren,
+      renderLanes,
+    );
+  } else {
+    // 对于update的组件
+    //diff算法比较,生成新的fiber child
+    workInProgress.child = reconcileChildFibers(
+      workInProgress,
+      current.child,
+      nextChildren,
+      renderLanes,
+    );
+  }
+}
+
+## commit阶段
+Renderer渲染的阶段
+commit阶段的主要工作（即Renderer的工作流程）分为三部分：
+before mutation阶段（执行DOM操作前）
+mutation阶段（执行DOM操作）
+layout阶段（执行DOM操作后）
