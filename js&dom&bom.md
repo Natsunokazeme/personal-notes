@@ -15,41 +15,8 @@
 Javascript 对象
 常见的对象有数字 Number,字符串 String,日期 Date,数组 Array 等。
 
-Number
-注: 这里讲的 Number 是对象 Number,和基本数据类型中的基本类型 Number 是不一样的 Number。
-new Number 创建一个数字对象
-属性 MIN_VALUE 最小值
-属性 MAX_VALUE 最大值
-属性 NaN 表示不是数字
-方法 toFixed 返回一个数字的小数表达
-方法 toExponential 返回一个数字的科学计数法表达
-方法 valueOf 返回一个数字对象的基本数字类型
-
-与基本类型的数字不同,对象类型的数字,拥有更多的属性和方法
-
-new Number 创建一个数字对象
-var x = new Number(123);//此时它的值虽然是 123,但它的类型是 object。
-
-Number 边界
-Number.MIN_VALUE//Number 对象的最小值:5e-324
-Number.MAX_VALUE//Number 对象的最大值:1.7976931348623157e+308
-
-返回一个数字的小数表达
-a. toFixed(2)//返回保留 2 位小数的 number a
-返回一个 Number 对象的科学计数法表达
-a.toExponential ()
-返回一个数字对象的基本数字类型
-var b = a.valueOf()//返回 a 的 number 类并赋值给 b
-
-JavaScript 日期
-new Date() 创建日期对象,默认是当前时间,如果想创建一个特定的时间,可以传入参数,参数可以是日期字符串,也可以是时间戳;参数无效时,返回 Invalid Date
-需要注意的是,getMonth()返回的月数,是基零的,0 代表 1 月份
-所以需要+1
-通过 getDay()获取,今天是本周的第几天。与 getMonth()一样,返回值是基 0 的。
-
-闭包
-闭包是一个函数以及其捆绑的周边环境状态的引用的组合。当一个函数内部有变量,并且这个函数返回了这个变量,那么这个变量就形成了闭包,即该函数执行完毕后,该变量依然存在。
 在 js 的单线程中,调用一个函数会生成一帧,并把帧压入栈中,当函数执行完毕后,会把帧弹出栈,并销毁。
+
 BOM
 BOM 即 浏览器对象模型(Browser Object Model)
 浏览器对象包括
@@ -122,6 +89,7 @@ setTimeout 只执行一次 setTimeout(函数名, 延迟毫秒数 ); 返回一个
 setInterval 不停地重复执行 setInterval(函数名, 间隔毫秒数 ); 返回一个计时器 ID,正整数
 clearInterval 终止重复执行
 document.write() 不要在 setInterval 调用的函数中使用 document.write();
+注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML
 
 JavaScript
 javascript 放置位置
@@ -144,8 +112,6 @@ JavaScript 输出
 使用 innerHTML 写入 HTML 元素
 使用 console.log() 写入浏览器控制台
 
-注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML
-
 JavaScript 赋值
 用 var 再次声明时,若第二次未赋值,其值将仍为之前的值。因为 var
 js 中**为幂运算,var x = x** 2; 令 x=x 平方。结果与 Math.pow(x,2)相同
@@ -161,7 +127,7 @@ js 中**为幂运算,var x = x** 2; 令 x=x 平方。结果与 Math.pow(x,2)相�
 JavaScript 数据类型
 数字会省略可省略的小数,即 34.00 变成 34。
 任何变量均可通过设置值为 undefined 进行清空。其类型也将是 undefined。
-然后js的垃圾回收机制会标识出这个变量,并在下一次垃圾回收时将其回收。
+然后 js 的垃圾回收机制会标识出这个变量,并在下一次垃圾回收时将其回收。
 person = undefined;
 在 JavaScript 中,null 的数据类型是对象,可以通过设置值为 null 清空对象
 Undefined 与 null 的值相等,但类型不相等
@@ -184,69 +150,6 @@ this 引用该函数的“拥有者”,此处为 fullname 的拥有者 person �
 访问方法则用 objectName.methodName()
 
 注：如果通过关键词 "new" 来声明 JavaScript 变量,则该变量会被创建为对象
-
-JavaScript 字符串
-转义字符：为了防止字符串中的’,”,\等特殊符号被误解
-\' ' 单引号
-\" " 双引号
-\\ \ 反斜杠
-尽量别用 new 构造字符串,它会拖慢执行速度甚至
-var x = new String("Bill");
-var y = new String("Bill");
-// (x == y) 为 false,因为 x 和 y 是不同的对象,而 JavaScript 对象无法进行对比,比较两个对象将始终返回 false。
-
-JavaScript 字符串方法
-属性 length 字符串长度
-方法 indexOf lastIndexOf 子字符串出现的位置 未找到返回-1
-而且接受第二个参数作为查找的起始位置
-方法 search()搜索特定字符串的位置
-
-提取字符串
-slice(start, end) 若参数为负代表从最后一位往前计数
-substring(start, end)
-substr(start, length) 第二个参数代表截取的长度,如果首个参数为负,则从字符串的结尾计算位置。
-
-替换子字符串
-方法 replace() //方法不会改变调用它的字符串。它返回的是新字符串。
-
-字符串拼接
-方法 concat() 字符串拼接,可拼接多个字符串
-
-trim() 方法删除字符串两端的空白符：
-方法 localeCompare 比较两段字符串是否相同
-方法 split 根据分隔符,把字符串转换为数组
-
-返回指定位置的字符
-charAt 返回指定位置的字符,找不到返回空字符串
-charCodeAt 返回指定位置的字符对应的 Unicode 码
-
-比较两段字符串是否相同
-x.localeCompare(y)
-//返回 0 表示相等
-1 表示字母顺序靠后
--1 表示字母顺序靠前
-
-根据分隔符,把字符串转换为数组
-var y = x.split(" ");//通过空格分隔 split(" "),得到数组
-var z = x.split(" ",2);//通过空格分隔 split(" ",2),得到数组,并且只保留前两个
-注： 第二个参数可选,表示返回数组的长度
-
-JavaScript 数字
-JavaScript 数值始终是 64 位的浮点数,此格式用 64 位存储数值,其中 0 到 51 存储数字（片段）,52 到 62 存储指数,63 位存储符号。
-在所有数字运算中,JavaScript 会尝试将字符串转换为数字。
-
-NaN 的含义是 not a number,但它的 type 是 number,它参与的数学运算结果也是 NaN.
-isNaN() 来确定某个值是否是数.
-
-Infinity 的含义是超出最大值时返回的值。也是 number 型。
-
-使用 toString() 方法把数输出为十六进制、八进制或二进制。
-myNumber.toString(16)//返回 myNumber 的 16 进制值 80
-
-JavaScript 数字方法
-toFixed() 返回字符串值,指定保留几位小数。
-3.64. toFixed(1); //返回 3.6
-toPrecision() 返回字符串值,指定保留几位有效数字。
 
 JavaScript 数组
 使用[]创建数组或 new Array();的方式创建数组。
@@ -1105,8 +1008,10 @@ return clone; //返回这个对象
 核心：通过寄生方式,砍掉父类的实例属性,这样,在调用两次父类的构造的时候,就不会初始化两次实例方法/属性,避免的组合继承的缺点
 
 闭包
-一个函数和对其周围状态（lexical environment,词法环境）的引用捆绑在一起（或者说函数被引用包围）,这样的组合就是闭包（closure）。也就是说,闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中,每当创建一个函数,闭包就会在函数创建的同时被创建出来。闭包包含在函数创建时作用域中的所有变量。
+一个函数和对其周围状态（lexical environment,词法环境）的引用捆绑在一起（或者说函数被引用包围）,这样的组合就是闭包（closure）。也就是说,闭包让你可以在一个内层函数中访问到其外层函数的作用域。当内层函数在其他地方被调用时,就可以继续访问到外层函数的作用域,而不是被立即释放。
+在 JavaScript 中,每当创建一个函数,闭包就会在函数创建的同时被创建出来。闭包包含在函数创建时作用域中的所有变量。
 函数在定义时的词法作用域以外的地方被调用就会形成闭包。闭包使得函数可以继续访问定义时的词法作用域
+
 原型链
 每个实例对象（ object ）都有一个私有属性（称之为 **proto** ）指向它的构造函数的原型对象（prototype ）。该原型对象也有一个自己的原型对象( **proto** ) ,层层向上直到一个对象的原型对象为 null。根据定义,null 没有原型,并作为这个原型链中的最后一个环节。
 作用域
@@ -1386,4 +1291,94 @@ array flat 会去空槽。在非数组对象上调用 flat 需要对象有 lengt
 21. 泛型类型参数,如 T,类似 unknown,但是 unknown 不能赋值给其他类型,而 T 可以,因为 T 是类型参数,而 unknown 是类型,在定义时用 T 占位,实际使用时再传确定的 type
 22. session storage 新页面会深拷贝父页面的 session storage,但是 local storage 不会。每一个页面的 session storage 都是独立的,但是 local storage 是共享的
 23. localStorage 只支持存储字符串，如果要存储对象，需要先将对象转换为字符串，再存储。sessionStorage 也是如此。
+24. Number 对象
+    注: 这里讲的 Number 是对象 Number,和基本数据类型中的基本类型 Number 是不一样的 Number。通过 new Number 创建
+    与基本类型的数字不同,对象类型的数字,拥有更多的属性和方法
 
+new Number 创建一个数字对象
+var x = new Number(123);//此时它的值虽然是 123,但它的类型是 object。
+
+Number 边界
+Number.MIN_VALUE//Number 对象的最小值:5e-324
+Number.MAX_VALUE//Number 对象的最大值:1.7976931348623157e+308
+
+返回一个数字的小数表达
+a. toFixed(2)//返回保留 2 位小数的 string a
+返回一个 Number 对象的科学计数法表达 string
+a.toExponential ()
+返回一个数字对象的基本数字类型
+var b = a.valueOf()// 将 a 的 类型从 Number 类变为 number 并赋值给 b
+
+JavaScript 日期
+new Date() 创建日期对象,默认是当前时间,如果想创建一个特定的时间,可以传入参数,参数可以是日期字符串,也可以是时间戳;参数无效时,返回 Invalid Date
+需要注意的是,getMonth()返回的月数,是基零的,0 代表 1 月份
+所以需要+1
+通过 getDay()获取,今天是本周的第几天。与 getMonth()一样,返回值是基 0 的。0 代表星期天,1 代表星期一,以此类推。
+
+JavaScript 字符串
+转义字符：为了防止字符串中的’,”,\等特殊符号被误解
+\' ' 单引号
+\" " 双引号
+\\ \ 反斜杠
+尽量别用 new 构造字符串,它会拖慢执行速度甚至
+var x = new String("Bill");
+var y = new String("Bill");
+// (x == y) 为 false,因为 x 和 y 是不同的对象,而 JavaScript 对象无法进行对比,比较两个对象将始终返回 false。
+
+JavaScript 字符串方法
+属性 length 字符串长度
+方法 indexOf lastIndexOf 子字符串出现的位置 未找到返回-1
+而且接受第二个参数作为查找的起始位置
+方法 search()搜索特定字符串的位置
+
+提取字符串
+slice(start, end) 若参数为负代表从最后一位往前计数
+substring(start, end) 0<start,end<length
+substr(start, length) 第二个参数代表截取的长度,如果首个参数为负,则从字符串的结尾计算位置。(已废弃)
+
+替换子字符串
+方法 replace() //方法不会改变调用它的字符串。它返回的是新字符串。
+
+字符串拼接
+方法 concat() 字符串拼接,可拼接多个字符串
+
+trim() 方法删除字符串两端的空白符：
+
+方法 split 根据分隔符,把字符串转换为数组
+
+返回指定位置的字符
+charAt 返回指定位置的字符,找不到返回空字符串
+charCodeAt 返回指定位置的字符对应的 Unicode 码
+
+比较两段字符串是否相同
+localeCompare(compareString, locales, options)
+locales 表示语言代码,比如"zh-CN"表示中文
+options 表示比较选项,可以是 ignoreCase,numeric,caseFirst
+x.localeCompare(y)
+返回 0 表示相等,>=1 表示 x 字母顺序靠后,<=-1 表示 x 字母顺序靠前
+
+根据分隔符,把字符串转换为数组
+var y = x.split(" ");//通过空格分隔 split(" "),得到数组
+var z = x.split(" ",2);//通过空格分隔 split(" ",2),得到数组,并且只保留前两个
+注： 第二个参数可选,表示返回数组的长度
+
+JavaScript 数字
+JavaScript 数值始终是 64 位的浮点数,此格式用 64 位存储数值,其中 0 到 51 存储数字（片段）,52 到 62 存储指数,63 位存储符号。
+在所有数字运算中,JavaScript 会尝试将字符串转换为数字。
+
+NaN 的含义是 not a number,但它的 type 是 number,它参与的数学运算结果也是 NaN.
+isNaN() 来确定某个值是否是数.
+
+Infinity 的含义是超出最大值时返回的值。也是 number 型。
+
+使用 toString() 方法把数输出为十六进制、八进制或二进制。
+myNumber.toString(16)//返回 myNumber 的 16 进制值 80
+
+JavaScript 数字方法
+toFixed() 返回字符串值,指定保留几位小数。
+3.64. toFixed(1); //返回 3.6
+toPrecision() 返回字符串值,指定保留几位有效数字。
+
+parseInt(string, radix) 2<=radix<=36
+parseFloat(string) 转换为浮点数  
+Number() 可安全转换 BigInt 为数字(BigInt 过大丢失精度)
