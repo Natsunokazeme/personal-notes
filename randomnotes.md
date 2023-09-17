@@ -40,3 +40,7 @@
 27. stopPropagation() 方法阻止事件冒泡到父元素,但是不会阻止事件传递到当前元素的其他监听器 preventDefault() 方法阻止事件的默认行为,如 a 标签的跳转;
 28. angular icon registry,用于注册 svg 图标为 mat-icon,并且可以设置图标的颜色,大小等属性.通过 MatIconRegistry 这个 service 的 addSvgIcon()方法注册图标,然后通过 MatIcon 组件的 svgIcon 属性使用图标.
 29. angular sanitizer 用于过滤 html 标签,防止 xss 攻击；sanitizer.bypassSecurityTrustResourceUrl() 方法用于信任资源 url,防止 angular 报错.若不通过该方法,angular 会认为该 url 不安全,不会加载该资源.(踩坑 0.5day)
+30. transform 里的 scale 会把元素整体缩放，但 Event Listener 不会改变监听区域
+31. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
+32. enum 可以直接当类型用，也可以当值用，当值用时，可以通过 enum[key]来取值
+33. angular 里 pipeline 设置
