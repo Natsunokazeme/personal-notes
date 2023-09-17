@@ -425,10 +425,13 @@ call 的参数还需要根据调用的函数所需参数决定。
 
 函数 apply
 类似 call, 用于不同对象的方法调用,但 call() 方法分别接受参数。apply() 方法接受数组形式的参数。如果要使用数组而不是参数列表,则 apply() 方法非常方便。
-
+func.call(this, "eat", "bananas") == func.apply(this, ["eat", "bananas"])。
 注：call 和 apply 存在于每一个方法中。
 
-HTML DOM
+function.prototype.bind
+类似 call，但返回的是改变 this 之后的函数，需要调用函数才执行
+
+DOM
 DOM 是 Document Object Model( 文档对象模型 )的缩写。
 DOM 是把 html 里面的各种数据当作对象进行操作的一种思路。
 比如一个超链,作为一个 DOM 对象,就可以使其隐藏,修改其 href 指向的地址。
@@ -445,41 +448,9 @@ document.getElementsByName 通过表单元素的 name 获取元素节点
 如果要获取一个指定属性的值,可以采用如下风格,as 表示所有的属性,as["id"]取出名称是 id 的属性
 as["id"].nodeValue
 
-<html>
-
-<div id="d1" align="center" class="abc">hello HTML DOM</div>
-<script>
-var  div1 = document.getElementById("d1");
-var as = div1.attributes;
-document.write("div总共有"+as.length +" 个属性");
-document.write("分别是:");
-for(i = 0; i< as.length; i++){
-document.write("<br>");
-document.write(as[i].nodeName);
-document.write(":");
-document.write(as[i].nodeValue);
-}
-document.write("<br>");
-document.write("div的id属性值是："+ as["id"].nodeValue);
-
-</script>
-</html>
-
 获取内容节点
 获取元素节点,然后通过 childNodes 获取其所有的子节点。 其中第一个子节点,就是其内容节点。然后借助 nodeName 和 nodeValue 把内容节点的名称和值打印出来。
-setTimeout()
-setTimeout() 方法用于在指定的毫秒数后调用函数或计算表达式。
-setTimeout(code,millisec)
-code 必需。要调用的函数后要执行的 JavaScript 代码串。
-millisec 必需。在执行代码前需等待的毫秒数。
-调用该方法后,code 里的内容进入任务列队,会等到 millisec 之后再一起执行。
-clearTimeout()
-用于取消 setTimeout()
-使用方法：clearTimeout(id_of_settimeout)；
-setinterval()
-setinterval()是定时调用的函数,可按照指定的周期（以毫秒计）来调用函数或计算表达式。
-setInterval() 方法会不停地调用函数,直到 clearInterval() 被调用或窗口被关闭。
-setInterval(function,interval,[arg1,arg2,......argn])//默认语法,interval 设置间隔时间。之后的参数为传入 function 的值。
+
 节点属性
 nodeName 节点名称
 nodeValue 节点值
@@ -526,7 +497,7 @@ onload 加载事件
 this 当前组件 this 表示触发事件的组件,可以在调用函数的时候,作为参数传进去
 return false 阻止事件的发生
 
-DOM 节点关系
+# DOM 节点关系
 
 <div id="parentDiv">
  <div id="d1">第一个div</div>
@@ -556,9 +527,8 @@ href.nodeValue="<http://12306.com>";
 a.setAttributeNode(href);
 
 删除节点
-removeChild 删除元素节点
+removeChild 删除 子节点
 removeAttribute 删除属性节点
-removeChild 删除文本节点
 要删除某个元素节点有两步
 第一：先获取该元素的父节点
 第二：通过父节点,调用 removeChild 删除该节点
@@ -586,10 +556,13 @@ removeChild 删除文本节点
 
 插入节点
 appendChild 追加节点 只能加在最后面
-insertBefore 在前方插入节点 在指定位置插入节点
+
+### insertBefore 在前方插入节点 在指定位置插入节点
+
 parentNode.insertBefore(d25,d3); //将 d25 节点插入到 d3 节点前
 
-JSON
+# JSON
+
 JSON JavaScript 对象表示法（JavaScript Object Notation） 是一种存储数据的方式。JSON 格式是纯文本
 var gareen = {"name":"盖伦","hp":616};
 这样就创建了一个 JSON 对象
@@ -603,19 +576,26 @@ var array = ‘{“arrayname”:[‘+'{"firstName":"Bill","lastName":"Gates" },'
 '{"firstName":"Steve","lastName":"Jobs" },' +
 '{"firstName":"Elon","lastName":"Musk" }]}';
 
-cookie 和 session 的区别和用法
+# cookie 和 session 的区别和用法
+
 存储位置：cookie 数据存放在客户的浏览器上,session 数据放在服务器上。
 安全性：cookie 不是很安全,是明文,别人可以分析存放在本地的 COOKIE 并进行 COOKIE 欺骗。考虑到安全应当使用 session
 限制：单个 cookie 保存的数据不能超过 4K,很多浏览器都限制一个站点最多保存 20 个 cookie。session 会在一定时间内保存在服务器上。当访问增多,会比较占用你服务器的性能考虑到减轻服务器性能方面,应当使用 COOKIE。
-cookie,localstorage 和 sessionstorage 的区别
+
+# cookie,localstorage 和 sessionstorage 的区别
+
 单个 cookie 保存的数据不能超过 4K ,webstorage 包含了 localstorage 和 sessionstorage,大小无限制,随浏览器而变,大多数最大储存 5m 信息,保存在本地。
 localstorage 生命周期无限,除非清除缓存。
-sessionstorage 当关闭当前页面时被清除,不同页面之间不能共用
+sessionstorage 当关闭当前页面时被清除,不同页面之间不能共用，从当前页面打开新页面时，新页面会深拷贝一份 sessionstorage
 cookie 能设置生命周期,生命周期一到则无效,默认关闭页面时清除。
-token
+
+# token
+
 Token,其实就是服务端生成的一串加密字符串,储存在本地用于认证客户端身份,由服务端设定失效时间。
 优势：无状态、防 csrf(跨域请求攻击)、多站点使用,支持移动平台、性能快
-如何优化页面的加载速度
+
+# 如何优化页面的加载速度
+
 总结：1.网络原理 2.资源引入 3.代码
 1、网络原理服务器响应时间:有独立的服务器,提高 Web 服务器的质量,移除不必要的插件
 2、网络原理浏览器缓存 :减少 HTTP 请求,从而提高网站加载速度
@@ -651,7 +631,8 @@ Token,其实就是服务端生成的一串加密字符串,储存在本地用于�
 
 8、浏览器解析渲染页面:解析 html 源码;生成 Dom 树、解析 css 样式、js 交互
 
-浏览器渲染过程
+# 浏览器渲染过程
+
 浏览器渲染的过程主要包括以下五步：
 浏览器将获取的 HTML 文档解析成 DOM 树。
 处理 CSS 标记,构成层叠样式表模型 CSSOM(CSS Object Model)。
@@ -659,17 +640,23 @@ Token,其实就是服务端生成的一串加密字符串,储存在本地用于�
 渲染树的每个元素包含的内容都是计算过的,它被称之为布局 layout。浏览器使用一种流式处理的方法,只需要一次绘制操作就可以布局所有的元素。
 将渲染树的各个节点绘制到屏幕上,这一步被称为绘制 painting。
 
-重排与重绘
+# 重排与重绘
+
 重绘（repaint 或 redraw）：当盒子的位置、大小以及其他属性,例如颜色、字体大小等都确定下来之后,浏览器便把这些原色都按照各自的特性绘制一遍,将内容呈现在页面上。重绘是指一个元素外观的改变所触发的浏览器行为,浏览器会根据元素的新属性重新绘制,使元素呈现新的外观。
-触发重绘的条件： 1.改变字体 2.增加或者移除部分样式表如颜色 3.内容变化（input 框输入文字） 4.激活部分 css 伪类（例如 :hover） 5.计算 offsetWidth、offsetHeigth 属性（浏览器的可见高度）
+触发重绘的条件： 1.改变字体 2.增加或者移除部分样式表如颜色 3.内容变化（input 框输入文字） 4.激活部分 css 伪类（例如 :hover） 5.计算 offsetWidth、offsetHeigth 属性（浏览器的可见高度）6. opacity 改变
 注意：table 及其内部元素可能需要多次计算才能确定好其在渲染树中节点的属性值,比同等元素要多花两倍时间,这就是我们尽量避免使用 table 布局页面的原因之一。
 重排（重构/回流/reflow）：当渲染树中的一部分(或全部)因为元素的规模尺寸,布局,隐藏等改变而需要重新构建, 这就称为回流(reflow)。每个页面至少需要一次回流,就是在页面第一次加载的时候。
 重绘和重排的关系：在回流的时候,浏览器会使渲染树中受到影响的部分失效,并重新构造这部分渲染树,完成回流后,浏览器会重新绘制受影响的部分到屏幕中,该过程称为重绘。所以,重排必定会引发重绘,但重绘不一定会引发重排。
+
 减少重绘重排的方法有：
 不在布局信息改变时做 DOM 查询,
 使用 csstext,className 一次性改变属性
+const stylesheet = document.styleSheets[0];//CSSOM
+stylesheet.cssRules[0].style.backgroundColor = "aqua";
 使用 fragment
-强缓存和协商缓存
+
+# 强缓存和协商缓存
+
 HTTP Cache 是我们开发中接触最多的缓存,它分为强缓存和协商缓存。
 强缓存：直接从本地副本比对读取,不去请求服务器,返回的状态码是 200。
 协商缓存：会去服务器比对,若没改变才直接读取本地缓存,返回的状态码是 304。
@@ -682,7 +669,9 @@ cache-control：HTTP1.1 新增,值有 max-age,s-maxage（是一个时间长度�
 last-modified: ,以格林尼治时间记录资源最后修改的时间,启用后会在请求头中返回 if-modified-since 字段（记录上一次修改的时间）,若两者不一致则更新 last-modified 并返回修改后的资源。
 etag: 是基于资源的内容编码生成的一串唯一的标识字符串,启用后请求头会带有 if-none-match 字段,对比两者即可。
 浏览器刷新：F5 刷新,刷新按钮,网页右键刷新；CTRL+F5 刷新（硬性重新加载）,清空其他缓存并强行设置 no-cache,直接重新请求资源
-跨域
+
+# 跨域
+
 源：如果两个页面（接口）的协议,端口或者域名都相同,那么两个页面就有相同的源。
 浏览器为了安全会限制跨域 http 请求
 解决方案
@@ -713,34 +702,19 @@ alert(JSON.stringify(res));
 6、 postMessage
 window.postMessage(message,targetOrigin) 方法是 html5 新引进的特性,可以使用它来向其它的 window 对象发送消息,无论这个 window 对象是属于同源或不同源
 
-js 内存泄漏
+# js 内存泄漏
 
 1. 闭包
 2. 全局变量
 3. 定时器如 setInterval
 4. 递归的终止条件
 5. while(true)等代码终止条件
-   router 实现原理
-6. Hash 路由 利用 url 上 hash 的改变,以#开头
-7. history 路由 基于 html5 规范,利用 history.pushState || history.replaceState 来进行路由控制。
-   JavaScript&DOM
-   javascript 放置位置
-   在 HTML 中,JavaScript 代码必须位于 <script> 与 </script> 标签之间。
-   head
-   body
-   把脚本置于 <body> 元素的底部,可改善显示速度,因为脚本编译会拖慢显示。
-   外置
-   外部 JavaScript 的优势
-   在外部文件中放置脚本有如下优势：
-   分离了 HTML 和代码
-   使 HTML 和 JavaScript 更易于阅读和维护
-   已缓存的 JavaScript 文件可加速页面加载
-   JavaScript 输出
-   使用 window.alert() 写入警告框
-   使用 document.write() 写入 HTML 输出
-   使用 innerHTML 写入 HTML 元素
-   使用 console.log() 写入浏览器控制台
-   注意：在 HTML 文档完全加载后使用 document.write() 将删除所有已有的 HTML
+
+# router 实现原理
+
+1. Hash 路由 利用 url 上 hash 的改变,以#开头
+2. history 路由 基于 html5 规范,利用 history.pushState || history.replaceState 来进行路由控制。
+
    ES6 中 let、const 和 var 的区别
    一,var 定义的变量,作用域是整个封闭函数,是全域的；let 和 const 声明形成块作用域;作用域是在块级或者字块中；
    二,变量提升：不论通过 var 声明的变量处于当前作用于的第几行,都会提升到作用域的最顶部。而 let 声明的变量不会在顶部初始化,凡是在 let 声明之前使用该变量都会报错（引用错误 ReferenceError）；即 var 可以先使用再定义
@@ -750,25 +724,33 @@ js 内存泄漏
    五． const 声明的常量不可改变,声明时必须初始化（赋值）当声明的是复合类数据时可以修改复合属性,即当前对象的指针不可变；
    如 const list = [];
    list[0] = 10;
-   会改变原数组的方法
-   push()
-   pop()
-   shift()
-   unshift()
-   splice()
-   sort()
-   reverse()
-   forEach()
-   不会改变原数组的方法,即返回新数组
-   filter()
-   concat()
-   slice()
-   map()
 
-深拷贝与浅拷贝
+# 会改变原数组的方法
+
+push()
+pop()
+shift()
+unshift()
+splice()
+sort()
+reverse()
+forEach()
+
+# 不会改变原数组的方法,即返回新数组
+
+filter()
+concat()
+slice()
+map()
+xxxed()
+
+# 深拷贝与浅拷贝
+
 浅拷贝（shallowCopy）只是增加了一个指针指向已存在的内存地址,深拷贝（deepCopy）是增加了一个指针并且申请了一个新的内存,使这个增加的指针指向这个新的内存, 使用深拷贝的情况下,释放内存的时候不会因为出现浅拷贝时释放同一个内存的错误。
-防抖和节流
-防抖是控制触发次数,节流是控制执行频率
+
+# 防抖和节流
+
+防抖(debounce)是控制触发次数,节流(Throttle)是控制执行频率
 防抖即在一定时间内只能执行一次的函数,如果在该时间内又触发了该函数会重新计算时间
 分为立即执行版和非立即执行版。
 非立即执行版的意思是触发事件后函数不会立即执行,而是在 n 秒后执行,如果在 n 秒内又触发了事件,则会重新计算函数执行时间。
@@ -782,35 +764,47 @@ content.onmousemove = throttle(count,1000);//
 块作用域和函数作用域的区别
 块作用域是 ES6 新添加的。块作用域由 { } 包括,if 语句和 for 语句里面的{ }也属于块作用域。
 
-如何让事件先冒泡后捕获
+# 如何让事件先冒泡后捕获
+
 如果要实现先冒泡后捕获的效果,对于同一个事件,同时监听捕获和冒泡,分别对应相应的处理函数,监听到捕获事件,先暂缓执行,直到冒泡事件被捕获后再执行捕获之间。
 
-mouseover 和 mouseenter 的区别
+# mouseover 和 mouseenter 的区别
+
 mouseover：当鼠标移入元素或其子元素都会触发事件,所以有一个冒泡时重复触发的过程。对应的移除事件是 mouseout
 mouseenter：当鼠标移除元素本身（不包含元素的子元素）会触发事件,也就是不会冒泡,对应的移除事件是 mouseleave
-js 的各种位置,比如 clientHeight,scrollHeight,offsetHeight ,以及 scrollTop, offsetTop,clientTop 的区别？
+
+# js 的各种位置,比如 clientHeight,scrollHeight,offsetHeight ,以及 scrollTop, offsetTop,clientTop 的区别？
+
 clientHeight：表示的是可视区域的高度,不包含 border 和滚动条
 offsetHeight：表示可视区域的高度,包含了 border 和滚动条
 scrollHeight：表示了所有区域的高度,包含了因为滚动被隐藏的部分。
 clientTop：表示边框 border 的厚度,在未指定的情况下一般为 0
 scrollTop：滚动后被隐藏的高度,获取对象相对于由 offsetParent 属性指定的父坐标(css 定位的元素或 body 元素)距离顶端的高度。
-js 拖拽功能的实现
+offsetTop: 当前元素相对于 offset 顶部内边距的距离
+
+# js 拖拽功能的实现
+
 首先是三个事件,分别是 mousedown,mousemove,mouseup
 当鼠标点击按下的时候,需要一个 tag 标识此时已经按下,可以执行 mousemove 里面的具体方法。
-JS 的语言特性
+
+# JS 的语言特性
+
 运行在客户端浏览器上；
 不用预编译,直接解析执行代码；
 是弱类型语言,较为灵活；
 与操作系统无关,跨平台的语言；
 脚本语言、解释性语言
-this 的指向
+
+# this 的指向
+
 在非严格模式下使用 call 和 apply 时,如果用作 this 的值不是对象,则会被尝试转换为对象。null 和 undefined 被转换为全局对象。原始值如 7 或 'foo' 会使用相应构造函数转换为对象。因此 7 会被转换为 new Number(7) 生成的对象,字符串 'foo' 会转换为 new String('foo') 生成的对象。
 当函数作为对象里的方法被调用时,this 被设置为调用该函数的对象。
 如果该方法存在于一个对象的原型链上,那么 this 指向的是调用这个方法的对象
 当一个函数用作构造函数时（使用 new 关键字）,它的 this 被绑定到正在构造的新对象。
 当函数被用作事件处理函数时,它的 this 指向触发事件的元素。
 当代码被内联 on-event 处理函数 调用时,它的 this 指向监听器所在的 DOM 元素
-获取所有节点
+
+# 获取所有节点
 
 1. 获取根节点 html
 2. 获取 html 的所有子节点
@@ -818,10 +812,12 @@ this 的指向
    <img src="图片的url地址" alt="图片XX" onerror="this.src='默认图片的url地址'"/>
    除此之外,还可通过 onerror 设置各种 img 样式,方法等
    问题
-   Webpack
-   webpack 是一个前端模块化方案,更侧重模块打包,我们可以把开发中的所有资源（图片、js 文件、css 文件等）都看成模块,通过 loader（加载器）和 plugins（插件）对资源进行处理,打包成符合生产环境部署的前端资源。
-   HTML
-   元素
+
+# Webpack
+
+webpack 是一个前端模块化方案,更侧重模块打包,我们可以把开发中的所有资源（图片、js 文件、css 文件等）都看成模块,通过 loader（加载器）和 plugins（插件）对资源进行处理,打包成符合生产环境部署的前端资源。
+
+# HTML 元素
 
 <html> HTML <html> 元素 表示一个HTML文档的根（顶级元素）,所以它也被称为根元素。所有其他元素必须是此元素的后代。
 <head> HTML head 元素 规定文档相关的配置信息（元数据）,包括文档的标题,引用的文档样式和脚本等。
@@ -871,7 +867,9 @@ HTML5
 <canvas> 定义图形,比如图表和其他图像,标签只是图形容器,您必须使用脚本来绘制图形
 拖放特性：拖放是一种常见的特性,即抓取对象以后拖到另一个位置。在 HTML5 中,拖放是标准的一部分,任何元素都能够拖放。
 新的 Input 类型 date,number,email。
-CSS
+
+# CSS
+
 伪元素
 CSS 伪元素用于设置元素指定部分的样式。
 例如,它看用于：
@@ -885,7 +883,7 @@ CSS 伪元素用于设置元素指定部分的样式。
 为已访问和未访问链接设置不同的样式
 设置元素获得焦点时的样式
 采用单引号：
-CSS组合器
+CSS 组合器
 组合器是解释选择器之间关系的某种机制。
 CSS 选择器可以包含多个简单选择器。在简单选择器之间,我们可以包含一个组合器。
 CSS 中有四种不同的组合器：后代选择器 (空格)、子选择器 (>)、相邻兄弟选择器 (+)、通用兄弟选择器 (~)
@@ -893,7 +891,7 @@ CSS 中有四种不同的组合器：后代选择器 (空格)、子选择器 (>)
 后代选择器匹配属于指定元素后代的所有元素。
 下面的例子选择 <div> 元素内的所有 <p> 元素：
 div p {
-  background-color: yellow;
+background-color: yellow;
 }
 
 子选择器
@@ -930,8 +928,8 @@ CSS width 属性指定元素内容区域的宽度。内容区域是元素（盒�
 因此,如果元素拥有指定的宽度,则添加到该元素的内边距会添加到元素的总宽度中。这通常是不希望的结果。即总宽度=元素指定宽度+2\*内边距
 若要元素指定宽度保持不变,无论填充量如何,那么您可以使用 box-sizing：border-box 属性。这将导致元素保持其宽度。如果增加内边距,则可用的内容空间会减少。
 
-JAVASCRIPTE
-js 隐式转换数据
+# js 隐式转换数据
+
 · 1.1 隐式转换介绍
 · 1.2 隐式转换规则
 · 1.3 坑一：字符串连接符与算术运算符隐式转换规则混淆
@@ -956,7 +954,8 @@ Infinity “Infinity” true new Number(Infinity)
 [9] “9” 9 true
 [“a”, “b”] “a,b” NaN true
 
-prototype、constructor、**proto**
+# prototype、constructor、**proto**
+
 ①**proto**和 constructor 属性是对象所独有的；② prototype 属性是函数所独有的,因为函数也是一种对象,所以函数也拥有**proto**和 constructor 属性。
 **proto**属性的作用就是当访问一个对象的属性时,如果该对象内部不存在这个属性,那么就会去它的**proto**属性所指向的那个对象（父对象）里找,一直找,直到**proto**属性的终点 null,再往上找就相当于在 null 上取值,会报错。通过**proto**属性将对象连接起来的这条链路即我们所谓的原型链。
 prototype 属性的作用就是让该函数所实例化的对象们都可以找到公用的属性和方法,即 f1.**proto** === Foo.prototype。
@@ -1007,20 +1006,26 @@ return clone; //返回这个对象
 寄生组合继承
 核心：通过寄生方式,砍掉父类的实例属性,这样,在调用两次父类的构造的时候,就不会初始化两次实例方法/属性,避免的组合继承的缺点
 
-闭包
+# 闭包
+
 一个函数和对其周围状态（lexical environment,词法环境）的引用捆绑在一起（或者说函数被引用包围）,这样的组合就是闭包（closure）。也就是说,闭包让你可以在一个内层函数中访问到其外层函数的作用域。当内层函数在其他地方被调用时,就可以继续访问到外层函数的作用域,而不是被立即释放。
 在 JavaScript 中,每当创建一个函数,闭包就会在函数创建的同时被创建出来。闭包包含在函数创建时作用域中的所有变量。
 函数在定义时的词法作用域以外的地方被调用就会形成闭包。闭包使得函数可以继续访问定义时的词法作用域
 
-原型链
+# 原型链
+
 每个实例对象（ object ）都有一个私有属性（称之为 **proto** ）指向它的构造函数的原型对象（prototype ）。该原型对象也有一个自己的原型对象( **proto** ) ,层层向上直到一个对象的原型对象为 null。根据定义,null 没有原型,并作为这个原型链中的最后一个环节。
-作用域
+
+# 作用域
+
 每个函数都有自己独立的执行环境,在代码完成的时候就确定了自己的作用域。
 执行函数前,会对函数中的关键字 var 和 function 进行预解析。就是对变量和函数的声明提前,此时不会给变量赋值,当函数与变量同名时,函数会覆盖掉变量；待变量执行了之后,那个名字才会代表变量。
 作用域链：当所需要的变量在所在的作用域中查找不到的时候,它会一层一层向上查找,直到找到全局作用域还没有找到的时候,就会放弃查找。这种一层一层的关系,就是作用域链。
 JavaScript 单线程和异步
 JavaScript 是单线程的。
-任务分为宏任务和微任务,
+
+# 任务分为宏任务和微任务,
+
 微任务即当前正在处理的任务
 宏任务按照任务队列依次将任务传进微任务处理
 遇到 new Promise()的需要立即执行
@@ -1028,7 +1033,8 @@ async 相当于一个 promise 的语法糖,但不会立即执行,而是等到使
 requestAnimationFrame()指的是下一次浏览器重绘之前执行的函数,在 settimeout 之前执行
 settimeout 是在任务队列清空之后才开始执行,settimeout 之间主要看设定时间参数来先后输出,其次才是 context 的先后顺序。
 
-yield 与生成器
+# yield 与生成器
+
 生成器为一种可以用来控制迭代器（iterator）的函数,它可以随时暂停,并可以在任意时候恢复。
 创建生成器：在函数关键词后加*,如 function* generator () {}、let generator = function _() {}。
 yield 就是生成器中独特的 return,只会返回一次,再次调用时继续执行函数并返回下一个 yield。其返回的是一个对象,有两个属性,value 和 done,value 代表应该返回的值,done 代表所有 yield 是否执行完毕,若是则 done=true；
@@ -1039,7 +1045,10 @@ const gen = generator();
 gen.next(); // {value: 5, done: false}
 gen.next(); // {value: undefined, done: true},之后再执行下一步还是返回同样的对象。
 当然也可以用 return 返回对象,但 return 之后的将不再执行。
-yield 委托迭代：yield 加*可将它的工作委托给另一个生成器。通过这种方式,你就能将多个生成器连接在一起。
+
+# yield 委托迭代
+
+yield 加*可将它的工作委托给另一个生成器。通过这种方式,你就能将多个生成器连接在一起。
 yield* 是一个表达式,不是语句,所以它会有自己的值。
 yield*g1();//执行并获取 g1()中的 yield 结果,
 yield 也可以在 next() 方法调用后返回传递的值
@@ -1053,7 +1062,9 @@ const gen = generator([0, 1, 2]);
 for (const g of gen) {
 console.log(g); // 0 -> 1 -> 2
 }
-Async
+
+# Async
+
 ES7 提供的 async 函数相当于 generator 函数的语法糖(即高效简化版)
 创建语法：async function(){};//相当于把 function 后的\*换成 function 前 async,将 yield 替换成 await。
 最终会返回成一个 promise。
@@ -1105,7 +1116,8 @@ element.addEventListener(event, function, useCapture);
 当一个事件传播到目标元素上并且被监听到时,产生一个消息进入消息队列；
 当事件被连续触发时,按照同步先执行完事件 1 再 zhix1 事件 2
 
-事件循环(Event Loop)
+# 事件循环(Event Loop)
+
 JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入任务队列；
 同步任务进入主线程后一直执行,直到主线程空闲后,才会去任务队列中查看是否有可执行的异步任务,如果有就推入主线程中执行；
 即：主线程是微任务,任务队列是宏任务
@@ -1294,20 +1306,21 @@ array flat 会去空槽。在非数组对象上调用 flat 需要对象有 lengt
 24. Number 对象
     注: 这里讲的 Number 是对象 Number,和基本数据类型中的基本类型 Number 是不一样的 Number。通过 new Number 创建
     与基本类型的数字不同,对象类型的数字,拥有更多的属性和方法
+    new Number 创建一个数字对象
+    var x = new Number(123);//此时它的值虽然是 123,但它的类型是 object。
 
-new Number 创建一个数字对象
-var x = new Number(123);//此时它的值虽然是 123,但它的类型是 object。
+    Number 边界
+    Number.MIN_VALUE//Number 对象的最小值:5e-324
+    Number.MAX_VALUE//Number 对象的最大值:1.7976931348623157e+308
 
-Number 边界
-Number.MIN_VALUE//Number 对象的最小值:5e-324
-Number.MAX_VALUE//Number 对象的最大值:1.7976931348623157e+308
+    返回一个数字的小数表达
+    a. toFixed(2)//返回保留 2 位小数的 string a
+    返回一个 Number 对象的科学计数法表达 string
+    a.toExponential ()
+    返回一个数字对象的基本数字类型
+    var b = a.valueOf()// 将 a 的 类型从 Number 类变为 number 并赋值给 b
 
-返回一个数字的小数表达
-a. toFixed(2)//返回保留 2 位小数的 string a
-返回一个 Number 对象的科学计数法表达 string
-a.toExponential ()
-返回一个数字对象的基本数字类型
-var b = a.valueOf()// 将 a 的 类型从 Number 类变为 number 并赋值给 b
+25. setInterval(function,interval,[arg1,arg2,......argn])//默认语法,interval 设置间隔时间。之后的参数为传入 function 的值。
 
 JavaScript 日期
 new Date() 创建日期对象,默认是当前时间,如果想创建一个特定的时间,可以传入参数,参数可以是日期字符串,也可以是时间戳;参数无效时,返回 Invalid Date
