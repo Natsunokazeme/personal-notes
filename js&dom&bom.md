@@ -1125,7 +1125,7 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
 
 advanced js
 
-1. structuredClone() 可以用来拷贝对象,但是不能拷贝函数或者 Dom 节点;
+1. structuredClone(A, { transfer }) 可以用来深拷贝对象,第二个参数还可以指定从原对象转移属性至新对象
 2. 下载功能实现
    const link = document.createElement('a')
    link.download = fileName
@@ -1153,7 +1153,7 @@ advanced js
 17. process.env 获取定义在.env 文件内的变量,.env 有 test,production,development 及以上三个环境的变量,可用 cross-env 来设置环境变量
 18. getElementsByClassName() 方法返回 NodeList 对象,不是数组
 19. scrollHeight 元素全部高度;clientHeight:包括 padding 的可见区域高度;offsetHeight:包括 border,滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离,也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离,也就是元素被遮住的宽度;
-20. Element.getBoundingClientRect() // 返回元素的大小及其相对于视口的位置
+20. Element.getBoundingClientRect() // 返回 DOMRect 对象，包含相对于视图窗口的左上角来计算的 x,y,top,right,left,bottom,width,height,其中 width 和 height 属性是包含了 padding 和 border-width；
 21. requestAnimFrame(callback) 下一次重绘前调用回调函数
 22. 在 safari 里 video 不能在 js 里 play,必须在用户交互事件里 play。
 23. 在 safari 里 canvas 不能在 js 里 toDataURL,必须在用户交互事件里 toDataURL.
