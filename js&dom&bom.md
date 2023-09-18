@@ -1146,30 +1146,29 @@ advanced js
 10. 可用解构来定义 interface 并使用,例如{ data }: { data: {successList: GoodsList[]} } 等于 res：{data:{successList:GoodsList[]} }
 11. function 里传的值是基本值的复制值或引用值的复制值,即 object 时传的是 object 的指针的复制,该复制也指向 object 真实值
 12. array.at(index) 返回数组中指定位置的元素,如果 index 为负数,则从数组末尾开始计算,可用来代替 array[array.length+index]
-13. document.getElementsByTagName('xxx')得到的是一个类数组,不是数组,所以不能用数组的方法,如 map,filter,forEach 等,可用 Array.from()转换成数组。并且必须在 dom 加载完成后才能获取到 dom,否则获取到的是空数组
+13. document.getElementsByTagName('xxx')得到的是一个 NodeList 对象,是类数组,不是数组,所以不能用数组的方法,如 map,filter,forEach 等,可用 Array.from()转换成数组。并且必须在 dom 加载完成后才能获取到 dom,否则获取到的是空数组
 14. addEventListener('DOMContentLoaded',()=>{}) 可以在 dom 树加载完成后执行回调函数
 15. video 的 src 未加载时调用 play 会报错,所以要先判断 video 的 src 是否加载完成,可直接用 video.oncanplaythrough 来进行加载好后的回调
 16. 比较两个对象是否相等时,最好用 JSON.stringify 来转换成字符串,因为对象的属性是引用类型,如果用 === 比较,会出现不相等的情况。但注意的是,转换成字符串时,会按照字符串的排序来比较,所以如果属性的顺序不一致,就会出现不相等的情况。
 17. process.env 获取定义在.env 文件内的变量,.env 有 test,production,development 及以上三个环境的变量,可用 cross-env 来设置环境变量
-18. getElementsByClassName() 方法返回 NodeList 对象,不是数组
-19. scrollHeight 元素全部高度;clientHeight:包括 padding 的可见区域高度;offsetHeight:包括 border,滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离,也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离,也就是元素被遮住的宽度;
-20. Element.getBoundingClientRect() // 返回元素的大小及其相对于视口的位置
-21. requestAnimFrame(callback) 下一次重绘前调用回调函数
-22. 在 safari 里 video 不能在 js 里 play,必须在用户交互事件里 play。
-23. 在 safari 里 canvas 不能在 js 里 toDataURL,必须在用户交互事件里 toDataURL.
-24. 在 safari 的 graphies 里,canvas 的 toDataURL 会导致内存泄漏,所以在 safari 里不要用 canvas 的 toDataURL
-25. console 台里不出现后端请求原因分析：1.mocked http request。2 特殊的 http 请求不被 console 台获取 3.network 做了筛选
-26. 在浏览器 debug(未编译的代码),直接打开控制台的 source,在里面直接加断点,通过 cmd+shift+p 搜索文件
-27. refresh 不会销毁组件
-28. Array.prototype.flatMap() 会先使用映射函数映射每个元素,然后将结果压缩成一个新数组。它与 map 和 深度值 1 的 flat 几乎相同,但 flatMap 通常在合并成一种方法的效率更高。
-29. number.toString(2) 将 number 转化为二进制字符串
-30. function.length 返回函数的参数个数
-31. lambda 演算 ℷx.x+1(1) 表示对 x 的 ℷ 演算,ℷx 声明这是参数为 x 的 ℷ 演算,ℷx.x+1 表示传入 x 后返回 x+1,ℷx.x(1)表示传入 1 后返回 2
-32. 柯利化,将函数作为参数传入另一个函数。
-33. parseInt 第二个参数表示进制,2-36,默认为 0(根据字符串前缀判断)
-34. 虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染
-35. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
-36. var let const, var 会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let 和 const 不会变量提升,且不可重复声明,const 声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是 es6 新增的
+18. scrollHeight 元素全部高度;clientHeight:包括 padding 的可见区域高度;offsetHeight:包括 border,滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离,也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离,也就是元素被遮住的宽度;
+19. Element.getBoundingClientRect() // 返回元素的大小及其相对于视口的位置
+20. requestAnimFrame(callback) 下一次重绘前调用回调函数
+21. 在 safari 里 video 不能在 js 里 play,必须在用户交互事件里 play。
+22. 在 safari 里 canvas 不能在 js 里 toDataURL,必须在用户交互事件里 toDataURL.
+23. 在 safari 的 graphies 里,canvas 的 toDataURL 会导致内存泄漏,所以在 safari 里不要用 canvas 的 toDataURL
+24. console 台里不出现后端请求原因分析：1.mocked http request。2 特殊的 http 请求不被 console 台获取 3.network 做了筛选
+25. 在浏览器 debug(未编译的代码),直接打开控制台的 source,在里面直接加断点,通过 cmd+shift+p 搜索文件
+26. refresh 不会销毁组件 //
+27. Array.prototype.flatMap() 会先使用映射函数映射每个元素,然后将结果压缩成一个新数组。它与 map 和 深度值 1 的 flat 几乎相同,但 flatMap 通常在合并成一种方法的效率更高。
+28. number.toString(x) 将 number 转化为 X 进制字符串,2-36，默认 10
+29. function.length 返回函数的参数个数
+30. lambda 演算 ℷx.x+1(1) 表示对 x 的 ℷ 演算,ℷx 声明这是参数为 x 的 ℷ 演算,ℷx.x+1 表示传入 x 后返回 x+1,ℷx.x(1)表示传入 1 后返回 2
+31. 柯利化,将函数作为参数传入另一个函数。
+32. parseInt 第二个参数表示进制,2-36,默认为 0(根据字符串前缀判断)
+33. 虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染
+34. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
+35. var let const, var 会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let 和 const 不会变量提升,且不可重复声明,const 声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是 es6 新增的
     37.function.length 返回函数的参数个数
 
 JS 新约
@@ -1180,6 +1179,7 @@ JS 新约
 2. document 代表浏览器的文档部分, window 代表浏览器的窗口部分,Document 对象是 Window 对象的一部分,可通过 window.document 属性对其进行访问。同理,history 也是 window 的属性
 3. 完整的 javascript 由语言基础,BOM 和 DOM 组成。
 4. js 内存管理的垃圾回收算法，最初是引用计数垃圾收集，即当一个对象没有被引用时被回收。现在主流的是标记清除算法，即当一个对象从 root 不可达时被回收。即全局对象作为 root。这样可以避免循环引用的问题。
+   当两个对象相互引用为属性时，他们的引用计数都不为 0，但是他们都不可达，所以会被回收。
 5. js 内存模型分为堆，栈，队列，堆用来存储对象，栈用来存储帧，队列用来存储消息。当消息被处理时会被移出队列，并且会创建一个帧，帧中包含了函数的参数，局部变量，返回地址等信息。当函数执行完毕时，帧会被移出栈。若帧中的函数调用了其他函数，则会创建新的帧并压入栈中。直到所有帧都被移出栈，函数执行完毕。开始处理下一个消息。
 6. string.padStart(a,b) 在 string 前添加字符串 b 直到整个 string 长度大于等于 a
 7. JavaScript 基本数据类型 undefined,Boolean,Number,String,null,symbol,bigint
@@ -1207,23 +1207,28 @@ JS 新约
    变量的类型是动态的,当值是整数的时候,就是 Number 类型,当值是字符串的时候,就是 String 类型
 
 10. 4 种变量类型判断
-    使用 typeof 来进行判断数据类型
+
+    # 使用 typeof 来进行判断数据类型
+
     typeof 可以识别出基本类型 boolean,number,undefined,string,symbol,bigInt 但是不能识别 null。不能识别引用数据类型,会把 null、array、object 统一归为 object 类型,但是可以识别出 function。
     例：console.log(typeof bool); //Boolean
 
-instanceof
-instanceof 不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
-但是可以检测出引用类型,如 array、object、function,同时对于是使用 new 声明的类型,它还可以检测出多层继承关系。
-instanceof 一般用来检测对象类型,以及继承关系。
-arrname instanceof Array;// return true
+    # instanceof
 
-constructor
-null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
-console.log(arr.constructor === Array);// true
+    instanceof 不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
+    但是可以检测出引用类型,如 array、object、function,同时对于是使用 new 声明的类型,它还可以检测出多层继承关系。
+    instanceof 一般用来检测对象类型,以及继承关系。
+    arrname instanceof Array;// return true
 
-Object.prototype.toString.call
-console.log(Object.prototype.toString.call(num));//[object Number]
-该方法直接返回对应类型的字符串
+    # constructor
+
+    null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
+    console.log(arr.constructor === Array);// true
+
+    # Object.prototype.toString.call
+
+    console.log(Object.prototype.toString.call(num));//[object Number]
+    该方法直接返回对应类型的字符串
 
 11. 数字转换为字符串
     const a = 123;
@@ -1242,7 +1247,7 @@ console.log(Object.prototype.toString.call(num));//[object Number]
 
 稀疏数组:数组中的某些位置没有任何值,这时候我们说这个数组是稀疏数组。如[,1,] 有两个元素,第一个元素是一个空槽,即 empty;
 
-push,unshift 用于在数组的末尾或者开头插入 0 个元素,并且返回数组的长度,会修改原数组.
+push,unshift 用于在数组的末尾或者开头插入 n 个元素,并且返回数组的长度,会修改原数组.
 注意:push 和 unshift 可通过 Array.prototype 作用在非数组对象上,它会先读取对象的 length 属性,若没有就设为 0,若有则加上新添加的元素长度,然后将新元素加到对应的 key 为 index 的属性上(若已存在则覆盖),最后返回新的 length 属性值。
 例:onst plainObj = {length:5};
 const newlen = Array.prototype.push.call(plainObj, 1, 2); // plainObj: {5: 1, 6: 2, length: 7}; newLen: 7
