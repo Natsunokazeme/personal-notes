@@ -285,3 +285,6 @@ advanced HTML
    slot name="curent" slot='son-slot' /slot
 5. 关闭 iframe 的 PDF 默认控制栏，在 src 的末尾加上‘#toolbar=0’
 6. selector 无法指定 value，只能通过 option 的 value 属性来指定
+7. onDrop 事件和 onDragOver 事件都是标准 html5 里的事件,前者是被拖拽元素释放到目标元素上触发的,后者是被拖拽元素在目标元素上移动时触发的.onDrop 事件只能在目标元素上触发,而 onDragOver 事件可以在任何元素上触发,所以在目标元素上触发 onDragOver 事件时,要阻止默认行为.
+8. event.dataTransfer,用于拖拽期间传递存放数据.
+9. stopPropagation() 方法阻止事件冒泡到父元素,但是不会阻止事件传递到当前元素的其他监听器 preventDefault() 方法阻止事件的默认行为,如 a 标签的跳转;

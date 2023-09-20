@@ -495,30 +495,32 @@ overflow 不为 visible 的元素
 30. background-clip 基于当前元素设置 background 的 延伸距离，text 是基于文字，padding-box 是基于 padding，border-box 是基于 border，content-box 是基于 content;
 31. _flex: 1; == flex: 1 1 0 flex:auto == flex: 1 1 auto;flex:none: ==flex:0 0 auto;flex: initial == flex:0 1 auto_
 32. order: 1; 该属性规定了弹性容器中的可伸缩项目在布局时的顺序。元素按照 order 属性的值的增序进行布局，可以为负值。
-33. font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小， clamp(min,val,max) 相应的值会在 3 个值当中
-34. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高 css 关键字的性能
+33. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高 css 关键字的性能
     _补充知识:一般来说,元素在进行一些操作如 3D 变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过 GPU 而不是 CPU 渲染的话,性能会得到提升.因此，之前我们会用 transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染_
-35. css 属性选择器
+34. css 属性选择器
     a[title='1'] // title 为 1 的 a 标签
     a[title^='1'] // title 以 1 开头的 a 标签
     a[title$='1'] // title 以 1 结尾的 a 标签
     a[title*='1'] // title 包含 1 的 a 标签
     a[title~='1'] // title 是一个以空格作为分隔的值列表，其中至少有一个值 为 1 的 a 标签
     a[title|='1'] // title 是一个以连字符作为分隔的值列表，其中至少有一个值 为 1 的 a 标签
-36. _accent-color:#fff ; // 设置 checkbox 勾选颜色_
-37. sticky 要求父元素高度比自身高，且 overflow 不为 hidden。
-38. inline-flex 让元素 flex 的同时可指定宽高
-39. fill:currentColor 使 svg 和 path 的颜色继承父元素的颜色，但只能用与 html 标签，不能用于 image url 和 background-image
-40. 创建基础组建时样式不重要，可以通过 deep selector 来覆盖
-41. _input 不是一个 container，不能有子元素，因此伪元素不会生效_
-42. 推荐用 last-of-type:mr-0 来替代 first-of-type:ml-0,因为换行后下一行元素第一个元素会有 margin-left
-43. _选择器权重:权重是相加比较的，id 永远 > class 永远 > 标签 .权重大小比较只在同级之间比较，不同级之间不比较..权重相同的情况下，后面的样式会覆盖前面的样式.伪类和属性选择器权重和类相同，伪元素权重和标签相同。组合选择器不更改权重规则。级与级之间的权重差根据浏览器实现而不同，因此当级的权重差为 1 个字节时，256 个 class 累计的权重就会超过 1 个字节，发生溢出，进而可能覆盖 id 的权重。_
-44. background-image 可以设置多个，用逗号隔开，前一个会覆盖后一个，可使用 linear-gradient()设置渐变色
-45. linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
-46. :target 选择器，选中当前页面的锚点，可用于锚点跳转
-47. css 变量 用--xxx: value;使用 var(--xxx)调用 value
-48. css 默认继承的属性有 color,font-size 等和文字相关的属性以及 visibility,cursor 等和显示相关的属性
-49. video 的 videoHeight 和 videoWidth 属性是只读的,且只有在视频加载完成后才能获取到正确的值,即原生视频的大小
+35. _accent-color:#fff ; // 设置 checkbox 勾选颜色_
+36. sticky 要求父元素高度比自身高，且 overflow 不为 hidden。
+37. inline-flex 让元素 flex 的同时可指定宽高
+38. fill:currentColor 使 svg 和 path 的颜色继承父元素的颜色，但只能用与 html 标签，不能用于 image url 和 background-image
+39. 创建基础组建时样式不重要，可以通过 deep selector 来覆盖
+40. _input 不是一个 container，不能有子元素，因此伪元素不会生效_
+41. 推荐用 last-of-type:mr-0 来替代 first-of-type:ml-0,因为换行后下一行元素第一个元素会有 margin-left
+42. _选择器权重:权重是相加比较的，id 永远 > class 永远 > 标签 .权重大小比较只在同级之间比较，不同级之间不比较..权重相同的情况下，后面的样式会覆盖前面的样式.伪类和属性选择器权重和类相同，伪元素权重和标签相同。组合选择器不更改权重规则。级与级之间的权重差根据浏览器实现而不同，因此当级的权重差为 1 个字节时，256 个 class 累计的权重就会超过 1 个字节，发生溢出，进而可能覆盖 id 的权重。_
+43. background-image 可以设置多个，用逗号隔开，前一个会覆盖后一个，可使用 linear-gradient()设置渐变色
+44. linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
+45. :target 选择器，选中当前页面的锚点，可用于锚点跳转
+46. css 变量 用--xxx: value;使用 var(--xxx)调用 value
+47. css 默认继承的属性有 color,font-size 等和文字相关的属性以及 visibility,cursor 等和显示相关的属性
+48. video 的 videoHeight 和 videoWidth 属性是只读的,且只有在视频加载完成后才能获取到正确的值,即原生视频的大小
+49. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小
+50. transform 里的 scale 会把元素整体缩放，但 Event Listener 不会改变监听区域
+51. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
 
 SCSS
 
@@ -527,6 +529,7 @@ SCSS
 3. @while 当@while 后的条件不返回 false 或者 null 时，@while 后的代码块会被执行，否则不会被执行
 4. 变量 $xxx: value; 用$xxx 调用 value
 5. @mixin 定义一个类似方法的混合器，用@include xxx;调用 例：@mixin xxx($xxx){xxx: $xxx;} @include xxx(value);
+6. scss 变量可以在 css 规则块定义之外存在(全局变量).当变量定义在 css 规则块内,那么该变量只能在此规则块内使用,局部变量转换为全局变量可以在变量后添加 !global 如:$width: 5em !global;变量名以$开头,变量可以直接进行运算
 
 tailwindcss
 
