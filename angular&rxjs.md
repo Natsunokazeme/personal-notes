@@ -236,3 +236,11 @@ _rxjs 通过 zonejs 将异步代码包裹成 observable_
 _firstValueFrom()方法用于获取 observable 的第一个值,并返回一个 promise 对象,该方法只会获取 observable 的第一个值,并且在获取到第一个值后就会取消订阅,因此该方法只能用于获取单个值,而不能用于获取多个值._
 
 render2, angular 的渲染器,用于渲染 dom,可用于创建元素,设置属性,添加事件监听器,创建注释,设置样式等
+
+_templateRef.createEmbedView(child,context)方法用于创建一个嵌入视图,并将其挂载到 templateRef 上,child 为注入的 templateRef,context 为注入的 变量_
+
+_ngif 和 ngFor 都是通过 templateRef.createEmbeddedView()方法创建嵌入视图,并将其挂载到 templateRef 上,ngIf 是在 ngOnChanges()方法中创建嵌入视图，如果它们在同一宿主元素上，ngif 为 false 时会销毁元素，ngfor 会创造元素，因此 ngif 和 ngfor 不能同时用在同一宿主元素上_
+
+# angular 装饰器
+
+装饰器用于修改类，方法，属性的行为，添加元数据，扩展框架功能
