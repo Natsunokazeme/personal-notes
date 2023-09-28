@@ -150,6 +150,11 @@ style in jsx is used as style={{key:value}}.its key is camel
 
 如果 useEffect 的第二个参数是空数组，那么它只会在组件挂载的时候执行一次，如果是不传第二个参数，那么它会在组件挂载的时候执行一次，组件更新的时候也会执行一次，如果是传入一个数组，那么它会在组件挂载的时候执行一次，当数组中的值发生变化的时候也会执行一次。useEffect return 一个函数，这个函数会在 useEffect 再次执行前或组件销毁前执行，这个函数可以用来清除副作用。
 
+# useLayoutEffect(()=>void,[])
+
+与 useEffect 类似，但是会在所有的 DOM 变更之后*同步*调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。
+组件更新时执行销毁
+
 # useContext
 
 用于在 provider 包裹的函数组件中访问 context，即可在孙子组件中访问父组件的 context，不需要一层层传递。context 包含的是一个对象，可以在对象中添加多个属性，然后在子组件中通过 useContext 访问。
@@ -369,13 +374,64 @@ renderLanes,
 }
 }
 
+### effectList
+
+在 commit 阶段需要对每一个 fiber 节点进行操作，但是不是每一个 fiber 节点都需要操作，比如说函数组件，它没有 dom 节点，所以不需要操作，所以需要一个 effectList 来记录哪些 fiber 节点需要操作，哪些不需要操作。
+每个执行完 completeWork 并且存在 effectTag 的 fiber 节点都会被添加到 effectList 中，effectList 是一个单链表，每个 fiber 节点都有一个 nextEffect 属性指向下一个 fiber 节点。这个单向链表还有一个属性叫做 firstEffect，指向第一个需要操作的 fiber 节点，还有一个属性叫做 lastEffect，指向最后一个需要操作的 fiber 节点。
+
 ## commit 阶段
 
+通过 commitRoot(fiberRootNode)开始，不可中断
 Renderer 渲染的阶段
 commit 阶段的主要工作（即 Renderer 的工作流程）分为三部分：
 before mutation 阶段（执行 DOM 操作前）
 mutation 阶段（执行 DOM 操作）
 layout 阶段（执行 DOM 操作后）
+
+### before mutation 阶段
+
+此阶段进行了遍历 effectList 并调用 commitBeforeMutationEffects 函数处理；
+commitBeforeMutationEffects 函数主要分为三部分 1.处理 Dom 节点更新/删除后的 focus/blur 逻辑 2.调用 getSnapshotBeforeUpdate 生命周期函数 3.调用 useEffect(异步,防止阻止渲染)和 useLayoutEffect 钩子函数
+
+#### 调用 getSnapshotBeforeUpdate
+
+自从 react16 采用了 fiber 构架之后，原来的 Reconciler 可被中断了，原来位于此处的 componentWillxxx 钩子函数在一次更新里可能会调用多次，因此都添加了 UNSAFE\_前缀
+getSnapshotBeforeUpdate 在 render 之后，commit 之前调用，可以在此处获取 dom 节点的信息，返回值会作为 componentDidUpdate 的第三个参数传入，并且每次更新只有一次调用。
+
+### mutation 阶段
+
+这个阶段就是执行 dom 操作
+遍历 effectList 并调用 commitMutationEffects 函数依次做三步处理；
+
+1. 根据 ContentReset effectTag 重置文字节点
+2. 更新 ref
+3. 根据 effectTag 分别处理，其中 effectTag 包括(Placement | Update | Deletion | Hydrating)
+
+Fiber 节点不一定对应一个 dom 节点，它可能是一个组件，需要根据 fiber.tag 判断
+
+#### placement effect
+
+创建 dom 节点并插入到父节点中，但会检查有无兄弟节点，如果有，就 insertBefore 插入到兄弟节点前，如果没有，就 appendChild 插入到父节点的子节点中
+
+#### update effect
+
+更新 Fiber 节点，当 fiber.tag 为 FunctionComponent 时会执行 useLayoutEffect 钩子函数销毁
+
+#### deletion effect
+
+删除 Fiber 节点对应 dom 节点
+
+### layout 阶段
+
+通过遍历 effectList 并调用 commitLayoutEffects 函数处理
+
+1. 调用 useEffect 和 useLayoutEffect 钩子函数
+2. 更新 ref
+3. 更新 rootFiber
+
+componentWillUnmount 会在 mutation 阶段执行。此时 current Fiber 树还指向前一次更新的 Fiber 树，在生命周期钩子内获取的 DOM 还是更新前的。
+
+componentDidMount 和 componentDidUpdate 会在 layout 阶段执行。此时 current Fiber 树已经指向更新后的 Fiber 树，在生命周期钩子内获取的 DOM 就是更新后的。
 
 # 生命周期
 
