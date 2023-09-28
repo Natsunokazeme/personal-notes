@@ -23,3 +23,8 @@
 16. angular sanitizer 用于过滤 html 标签,防止 xss 攻击；sanitizer.bypassSecurityTrustResourceUrl() 方法用于信任资源 url,防止 angular 报错.若不通过该方法,angular 会认为该 url 不安全,不会加载该资源.(踩坑 0.5day)
 17. angular 里 pipeline 设置
 18. enum 可以直接当类型用，也可以当值用，当值用时，可以通过 enum[key]来取值
+19. web sql 和 indexedDB 类似，都是储存在浏览器的方式，更像关系型数据库，目前只有 chrome 支持,已被 deprecated
+20. script 标签的 defer 属性，表示脚本会在文档解析完毕后执行，但是在 DOMContentLoaded 事件之前执行，如果有多个 defer 脚本，会按照顺序执行，不会阻塞 DOM 解析，但是会阻塞 DOMContentLoaded 事件。async 属性表示脚本会在文档解析完毕后立即执行，但是不会阻塞 DOM 解析，也不会阻塞 DOMContentLoaded 事件，如果有多个 async 脚本，会按照加载完成的顺序执行，不一定是顺序执行，async 脚本不会阻塞其他资源的加载，比如图片，css 等，但是会阻塞其他 async 脚本的执行，async 脚本一定会在页面的 load 事件之前执行，但是不一定在 DOMContentLoaded 事件之前执行。
+21. _script 默认是会阻碍 HTML 解析的，只有下载好并执行完脚本才会继续解析 HTML，defer 就是下载不阻碍 html 解析，执行会等到 html 解析完再执行，async 是下载不阻碍，执行可能阻碍解析，一旦下载好就立即执行_
+22. webpack 默认是将所有的模块打包成一个 js 文件，这样会造成初次加载时 js 文件过大，等待时间过长，所以需要将 js 文件分割成多个文件，这样可以实现按需加载，提高加载速度。
+23. 通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。

@@ -493,7 +493,7 @@ overflow 不为 visible 的元素
 28. _overscroll-behavior:滚动到该 scroll 的边界时的滚动溢出效果，为 auto 时，会继续滚动相邻的 scroll 或触发页面触底效果甚至下拉刷新，为 contain 时，页面效果不变，但不会滚动相邻 scroll，为 none 时，不滚动也不触发。_
 29. _阻止页面下拉刷新，在 body 里设置 css overscroll-behavior:none 和 overflow:hidden_
 30. background-clip 基于当前元素设置 background 的 延伸距离，text 是基于文字，padding-box 是基于 padding，border-box 是基于 border，content-box 是基于 content;
-31. _flex: 1; == flex: 1 1 0 flex:auto == flex: 1 1 auto;flex:none: ==flex:0 0 auto;flex: initial == flex:0 1 auto_
+31. _flex: 1; == flex: 1 1 0; flex:auto == flex: 1 1 auto;flex:none==flex:0 0 auto;flex: initial == flex:0 1 auto flex:0==flex:0 1 0_
 32. order: 1; 该属性规定了弹性容器中的可伸缩项目在布局时的顺序。元素按照 order 属性的值的增序进行布局，可以为负值。
 33. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高 css 关键字的性能
     _补充知识:一般来说,元素在进行一些操作如 3D 变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过 GPU 而不是 CPU 渲染的话,性能会得到提升.因此，之前我们会用 transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染_
@@ -521,6 +521,8 @@ overflow 不为 visible 的元素
 49. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小
 50. transform 里的 scale 会把元素整体缩放，但 Event Listener 不会改变监听区域
 51. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
+52. _:first-of-type,伪类 当匹配到的元素是父元素中其类型的第一个元素时生效;:first-child 伪类 当匹配到的元素是父元素中的第一个元素时生效_
+53. :nth-of-type(an+b) 伪类 当匹配到的元素是父元素中其类型的第 an+b 个元素时生效，n 从 0 开始计数;:nth-of-type(2n+1)可直接写为:nth-of-type(odd)
 
 SCSS
 
