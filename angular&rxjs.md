@@ -29,17 +29,19 @@ exportclassHelloWorldComponent{
 <p>Thefollowingparagraphisreadonly.Tryclickingthebutton!</p>
 </ng-template #noEdit>
 
-依赖注入
+# 依赖注入
+
 例:
 //注册一个可注入方法 logger.service.ts
 import{Injectable}from'@angular/core';
 
 @Injectable({providedIn:'root'})
-exportclassClassname{
+export class Logger {
 writeCount(count:number){
 console.warn(count);
 }
 }
+
 //在组件中注入
 import{Component}from'@angular/core';
 import{Logger}from'../logger.service';
@@ -48,10 +50,10 @@ import{Logger}from'../logger.service';
 selector:'hello-world-di',
 templateUrl:'./hello-world-di.component.html'
 })
-exportclassHelloWorldDependencyInjectionComponent{
+export class HelloWorldDependencyInjectionComponent{
 count=0;
 
-constructor(privatelogger:Logger){
+constructor(private logger:Logger){
 }
 
 onLogMe(){
@@ -66,12 +68,14 @@ this.count++;
 @Output()传出
 EventEmitter 事件传出
 
-父组件引用子组件属性与方法
+# 父组件直接引用子组件属性与方法
+
 通过在父组件模板中的子组件标签内放入一个本地变量(以#为标记),代表子组件的引用；
-例如:<button (click)="timer.stop()">Stop</button>
+例如:
+<app-countdown-timer #timer></app-countdown-timer>
+<button (click)="timer.stop()">Stop</button>
 
 <div class="seconds">{{timer.seconds}}</div>
-<app-countdown-timer #timer></app-countdown-timer>
 
 双向绑定:[(input)]
 双向绑定工作原理
@@ -79,13 +83,11 @@ EventEmitter 事件传出
 后面的子组件具有值属性 size 和事件属性 sizeChange.size 属性是@Input(),因此数据可以流入子组件.sizeChange 事件是一个@Output(),它允许数据从子组件流出到父组件.
 双向绑定语法只是属性绑定和事件绑定的组合的简写形式,
 
-引入 angularmaterial 的知识点 1.在 materialV9 及以上版本时需按需引入组件 module2.引入是写在 app.module.ts 内,按需 import 之后在
-@NgModule({imports:[
-
-]})内写入,引入到核心 module3.在需要使用该组件时直接使用对应的组件名
+引入 angularmaterial 的知识点 1.在 materialV9 及以上版本时需按需引入组件 module2.引入是写在 module 内,按需 import 之后在
+@NgModule({imports:[]})内写入,引入到核心 module3.在需要使用该组件时直接使用对应的组件名
 
 RxJS
-opretor
+operator
 fromEvent
 forkjoin
 swichmap
@@ -95,68 +97,65 @@ take
 timer
 interval
 
-angular output
-@Output()quantityChange=newEventEmitter<number>();
-this.quantityChange.emit(this.quantity);
-
 angular setter 和 getter 方法可在获取或设置属性前执行一些操作,比如可替代 ngOnChanges
 
 angular cookbook
-components communication
+
+# components communication
+
 1.InputOutput
 2.service
 3.setter getter
-4.ogOnChanges
-5.idofchildcomponentintemplate(componentRef)
-6.viewChildcomponent
-@viewChild(ClassName)child1:ClassName;
-并将 componentRef 赋值给 child1
-7.dynamiccomponent(componentFactoryandviewContainerRef)
+4.ngOnChanges
+5.id of child componentin template(componentRef#)
+6.viewChild component @viewChild(ClassName)child1:ClassName;并将 componentRef 赋值给 child1
+7.dynamic component(component Factory and viewContainerRef)
 
-animation
+# animation
+
 angular 有自定义的 animation 方式,
 在需要动画的组件中引入 Trigger,State,Style,Transition,animate,grounp,query,stagger,keyframes
 
-24.angular 的 rxjs 的 observable 与 promise 不兼容
-25.observable 方法,pipe 用于管道,subscribe 用于订阅,switchMap 用于切换,需要返回 observable,map 用于映射,take 用于取前几个,takeUntil 用于取直到某个时间点,takeWhile 用于取直到某个条件为 false,
+1. angular 的 rxjs 的 observable 与 promise 不兼容
+2. observable 方法,pipe 用于管道,subscribe 用于订阅,switchMap 用于切换,需要返回 observable,map 用于映射,take 用于取前几个,takeUntil 用于取直到某个时间点,takeWhile 用于取直到某个条件为 false,
 
-32.ngOnchanges 参数 changes:SimpleChanges 可以查看改变的属性,可以用来判断是否改变了某个属性
-33.ngFor 可以根据值动态渲染
+3. ngOnchanges 参数 changes:SimpleChanges 可以查看改变的属性,可以用来判断是否改变了某个属性
+4. ngFor 可以根据值动态渲染
 
-36.forkJoin(observable1,observable2,...)用于等待多个 observable 发送完成,然后执行一个函数
+5. forkJoin(observable1,observable2,...)用于等待多个 observable 发送完成,然后执行一个函数
+6. xxx.asObservable();将 xxx 转化为一个 Observable 对象,这个对象可以被订阅,从而获取到 xxx 的值.
+7. BehaviorSubject 是一个可订阅的对象,它可以存储一个初始值,并且可以通过订阅来获取这个值.
+8. forkJoin()方法可以将多个 Observable 对象合并成一个 Observable 对象,它可以被订阅,从而获取到多个 Observable 对象的值.类似于 promise.all()方法.例如 forkJoin([obs1,obs2,obs3])将会返回一个 Observable 对象,它可以被订阅,从而获取到三个 Observable 对象的值.可对每个 Observable 对象进行 pipe 处理,也可在订阅后获取到所有结果再进行处理.
+9. switchMap()方法可以将一个 Observable 对象转化为另一个 Observable 对象,它可以被订阅,从而获取到另一个 Observable 对象的值.例如 obs1.pipe(switchMap((value1)=>obs2)).subscribe((value2))将会返回一个新的 Observable 对象,它可以被订阅,从而获取到 obs2 的值.
+10. 销毁订阅,防止内存泄漏.在 pipe 中使用 takeUntil()方法,将一个 Observable 对象作为参数,当这个 Observable 对象发出值时,就会取消订阅.一般将一个空 Subject 对象(newSubject<void>();)作为参数,当这个 Subject 对象发出值时,就会取消订阅.
+11. catchError()方法可以捕获错误,当 Observable 对象发生错误时,就会执行 catchError()方法中的代码.写在 pipe 中.
+12. of()方法可以将一个值转化为一个 Observable 对象,它可以被订阅,从而获取到这个值.
+13. finalize()方法可以在 Observable 对象完成时执行一些代码,写在 pipe 中.相当于 promise 的 finally()方法.
+14. subject 对象是一个 observable,它可以存储一个值,并且可以通过 subscribe 来获取这个值.它可以被订阅多次,每次订阅都会获取到最新的值.subject 同时是一个 observer,它可以通过 next 方法来存储一个值.例如:constsubject=newSubject();subject.subscribe((value)=>console.log(value));subject.next(1);subject.next(2);subject.next(3);//123
+15. ActivatedRoute 用于获取路由参数,ActivatedRoute.snapshot:获取当前路由参数,但不会随着路由参数的变化而变化；ActivatedRoute.params:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.queryParams:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.fragment:获取当前路由参数,会随着路由参数的变化而变化；
 
-1xxx.asObservable();将 xxx 转化为一个 Observable 对象,这个对象可以被订阅,从而获取到 xxx 的值.
-2BehaviorSubject 是一个可订阅的对象,它可以存储一个初始值,并且可以通过订阅来获取这个值.
-3.forkJoin()方法可以将多个 Observable 对象合并成一个 Observable 对象,它可以被订阅,从而获取到多个 Observable 对象的值.类似于 promise.all()方法.
-例如 forkJoin([obs1,obs2,obs3])将会返回一个 Observable 对象,它可以被订阅,从而获取到三个 Observable 对象的值.可对每个 Observable 对象进行 pipe 处理,也可在订阅后获取到所有结果再进行处理.
-4.switchMap()方法可以将一个 Observable 对象转化为另一个 Observable 对象,它可以被订阅,从而获取到另一个 Observable 对象的值.
-例如 obs1.pipe(switchMap((value1)=>obs2)).subscribe((value2))将会返回一个新的 Observable 对象,它可以被订阅,从而获取到 obs2 的值. 5.销毁订阅,防止内存泄漏.在 pipe 中使用 takeUntil()方法,将一个 Observable 对象作为参数,当这个 Observable 对象发出值时,就会取消订阅.一般将一个空 Subject 对象(newSubject<void>();)作为参数,当这个 Subject 对象发出值时,就会取消订阅.
-6.catchError()方法可以捕获错误,当 Observable 对象发生错误时,就会执行 catchError()方法中的代码.写在 pipe 中.
-7.of()方法可以将一个值转化为一个 Observable 对象,它可以被订阅,从而获取到这个值.
-8.finalize()方法可以在 Observable 对象完成时执行一些代码,写在 pipe 中.相当于 promise 的 finally()方法.
-9.subject 对象是一个 observable,它可以存储一个值,并且可以通过 subscribe 来获取这个值.它可以被订阅多次,每次订阅都会获取到最新的值.subject 同时是一个 observer,它可以通过 next 方法来存储一个值.
-例如:constsubject=newSubject();subject.subscribe((value)=>console.log(value));subject.next(1);subject.next(2);subject.next(3);//123
-10.observable
-1.ActivatedRoute 用于获取路由参数,ActivatedRoute.snapshot:获取当前路由参数,但不会随着路由参数的变化而变化；ActivatedRoute.params:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.queryParams:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.fragment:获取当前路由参数,会随着路由参数的变化而变化；
+# angular 自定义 directive
 
-2.angular 自定义 directive
 directives
 类似 react 的高阶组件,嵌在组件上,可对组件进行扩展,增加新的功能
 自定义指令
-nggeneratedirectivedirectiveName
+ng generate directive directiveName
 用@Directive 装饰器装饰类,selector 为指令名称,可用在组件模版中；standalone 为 true 时,可直接使用,false 则只能在 ngModule 中声明后使用；
 @Directive({
 selector:'[rqeTranslation]',
 standalone:true,
 })
-120.ng-template 用于动态创建组件,ng-container 用于包裹元素,不会在 dom 中生成对应的标签,ng-content 用于 slot,只有 select 属性,用于选择器匹配
-121.elementRef 是对原生 dom 的封装,nativeElement 是原生 dom,viewContainerRef 是对当前元素的视图宿主的引用,内部有各种方法来删除,插入,移动,替换视图等,viewRef 是对当前元素的视图的引用,可以通过 viewRef.rootNodes 获取当前元素的所有子元素,templateRef 是对模板的引用.
-122.angular 中[class.xxx]="boolean"会在 true 时将 xxx 添加到 class 中,false 时将 xxx 从 class 中删除
-129.angularanimationtiggerstatetransitionstyleanimatetodo
-130.angularngTemplateOutlet 指令将对应的 templateRef 嵌入到宿主视图中,ngTemplateOutletContext 指令,将宿主的 context 传给 templateRef,使 template 可使用宿主内的变量
-131.observable 是一个函数,它接受一个 observer 作为参数,返回一个 subscription 对象.它将内部产生的数据传给 observer,observer 可以是一个对象,也可以是一个函数.observer 对象有三个方法,next,error,complete.next 方法用于传递数据,error 方法用于传递错误,complete 方法用于传递完成信号.subject 能有多个订阅者,而 observable 只能有一个订阅者.subject 是一个 observer,也是一个 observable.subject 有 next,error,complete 方法,可以通过这些方法来传递数据,错误,完成信号.operators 是个纯函数,它的输入为 observable,返回也 observable.operators 的本质是,描述从一个数据流到另一个数据流之间的关系,也就是 observer 到 observable 中间发生的转换,常见的有 map,switchMap,forkJoin,merge,take,takeUntil 等.
-132.observable 的 next 是用于向流里面推送新数据的方法,而 subscribe 是用于订阅 observable 并监听数据流变化的方法,subscribe 里也有 next 方法,observable 的 next 执行后产生的新数据传给 subscribe 里的 next.
-133.takeUntil 是通过传入的 observable 传出数据时,直接使当前 observable 的 subscribe 方法执行 complete 方法,从而结束当前 observable 的数据流. 134. combineLast([obs1,obs2])是将多个 observable 合并成一个 observable 进行 subscription,当所有 observable 都发出数据时,将所有 observable 的最新数据合并成一个数组,传给 subscribe 里的 next 方法. 例如:combineLast([obs1,obs2]).subscribe(([value1,value2])=>console.log(value1,value2))当 obs1 发出数据时,obs2 还没发出数据,subscribe 里的 next 不会执行,当 obs2 发出数据时,subscribe 里的 next 才会执行,并且传入 obs1 和 obs2 的最新数据. 135. concat(ob1,ob2) 也是先执行 ob1 再执行 ob2,区别是 ob1 需 complete 而不是 next 后再执行 ob2.最终 ob1 和 ob2 的数据会合并成一个数组,传给 subscribe 里的 next 方法.
+
+1. ng-template 用于动态创建组件,ng-container 用于包裹元素,不会在 dom 中生成对应的标签,ng-content 用于 slot,只有 select 属性,用于选择器匹配
+2. _elementRef 是对原生 dom 的封装,nativeElement 是原生 dom,viewContainerRef 是对当前元素的视图宿主的引用,内部有各种方法来删除,插入,移动,替换视图等,viewRef 是对当前元素的视图的引用,可以通过 viewRef.rootNodes 获取当前元素的所有子元素,templateRef 是对模板的引用._
+3. angular 中[class.xxx]="boolean"会在 true 时将 xxx 添加到 class 中,false 时将 xxx 从 class 中删除
+4. angular animation tigger state transition style animate todo
+5. _angular ngTemplateOutlet 指令将对应的 templateRef 嵌入到宿主视图中,ngTemplateOutletContext 指令,将宿主的 context 传给 templateRef,使 template 可使用宿主内的变量_
+6. _observable 是一个函数,它接受一个 observer 作为参数,返回一个 subscription 对象.它将内部产生的数据传给 observer,observer 可以是一个对象,也可以是一个函数.observer 对象有三个方法,next,error,complete.next 方法用于传递数据,error 方法用于传递错误,complete 方法用于传递完成信号.subject 能有多个订阅者,而 observable 只能有一个订阅者.subject 是一个 observer,也是一个 observable.subject 有 next,error,complete 方法,可以通过这些方法来传递数据,错误,完成信号.operators 是个纯函数,它的输入为 observable,返回也 observable.operators 的本质是,描述从一个数据流到另一个数据流之间的关系,也就是 observer 到 observable 中间发生的转换,常见的有 map,switchMap,forkJoin,merge,take,takeUntil 等._
+7. _observable 的 next 是用于向流里面推送新数据的方法,而 subscribe 是用于订阅 observable 并监听数据流变化的方法,subscribe 里也有 next 方法,observable 的 next 执行后产生的新数据传给 subscribe 里的 next._
+8. takeUntil 是通过传入的 observable 传出数据时,直接使当前 observable 的 subscribe 方法执行 complete 方法,从而结束当前 observable 的数据流.
+9. combineLast([obs1,obs2])是将多个 observable 合并成一个 observable 进行 subscription,当所有 observable 都发出数据时,将所有 observable 的最新数据合并成一个数组,传给 subscribe 里的 next 方法. 例如:combineLast([obs1,obs2]).subscribe(([value1,value2])=>console.log(value1,value2))当 obs1 发出数据时,obs2 还没发出数据,subscribe 里的 next 不会执行,当 obs2 发出数据时,subscribe 里的 next 才会执行,并且传入 obs1 和 obs2 的最新数据.
+10. concat(ob1,ob2) 也是先执行 ob1 再执行 ob2,区别是 ob1 需 complete 而不是 next 后再执行 ob2.最终 ob1 和 ob2 的数据会合并成一个数组,传给 subscribe 里的 next 方法.
 
 新约:
 ngnewxxx//创建新项目
@@ -164,7 +163,8 @@ nggcxxx//创建新组件
 nggmxxx//创建新模块
 nggsxxx//创建新服务
 
-life-circle 生命周期
+# life-circle 生命周期
+
 constructor 初始化,但此时@Input,@ViewChild 等都不存在
 ngOnChanges@Input 的值发生变化时触发
 ngOnInit 输入值将在这里获取
@@ -175,7 +175,8 @@ ngAfterViewInit 组件视图初始化后执行,只执行一次
 ngAfterViewChecked 组件视图每次变更后执行
 ngOnDestroy 组件销毁前执行
 
-钩子方法 用途 时机
+# 钩子方法 用途 时机
+
 ngOnChanges() 当 Angular 设置或重新设置数据绑定的输入属性时响应.该方法接受当前和上一属性值的 SimpleChanges 对象 如果组件绑定过输入属性,那么在 ngOnInit()之前以及所绑定的一个或多个输入属性的值发生变化时都会调用.
 注意,这发生的非常频繁,所以你在这里执行的任何操作都会显著影响性能.欲知详情,参阅本文档的使用变更检测钩子. 注意,如果你的组件没有输入属性,或者你使用它时没有提供任何输入属性,那么框架就不会调用 ngOnChanges().
 ngOnInit() 在 Angular 第一次显示数据绑定和设置指令/组件的输入属性之后,初始化指令/组件.欲知详情,参阅本文档中的初始化组件或指令. 在第一轮 ngOnChanges()完成之后调用,只调用一次.而且即使没有调用过 ngOnChanges(),也仍然会调用 ngOnInit()（比如当模板中没有绑定任何输入属性时）.
@@ -186,7 +187,8 @@ ngAfterViewInit() 当 Angular 初始化完组件视图及其子视图或包含�
 ngAfterViewChecked() 每当 Angular 做完组件视图和子视图或包含该指令的视图的变更检测之后调用. ngAfterViewInit()和每次 ngAfterContentChecked()之后调用.
 ngOnDestroy() 每当 Angular 每次销毁指令/组件之前调用并清扫.在这儿反订阅可观察对象和分离事件处理器,以防内存泄漏. 在 Angular 销毁指令或组件之前立即调用.
 
-angular route
+# angular route
+
 使用先到先得原则,即路由匹配到第一个符合条件的路由后,就不会再继续匹配其他路由了,因此通配符路由应该放在最后面,否则会导致其他路由无法匹配到
 
 route 有三个主要元素,router,activatedRoute,paramMap,后者是将路由拆分加入进 Map,有 get,getAll,has,keys 方法查询
@@ -195,15 +197,17 @@ route 有三个主要元素,router,activatedRoute,paramMap,后者是将路由拆
 
 this.router.navigate(['items'],{relativeTo:this.route});//相对当前 route 跳转
 
-routeGuard
+# routeGuard
+
 canActivate:路由激活守卫,用于控制是否允许进入该路由
 canDeactivate:路由退出守卫,用于控制是否允许退出该路由
 canLoad:路由加载守卫,用于控制是否允许加载该路由
 resolve:路由预加载守卫,用于在路由加载前获取数据
 canActivateChild:路由子路由激活守卫,用于控制是否允许进入子路由
-canMatch:路由匹配守卫,用于控制是否允许匹配该路由
+canMatch:路由匹配守卫,用于控制是否允许匹配该路由\*
 
-Pipe
+# Pipe
+
 Pipe 是一些在模版表达式(html)中使用的快捷处理方法,常用于格式化数据
 操作符为｜,后接 pipe 名称.
 例如:<p>Thehero'sbirthdayis{{birthday|date}}</p>
@@ -221,13 +225,22 @@ Angular 调用 transform 方法,该方法使用绑定的值作为第一个参数
 {{message$|async}}
 message$:Observable<string>; 4.管道优先级比三目运算符高,因此若要在管道中使用三目运算符,需要用括号括起来,例如{{(birthday|date:'fullDate')||'unknown'}}
 
-动态组件
+# 动态组件
+
 动态组件是指在运行时动态加载的组件,而不是在编译时加载的组件,举例,通过 viewContainerRef.createComponent()方法动态创建组件挂在到宿主组件上,并传入 data 给动态组件
 
 模版变量
 
-rxjs 通过 zonejs 将异步代码包裹成 observable
+_rxjs 通过 zonejs 将异步代码包裹成 observable_
 
-firstValueFrom()方法用于获取 observable 的第一个值,并返回一个 promise 对象,该方法只会获取 observable 的第一个值,并且在获取到第一个值后就会取消订阅,因此该方法只能用于获取单个值,而不能用于获取多个值.
+_firstValueFrom()方法用于获取 observable 的第一个值,并返回一个 promise 对象,该方法只会获取 observable 的第一个值,并且在获取到第一个值后就会取消订阅,因此该方法只能用于获取单个值,而不能用于获取多个值._
 
 render2, angular 的渲染器,用于渲染 dom,可用于创建元素,设置属性,添加事件监听器,创建注释,设置样式等
+
+_templateRef.createEmbedView(child,context)方法用于创建一个嵌入视图,并将其挂载到 templateRef 上,child 为注入的 templateRef,context 为注入的 变量_
+
+_ngif 和 ngFor 都是通过 templateRef.createEmbeddedView()方法创建嵌入视图,并将其挂载到 templateRef 上,ngIf 是在 ngOnChanges()方法中创建嵌入视图，如果它们在同一宿主元素上，ngif 为 false 时会销毁元素，ngfor 会创造元素，因此 ngif 和 ngfor 不能同时用在同一宿主元素上_
+
+# angular 装饰器
+
+装饰器用于修改类，方法，属性的行为，添加元数据，扩展框架功能

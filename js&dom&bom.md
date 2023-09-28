@@ -700,7 +700,7 @@ alert(JSON.stringify(res));
 客户端和服务器之间存在持久的连接,而且双方都可以随时开始发送数据,绕过 http 协议。发送给后端,利用后端代理
 5、 location.href location.href 不受浏览器跨域限制
 6、 postMessage
-window.postMessage(message,targetOrigin) 方法是 html5 新引进的特性,可以使用它来向其它的 window 对象发送消息,无论这个 window 对象是属于同源或不同源
+window.postMessage(message,targetOrigin) 方法是 html5 新引进的特性,可以使用它来向其它的 window 对象发送消息,无论这个 window 对象是属于同源或不同源,接受的 window 通过 addEventListener('message',function(){})来监听消息事件,接受到消息后可以对数据进行处理。
 
 # js 内存泄漏
 
@@ -761,7 +761,9 @@ xxxed()
 对于节流,一般有两种方式可以实现,分别是时间戳版和定时器版。
 content.onmousemove = throttle(count,1000);//
 时间戳版的函数触发是在时间段内开始的时候,而定时器版的函数触发是在时间段内结束的时候。
-块作用域和函数作用域的区别
+
+# 块作用域和函数作用域的区别
+
 块作用域是 ES6 新添加的。块作用域由 { } 包括,if 语句和 for 语句里面的{ }也属于块作用域。
 
 # 如何让事件先冒泡后捕获
@@ -816,117 +818,6 @@ offsetTop: 当前元素相对于 offset 顶部内边距的距离
 # Webpack
 
 webpack 是一个前端模块化方案,更侧重模块打包,我们可以把开发中的所有资源（图片、js 文件、css 文件等）都看成模块,通过 loader（加载器）和 plugins（插件）对资源进行处理,打包成符合生产环境部署的前端资源。
-
-# HTML 元素
-
-<html> HTML <html> 元素 表示一个HTML文档的根（顶级元素）,所以它也被称为根元素。所有其他元素必须是此元素的后代。
-<head> HTML head 元素 规定文档相关的配置信息（元数据）,包括文档的标题,引用的文档样式和脚本等。
-<body> 元素定义了 HTML 文档的主体。这个元素拥有一个开始标签 <body>,以及一个结束标签 </body>。
-<link> HTML外部资源链接元素 (<link>) 规定了当前文档与外部资源的关系。该元素最常用于链接样式表,此外也可以被用来创建站点图标(比如PC端的“favicon”图标和移动设备上用以显示在主屏幕的图标) 。
-<meta> HTML <meta> 元素表示那些不能由其它 HTML 元相关（meta-related）元素（(base、link, script、style 或 title）之一表示的任何Metadata信息。
-<style> HTML的<style>元素包含文档的样式信息或者文档的部分内容。默认情况下,该标签的样式信息通常是CSS的格式。
-<title> HTML <title> 元素 定义文档的标题,显示在Browser的标题栏或标签页上。它只应该包含文本,若是包含有标签,则它包含的任何标签都将被忽略。
-<nav> HTML <nav>元素表示页面的一部分,其目的是在当前文档或其他文档中提供导航链接。导航部分的常见示例是菜单,目录和索引。
-文本内容
-<li> HTML <li> 元素 （或称 HTML 列表条目元素） 用于表示列表里的条目。它必须包含在一个父元素里：一个有序列表(ol),一个无序列表(ul),或者一个菜单 (menu)。在菜单或者无序列表里,列表条目通常用点排列显示；在有序列表里,列表条目通常在左边显示按升序排列的计数,例如数字或者字母。
-<div> HTML <div> 元素 (或 HTML 文档分区元素) 是一个通用型的流内容容器,在不使用CSS的情况下,其对内容或布局没有任何影响。
-<ol> HTML <ol> 元素表示有序列表,通常渲染为一个带编号的列表。
-内联文本语义
-使用 HTML 内联文本语义（Inline text semantics）定义一个单词、一行内容,或任意文字的语义、结构或样式。
-<a> HTML <a> 元素（或称锚元素）可以创建通向其他网页、文件、同一页面内的位置、电子邮件地址或任何其他 URL 的超链接。
-<b> HTML提醒注意（Bring Attention To）元素（<b>）用于吸引读者的注意到该元素的内容上（如果没有另加特别强调）。这个元素过去被认为是粗体（Boldface）元素,并且大多数浏览器仍然将文字显示为粗体。尽管如此,你不应将 <b> 元素用于显示粗体文字；替代方案是使用 CSS font-weight 属性来创建粗体文字。
-<br> HTML <br> 元素在文本中生成一个换行（回车）符号。此元素在写诗和地址时很有用,这些地方的换行都非常重要。
-<code> HTML <code> 元素呈现一段计算机代码. 默认情况下, 它以浏览器的默认等宽字体显示.
-<i> HTML元素 <i> 用于表现因某些原因需要区分普通文本的一系列文本。例如技术术语、外文短语或是小说中人物的思想活动等,它的内容通常以斜体显示。
-<span> HTML <span> 元素是短语内容的通用行内容器,并没有任何特殊语义。可以使用它来编组元素以达到某种样式意图（通过使用类或者Id属性）,或者这些元素有着共同的属性,比如lang。应该在没有其他合适的语义元素时才使用它。<span> 与 div 元素很相似,但 div 是一个 块元素 而 <span> 则是 行内元素 .
-<strong> Strong 元素 (<strong>)表示文本十分重要,一般用粗体显示。
-图片和多媒体
-<img> HTML <img> 元素将一份图像嵌入文档
-<video> HTML <video> 元素 用于在HTML或者XHTML文档中嵌入媒体播放器,用于支持文档内的视频播放。
-<audio> HTML <audio> 元素用于在文档中嵌入音频内容。 <audio> 元素可以包含一个或多个音频资源, 这些音频资源可以使用 src 属性或者source 元素来进行描述：浏览器将会选择最合适的一个来使用。也可以使用 MediaStream 将这个元素用于流式媒体。
-内嵌内容
-表格内容
-表单元素
-name属性主要是表单元素里才有的属性。与id都可以标识元素,但name可以重复,且
-<button> HTML <button> 元素表示一个可点击的按钮,可以用在表单或文档其它需要使用简单标准按钮的地方。
-<form> HTML <form> 元素表示文档中的一个区域,此区域包含交互控件,用于向 Web 服务器提交信息。
-<input> HTML <input> 元素用于为基于Web的表单创建交互式控件,以便接受来自用户的数据; 可以使用各种类型的输入数据和控件小部件,具体取决于设备和user agent。
-<label> HTML <label> 元素（标签）表示用户界面中某个元素的说明。
-<output> HTML <output> 标签表示计算或用户操作的结果。
-
-HTML 提示：使用小写标签
-HTML 标签对大小写不敏感：<P> 等同于 <p>。许多网站都使用大写的 HTML 标签。
-HTML5
-新元素
-
-<article>  定义文档内的文章。
-<footer>  定义文档或节的页脚。
-<header> 定义文档或节的页眉。
-<audio>  定义音频内容
-<video>  标签定义视频,比如电影片段或其他视频流
-<canvas> 定义图形,比如图表和其他图像,标签只是图形容器,您必须使用脚本来绘制图形
-拖放特性：拖放是一种常见的特性,即抓取对象以后拖到另一个位置。在 HTML5 中,拖放是标准的一部分,任何元素都能够拖放。
-新的 Input 类型 date,number,email。
-
-# CSS
-
-伪元素
-CSS 伪元素用于设置元素指定部分的样式。
-例如,它看用于：
-设置元素的首字母、首行的样式
-在元素的内容之前或之后插入内容
-采用双引号：：
-伪类
-伪类用于定义元素的特殊状态。
-例如,它可以用于：
-设置鼠标悬停在元素上时的样式
-为已访问和未访问链接设置不同的样式
-设置元素获得焦点时的样式
-采用单引号：
-CSS 组合器
-组合器是解释选择器之间关系的某种机制。
-CSS 选择器可以包含多个简单选择器。在简单选择器之间,我们可以包含一个组合器。
-CSS 中有四种不同的组合器：后代选择器 (空格)、子选择器 (>)、相邻兄弟选择器 (+)、通用兄弟选择器 (~)
-后代选择器
-后代选择器匹配属于指定元素后代的所有元素。
-下面的例子选择 <div> 元素内的所有 <p> 元素：
-div p {
-background-color: yellow;
-}
-
-子选择器
-子选择器匹配属于指定元素子元素的所有元素。
-下面的例子选择属于 <div> 元素子元素的所有 <p> 元素：
-div > p {
-background-color: yellow;
-}
-相邻兄弟选择器
-相邻兄弟选择器匹配所有作为指定元素的相邻同级的元素。
-兄弟（同级）元素必须具有相同的父元素,“相邻”的意思是“紧随其后”。
-下面的例子选择紧随 <div> 元素之后的所有 <p> 元素：
-div + p {
-background-color: yellow;
-}
-注：只有一个兄弟被选择
-通用兄弟选择器
-通用兄弟选择器匹配属于指定元素的同级元素的所有元素。
-下面的例子选择属于 <div> 元素的同级元素的所有 <p> 元素：
-div~p{}
-CSS 外边距
-CSS margin 属性用于在任何定义的边框之外,为元素周围创建空间。
-通过 CSS,您可以完全控制外边距。有一些属性可用于设置元素每侧（上、右、下和左）的外边距。
-auto 值您可以将 margin 属性设置为 auto,以使元素在其容器中水平居中。
-然后,该元素将占据指定的宽度,并且剩余空间将在左右边界之间平均分配。
-外边距合并
-外边距合并指的是,当两个垂直外边距相遇时,它们将形成一个外边距。
-合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。
-假设有一个空元素,它有外边距,但是没有边框或填充。在这种情况下,上外边距与下外边距就碰到了一起,它们会发生合并。这就是一系列的段落元素占用空间非常小的原因,因为它们的所有外边距都合并到一起,形成了一个小的外边距。
-
-CSS 内边距
-内边距和元素宽度
-CSS width 属性指定元素内容区域的宽度。内容区域是元素（盒模型）的内边距、边框和外边距内的部分。
-因此,如果元素拥有指定的宽度,则添加到该元素的内边距会添加到元素的总宽度中。这通常是不希望的结果。即总宽度=元素指定宽度+2\*内边距
-若要元素指定宽度保持不变,无论填充量如何,那么您可以使用 box-sizing：border-box 属性。这将导致元素保持其宽度。如果增加内边距,则可用的内容空间会减少。
 
 # js 隐式转换数据
 
@@ -1146,7 +1037,7 @@ advanced js
 10. 可用解构来定义 interface 并使用,例如{ data }: { data: {successList: GoodsList[]} } 等于 res：{data:{successList:GoodsList[]} }
 11. function 里传的值是基本值的复制值或引用值的复制值,即 object 时传的是 object 的指针的复制,该复制也指向 object 真实值
 12. array.at(index) 返回数组中指定位置的元素,如果 index 为负数,则从数组末尾开始计算,可用来代替 array[array.length+index]
-13. document.getElementsByTagName('xxx')得到的是一个类数组,不是数组,所以不能用数组的方法,如 map,filter,forEach 等,可用 Array.from()转换成数组。并且必须在 dom 加载完成后才能获取到 dom,否则获取到的是空数组
+13. document.getElementsByTagName('xxx')得到的是一个 NodeList 对象,是类数组,不是数组,所以不能用数组的方法,如 map,filter,forEach 等,可用 Array.from()转换成数组。并且必须在 dom 加载完成后才能获取到 dom,否则获取到的是空数组
 14. addEventListener('DOMContentLoaded',()=>{}) 可以在 dom 树加载完成后执行回调函数
 15. video 的 src 未加载时调用 play 会报错,所以要先判断 video 的 src 是否加载完成,可直接用 video.oncanplaythrough 来进行加载好后的回调
 16. 比较两个对象是否相等时,最好用 JSON.stringify 来转换成字符串,因为对象的属性是引用类型,如果用 === 比较,会出现不相等的情况。但注意的是,转换成字符串时,会按照字符串的排序来比较,所以如果属性的顺序不一致,就会出现不相等的情况。
@@ -1180,6 +1071,7 @@ JS 新约
 2. document 代表浏览器的文档部分, window 代表浏览器的窗口部分,Document 对象是 Window 对象的一部分,可通过 window.document 属性对其进行访问。同理,history 也是 window 的属性
 3. 完整的 javascript 由语言基础,BOM 和 DOM 组成。
 4. js 内存管理的垃圾回收算法，最初是引用计数垃圾收集，即当一个对象没有被引用时被回收。现在主流的是标记清除算法，即当一个对象从 root 不可达时被回收。即全局对象作为 root。这样可以避免循环引用的问题。
+   当两个对象相互引用为属性时，他们的引用计数都不为 0，但是他们都不可达，所以会被回收。
 5. js 内存模型分为堆，栈，队列，堆用来存储对象，栈用来存储帧，队列用来存储消息。当消息被处理时会被移出队列，并且会创建一个帧，帧中包含了函数的参数，局部变量，返回地址等信息。当函数执行完毕时，帧会被移出栈。若帧中的函数调用了其他函数，则会创建新的帧并压入栈中。直到所有帧都被移出栈，函数执行完毕。开始处理下一个消息。
 6. string.padStart(a,b) 在 string 前添加字符串 b 直到整个 string 长度大于等于 a
 7. JavaScript 基本数据类型 undefined,Boolean,Number,String,null,symbol,bigint
@@ -1207,23 +1099,28 @@ JS 新约
    变量的类型是动态的,当值是整数的时候,就是 Number 类型,当值是字符串的时候,就是 String 类型
 
 10. 4 种变量类型判断
-    使用 typeof 来进行判断数据类型
+
+    # 使用 typeof 来进行判断数据类型
+
     typeof 可以识别出基本类型 boolean,number,undefined,string,symbol,bigInt 但是不能识别 null。不能识别引用数据类型,会把 null、array、object 统一归为 object 类型,但是可以识别出 function。
     例：console.log(typeof bool); //Boolean
 
-instanceof
-instanceof 不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
-但是可以检测出引用类型,如 array、object、function,同时对于是使用 new 声明的类型,它还可以检测出多层继承关系。
-instanceof 一般用来检测对象类型,以及继承关系。
-arrname instanceof Array;// return true
+    # instanceof
 
-constructor
-null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
-console.log(arr.constructor === Array);// true
+    instanceof 不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
+    但是可以检测出引用类型,如 array、object、function,同时对于是使用 new 声明的类型,它还可以检测出多层继承关系。
+    instanceof 一般用来检测对象类型,以及继承关系。
+    arrname instanceof Array;// return true
 
-Object.prototype.toString.call
-console.log(Object.prototype.toString.call(num));//[object Number]
-该方法直接返回对应类型的字符串
+    # constructor
+
+    null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
+    console.log(arr.constructor === Array);// true
+
+    # Object.prototype.toString.call
+
+    console.log(Object.prototype.toString.call(num));//[object Number]
+    该方法直接返回对应类型的字符串
 
 11. 数字转换为字符串
     const a = 123;
@@ -1242,7 +1139,7 @@ console.log(Object.prototype.toString.call(num));//[object Number]
 
 稀疏数组:数组中的某些位置没有任何值,这时候我们说这个数组是稀疏数组。如[,1,] 有两个元素,第一个元素是一个空槽,即 empty;
 
-push,unshift 用于在数组的末尾或者开头插入 0 个元素,并且返回数组的长度,会修改原数组.
+push,unshift 用于在数组的末尾或者开头插入 n 个元素,并且返回数组的长度,会修改原数组.
 注意:push 和 unshift 可通过 Array.prototype 作用在非数组对象上,它会先读取对象的 length 属性,若没有就设为 0,若有则加上新添加的元素长度,然后将新元素加到对应的 key 为 index 的属性上(若已存在则覆盖),最后返回新的 length 属性值。
 例:onst plainObj = {length:5};
 const newlen = Array.prototype.push.call(plainObj, 1, 2); // plainObj: {5: 1, 6: 2, length: 7}; newLen: 7
@@ -1395,3 +1292,16 @@ toPrecision() 返回字符串值,指定保留几位有效数字。
 parseInt(string, radix) 2<=radix<=36
 parseFloat(string) 转换为浮点数  
 Number() 可安全转换 BigInt 为数字(BigInt 过大丢失精度)
+
+BOM 储存大数据
+indexedDB 是浏览器提供的本地数据库,可以存储大量数据,但是不支持 sql 查询,类似 nosql,只能通过游标来查询,游标是一个指针,指向数据库中的某个位置,可以通过游标来遍历数据库中的数据,限制同源策略,只能在同源网站下访问同源数据库
+
+# 图像加载太慢
+
+    1.  可以使用懒加载,即当图像进入可视区域时,再加载图像(html5 中 img 标签 有 loading lazy 直接实现) 前端级别
+    2.  预加载,即提前加载图像 前端级别
+    3.  预览图,即先加载一张缩略图,然后再加载完整图像 后端级别
+    4.  调整图像分辨率,即根据显示图像的大小,加载合适的图像
+    5.  图像压缩,即减少图像的大小
+    6.  图像 CDN 加速,即使用 CDN 加速图像加载 后端级别
+    7.  图像缓存,即使用浏览器缓存图像,通过设置响应头的 Cache-Control 和 Expires 字段来实现(该方法能缓存比 localStorage 更多的数据并且加载更快)
