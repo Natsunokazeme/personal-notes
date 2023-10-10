@@ -28,3 +28,31 @@
 21. _script 默认是会阻碍 HTML 解析的，只有下载好并执行完脚本才会继续解析 HTML，defer 就是下载不阻碍 html 解析，执行会等到 html 解析完再执行，async 是下载不阻碍，执行可能阻碍解析，一旦下载好就立即执行_
 22. webpack 默认是将所有的模块打包成一个 js 文件，这样会造成初次加载时 js 文件过大，等待时间过长，所以需要将 js 文件分割成多个文件，这样可以实现按需加载，提高加载速度。
 23. 通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。
+24. _任何不在函数内部的代码的上下文都是全局上下文，谁最后调用的函数，函数里 this 就指向谁_
+25. 箭头函数中 this 的值总是等于外部作用域的 this
+26. 普通函数在调用时产生上下文，箭头函数没有上下文,会去外部作用域找，找不到就是 undefined
+27. 把一个函数当成参数传递到另一个函数的时候，也会发生隐式丢失的问题，且与包裹着它的函数的 this 指向无关。在非严格模式下，会把该函数的 this 绑定到 window 上，严格模式下绑定到 undefined。settimeout 的回调函数也是如此。
+28. 定时器的调用对象是 window，所以定时器里的 this 指向 window，严格模式下指向 undefined
+29. var 会挂在到 window 上，let 和 const 不会，var 在上下文里初始化为 undefined，let 和 const 在上下文里初始化为 uninitialized
+30. this 例题
+
+```javascript
+var obj2 = {
+  a: 2,
+  foo1: () => {
+    console.log(this.a) //3
+  },
+  foo2: function () {
+    console.log(this) //obj2
+    function inner() {
+      console.log(this) //window
+      console.log(this.a) //3
+    }
+    inner()
+  },
+}
+var a = 3
+obj2.foo1() //箭头函数的this指向外层作用域,作用域只有window和function,所以this指向window
+obj2.foo2()
+// inner()被调用时没有指定调用对象，所以this指向window，window.a为3
+```
