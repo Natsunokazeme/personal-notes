@@ -146,16 +146,16 @@ style in jsx is used as style={{key:value}}.its key is camel
 
 # react hooks
 
-# useEffect(()=>void,[])
+## useEffect(()=>void,[])
 
 如果 useEffect 的第二个参数是空数组，那么它只会在组件挂载的时候执行一次，如果是不传第二个参数，那么它会在组件挂载的时候执行一次，组件更新的时候也会执行一次，如果是传入一个数组，那么它会在组件挂载的时候执行一次，当数组中的值发生变化的时候也会执行一次。useEffect return 一个函数，这个函数会在 useEffect 再次执行前或组件销毁前执行，这个函数可以用来清除副作用。
 
-# useLayoutEffect(()=>void,[])
+## useLayoutEffect(()=>void,[])
 
 与 useEffect 类似，但是会在所有的 DOM 变更之后*同步*调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。
 组件更新时执行销毁
 
-# useContext
+## useContext
 
 用于在 provider 包裹的函数组件中访问 context，即可在孙子组件中访问父组件的 context，不需要一层层传递。context 包含的是一个对象，可以在对象中添加多个属性，然后在子组件中通过 useContext 访问。
 
@@ -222,7 +222,7 @@ Profiler 需要两个参数：第一个参数：是 id，用于表识唯一性�
 
 # React.memo()
 
-是一个高阶组件，接收两个参数，第一个是组件，第二个是比较更新前后的 props 控制组件是否渲染的函数，返回 true 不渲染，false 渲染。 memo 与 PureComponent 非常类似，但它只会对函数 props 进行比较。
+是一个高阶组件，接收两个参数，第一个是组件，第二个是比较更新前后的 props 控制组件是否渲染的函数，默认返回 true 不渲染，false 渲染,通过 Object.is 比较 prop。 memo 与 PureComponent 非常类似，但它只会对函数 props 进行比较。
 
 # useMemo 和 useCallback 的区别
 

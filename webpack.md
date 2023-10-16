@@ -3,12 +3,12 @@
 raw-loader：加载文件原始内容（utf-8）
 file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件 (处理图片和字体)
 url-loader：与 file-loader 类似，区别是用户可以设置一个阈值，大于阈值会交给 file-loader 处理，小于阈值时返回文件 base64 形式编码 (处理图片和字体)
-source-map-loader：加载额外的 Source Map 文件，以方便断点调试
+source-map-loader：从现有源文件提取现有的 Source Map 文件(即没有编译的源文件)，以方便断点调试
 svg-inline-loader：将压缩后的 SVG 内容注入代码中
 image-loader：加载并且压缩图片文件
 json-loader 加载 JSON 文件（默认包含）
 handlebars-loader: 将 Handlebars 模版编译成函数并返回
-babel-loader：把 ES6 转换成 ES5
+babel-loader：把 ES6+的 js 代码 转换成 ES5 兼容的 js 代码，需配合 babel 工具链
 ts-loader: 将 TypeScript 转换成 JavaScript
 awesome-typescript-loader：将 TypeScript 转换成 JavaScript，性能优于 ts-loader
 sass-loader：将 SCSS/SASS 代码转换成 CSS
@@ -25,19 +25,19 @@ cache-loader: 可以在一些性能开销较大的 Loader 之前添加，目的�
 
 # 常见 plugin 有哪些？
 
+webpack-bundle-analyzer: 可视化 Webpack 输出文件的体积 (业务组件、依赖第三方模块)
+html-webpack-plugin：简化 HTML 文件创建 (依赖于 html-loader)
+mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代 extract-text-webpack-plugin)
+clean-webpack-plugin: 目录清理，每次打包时清理上一次打包文件
 define-plugin：定义环境变量 (Webpack4 之后指定 mode 会自动配置)
 ignore-plugin：忽略部分文件
-html-webpack-plugin：简化 HTML 文件创建 (依赖于 html-loader)
 web-webpack-plugin：可方便地为单页应用输出 HTML，比 html-webpack-plugin 好用
 uglifyjs-webpack-plugin：不支持 ES6 压缩 (Webpack4 以前)
 terser-webpack-plugin: 支持压缩 ES6 (Webpack4)
 webpack-parallel-uglify-plugin: 多进程执行代码压缩，提升构建速度
-mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代 extract-text-webpack-plugin)
 serviceworker-webpack-plugin：为网页应用增加离线缓存功能
-clean-webpack-plugin: 目录清理
 ModuleConcatenationPlugin: 开启 Scope Hoisting
 speed-measure-webpack-plugin: 可以看到每个 Loader 和 Plugin 执行耗时 (整个打包耗时、每个 Plugin 和 Loader 耗时)
-webpack-bundle-analyzer: 可视化 Webpack 输出文件的体积 (业务组件、依赖第三方模块)
 
 # Loader 和 Plugin 的区别？
 
@@ -49,7 +49,7 @@ Plugin 在 plugins 中单独配置，类型为数组，每一项是一个 Plugin
 
 # Webpack 的构建流程是什么？从读取配置到输出文件这个过程尽量说全
 
-初始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数
+初始化参数：从配置文件和命令行语句中读取与合并参数，得出最终的参数
 开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译
 确定入口：根据配置中的 entry 找出所有的入口文件
 编译模块：从入口文件出发，调用所有配置的 Loader 对模块进行翻译，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理
@@ -74,3 +74,8 @@ Babel 的配置项主要分为以下几类：
 插件：用于支持某些新语法的解析，比如箭头函数、类、装饰器等
 预设：一组插件的集合，比如 @babel/preset-env 包含了解析所有 ECMAScript 提案阶段的插件
 其他配置项：比如是否生成 source map、是否生成注释等
+
+# 代码打包优化实践
+
+若有多个模块都依赖相同模块 a 时，可以将 a 模块抽出来作为公共模块单独打包，通过 optimization.splitChunks.cacheGroups 来自定义单独打包的模块及其规则
+splitChunks.chunks 有 all async init
