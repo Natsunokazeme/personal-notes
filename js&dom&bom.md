@@ -365,11 +365,12 @@ JavaScript 版本 ES6
 高级语法：//加括号的函数体返回对象字面量表达式：params => ({foo: bar})
 this：箭头函数不会创建自己的 this,它只会从自己的作用域链的上一层继承 this。
 
-promise
+# promise
+
 Promise 对象用于表示一个异步操作的最终完成 (或失败)及其结果值。
 本质上 Promise 是一个函数返回的对象,我们可以在它上面绑定回调函数,这样我们就不需要在一开始把回调函数作为参数传入这个函数了。
 var promise = new Promise(function(resolve, reject) {
-// 异步处理
+// 同步处理
 // 处理结束后、调用 resolve 或 reject
 });
 promise.then()
@@ -385,6 +386,7 @@ Promise.all 方法用于接收多个 promise 的 iterable 类型,包装成一个
 Promise.race 方法同样是将多个 Promise 实例,包装成一个新的 Promise 实例。
 promise.finally()
 无论如何最终都会执行的语句,类似 Java 多线程
+promise.allSettled() 方法返回一个在所有给定的 promise 已被决议或被拒绝后决议的 promise,并带有一个对象数组,每个对象表示对应的 promise 结果。
 
 JavaScript 对象
 
@@ -1190,7 +1192,7 @@ Array.from() 从类数组对象或者可迭代对象中创建一个新的数组�
 展开数组
 array flat 会去空槽。在非数组对象上调用 flat 需要对象有 length 属性,否则会报错,并根据 length 从键 0 开始按序读键值,当键值不为数组时,会直接将其加入到新数组中,当键值为数组时,会根据 flat 参数 depth 将其展开后加入到新数组中。
 
-14. this 指向,在普通函数和匿名内部,this 是调用时创建的,在箭头函数中,this 是定义时创建的,且不可修改
+14. this 指向,在普通函数和匿名内部,this 是在函数内的,在箭头函数中,this 只能向外查找的,且不可修改
 15. readOnly 的属性无法通过...展开
 16. 前端模糊查询, 通过 string.includes()判断是否包含来过滤
 17. array.fill(val)是浅拷贝,如果 val 是对象,则每个元素都指向同一个对象,会造成修改一个元素,其他元素也会改变

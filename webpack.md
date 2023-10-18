@@ -1,22 +1,22 @@
 # 常见 loader 有哪些？
 
-raw-loader：加载文件原始内容（utf-8）
-file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件 (处理图片和字体)
-url-loader：与 file-loader 类似，区别是用户可以设置一个阈值，大于阈值会交给 file-loader 处理，小于阈值时返回文件 base64 形式编码 (处理图片和字体)
-source-map-loader：从现有源文件提取现有的 Source Map 文件(即没有编译的源文件)，以方便断点调试
-svg-inline-loader：将压缩后的 SVG 内容注入代码中
-image-loader：加载并且压缩图片文件
-json-loader 加载 JSON 文件（默认包含）
-handlebars-loader: 将 Handlebars 模版编译成函数并返回
-babel-loader：把 ES6+的 js 代码 转换成 ES5 兼容的 js 代码，需配合 babel 工具链
-ts-loader: 将 TypeScript 转换成 JavaScript
-awesome-typescript-loader：将 TypeScript 转换成 JavaScript，性能优于 ts-loader
 sass-loader：将 SCSS/SASS 代码转换成 CSS
 css-loader：加载 CSS，支持模块化、压缩、文件导入等特性
 style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS
 postcss-loader：扩展 CSS 语法，使用下一代 CSS，可以配合 autoprefixer 插件自动补齐 CSS3 前缀
+file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件 (处理图片和字体)
+url-loader：与 file-loader 类似，区别是用户可以设置一个阈值，大于阈值会交给 file-loader 处理，小于阈值时返回文件 base64 形式编码 (处理图片和字体)
+source-map-loader：从现有源文件提取现有的 Source Map 文件(即没有编译的源文件)，以方便断点调试
+babel-loader：把 ES6+的 js 代码 转换成 ES5 兼容的 js 代码，需配合 babel 工具链
 eslint-loader：通过 ESLint 检查 JavaScript 代码
 tslint-loader：通过 TSLint 检查 TypeScript 代码
+ts-loader: 将 TypeScript 转换成 JavaScript
+image-loader：加载并且压缩图片文件
+svg-inline-loader：将压缩后的 SVG 内容注入代码中
+raw-loader：加载文件原始内容（utf-8）
+json-loader 加载 JSON 文件（默认包含）
+handlebars-loader: 将 Handlebars 模版编译成函数并返回
+awesome-typescript-loader：将 TypeScript 转换成 JavaScript，性能优于 ts-loader
 mocha-loader：加载 Mocha 测试用例的代码
 coverjs-loader：计算测试的覆盖率
 vue-loader：加载 Vue.js 单文件组件
@@ -26,9 +26,9 @@ cache-loader: 可以在一些性能开销较大的 Loader 之前添加，目的�
 # 常见 plugin 有哪些？
 
 webpack-bundle-analyzer: 可视化 Webpack 输出文件的体积 (业务组件、依赖第三方模块)
-html-webpack-plugin：简化 HTML 文件创建 (依赖于 html-loader)
 mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代 extract-text-webpack-plugin)
 clean-webpack-plugin: 目录清理，每次打包时清理上一次打包文件
+html-webpack-plugin：简化 HTML 文件创建 (依赖于 html-loader)
 define-plugin：定义环境变量 (Webpack4 之后指定 mode 会自动配置)
 ignore-plugin：忽略部分文件
 web-webpack-plugin：可方便地为单页应用输出 HTML，比 html-webpack-plugin 好用
