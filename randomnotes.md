@@ -56,3 +56,17 @@ obj2.foo1() //箭头函数的this指向外层作用域,作用域只有window和f
 obj2.foo2()
 // inner()被调用时没有指定调用对象，所以this指向window，window.a为3
 ```
+
+31. new ,通过该方法会创建一个对象实例，原理如下:
+    在内存中创建一个新对象。
+    这个新对象内部的 prototype 特性被赋值为构造函数的 prototype 属性。
+    构造函数内部的 this 被赋值为这个新对象（即 this 指向新对象）。
+    执行构造函数内部的代码（给新对象添加属性）。
+    如果构造函数返回对象，则返回该对象；否则，返回刚创建的新对象(空对象)
+32. Symbol Symbol.hasInstance 就是 instanceof 的原理
+33. typeof 的原理是判断二进制，二进制前三位储存类型信息
+34. BigInt()或数字后加 n 表示大数，向下取整，和 number 类型宽松相等，可以和 number 类型比较
+35. Symbol.for(key),查找全局里键为 key 的 symbol，若没有则会新建一个 symbol 并返回
+36. Symbol.keyFor(key),如果全局注册表中查找到该 symbol，则返回该 symbol 的 key 值，返回值为字符串类型。否则返回 undefined
+37. State hooks 原理：state hooks 是在 fiber 节点里以链表形式储存的，因此是按照顺序读取，若 state hooks 写在 if 或 for 里，某一次没执行的话，会造成之后所有的 state hooks 的读取位置错误
+38. useReducer,用法类似redux，是useState的基础，例: const [val,dispatch] = useReducer(reducer,initVal)

@@ -28,6 +28,7 @@ cache-loader: 可以在一些性能开销较大的 Loader 之前添加，目的�
 webpack-bundle-analyzer: 可视化 Webpack 输出文件的体积 (业务组件、依赖第三方模块)
 mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代 extract-text-webpack-plugin)
 clean-webpack-plugin: 目录清理，每次打包时清理上一次打包文件
+注:webpack5 有 output.clean 这个功能，无需再引入
 html-webpack-plugin：简化 HTML 文件创建 (依赖于 html-loader)
 define-plugin：定义环境变量 (Webpack4 之后指定 mode 会自动配置)
 ignore-plugin：忽略部分文件
