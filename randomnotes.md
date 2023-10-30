@@ -69,4 +69,15 @@ obj2.foo2()
 35. Symbol.for(key),查找全局里键为 key 的 symbol，若没有则会新建一个 symbol 并返回
 36. Symbol.keyFor(key),如果全局注册表中查找到该 symbol，则返回该 symbol 的 key 值，返回值为字符串类型。否则返回 undefined
 37. State hooks 原理：state hooks 是在 fiber 节点里以链表形式储存的，因此是按照顺序读取，若 state hooks 写在 if 或 for 里，某一次没执行的话，会造成之后所有的 state hooks 的读取位置错误
-38. useReducer,用法类似redux，是useState的基础，例: const [val,dispatch] = useReducer(reducer,initVal)
+38. useReducer,用法类似 redux，是 useState 的基础，例: const [val,dispatch] = useReducer(reducer,initVal)
+39. cookie 也受跨域限制
+40. angular ngfor 的 trackFor 相当于 react 的 key，用于优化性能，trackFor 的值为 trackBy 的值，trackBy 的值为函数，函数的参数为 index 和 item，返回值为 trackFor 的值
+
+登录加密，前端通过 md5 加密登录密码传给后端，后端比较数据库用户密码 hash
+好处： 1.安全性，防止真实密码被拦截获取 2.隐私保护，即使数据库被攻击，也获取不到原始密码；
+3.降低数据库泄露风险，即使其他数据库的 hash 密码泄露了，因为不同网站采用不同的加盐方式，它们的 hash 密码也不同，不能直接登录
+
+倒计时使用 useLayoutEffect
+
+1. 同步更新：`useLayoutEffect` 是在 DOM 更新之后、浏览器绘制之前执行的钩子函数。这意味着在 `useLayoutEffect` 中更新倒计时的状态，可以确保更新后的状态立即同步反映在 DOM 上。这样可以避免出现闪烁或不一致的情况，提供更好的用户体验。
+2. 避免布局抖动：由于 `useLayoutEffect` 在 DOM 更新之后执行，可以避免在布局过程中频繁地更新 DOM 元素的位置和尺寸，从而减少布局抖动的问题。这对于需要频繁更新倒计时的场景特别有用，可以提高性能和渲染效率。

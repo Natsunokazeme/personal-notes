@@ -80,3 +80,8 @@ Babel 的配置项主要分为以下几类：
 
 若有多个模块都依赖相同模块 a 时，可以将 a 模块抽出来作为公共模块单独打包，通过 optimization.splitChunks.cacheGroups 来自定义单独打包的模块及其规则
 splitChunks.chunks 有 all async init
+
+# manifest 是什么，它的作用是什么？
+
+manifest 是 webpack 在打包过程中，用于追踪所有模块以及模块与模块之间的 hash 映射关系的数据文件。webpack 会对每个模块和每个 chunk 生成一个唯一的 hash 值，通过这个 hash 值来管理模块和 chunk。
+manifest 的作用是用来管理模块之间的交互，当一个模块需要引用另一个模块时，会通过 manifest 中的映射关系找到对应的模块。
