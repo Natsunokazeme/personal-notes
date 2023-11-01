@@ -72,6 +72,11 @@ obj2.foo2()
 38. useReducer,用法类似 redux，是 useState 的基础，例: const [val,dispatch] = useReducer(reducer,initVal)
 39. cookie 也受跨域限制
 40. angular ngfor 的 trackFor 相当于 react 的 key，用于优化性能，trackFor 的值为 trackBy 的值，trackBy 的值为函数，函数的参数为 index 和 item，返回值为 trackFor 的值
+41. Object.assign(target,source1,source2...)，将 source1,source2...的属性浅复制到 target 上，若属性名相同，则后面的会覆盖前面的
+42. Object.defineProperty(obj,prop,descriptor),用于给对象添加属性，descriptor 为属性描述符，包含 value,writable(false),enumerable(false),configurable(false),get,set 等属性
+43. 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,web worker,websocket,service worker,IndexedDB,SharedWorker,广播等方式
+44. iframe 和宿主页面通信一般通过 postMessage API 通信，postMessage API 接收两个参数，第一个参数为要发送的消息，第二个参数为接收消息的页面的 origin，origin 为协议+域名+端口，若不指定，则默认为\*，表示接收所有消息，但不推荐这样做，因为这样会有安全隐患，若 origin 不匹配，则会抛出异常，postMessage API 会返回一个 Promise 对象，可以通过该对象的 then 方法来接收消息，也可以通过监听 message 事件来接收消息，message 事件的 event 对象的 data 属性为接收到的消息，origin 属性为发送消息的页面的 origin，source 属性为发送消息的页面的 window 对象
+45. Object.is(a,b)用于判断两个值是否相等，ES6 新特性，与===唯二不同的是，Object.is(0,-0)为 false,Object.is(NaN,NaN)为 true
 
 登录加密，前端通过 md5 加密登录密码传给后端，后端比较数据库用户密码 hash
 好处： 1.安全性，防止真实密码被拦截获取 2.隐私保护，即使数据库被攻击，也获取不到原始密码；
