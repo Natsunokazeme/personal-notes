@@ -25,7 +25,7 @@ cache-loader: 可以在一些性能开销较大的 Loader 之前添加，目的�
 
 # 常见 plugin 有哪些？
 
-webpack-bundle-analyzer: 可视化 Webpack 输出文件的体积 (业务组件、依赖第三方模块)
+webpack-bundle-analyzer: 可视化 Webpack 输出文件的体积,依赖关系,引用次数 (业务组件、依赖第三方模块)
 mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代 extract-text-webpack-plugin)
 clean-webpack-plugin: 目录清理，每次打包时清理上一次打包文件
 注:webpack5 有 output.clean 这个功能，无需再引入
@@ -78,10 +78,76 @@ Babel 的配置项主要分为以下几类：
 
 # 代码打包优化实践
 
-若有多个模块都依赖相同模块 a 时，可以将 a 模块抽出来作为公共模块单独打包，通过 optimization.splitChunks.cacheGroups 来自定义单独打包的模块及其规则
-splitChunks.chunks 有 all async init
+## 查看模块依赖关系
+
+1. 通过 resolver 这个库可以查看模块之间的依赖关系，可以通过这个库来查看模块之间的依赖关系,当打包模块时，webpack 使用 enhanced-resolve 来解析文件路径。
+   module.exports = {
+   //...
+   resolve: {
+   // configuration options
+   },
+   };
+
+2. bundle 分析工具 webpack-bundle-analyzer
+   通过 webpack-bundle-analyzer 可以可视化 Webpack 输出文件的体积 (业务组件、依赖第三方模块)
+   module.exports = {
+   //...
+   plugins: [new BundleAnalyzerPlugin()],
+   };
+
+## 代码分割
+
+1. 在入口配置项里配置 dependOn,可以将多个入口模块的公共模块抽出来单独打包
+   entry: {
+   index: {
+   import: './src/index.js',
+   dependOn: 'shared',
+   },
+   another: {
+   import: './src/another-module.js',
+   dependOn: 'shared',
+   },
+   shared: 'lodash',
+   },
+
+2. SplitChunksPlugin 插件可以将公共的依赖模块提取到已有的入口 chunk 中，或者提取到一个新生成的 chunk。通过 optimization.splitChunks.cacheGroups 来自定义单独打包的模块及其规则,splitChunks.chunks 有 all async init
+   ```javascript
+   optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 20000,//生成 chunk 的最小体积（以 bytes 为单位）。
+      minRemainingSize: 0,
+      minChunks: 1,//拆分前必须共享模块的最小 chunks 数。
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+   },
+   ```
 
 # manifest 是什么，它的作用是什么？
 
 manifest 是 webpack 在打包过程中，用于追踪所有模块以及模块与模块之间的 hash 映射关系的数据文件。webpack 会对每个模块和每个 chunk 生成一个唯一的 hash 值，通过这个 hash 值来管理模块和 chunk。
 manifest 的作用是用来管理模块之间的交互，当一个模块需要引用另一个模块时，会通过 manifest 中的映射关系找到对应的模块。
+
+# 指定依赖包的版本
+
+1. 通过 package.json 的 dependencies 字段指定依赖包的版本，这种方式会锁定依赖包的版本，当依赖包的版本发生变化时，需要手动更新 package.json 文件。
+2. 通过 webpack 的 resolve.alias 配置项指定依赖包的版本，这种方式不会锁定依赖包的版本，当依赖包的版本发生变化时，不需要手动更新 package.json 文件。
+   resolve: {
+   alias: {
+   react: 'react-16.8.6',
+   },
+   },

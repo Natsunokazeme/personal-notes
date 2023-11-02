@@ -77,12 +77,3 @@ obj2.foo2()
 43. 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,web worker,websocket,service worker,IndexedDB,SharedWorker,广播等方式
 44. iframe 和宿主页面通信一般通过 postMessage API 通信，postMessage API 接收两个参数，第一个参数为要发送的消息，第二个参数为接收消息的页面的 origin，origin 为协议+域名+端口，若不指定，则默认为\*，表示接收所有消息，但不推荐这样做，因为这样会有安全隐患，若 origin 不匹配，则会抛出异常，postMessage API 会返回一个 Promise 对象，可以通过该对象的 then 方法来接收消息，也可以通过监听 message 事件来接收消息，message 事件的 event 对象的 data 属性为接收到的消息，origin 属性为发送消息的页面的 origin，source 属性为发送消息的页面的 window 对象
 45. Object.is(a,b)用于判断两个值是否相等，ES6 新特性，与===唯二不同的是，Object.is(0,-0)为 false,Object.is(NaN,NaN)为 true
-
-登录加密，前端通过 md5 加密登录密码传给后端，后端比较数据库用户密码 hash
-好处： 1.安全性，防止真实密码被拦截获取 2.隐私保护，即使数据库被攻击，也获取不到原始密码；
-3.降低数据库泄露风险，即使其他数据库的 hash 密码泄露了，因为不同网站采用不同的加盐方式，它们的 hash 密码也不同，不能直接登录
-
-倒计时使用 useLayoutEffect
-
-1. 同步更新：`useLayoutEffect` 是在 DOM 更新之后、浏览器绘制之前执行的钩子函数。这意味着在 `useLayoutEffect` 中更新倒计时的状态，可以确保更新后的状态立即同步反映在 DOM 上。这样可以避免出现闪烁或不一致的情况，提供更好的用户体验。
-2. 避免布局抖动：由于 `useLayoutEffect` 在 DOM 更新之后执行，可以避免在布局过程中频繁地更新 DOM 元素的位置和尺寸，从而减少布局抖动的问题。这对于需要频繁更新倒计时的场景特别有用，可以提高性能和渲染效率。
