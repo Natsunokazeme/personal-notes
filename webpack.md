@@ -174,7 +174,7 @@ manifest 的作用是用来管理模块之间的交互，当一个模块需要�
 
 sideEffects 和 usedExports（更多被认为是 tree shaking）是两种不同的优化方式。
 sideEffects 更为有效 是因为它允许跳过整个模块/文件和整个文件子树。
-usedExports 依赖于 terser 去检测语句中的副作用。它是一个 JavaScript 任务而且没有像 sideEffects 一样简单直接。而且它不能跳转子树/依赖由于细则中说副作用需要被评估。尽管导出函数能运作如常，但 React 框架的高阶函数（HOC）在这种情况下是会出问题的。
+usedExports 依赖于 terser 去检测语句中的副作用。它是一个 JavaScript 任务而且没有像 sideEffects 一样简单直接。而且它不能跳转子树/依赖由于细则中说副作用需要被评估。尽管导出函数能运作如常，但 React 框架的高阶函数（HOC）在这种情况下是会出问题的。通过添加 /*#__PURE__*/ 到函数声明，标识函数没有副作用。
 
 # uglifyjs-webpack-plugin
 
@@ -188,3 +188,7 @@ return true;
 },
 },
 }),
+
+# devDependencies
+
+通过 package.json 的 devDependencies 字段指定在开发环境下需要依赖的包，这些包不会被打包到最终的输出文件中，只会在开发环境下使用。
