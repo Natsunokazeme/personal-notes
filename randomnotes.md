@@ -78,3 +78,4 @@ obj2.foo2()
 44. iframe 和宿主页面通信一般通过 postMessage API 通信，postMessage API 接收两个参数，第一个参数为要发送的消息，第二个参数为接收消息的页面的 origin，origin 为协议+域名+端口，若不指定，则默认为\*，表示接收所有消息，但不推荐这样做，因为这样会有安全隐患，若 origin 不匹配，则会抛出异常，postMessage API 会返回一个 Promise 对象，可以通过该对象的 then 方法来接收消息，也可以通过监听 message 事件来接收消息，message 事件的 event 对象的 data 属性为接收到的消息，origin 属性为发送消息的页面的 origin，source 属性为发送消息的页面的 window 对象
 45. Object.is(a,b)用于判断两个值是否相等，ES6 新特性，与===唯二不同的是，Object.is(0,-0)为 false,Object.is(NaN,NaN)为 true
 46. shadow Dom 是一种浏览器技术，用于将一个 DOM 节点和其子节点封装起来，使其与外部的 DOM 节点隔离，外部的 DOM 节点无法访问 shadowDom 里的节点，shadowDom 里的节点也无法访问外部的 DOM 节点.video 这个元素就曾用 shadow Dom 封装内部结构的一系列的按钮和其他控制器。 通过 Element.attachShadow()生成一个 shadow Root 并添加到指定元素上
+47. websocket 在js内通过new WebSocket(url)得到一个websocket对象，通过该对象的onopen,onmessage,onclose,onerror等方法来监听websocket的连接，消息，关闭，错误等事件，通过该对象的send方法来发送消息，通过该对象的close方法来关闭连接
