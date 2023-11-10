@@ -26,6 +26,8 @@ cache-loader: 可以在一些性能开销较大的 Loader 之前添加，目的�
 # 常见 plugin 有哪些？
 
 webpack-bundle-analyzer: 可视化 Webpack 输出文件的体积,依赖关系,引用次数 (业务组件、依赖第三方模块)
+uglifyjs-webpack-plugin：不支持 ES6 压缩 (Webpack4 以前)
+terser-webpack-plugin: 支持压缩 ES6 (Webpack4)
 mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代 extract-text-webpack-plugin)
 clean-webpack-plugin: 目录清理，每次打包时清理上一次打包文件
 注:webpack5 有 output.clean 这个功能，无需再引入
@@ -33,8 +35,6 @@ html-webpack-plugin：简化 HTML 文件创建 (依赖于 html-loader)
 define-plugin：定义环境变量 (Webpack4 之后指定 mode 会自动配置)
 ignore-plugin：忽略部分文件
 web-webpack-plugin：可方便地为单页应用输出 HTML，比 html-webpack-plugin 好用
-uglifyjs-webpack-plugin：不支持 ES6 压缩 (Webpack4 以前)
-terser-webpack-plugin: 支持压缩 ES6 (Webpack4)
 webpack-parallel-uglify-plugin: 多进程执行代码压缩，提升构建速度
 serviceworker-webpack-plugin：为网页应用增加离线缓存功能
 ModuleConcatenationPlugin: 开启 Scope Hoisting
@@ -174,7 +174,7 @@ manifest 的作用是用来管理模块之间的交互，当一个模块需要�
 
 sideEffects 和 usedExports（更多被认为是 tree shaking）是两种不同的优化方式。
 sideEffects 更为有效 是因为它允许跳过整个模块/文件和整个文件子树。
-usedExports 依赖于 terser 去检测语句中的副作用。它是一个 JavaScript 任务而且没有像 sideEffects 一样简单直接。而且它不能跳转子树/依赖由于细则中说副作用需要被评估。尽管导出函数能运作如常，但 React 框架的高阶函数（HOC）在这种情况下是会出问题的。通过添加 /*#__PURE__*/ 到函数声明，标识函数没有副作用。
+usedExports 依赖于 terser 去检测语句中的副作用。它是一个 JavaScript 任务而且没有像 sideEffects 一样简单直接。而且它不能跳转子树/依赖由于细则中说副作用需要被评估。尽管导出函数能运作如常，但 React 框架的高阶函数（HOC）在这种情况下是会出问题的。通过添加 /_#**PURE**_/ 到函数声明，标识函数没有副作用。
 
 # uglifyjs-webpack-plugin
 
@@ -192,3 +192,12 @@ return true;
 # devDependencies
 
 通过 package.json 的 devDependencies 字段指定在开发环境下需要依赖的包，这些包不会被打包到最终的输出文件中，只会在开发环境下使用。
+
+# terser-webpack-plugin
+
+对 ES6+语法支持更好，压缩算法更好
+u 和 glifyjs-webpack-plugin 插件类似，可以在单文件内删除未引用的代码和不可达的代码，减少打包体积
+
+# 代码优化
+
+1. 静态引用，只引用需要的模块，而不是通过 `import * from xxx `的形式动态引入
