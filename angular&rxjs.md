@@ -244,3 +244,13 @@ _ngif 和 ngFor 都是通过 templateRef.createEmbeddedView()方法创建嵌入�
 # angular 装饰器
 
 装饰器用于修改类，方法，属性的行为，添加元数据，扩展框架功能
+
+# angular 实现类 keep-alive
+
+1. 注册一个服务 cacheService，用于存储组件实例
+2. 创建一个宿主组件作为容器，用于接收需要缓存的组件，创建一个缓存组件的 ref 数组，用于存储缓存的组件的 ref
+3. 实现一个创建组件的方法，通过 viewContainerRef.createComponent()方法动态创建组件挂在到容器上,并传入 data 给动态组件，将创建的组件的 ref 存入缓存组件的 ref 数组
+4. 实现一个获取组件的方法，通过 ref 数组获取组件的 ref
+5. 实现一个销毁组件的方法，通过 ref 数组获取组件的 ref，并调用 ref.destroy()方法销毁组件
+6. 在新宿主组件调用服务，若存在缓存组件，则获取缓存组件的 ref，若不存在，则创建组件，并将返回的组件的 ref 通过 ViewContainerRef.insert 方法挂在到新宿主组件上;
+7. 根据需求，实现组件的销毁，组件的激活，组件的切换等功能
