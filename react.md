@@ -429,6 +429,34 @@ Fiber 节点不一定对应一个 dom 节点，它可能是一个组件，需要
 2. 更新 ref
 3. 更新 rootFiber
 
+```javascript
+function commitLayoutEffects(root: FiberRoot, committedLanes: Lanes) {
+  while (nextEffect !== null) {
+    const effectTag = nextEffect.effectTag
+
+    // 调用生命周期钩子和hook
+    if (effectTag & (Update | Callback)) {
+      const current = nextEffect.alternate
+      commitLayoutEffectOnFiber(root, current, nextEffect, committedLanes)
+    }
+
+    // 赋值ref
+    if (effectTag & Ref) {
+      commitAttachRef(nextEffect)
+    }
+
+    nextEffect = nextEffect.nextEffect
+  }
+}
+```
+
+其中 commitLayoutEffectOnFiber 会根据 fiber.tag 判断 class 组件还是 function 组件，
+在 function 组件中调用 hooks
+// 执行 useLayoutEffect 的回调函数
+commitHookEffectListMount(HookLayout | HookHasEffect, finishedWork);
+// 调度 useEffect 的销毁函数与回调函数，异步
+schedulePassiveEffects(finishedWork);
+
 componentWillUnmount 会在 mutation 阶段执行。此时 current Fiber 树还指向前一次更新的 Fiber 树，在生命周期钩子内获取的 DOM 还是更新前的。
 
 componentDidMount 和 componentDidUpdate 会在 layout 阶段执行。此时 current Fiber 树已经指向更新后的 Fiber 树，在生命周期钩子内获取的 DOM 就是更新后的。
