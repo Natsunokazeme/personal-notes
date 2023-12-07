@@ -254,3 +254,41 @@ _ngif 和 ngFor 都是通过 templateRef.createEmbeddedView()方法创建嵌入�
 5. 实现一个销毁组件的方法，通过 ref 数组获取组件的 ref，并调用 ref.destroy()方法销毁组件
 6. 在新宿主组件调用服务，若存在缓存组件，则获取缓存组件的 ref，若不存在，则创建组件，并将返回的组件的 ref 通过 ViewContainerRef.insert 方法挂在到新宿主组件上;
 7. 根据需求，实现组件的销毁，组件的激活，组件的切换等功能
+
+# angular 17
+
+## angular 17 与 angular 16 的区别
+
+angular 采用了 esbuild 和 vite 进行打包
+
+## 新的内置控制流
+
+通过@if @for @switch 替换 ngif ngfor ngswitch,不需要再挂载到 container 上,而是直接在模版中使用
+
+@for 还有一些隐式变量,如 $count(遍历的对象长度),$index,$first(当前遍历是否是第一个遍历),$last,$even(当前遍历是否是偶数),$odd
+例:@for (item of items; track item.id; let idx = $index, e = $even) {
+Item #{{ idx }}: {{ item.name }}
+}
+
+## signals
+
+signals 是响应式更新的一种方式,类似于 vue 的 watch,当某个值发生变化时,使用该值的所有地方都会更新,而不是只更新使用该值的地方
+signals 分为 writableSignal 和一般 signal，writableSignal 可以通过 set，update，mutate 改变值。
+set() 直接传入新值
+update() 传入一个改变函数，入参为当前值，返回改变值 counter.update(oldVal => oldVal + 1)
+mutate() 同样传入改变函数，但没有返回值，直接改变入参的对象（一般用于非 primitive type）
+
+const users = signal({}, (a, b) => {
+return a.id === b.id
+})
+自定义相等判断函数，默认是 Object.is()
+
+computed()
+计算式 signal，当依赖改变时，会重新计算值并 cache，类似于 vue 的 computed，依赖是动态的，可通过条件语句控制依赖
+
+effect()
+副作用 signal，当依赖改变时，会执行副作用函数，是响应式依赖的终点
+
+untracked() 在 effect 中使用，用于阻止内部的 signal 依赖被追踪从而触发 effect
+
+onCleanup() 在 effect 中使用，用于注册清理函数，当 effect 被销毁时，会执行清理函数
