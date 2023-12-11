@@ -857,7 +857,8 @@ Infinity “Infinity” true new Number(Infinity)
 prototype 属性的作用就是让该函数所实例化的对象们都可以找到公用的属性和方法,即 f1.**proto** === Foo.prototype。
 constructor 属性的含义就是指向该对象的构造函数,所有函数（此时看成对象了）最终的构造函数都指向 Function。
 
-JS 继承的实现方式
+# JS 继承的实现方式
+
 每个构造函数都有一个 prototype 属性,指向函数的原型对象；原型对象中又有一个 constructor 属性,重新指向构造函数。
 原型链继承
 核心： 通过 prototype 将父类的实例设为子类的原型

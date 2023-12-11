@@ -74,8 +74,9 @@ obj2.foo2()
 40. angular ngfor 的 trackFor 相当于 react 的 key，用于优化性能，trackFor 的值为 trackBy 的值，trackBy 的值为函数，函数的参数为 index 和 item，返回值为 trackFor 的值
 41. Object.assign(target,source1,source2...)，将 source1,source2...的属性浅复制到 target 上，若属性名相同，则后面的会覆盖前面的
 42. Object.defineProperty(obj,prop,descriptor),用于给对象添加属性，descriptor 为属性描述符，包含 value,writable(false),enumerable(false),configurable(false),get,set 等属性
-43. 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,web worker,websocket,service worker,IndexedDB,SharedWorker,广播等方式
+43. 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,websocket,service worker,IndexedDB,SharedWorker,广播等方式
 44. iframe 和宿主页面通信一般通过 postMessage API 通信，postMessage API 接收两个参数，第一个参数为要发送的消息，第二个参数为接收消息的页面的 origin，origin 为协议+域名+端口，若不指定，则默认为\*，表示接收所有消息，但不推荐这样做，因为这样会有安全隐患，若 origin 不匹配，则会抛出异常，postMessage API 会返回一个 Promise 对象，可以通过该对象的 then 方法来接收消息，也可以通过监听 message 事件来接收消息，message 事件的 event 对象的 data 属性为接收到的消息，origin 属性为发送消息的页面的 origin，source 属性为发送消息的页面的 window 对象
 45. Object.is(a,b)用于判断两个值是否相等，ES6 新特性，与===唯二不同的是，Object.is(0,-0)为 false,Object.is(NaN,NaN)为 true
 46. shadow Dom 是一种浏览器技术，用于将一个 DOM 节点和其子节点封装起来，使其与外部的 DOM 节点隔离，外部的 DOM 节点无法访问 shadowDom 里的节点，shadowDom 里的节点也无法访问外部的 DOM 节点.video 这个元素就曾用 shadow Dom 封装内部结构的一系列的按钮和其他控制器。 通过 Element.attachShadow()生成一个 shadow Root 并添加到指定元素上
-47. websocket 在js内通过new WebSocket(url)得到一个websocket对象，通过该对象的onopen,onmessage,onclose,onerror等方法来监听websocket的连接，消息，关闭，错误等事件，通过该对象的send方法来发送消息，通过该对象的close方法来关闭连接
+47. websocket 在 js 内通过 new WebSocket(url)得到一个 websocket 对象，通过该对象的 onopen,onmessage,onclose,onerror 等方法来监听 websocket 的连接，消息，关闭，错误等事件，通过该对象的 send 方法来发送消息，通过该对象的 close 方法来关闭连接
+48. picture 标签,内部有 0 到多个 source 标签和一个 img 标签,source 标签有 srcset 属性,用于指定不同的图片的 url,还有一个 media,用来匹配符合的媒体查询.浏览器会根据当前设备的分辨率来选择合适的图片,若没有合适的图片,则会选择最后一个 source 标签的图片,若没有 source 标签,则会选择 picture 标签的子元素 img 的 src 属性的图片
