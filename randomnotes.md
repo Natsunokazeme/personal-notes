@@ -17,7 +17,7 @@
 10. ping ls kill cd echo code yum node nvm git which Whereis vi sudo !! Mkdir rm ip wget tar service
 11. Linux 分为很多版本,其中 centOS 是 red hat 发行的版本,不同版本的命令和资源库不同,我用的 centOS7
 12. 机械学习:人为设定判断标准作为参数,通过不断调整参数,使得判断结果与实际结果越来越接近,从而达到自动判断的目的.
-13. 深度学习:输入原始数据,通过多层神经网络,从底层到高层,自动逐渐提取特征,最终得到判断结果.该特征可能是人类无法理解的,但是确实有效的,是算法从原始数据分析并提取出来的.因此,输入的数据越大,神经网络越深,最终得到的结果越准确.
+13. 深度学习:输入原始数据,通过多层神经网络,从底层到高层,自动逐渐提取特征,最终得到判断结果.该特征可能是人类无法理解的,但是确实有效的 zu,是算法从原始数据分析并提取出来的.因此,输入的数据越大,神经网络越深,最终得到的结果越准确.
 14. angular 装饰器 HostListener,用于监听宿主元素上的事件
 15. angular icon registry,用于注册 svg 图标为 mat-icon,并且可以设置图标的颜色,大小等属性.通过 MatIconRegistry 这个 service 的 addSvgIcon()方法注册图标,然后通过 MatIcon 组件的 svgIcon 属性使用图标.
 16. angular sanitizer 用于过滤 html 标签,防止 xss 攻击；sanitizer.bypassSecurityTrustResourceUrl() 方法用于信任资源 url,防止 angular 报错.若不通过该方法,angular 会认为该 url 不安全,不会加载该资源.(踩坑 0.5day)
@@ -75,7 +75,7 @@ obj2.foo2()
 41. Object.assign(target,source1,source2...)，将 source1,source2...的属性浅复制到 target 上，若属性名相同，则后面的会覆盖前面的
 42. Object.defineProperty(obj,prop,descriptor),用于给对象添加属性，descriptor 为属性描述符，包含 value,writable(false),enumerable(false),configurable(false),get,set 等属性
 43. 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,websocket,service worker,IndexedDB,SharedWorker,广播等方式
-44. iframe 和宿主页面通信一般通过 postMessage API 通信，postMessage API 接收两个参数，第一个参数为要发送的消息，第二个参数为接收消息的页面的 origin，origin 为协议+域名+端口，若不指定，则默认为\*，表示接收所有消息，但不推荐这样做，因为这样会有安全隐患，若 origin 不匹配，则会抛出异常，postMessage API 会返回一个 Promise 对象，可以通过该对象的 then 方法来接收消息，也可以通过监听 message 事件来接收消息，message 事件的 event 对象的 data 属性为接收到的消息，origin 属性为发送消息的页面的 origin，source 属性为发送消息的页面的 window 对象
+44. iframe 和宿主页面通信一般通过 postMessage API 通信，postMessage API 接收两个参数，第一个 x hu 参数为要发送的消息，第二个参数为接收消息的页面的 origin，origin 为协议+域名+端口，若不指定，则默认为\*，表示接收所有消息，但不推荐这样做，因为这样会有安全隐患，若 origin 不匹配，则会抛出异常，postMessage API 会返回一个 Promise 对象，可以通过该对象的 then 方法来接收消息，也可以通过监听 message 事件来接收消息，message 事件的 event 对象的 data 属性为接收到的消息，origin 属性为发送消息的页面的 origin，source 属性为发送消息的页面的 window 对象
 45. Object.is(a,b)用于判断两个值是否相等，ES6 新特性，与===唯二不同的是，Object.is(0,-0)为 false,Object.is(NaN,NaN)为 true
 46. shadow Dom 是一种浏览器技术，用于将一个 DOM 节点和其子节点封装起来，使其与外部的 DOM 节点隔离，外部的 DOM 节点无法访问 shadowDom 里的节点，shadowDom 里的节点也无法访问外部的 DOM 节点.video 这个元素就曾用 shadow Dom 封装内部结构的一系列的按钮和其他控制器。 通过 Element.attachShadow()生成一个 shadow Root 并添加到指定元素上
 47. websocket 在 js 内通过 new WebSocket(url)得到一个 websocket 对象，通过该对象的 onopen,onmessage,onclose,onerror 等方法来监听 websocket 的连接，消息，关闭，错误等事件，通过该对象的 send 方法来发送消息，通过该对象的 close 方法来关闭连接
@@ -83,3 +83,7 @@ obj2.foo2()
 49. json 解析出错会抛异常
 50. svg 一般不会改变宽高比,可以通过 preserveAspectRatio 属性设置为 none 来达到拉伸自适应的效果
 51. 组件上的单向绑定属性的相对位置会影响组件内属性更新的先后顺序
+52. 通过 json 深拷贝对象，可以通过 JSON.parse(JSON.stringify(obj))来实现，但是该方法有缺陷，会忽略 undefined，symbol，函数，正则等类型，还有循环引用的问题，并且字符串转化会带来额外性能开销
+53. 富文本 是一种可以设置字体，颜色，大小，样式，甚至可以插入图片，链接等的文本
+54. 前端攻击方法：XSS，CSRF，点击劫持，SQL 注入，DDOS，DNS 劫持，中间人攻击。
+55. == 会进行类型转换，=== 不会进行类型转换
