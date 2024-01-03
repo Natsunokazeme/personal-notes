@@ -206,7 +206,7 @@ react 中，数据单向流动，父组件的数据可以通过 props 传递给�
 
 将组件作为参数，并返回一个新的组件。新的组件会渲染传入的组件，同时还会提供额外的功能如混入 prop。HOC 通常用于代码复用、逻辑抽象和状态抽象。
 
-# PureComponent
+# _PureComponent_
 
 会自动实现 shouldComponentUpdate()，并且浅层对比 props 和 state 的变化。如果没有变化，就不会触发重新渲染。一般用于性能优化，减少 render 次数但是如果 props 或 state 是复杂数据结构，可能会因为无法检测到变化而产生 bug。
 举例:export default class App extends PureComponent {
@@ -240,7 +240,7 @@ root.render(<App/>)
 4.  创建组件时，没有命令行，但有插件可以使用
 5.  react 没有样式穿透，只有引入 css-module 包才能用 :global(.className)
 6.  react 里，route 的 element 是一个组件，可以用 children 来获取其子组件，也可以用子 route 来继承其 route，冒号后表 params，可以用 match.params 来获取
-7.  react 里 hashroute 不能使用 useHistory,可以用 useLocation
+7.  react 里 hash route 不能使用 useHistory,可以用 useLocation
 8.  react 写法优化,{a&&template}不推荐,这样 a 为 false 时 template 不计算,也就是不渲染,但也会被创建,占用内存
 9.  react 写法优化 事件绑定时不要用 onClick = {async()=>{}}这样写,因为每次渲染都会创建一个新的函数,可以用 useCallback,useMemo,useRef 等 hook 来优化,或者直接在 jsx 里写 onClick={this.handleClick.bind(this)}这样写,因为 bind 返回的是一个函数,每次渲染都是同一个函数,不会重新创建,也可以用箭头函数,因为箭头函数没有 this,所以不会重新创建,但是这样写会导致每次渲染都会重新绑定事件,所以不推荐
 10. react 的 useRef 返回一个可变的 ref 对象,其 current 属性被初始化为传入的参数(initialValue),ref 对象的 current 不会随着组件的重新渲染而改变,并且改变 ref 对象的 current 不会引发组件的重新渲染。
@@ -281,7 +281,7 @@ document.getElementById('app')
 
 用于创建一个 Context 对象，createContext 对象中，包括用于传递 Context 对象值 value 的 Provider，和接受 value 变化订阅的 Consumer
 
-# Fiber
+# _Fiber_
 
 Fiber 是 react 16 及以后采用的架构，相比较之前的 Reconciler-Renderer 架构变成了 Scheduler-Reconciler-Renderer;
 
@@ -304,7 +304,7 @@ Renderer 工作的阶段被称为 commit 阶段。就像你完成一个需求的
 
 Fiber 的核心思想是将一个异步方法做成可中断的，并且继续执行的时候会复用之前的中间状态
 
-## Fiber 节点
+## _Fiber 节点_
 
 Fiber 节点构成 Fiber 树，Fiber 树是对 React 元素树进一步对应 DOM 树。Fiber 节点是对 React 元素的一种对应，它是一个普通的 JavaScript 对象，包含了当前元素的类型、对应的 DOM 节点、还有对应的 Fiber 节点的子节点、兄弟节点、父节点等信息,还包含了更新该 Fiber 节点状态所需要的信息以及调度优先级相关的信息
 
@@ -391,9 +391,9 @@ layout 阶段（执行 DOM 操作后）
 ### before mutation 阶段
 
 此阶段进行了遍历 effectList 并调用 commitBeforeMutationEffects 函数处理；
-commitBeforeMutationEffects 函数主要分为三部分 1.处理 Dom 节点更新/删除后的 focus/blur 逻辑 2.调用 getSnapshotBeforeUpdate 生命周期函数 3.调用 useEffect(异步,防止阻止渲染)和 useLayoutEffect 钩子函数
+_commitBeforeMutationEffects 函数主要分为三部分 1.处理 Dom 节点更新/删除后的 focus/blur 逻辑 2.调用 getSnapshotBeforeUpdate 生命周期函数 3.调用 useEffect(异步,防止阻止渲染)和 useLayoutEffect 钩子函数_
 
-#### 调用 getSnapshotBeforeUpdate
+#### 调用 _getSnapshotBeforeUpdate_
 
 自从 react16 采用了 fiber 构架之后，原来的 Reconciler 可被中断了，原来位于此处的 componentWillxxx 钩子函数在一次更新里可能会调用多次，因此都添加了 UNSAFE\_前缀
 getSnapshotBeforeUpdate 在 render 之后，commit 之前调用，可以在此处获取 dom 节点的信息，返回值会作为 componentDidUpdate 的第三个参数传入，并且每次更新只有一次调用。
@@ -407,7 +407,7 @@ getSnapshotBeforeUpdate 在 render 之后，commit 之前调用，可以在此�
 2. 更新 ref
 3. 根据 effectTag 分别处理，其中 effectTag 包括(Placement | Update | Deletion | Hydrating)
 
-Fiber 节点不一定对应一个 dom 节点，它可能是一个组件，需要根据 fiber.tag 判断
+_Fiber 节点不一定对应一个 dom 节点，它可能是一个组件，需要根据 fiber.tag 判断_
 
 #### placement effect
 
@@ -463,7 +463,7 @@ componentDidMount 和 componentDidUpdate 会在 layout 阶段执行。此时 cur
 
 # 生命周期
 
-采用 fiber 后，生命周期的执行顺序发生了变化，fiber 的生命周期分为三个阶段：mounting、updating、unmounting
+_采用 fiber 后，生命周期的执行顺序发生了变化，fiber 的生命周期分为三个阶段：mounting、updating、unmounting_
 
 ## mounting 阶段：
 

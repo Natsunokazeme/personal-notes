@@ -652,7 +652,7 @@ const stylesheet = document.styleSheets[0];//CSSOM
 stylesheet.cssRules[0].style.backgroundColor = "aqua";
 使用 fragment
 
-# 强缓存和协商缓存
+# _强缓存和协商缓存_
 
 HTTP Cache 是我们开发中接触最多的缓存,它分为强缓存和协商缓存。
 强缓存：直接从本地副本比对读取,不去请求服务器,返回的状态码是 200。
@@ -804,7 +804,7 @@ offsetTop: 当前元素相对于 offset 顶部内边距的距离
 当函数被用作事件处理函数时,它的 this 指向触发事件的元素。
 当代码被内联 on-event 处理函数 调用时,它的 this 指向监听器所在的 DOM 元素
 
-# 获取所有节点
+# _获取所有节点_
 
 1. 获取根节点 html,递归遍历获取 html 的所有子节点
 2. 通配符获取 const allNodes = document.querySelectorAll('\*');
@@ -915,7 +915,7 @@ return clone; //返回这个对象
 JavaScript 单线程和异步
 JavaScript 是单线程的。
 
-# 任务分为宏任务和微任务,
+# _任务分为宏任务和微任务_
 
 微任务即当前正在处理的任务
 宏任务按照任务队列依次将任务传进微任务处理
@@ -954,7 +954,7 @@ for (const g of gen) {
 console.log(g); // 0 -> 1 -> 2
 }
 
-# Async
+# _Async_
 
 ES7 提供的 async 函数相当于 generator 函数的语法糖(即高效简化版)
 创建语法：async function(){};//相当于把 function 后的\*换成 function 前 async,将 yield 替换成 await。
@@ -963,7 +963,7 @@ ES7 提供的 async 函数相当于 generator 函数的语法糖(即高效简化
 1. async 函数内部 return 语句返回的值,会成为 then 方法回调函数的参数。
 2. 只有 async 函数内部的异步操作执行完,才会执行 then 方法指定的回调函数。
 3. 正常情况下,await 命令后面是一个 Promise 对象。如果不是,会被转成一个立即 resolve 的 Promise 对象。
-4. 只要一个 await 语句后面的 Promise 变为 reject,那么整个 async 函数都会中断执行。
+4. 只要一个 await 语句后面的 Promise 变为 reject,那么整个 async 函数都会中断执行。_可通过 try catch 捕获错误_。
    await
    await 的语句执行完才执行后面的语句
 
@@ -1007,7 +1007,7 @@ element.addEventListener(event, function, useCapture);
 当一个事件传播到目标元素上并且被监听到时,产生一个消息进入消息队列；
 当事件被连续触发时,按照同步先执行完事件 1 再 zhix1 事件 2
 
-# 事件循环(Event Loop)
+# _事件循环(Event Loop)_
 
 JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入任务队列；
 同步任务进入主线程后一直执行,直到主线程空闲后,才会去任务队列中查看是否有可执行的异步任务,如果有就推入主线程中执行；
@@ -1016,7 +1016,7 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
 
 advanced js
 
-1. structuredClone(A, { transfer }) 可以用来深拷贝对象,第二个参数还可以指定从原对象转移属性至新对象
+1. _structuredClone(A, { transfer }) 可以用来深拷贝对象,第二个参数还可以指定从原对象转移属性至新对象_
 2. 下载功能实现
    const link = document.createElement('a')
    link.download = fileName
@@ -1040,7 +1040,7 @@ advanced js
 13. document.getElementsByTagName('xxx')得到的是一个 NodeList 对象,是类数组,不是数组,所以不能用数组的方法,如 map,filter,forEach 等,可用 Array.from()转换成数组。并且必须在 dom 加载完成后才能获取到 dom,否则获取到的是空数组
 14. addEventListener('DOMContentLoaded',()=>{}) 可以在 dom 树加载完成后执行回调函数
 15. video 的 src 未加载时调用 play 会报错,所以要先判断 video 的 src 是否加载完成,可直接用 video.oncanplaythrough 来进行加载好后的回调
-16. 比较两个对象是否相等时,最好用 JSON.stringify 来转换成字符串,因为对象的属性是引用类型,如果用 === 比较,会出现不相等的情况。但注意的是,转换成字符串时,会按照字符串的排序来比较,所以如果属性的顺序不一致,就会出现不相等的情况。
+16. _比较两个对象是否相等时,最好用 JSON.stringify 来转换成字符串,因为对象的属性是引用类型,如果用 === 比较,会出现不相等的情况。但注意的是,转换成字符串时,会按照字符串的排序来比较,所以如果属性的顺序不一致,就会出现不相等的情况。_
 17. process.env 获取定义在.env 文件内的变量,.env 有 test,production,development 及以上三个环境的变量,可用 cross-env 来设置环境变量
 18. getElementsByClassName() 方法返回 NodeList 对象,不是数组
 19. scrollHeight 元素全部高度;clientHeight:包括 padding 的可见区域高度;offsetHeight:包括 border,滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离,也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离,也就是元素被遮住的宽度;
@@ -1115,6 +1115,7 @@ JS 新约
 
     null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
     console.log(arr.constructor === Array);// true
+    必须通过 构造函数声明的对象,才有 constructor 属性,否则没有。
 
     # Object.prototype.toString.call
 
@@ -1295,7 +1296,7 @@ Number() 可安全转换 BigInt 为数字(BigInt 过大丢失精度)
 BOM 储存大数据
 indexedDB 是浏览器提供的本地数据库,可以存储大量数据,但是不支持 sql 查询,类似 nosql,只能通过游标来查询,游标是一个指针,指向数据库中的某个位置,可以通过游标来遍历数据库中的数据,限制同源策略,只能在同源网站下访问同源数据库
 
-# 图像加载太慢
+# _图像加载太慢_
 
     1.  可以使用懒加载,即当图像进入可视区域时,再加载图像(html5 中 img 标签 有 loading lazy 直接实现) 前端级别
     2.  预加载,即提前加载图像 前端级别

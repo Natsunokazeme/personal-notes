@@ -140,7 +140,7 @@ queuedObservers.forEach(observer => observer());
 return result;
 }
 
-# JS runtime
+# _JS runtime_
 
 JS 栈储存的是函数调用的帧，每个帧包含了函数的参数和局部变量等信息。
 JS 堆储存的是对象和数组等复杂数据结构。
@@ -198,7 +198,7 @@ if (buffer.byteLength === n) {
 }
 //TODO
 
-# SSR&&SSG
+# _SSR&&SSG_
 
 ssr 是服务端渲染，传统的客户端渲染是通过框架用 JS 生成 html，不利于爬虫抓取，SEO(搜索排名优化)以及首屏加载时间过长，ssr 是在服务端生成 html，然后返回给客户端，客户端直接渲染，这样就可以解决这些问题。
 SSR 实现都是基于 Node，但 Node 原生不支持 ES6 的模块化也不能识别 JSX 语法，所以需要使用 babel 来转换代码，然后使用 webpack 打包，最后使用 express 来启动服务。
@@ -214,7 +214,7 @@ worker.postMessage({
 command: 'generate',
 quota: quota
 });
-worker.addEventListener('message', message => {//todo}
+worker.addEventListener('message', message => {//todo})
 
 # 序列化动画，即上一个动画结束后，下一个动画才开始。
 
