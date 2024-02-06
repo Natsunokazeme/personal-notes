@@ -310,7 +310,7 @@ Fiber 节点构成 Fiber 树，Fiber 树是对 React 元素树进一步对应 DO
 
 ## 双缓存
 
-在内存中构建并直接替换的技术。 Fiber 双缓存意味着 DOM 树的创建与更新也是在内存里完成的。这个 Fiber 树称为 workInProgress Fiber,同时还有一个对应正在屏幕上显示的旧 Fiber 树,即 current Fiber. 如果它们的节点复用， 则节点通过 alternate 属性相连(由 diff 算法决定是否复用)。
+_在内存中构建并直接替换的技术。 Fiber 双缓存意味着 DOM 树的创建与更新也是在内存里完成的。这个 Fiber 树称为 workInProgress Fiber,同时还有一个对应正在屏幕上显示的旧 Fiber 树,即 current Fiber. 如果它们的节点复用， 则节点通过 alternate 属性相连(由 diff 算法决定是否复用)。_
 currentFiber.alternate === workInProgressFiber;
 workInProgressFiber.alternate === currentFiber;
 

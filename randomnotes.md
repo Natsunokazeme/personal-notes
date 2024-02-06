@@ -57,7 +57,7 @@ obj2.foo2()
 // inner()被调用时没有指定调用对象，所以this指向window，window.a为3
 ```
 
-31. new ,通过该方法会创建一个对象实例，原理如下:
+31. _new ,通过该方法会创建一个对象实例，原理如下:_
     在内存中创建一个新对象。
     这个新对象内部的 prototype 特性被赋值为构造函数的 prototype 属性。
     构造函数内部的 this 被赋值为这个新对象（即 this 指向新对象）。
@@ -68,7 +68,7 @@ obj2.foo2()
 34. BigInt()或数字后加 n 表示大数，向下取整，和 number 类型宽松相等，可以和 number 类型比较
 35. Symbol.for(key),查找全局里键为 key 的 symbol，若没有则会新建一个 symbol 并返回
 36. Symbol.keyFor(key),如果全局注册表中查找到该 symbol，则返回该 symbol 的 key 值，返回值为字符串类型。否则返回 undefined
-37. State hooks 原理：state hooks 是在 fiber 节点里以链表形式储存的，因此是按照顺序读取，若 state hooks 写在 if 或 for 里，某一次没执行的话，会造成之后所有的 state hooks 的读取位置错误
+37. _State hooks 原理：state hooks 是在 fiber 节点里以链表形式储存的，因此是按照顺序读取，若 state hooks 写在 if 或 for 里，某一次没执行的话，会造成之后所有的 state hooks 的读取位置错误_
 38. useReducer,用法类似 redux，是 useState 的基础，例: const [val,dispatch] = useReducer(reducer,initVal)
 39. cookie 也受跨域限制
 40. angular ngfor 的 trackFor 相当于 react 的 key，用于优化性能，trackFor 的值为 trackBy 的值，trackBy 的值为函数，函数的参数为 index 和 item，返回值为 trackFor 的值
@@ -96,7 +96,9 @@ obj2.foo2()
     2.  图像压缩，通过 canvas 的 drawImage 方法的第三个参数，可以对图像进行压缩，第三个参数为一个对象，包含 width 和 height 属性，可以设置图像的宽高，若不设置，则默认为图像的原始宽高
     3.  GPU 加速
     4.  WebGL 绘制图形代替 canvas(类似开启 GPU 加速)
+    5.  three.js 代替 canvas
 
 60. angular 对原生 html 元素的属性进行了封装，如 input 的 value 属性，angular 里用 ngModel 代替。
 61. form 元素的 action 属性用于指定表单提交的地址，method 属性用于指定提交方式，若不指定，则默认将 method 属性设置为 get，若不指定 action 属性，则默认将 action 属性设置为当前页面的 url。因此当前页面的 url 会发生改变，通过 query params 传递 form 参数。(angular 阻止了 form 的 action 和 method)
 62. 单页面应用和多页面应用的区别：单页面应用只有一个 html 页面，所有的页面都是在这个页面上切换，多页面应用有多个 html 页面，每个页面都是一个独立的页面，有自己的根模块。切换页面时，会重新加载页面，单页面应用的优点是页面切换快，用户体验好，缺点是首屏加载慢，多页面应用的优点是首屏加载快，缺点是页面切换慢，用户体验差。
+63. cookie 可记录用户行为，停留时间等用户特征，还可以保存登录状态，也可以记录当前协议或 ip 等，若发生异常可要求用户二次验证，防止 csrf 攻击

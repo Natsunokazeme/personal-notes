@@ -227,3 +227,7 @@ u 和 glifyjs-webpack-plugin 插件类似，可以在单文件内删除未引用
 6. 将小型图片转换成 base64 的形式，减少 http 请求，提升页面加载速度
 7. optimization 配置，提取公用代码
 8. 压缩资源 gzip 压缩 compression-webpack-plugin
+
+_单页面应用开启动态路由_ 2days
+_在 devServer 中配置 historyApiFallback: true, 使得单页面应用开启动态路由，也可以自定义要重定向的页面_
+刷新页面时服务器会直接请求对应 url 的文件，而这个文件并不存在，导致 404 错误。当 historyApiFallback 为 true 时，所有的 404 都会重定向到 index.html 并且不改变 history，之后 index.html 里的代码会解析 history 并返回对应路由的资源。
