@@ -102,3 +102,14 @@ obj2.foo2()
 61. form 元素的 action 属性用于指定表单提交的地址，method 属性用于指定提交方式，若不指定，则默认将 method 属性设置为 get，若不指定 action 属性，则默认将 action 属性设置为当前页面的 url。因此当前页面的 url 会发生改变，通过 query params 传递 form 参数。(angular 阻止了 form 的 action 和 method)
 62. 单页面应用和多页面应用的区别：单页面应用只有一个 html 页面，所有的页面都是在这个页面上切换，多页面应用有多个 html 页面，每个页面都是一个独立的页面，有自己的根模块。切换页面时，会重新加载页面，单页面应用的优点是页面切换快，用户体验好，缺点是首屏加载慢，多页面应用的优点是首屏加载快，缺点是页面切换慢，用户体验差。
 63. cookie 可记录用户行为，停留时间等用户特征，还可以保存登录状态，也可以记录当前协议或 ip 等，若发生异常可要求用户二次验证，防止 csrf 攻击
+64. css outline-offset, 控制 outline 相对于边框的偏移
+65. removeEventListener 的第二个参数必须和 addEventListener 的第二个参数一致，指向同一内存地址，否则无法移除事件。匿名函数无法移除
+66. webpack svg 可通过 svgr 转化为 react 组件引入,但 typescript 里需要声明 svg 模块,否则会报错
+    `typescript
+declare module "*.svg" {
+  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
+  export default content
+}
+`
+67. webpack 打包后的 dist 是在浏览器而不是 node 环境下运行的，所以不能使用 node 的模块
+68. webpack 的 definePlugin 插件可以定义全局变量，如 process.env.NODE_ENV，这样可以传递 node 环境变量到浏览器环境
