@@ -113,3 +113,6 @@ declare module "*.svg" {
 `
 67. webpack 打包后的 dist 是在浏览器而不是 node 环境下运行的，所以不能使用 node 的模块
 68. webpack 的 definePlugin 插件可以定义全局变量，如 process.env.NODE_ENV，这样可以传递 node 环境变量到浏览器环境
+69. json 深拷贝坏处 1.忽略 undefined,symbol,函数,正则等类型 2.循环引用报错 3.Date,类型转化为字符串 4.error,正则,set,map 等类型转化为空对象 5.原型链丢失
+70. structuredClone 不能拷贝函数,且是新语法,有对应的 polyfill 可支持旧版本浏览器
+71. 赋值也是先取值再赋值, let object.child = object = {child:1} //object.child 为 undefined.
