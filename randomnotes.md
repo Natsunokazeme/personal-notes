@@ -18,23 +18,20 @@
 11. Linux 分为很多版本,其中 centOS 是 red hat 发行的版本,不同版本的命令和资源库不同,我用的 centOS7
 12. 机械学习:人为设定判断标准作为参数,通过不断调整参数,使得判断结果与实际结果越来越接近,从而达到自动判断的目的.
 13. 深度学习:输入原始数据,通过多层神经网络,从底层到高层,自动逐渐提取特征,最终得到判断结果.该特征可能是人类无法理解的,但是确实有效的 zu,是算法从原始数据分析并提取出来的.因此,输入的数据越大,神经网络越深,最终得到的结果越准确.
-14. angular 装饰器 HostListener,用于监听宿主元素上的事件
-15. angular icon registry,用于注册 svg 图标为 mat-icon,并且可以设置图标的颜色,大小等属性.通过 MatIconRegistry 这个 service 的 addSvgIcon()方法注册图标,然后通过 MatIcon 组件的 svgIcon 属性使用图标.
-16. angular sanitizer 用于过滤 html 标签,防止 xss 攻击；sanitizer.bypassSecurityTrustResourceUrl() 方法用于信任资源 url,防止 angular 报错.若不通过该方法,angular 会认为该 url 不安全,不会加载该资源.(踩坑 0.5day)
-17. angular 里 pipeline 设置
-18. enum 可以直接当类型用，也可以当值用，当值用时，可以通过 enum[key]来取值
-19. web sql 和 indexedDB 类似，都是储存在浏览器的方式，更像关系型数据库，目前只有 chrome 支持,已被 deprecated
-20. script 标签的 defer 属性，表示脚本会在文档解析完毕后执行，但是在 DOMContentLoaded 事件之前执行，如果有多个 defer 脚本，会按照顺序执行，不会阻塞 DOM 解析，但是会阻塞 DOMContentLoaded 事件。async 属性表示脚本会在文档解析完毕后立即执行，但是不会阻塞 DOM 解析，也不会阻塞 DOMContentLoaded 事件，如果有多个 async 脚本，会按照加载完成的顺序执行，不一定是顺序执行，async 脚本不会阻塞其他资源的加载，比如图片，css 等，但是会阻塞其他 async 脚本的执行，async 脚本一定会在页面的 load 事件之前执行，但是不一定在 DOMContentLoaded 事件之前执行。
-21. _script 默认是会阻碍 HTML 解析的，只有下载好并执行完脚本才会继续解析 HTML，defer 就是下载不阻碍 html 解析，执行会等到 html 解析完再执行，async 是下载不阻碍，执行可能阻碍解析，一旦下载好就立即执行_
-22. webpack 默认是将所有的模块打包成一个 js 文件，这样会造成初次加载时 js 文件过大，等待时间过长，所以需要将 js 文件分割成多个文件，这样可以实现按需加载，提高加载速度。
-23. 通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。
-24. _任何不在函数内部的代码的上下文都是全局上下文，谁最后调用的函数，函数里 this 就指向谁_
-25. 箭头函数中 this 的值总是等于外部作用域的 this
-26. 普通函数在调用时产生上下文，箭头函数没有上下文,会去外部作用域找，找不到就是 undefined
-27. 把一个函数当成参数传递到另一个函数的时候，也会发生隐式丢失的问题，且与包裹着它的函数的 this 指向无关。在非严格模式下，会把该函数的 this 绑定到 window 上，严格模式下绑定到 undefined。settimeout 的回调函数也是如此。
-28. 定时器的调用对象是 window，所以定时器里的 this 指向 window，严格模式下指向 undefined
-29. var 会挂在到 window 上，let 和 const 不会，var 在上下文里初始化为 undefined，let 和 const 在上下文里初始化为 uninitialized
-30. this 例题
+
+14. enum 可以直接当类型用，也可以当值用，当值用时，可以通过 enum[key]来取值
+15. web sql 和 indexedDB 类似，都是储存在浏览器的方式，更像关系型数据库，目前只有 chrome 支持,已被 deprecated
+16. script 标签的 defer 属性，表示脚本会在文档解析完毕后执行，但是在 DOMContentLoaded 事件之前执行，如果有多个 defer 脚本，会按照顺序执行，不会阻塞 DOM 解析，但是会阻塞 DOMContentLoaded 事件。async 属性表示脚本会在文档解析完毕后立即执行，但是不会阻塞 DOM 解析，也不会阻塞 DOMContentLoaded 事件，如果有多个 async 脚本，会按照加载完成的顺序执行，不一定是顺序执行，async 脚本不会阻塞其他资源的加载，比如图片，css 等，但是会阻塞其他 async 脚本的执行，async 脚本一定会在页面的 load 事件之前执行，但是不一定在 DOMContentLoaded 事件之前执行。
+17. _script 默认是会阻碍 HTML 解析的，只有下载好并执行完脚本才会继续解析 HTML，defer 就是下载不阻碍 html 解析，执行会等到 html 解析完再执行，async 是下载不阻碍，执行可能阻碍解析，一旦下载好就立即执行_
+18. webpack 默认是将所有的模块打包成一个 js 文件，这样会造成初次加载时 js 文件过大，等待时间过长，所以需要将 js 文件分割成多个文件，这样可以实现按需加载，提高加载速度。
+19. 通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。
+20. _任何不在函数内部的代码的上下文都是全局上下文，谁最后调用的函数，函数里 this 就指向谁_
+21. 箭头函数中 this 的值总是等于外部作用域的 this
+22. 普通函数在调用时产生上下文，箭头函数没有上下文,会去外部作用域找，找不到就是 undefined
+23. 把一个函数当成参数传递到另一个函数的时候，也会发生隐式丢失的问题，且与包裹着它的函数的 this 指向无关。在非严格模式下，会把该函数的 this 绑定到 window 上，严格模式下绑定到 undefined。settimeout 的回调函数也是如此。
+24. 定时器的调用对象是 window，所以定时器里的 this 指向 window，严格模式下指向 undefined
+25. var 会挂在到 window 上，let 和 const 不会，var 在上下文里初始化为 undefined，let 和 const 在上下文里初始化为 uninitialized
+26. this 例题
 
 ```javascript
 var obj2 = {
@@ -116,3 +113,11 @@ declare module "*.svg" {
 69. json 深拷贝坏处 1.忽略 undefined,symbol,函数,正则等类型 2.循环引用报错 3.Date,类型转化为字符串 4.error,正则,set,map 等类型转化为空对象 5.原型链丢失
 70. structuredClone 不能拷贝函数,且是新语法,有对应的 polyfill 可支持旧版本浏览器
 71. 赋值也是先取值再赋值, let object.child = object = {child:1} //object.child 为 undefined.
+72. localStorage 坏处: 1.存储容量小,浏览器一般 5m 2.存储的数据不安全,都能访问 3.只能同步操作 4.只能存储字符串类型 5.不支持 web worker
+73. script 上的 crossorigin 属性,用于设置 script 标签的跨域属性,属性值为 anonymous,表示允许跨域,但是跨域时不允许携带 cookie,属性值为 use-credentials,表示允许跨域,并且允许携带 cookie,若不设置该属性,则默认为 same-origin,表示不允许跨域
+74. debugger 时，所有代码都会暂停，包括异步代码，所有的事件也不会被触发。
+75. 在 HTML 中，通过拖放操作（drag and drop）触发`onDrop`事件需要满足以下条件：1.设置元素的`draggable`属性为`true`，表示元素可拖动。2. 监听`dragover`事件并调用`event.preventDefault()`，以允许元素放置。 3.监听`drop`事件并阻止默认行为，以处理放置操作。
+76. css 属性 tabindex 设置该元素能否通过 tab 键 focus，小于 0 不能，0 可以，大于 0 按 tabindex 值优先级 focus
+77. padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。
+78. string.charCodeAt() 返回指定索引处的 UTF-16 代码单元值,string.codePointAt() 返回指定索引处的字符的 Unicode 编码点//ascii 码表被包含于 UTF-16 编码中
+79. css

@@ -116,24 +116,6 @@ angular cookbook
 angular 有自定义的 animation 方式,
 在需要动画的组件中引入 Trigger,State,Style,Transition,animate,grounp,query,stagger,keyframes
 
-1. angular 的 rxjs 的 observable 与 promise 不兼容
-2. observable 方法,pipe 用于管道,subscribe 用于订阅,switchMap 用于切换,需要返回 observable,map 用于映射,take 用于取前几个,takeUntil 用于取直到某个时间点,takeWhile 用于取直到某个条件为 false,
-
-3. ngOnchanges 参数 changes:SimpleChanges 可以查看改变的属性,可以用来判断是否改变了某个属性
-4. ngFor 可以根据值动态渲染
-
-5. forkJoin(observable1,observable2,...)用于等待多个 observable 发送完成,然后执行一个函数
-6. xxx.asObservable();将 xxx 转化为一个 Observable 对象,这个对象可以被订阅,从而获取到 xxx 的值.
-7. BehaviorSubject 是一个可订阅的对象,它可以存储一个初始值,并且可以通过订阅来获取这个值.
-8. forkJoin()方法可以将多个 Observable 对象合并成一个 Observable 对象,它可以被订阅,从而获取到多个 Observable 对象的值.类似于 promise.all()方法.例如 forkJoin([obs1,obs2,obs3])将会返回一个 Observable 对象,它可以被订阅,从而获取到三个 Observable 对象的值.可对每个 Observable 对象进行 pipe 处理,也可在订阅后获取到所有结果再进行处理.
-9. switchMap()方法可以将一个 Observable 对象转化为另一个 Observable 对象,它可以被订阅,从而获取到另一个 Observable 对象的值.例如 obs1.pipe(switchMap((value1)=>obs2)).subscribe((value2))将会返回一个新的 Observable 对象,它可以被订阅,从而获取到 obs2 的值.
-10. 销毁订阅,防止内存泄漏.在 pipe 中使用 takeUntil()方法,将一个 Observable 对象作为参数,当这个 Observable 对象发出值时,就会取消订阅.一般将一个空 Subject 对象(newSubject<void>();)作为参数,当这个 Subject 对象发出值时,就会取消订阅.
-11. catchError()方法可以捕获错误,当 Observable 对象发生错误时,就会执行 catchError()方法中的代码.写在 pipe 中.
-12. of()方法可以将一个值转化为一个 Observable 对象,它可以被订阅,从而获取到这个值.
-13. finalize()方法可以在 Observable 对象完成时执行一些代码,写在 pipe 中.相当于 promise 的 finally()方法.
-14. subject 对象是一个 observable,它可以存储一个值,并且可以通过 subscribe 来获取这个值.它可以被订阅多次,每次订阅都会获取到最新的值.subject 同时是一个 observer,它可以通过 next 方法来存储一个值.例如:constsubject=newSubject();subject.subscribe((value)=>console.log(value));subject.next(1);subject.next(2);subject.next(3);//123
-15. ActivatedRoute 用于获取路由参数,ActivatedRoute.snapshot:获取当前路由参数,但不会随着路由参数的变化而变化；ActivatedRoute.params:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.queryParams:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.fragment:获取当前路由参数,会随着路由参数的变化而变化；
-
 # angular 自定义 directive
 
 directives
@@ -292,3 +274,25 @@ effect()
 untracked() 在 effect 中使用，用于阻止内部的 signal 依赖被追踪从而触发 effect
 
 onCleanup() 在 effect 中使用，用于注册清理函数，当 effect 被销毁时，会执行清理函数
+
+1. angular 的 rxjs 的 observable 与 promise 不兼容
+2. observable 方法,pipe 用于管道,subscribe 用于订阅,switchMap 用于切换,需要返回 observable,map 用于映射,take 用于取前几个,takeUntil 用于取直到某个时间点,takeWhile 用于取直到某个条件为 false,
+
+3. ngOnchanges 参数 changes:SimpleChanges 可以查看改变的属性,可以用来判断是否改变了某个属性
+4. ngFor 可以根据值动态渲染
+
+5. forkJoin(observable1,observable2,...)用于等待多个 observable 发送完成,然后执行一个函数
+6. xxx.asObservable();将 xxx 转化为一个 Observable 对象,这个对象可以被订阅,从而获取到 xxx 的值.
+7. BehaviorSubject 是一个可订阅的对象,它可以存储一个初始值,并且可以通过订阅来获取这个值.
+8. forkJoin()方法可以将多个 Observable 对象合并成一个 Observable 对象,它可以被订阅,从而获取到多个 Observable 对象的值.类似于 promise.all()方法.例如 forkJoin([obs1,obs2,obs3])将会返回一个 Observable 对象,它可以被订阅,从而获取到三个 Observable 对象的值.可对每个 Observable 对象进行 pipe 处理,也可在订阅后获取到所有结果再进行处理.
+9. switchMap()方法可以将一个 Observable 对象转化为另一个 Observable 对象,它可以被订阅,从而获取到另一个 Observable 对象的值.例如 obs1.pipe(switchMap((value1)=>obs2)).subscribe((value2))将会返回一个新的 Observable 对象,它可以被订阅,从而获取到 obs2 的值.
+10. 销毁订阅,防止内存泄漏.在 pipe 中使用 takeUntil()方法,将一个 Observable 对象作为参数,当这个 Observable 对象发出值时,就会取消订阅.一般将一个空 Subject 对象(newSubject<void>();)作为参数,当这个 Subject 对象发出值时,就会取消订阅.
+11. catchError()方法可以捕获错误,当 Observable 对象发生错误时,就会执行 catchError()方法中的代码.写在 pipe 中.
+12. of()方法可以将一个值转化为一个 Observable 对象,它可以被订阅,从而获取到这个值.
+13. finalize()方法可以在 Observable 对象完成时执行一些代码,写在 pipe 中.相当于 promise 的 finally()方法.
+14. subject 对象是一个 observable,它可以存储一个值,并且可以通过 subscribe 来获取这个值.它可以被订阅多次,每次订阅都会获取到最新的值.subject 同时是一个 observer,它可以通过 next 方法来存储一个值.例如:constsubject=newSubject();subject.subscribe((value)=>console.log(value));subject.next(1);subject.next(2);subject.next(3);//123
+15. ActivatedRoute 用于获取路由参数,ActivatedRoute.snapshot:获取当前路由参数,但不会随着路由参数的变化而变化；ActivatedRoute.params:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.queryParams:获取当前路由参数,会随着路由参数的变化而变化；ActivatedRoute.fragment:获取当前路由参数,会随着路由参数的变化而变化；
+16. angular 装饰器 HostListener,用于监听宿主元素上的事件
+17. angular icon registry,用于注册 svg 图标为 mat-icon,并且可以设置图标的颜色,大小等属性.通过 MatIconRegistry 这个 service 的 addSvgIcon()方法注册图标,然后通过 MatIcon 组件的 svgIcon 属性使用图标.
+18. angular sanitizer 用于过滤 html 标签,防止 xss 攻击；sanitizer.bypassSecurityTrustResourceUrl() 方法用于信任资源 url,防止 angular 报错.若不通过该方法,angular 会认为该 url 不安全,不会加载该资源.(踩坑 0.5day)
+19. angular 里 pipeline 设置

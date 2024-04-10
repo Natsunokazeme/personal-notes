@@ -494,7 +494,7 @@ overflow 不为 visible 的元素
 29. _阻止页面下拉刷新，在 body 里设置 css overscroll-behavior:none 和 overflow:hidden_
 30. background-clip 基于当前元素设置 background 的 延伸距离，text 是基于文字，padding-box 是基于 padding，border-box 是基于 border，content-box 是基于 content;
 31. _flex: 1; == flex: 1 1 0; flex:auto == flex: 1 1 auto;flex:none==flex:0 0 auto;flex: initial == flex:0 1 auto flex:0==flex:0 1 0_
-32. order: 1; 该属性规定了弹性容器中的可伸缩项目在布局时的顺序。元素按照 order 属性的值的增序进行布局，可以为负值。
+32. order: 1; 该属性规定了弹性容器中的可伸缩项目在布局时的顺序。元素按照 order 属性的值的升序进行布局，可以为负值。
 33. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高 css 关键字的性能
     _补充知识:一般来说,元素在进行一些操作如 3D 变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过 GPU 而不是 CPU 渲染的话,性能会得到提升.因此，之前我们会用 transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染_
 34. css 属性选择器
