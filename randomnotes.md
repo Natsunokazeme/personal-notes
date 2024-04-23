@@ -120,4 +120,4 @@ declare module "*.svg" {
 76. css 属性 tabindex 设置该元素能否通过 tab 键 focus，小于 0 不能，0 可以，大于 0 按 tabindex 值优先级 focus
 77. padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。
 78. string.charCodeAt() 返回指定索引处的 UTF-16 代码单元值,string.codePointAt() 返回指定索引处的字符的 Unicode 编码点//ascii 码表被包含于 UTF-16 编码中
-79. css
+79. vue 父组件传给子组件值时，未声明的 props 即为 attrs,可以通过 v-bind="$attrs"传递给子组件达到类似于 react 的...props 的效果
