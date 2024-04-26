@@ -121,3 +121,5 @@ declare module "*.svg" {
 77. padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。
 78. string.charCodeAt() 返回指定索引处的 UTF-16 代码单元值,string.codePointAt() 返回指定索引处的字符的 Unicode 编码点//ascii 码表被包含于 UTF-16 编码中
 79. vue 父组件传给子组件值时，未声明的 props 即为 attrs,可以通过 v-bind="$attrs"传递给子组件达到类似于 react 的...props 的效果
+80. string.substr(start,len)已被废弃,不传 len 时,默认为到末尾,推荐使用 string.substring(start,end)替换
+81. keep-alive 判断是否缓存组件时,通过组件的 name 属性来判断,而不是router-view 的 name 属性(1d)
