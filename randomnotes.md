@@ -61,10 +61,10 @@ obj2.foo2()
     执行构造函数内部的代码（给新对象添加属性）。
     如果构造函数返回对象，则返回该对象；否则，返回刚创建的新对象(空对象)
 32. Symbol Symbol.hasInstance 就是 instanceof 的原理
-33. typeof 的原理是判断二进制，二进制前三位储存类型信息
+33. **typeof 的原理是判断二进制，二进制前三位储存类型信息**
 34. BigInt()或数字后加 n 表示大数，向下取整，和 number 类型宽松相等，可以和 number 类型比较
 35. Symbol.for(key),查找全局里键为 key 的 symbol，若没有则会新建一个 symbol 并返回
-36. Symbol.keyFor(key),如果全局注册表中查找到该 symbol，则返回该 symbol 的 key 值，返回值为字符串类型。否则返回 undefined
+36. Symbol.keyFor(symbol),如果全局注册表中查找到该 symbol，则返回该 symbol 的 key 值，返回值为字符串类型。否则返回 undefined
 37. _State hooks 原理：state hooks 是在 fiber 节点里以链表形式储存的，因此是按照顺序读取，若 state hooks 写在 if 或 for 里，某一次没执行的话，会造成之后所有的 state hooks 的读取位置错误_
 38. useReducer,用法类似 redux，是 useState 的基础，例: const [val,dispatch] = useReducer(reducer,initVal)
 39. cookie 也受跨域限制
@@ -122,4 +122,17 @@ declare module "*.svg" {
 78. string.charCodeAt() 返回指定索引处的 UTF-16 代码单元值,string.codePointAt() 返回指定索引处的字符的 Unicode 编码点//ascii 码表被包含于 UTF-16 编码中
 79. vue 父组件传给子组件值时，未声明的 props 即为 attrs,可以通过 v-bind="$attrs"传递给子组件达到类似于 react 的...props 的效果
 80. string.substr(start,len)已被废弃,不传 len 时,默认为到末尾,推荐使用 string.substring(start,end)替换
-81. keep-alive 判断是否缓存组件时,通过组件的 name 属性来判断,而不是router-view 的 name 属性(1d)
+81. vue keep-alive 判断是否缓存组件时,通过组件的 name 属性来判断,而不是 router-view 的 name 属性(1d)
+82. js object 属性名只能是字符串或 symbol 类型,若不是,会自动转化为字符串,并且非数字属性名会按添加顺序被排序，数字属性名会按升序排序
+83. css animation pause 可以暂停动画,通过 animation-play-state 属性设置为 paused 来暂停动画,设置为 running 来继续动画, 通过设置 animation-delay 结合 animation-play-state 来实现动画的暂停位置
+84. http 在响应体没完全返回时,浏览器会一直等待,此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果
+85. 页面监控 数据埋点
+    1. FPS(frame per second) 每秒帧数,一般 60 帧为流畅,低于 30 帧为卡顿,通过 requestAnimationFrame 来获取每一帧的时间,计算是否掉帧
+    2. Performance API,通过 performance.timing 来获取页面加载时间,通过 performance.getEntries()来获取页面资源加载时间,通过 performance.memory 来获取页面内存使用情况
+    3. PerformanceObserver API,通过 performanceObserver 来监听页面性能,通过 performanceObserver.observe()来监听页面性能,通过 performanceObserver.disconnect()来停止监听页面性能
+86. html 原生弹窗 自带 dialog，独立于 body， 可通过 open 属性控制是否打开，也可以通过 element.showModal()和 close()方法控制打开和关闭.好处是不会被其他元素遮挡，且用户只能操作弹窗，不能操作其他元素
+87. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
+88. navigator.sendBeacon(url,data)用于发送数据到服务器,该方法会在页面卸载时发送数据,即使页面卸载了,也会发送数据,该方法会返回一个布尔值,表示是否发送成功
+89. navigator.online 用于判断当前是否联网,返回一个布尔值,表示是否联网 也可以在 window 上监听 online 和 offline 事件来判断联网变更
+90. navigator.connection 用于获取网络连接信息,返回一个 connection 对象,包含 downlink,downlinkMax,rtt,saveData 等属性,用于获取网络连接信息
+91.

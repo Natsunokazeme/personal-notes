@@ -123,8 +123,9 @@ img src="example_not_exist.gif" alt="这个是一个图片" /
 # 超链 a
 
 在新的页面打开超链
-新增属性 target
-a href="http://www.12306.cn" target="\_blank"http://www.12306.cn/a
+## target 
+a标签的打开方式
+<a href="http://www.12306.cn" target="\_blank">http://www.12306.cn</a>
 
 ## title
 
@@ -169,7 +170,7 @@ iframe 即内联框架，通过内联框架 可以实现在网页中“插入”
 
 # input
 
-input type 有 button text checkbox color date email file password number radio 等
+**input type 有 image,button text checkbox color date email file password number radio 等**
 type="text" 即表示文本框 并且只能够输入一行
 如果要输入多行，使用文本域 textarea
 input type="password" 即表示密码框，输入的数据会自动显示为星号
@@ -179,7 +180,7 @@ input type="password" 即表示密码框，输入的数据会自动显示为星�
 input type="button" 即普通按钮，普通按钮不具备提交 form 的效果  
 input type="submit" 即为提交按钮，用于提交 form，把数据提交到服务端
 input type="reset" 重置按钮 可以把输入框的改动复原
-input type="image" 即使用图像作为按钮进行 form 的提交
+**input type="image" 即使用图像作为按钮进行 form 的提交**
 button/button 即按钮标签
 与 input type="button"不同的是，button 标签功能更为丰富；按钮标签里的内容可以是文字也可以是图像；如果 button 的 type=“submit” ，那么它就具备提交 form 的功能。此时用图片提交则内容为图片，type 为 submit。
 IE 下 button 的 type 的默认值为 button 不具备提交功能，其他浏览器 type 的默认值是 submit
@@ -209,6 +210,8 @@ post 必须在 form 上通过 method="post" 显示指定
 select size="3" multiple="multiple"
 使用多选，用 ctrl 或者 shift 进行多选
 对 option 元素设置 selected="selected" 属性，默认选中该 option
+**option的value值只能设置string类型，如果设置为数字，会被自动转换为字符串**
+**不能手动设置option展开，只能通过用户交互事件来展开**
 
 # 新约
 
@@ -253,8 +256,8 @@ html 是一种基本的 web 网页设计语言，xhtml 是一个基于 xml 的�
 
 # _简述一下 src 与 href 的区别_
 
-src 用于替换当前元素；href 用于在当前文档和引用资源之间确立联系。
-src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置，需要下载且下载时会暂停其他活动
+src 用于替换当前元素资源；href 用于在当前文档和引用资源之间确立联系。
+src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置，需要下载且下载时会暂停其他活动(img下载时不阻塞)
 href 是 Hypertext Reference 的缩写，指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，不会暂停其他活动
 
 # 行内元素有哪些，块级元素有哪些？
@@ -271,6 +274,7 @@ c. 代码臃肿，当在 table 中套用 table 的时候，阅读代码会显得
 d. 混乱的 colspan 与 rowspan，用来布局时，频繁使用他们会造成整个文档顺序混乱。
 e. table 需要多次计算才能确定好其在渲染树中节点的属性
 f. 不够语义
+
 对 web 标准以及 w3c 的理解和认识
 标签闭合，标签小写，不乱嵌套，提高机器人搜索几率，使用外链 css 和 js 脚本，结构行为表现的分离，文件下载与页面速度更快，内容能被更多的用户访问，内容能被更广泛的设备所访问，更少的代码和组件，容易维护改版方便，不需要变动页面内容，提高网站易用性;语义化的 html 即直观的认识标签，对搜索引擎的抓取有好处
 rem em rpx px fr vw vh ch
@@ -285,6 +289,6 @@ advanced HTML
    slot name="curent" slot='son-slot' /slot
 5. 关闭 iframe 的 PDF 默认控制栏，在 src 的末尾加上‘#toolbar=0’
 6. selector 无法指定 value，只能通过 option 的 value 属性来指定
-7. onDrop 事件和 onDragOver 事件都是标准 html5 里的事件,前者是被拖拽元素释放到目标元素上触发的,后者是被拖拽元素在目标元素上移动时触发的.onDrop 事件只能在目标元素上触发,而 onDragOver 事件可以在任何元素上触发,所以在目标元素上触发 onDragOver 事件时,要阻止默认行为.
+7. **onDrop 事件和 onDragOver 事件都是标准 html5 里的事件,前者是被拖拽元素释放到目标元素上触发的,后者是被拖拽元素在目标元素上移动时触发的.onDrop 事件只能在目标元素上触发,而 onDragOver 事件可以在任何元素上触发,所以在目标元素上触发 onDragOver 事件时,要阻止默认行为.**
 8. event.dataTransfer,用于拖拽期间传递存放数据.
 9. stopPropagation() 方法阻止事件冒泡到父元素,但是不会阻止事件传递到当前元素的其他监听器 preventDefault() 方法阻止事件的默认行为,如 a 标签的跳转;

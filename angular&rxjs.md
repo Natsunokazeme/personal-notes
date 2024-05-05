@@ -21,7 +21,7 @@ exportclassHelloWorldComponent{
 \*ngIf 类似于 vue 中 v-if
 用法:当为 true 时采用 div 原本模板,当为 false 时采用 else 后编号的 ng-template 模板
 
-<div\*ngIf="canEdit;else noEdit">
+<div \*ngIf="canEdit;else noEdit">
 
 <p>Youcaneditthefollowingparagraph.</p>
 </div*ngIf=>
