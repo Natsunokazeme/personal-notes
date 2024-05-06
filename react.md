@@ -489,3 +489,44 @@ _采用 fiber 后，生命周期的执行顺序发生了变化，fiber 的生命
 当组件从 DOM 中移除时，会触发 unmounting，unmounting 阶段的生命周期函数有：
 
 1. componentWillUnmount
+
+# diff 算法
+
+diff 算法决定是否复用
+通过比较 current Fiber(已存在的 fiber 节点)和更新后的 JSX 对象来生成 workInProgress Fiber(新的 fiber 节点)
+从 Diff 的入口函数 reconcileChildFibers 出发，该函数会根据 newChild（即 JSX 对象）类型调用不同的处理函数。
+
+## 单节点 diff
+
+即 newChild 不是数组类型；先比较 key(默认 null)，再比较 type，都相同则可以复用，否则标记旧 dom 节点为删除，新建 fiber 节点。
+
+## 多节点 diff
+
+此时 newChild 是数组类型，即有多个子节点；但 currentFiber 是链表类型，只能一个一个比较。比较完 child(当前 currentFiber)后，再更新 child = child.sibling，直到没有兄弟节点为止。
+因为更新操作多于创建和删除操作，所以在 diff 算法中，会先判断当前节点是否属于更新。
+基于以上原因，Diff 算法的整体逻辑会经历两轮遍历：
+第一轮遍历：处理更新的节点。
+第二轮遍历：处理剩下的不属于更新的节点。
+
+### 第一轮遍历
+
+let i = 0，遍历 newChildren(JSX 对象)，将 newChildren[i]与 oldFiber 比较，判断 DOM 节点是否可复用。
+如果可复用，i++，继续比较 newChildren[i]与 oldFiber.sibling，可以复用则继续遍历。
+如果不可复用，分两种情况：
+key 不同导致不可复用，立即跳出整个遍历，第一轮遍历结束。
+key 相同 type 不同导致不可复用，会将 oldFiber 标记为 DELETION，并继续遍历。
+如果 newChildren 遍历完（即 i === newChildren.length - 1）或者 oldFiber 遍历完（即 oldFiber.sibling === null），跳出遍历，第一轮遍历结束。
+
+此时分为两种情况：
+
+1. 步骤三跳出遍历，都还有剩，这意味着有节点在这次更新中改变了位置。
+2. 步骤四跳出遍历，此时若都遍历完则全为更新操作，若 newChildren 遍历完且 oldFiber 还有剩则为删除操作，遍历标记相应的 oldFiber 为 Deletion，若 oldFiber 遍历完则为创建操作。遍历剩余 newChildren 并 标记新生成的 fiber 节点为 Placement。
+
+### 第二轮遍历
+
+将所有还未处理的 oldFiber 存入以 key 为 key，oldFiber 为 value 的 Map 中，接下来遍历剩余的 newChildren，通过 newChildren[i].key 就能在 existingChildren 中找到 key 相同的 oldFiber。
+React 选择最后一次可复用的节点 index 为 lastPlacedIndex，从 0 开始；找到当前 newChildren[i]的 index 即 i，如果 i 大于 lastPlacedIndex，复用该节点并更新 lastPlacedIndex，视为原 fiber 节点在新 fiber 节点的位置不变；若 i 小于 lastPlacedIndex，则复用该节点并视为原 fiber 节点在新 fiber 节点的位置向后变化。
+考虑性能，我们要尽量减少将节点从旧 jsx 数组后面移动到新 jsx 数组前面的操作。
+
+_当 child !== null 且 key 相同且 type 不同时执行 deleteRemainingChildren 将 child 及其兄弟 fiber 都标记删除。_
+_当 child !== null 且 key 不同时仅将 child 标记删除。_
