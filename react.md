@@ -648,3 +648,205 @@ const shouldUpdate =
     nextContext
   )
 ```
+
+# Hooks
+
+## 基本 Hooks
+
+在 Class 组件中，update 保存在 fiber.updateQueue 中，而在 Function 组件中，update 保存在 fiber.memoizedState,也就是 单个 hook 中。
+对应的 fiber 结构类似如下
+
+```javascript
+// App组件对应的fiber对象
+const fiber = {
+  // 保存该FunctionComponent对应的Hooks链表
+  memoizedState: null,
+  // 指向App函数
+  stateNode: App,
+}
+
+hook = {
+  // 保存update的queue，即上文介绍的queue
+  queue: {
+    pending: null,
+  },
+  // 保存hook对应的state
+  memoizedState: null,
+  baseState: null,
+  baseQueue: null,
+  // 与下一个Hook连接形成单向无环链表
+  next: null,
+}
+```
+
+同类型 hook 的 memoizedState 保存不同类型数据，具体如下：
+useState：对于 const [state, updateState] = useState(initialState)，memoizedState 保存 state 的值
+useReducer：对于 const [state, dispatch] = useReducer(reducer, {});，memoizedState 保存 state 的值
+useEffect：memoizedState 保存包含 useEffect 回调函数、依赖项等的链表数据结构 effect。effect 链表同时会保存在 fiber.updateQueue 中
+useRef：对于 useRef(1)，memoizedState 保存{current: 1}
+useMemo：对于 useMemo(callback, [depA])，memoizedState 保存[callback(), depA]
+useCallback：对于 useCallback(callback, [depA])，memoizedState 保存[callback, depA]。与 useMemo 的区别是，useCallback 保存的是 callback 函数本身，而 useMemo 保存的是 callback 函数的执行结果
+有些 hook 是没有 memoizedState 的，比如：
+useContext
+
+Hook 是无环的单向链表
+在组件 render 时，每当遇到下一个 useState，我们移动 workInProgressHook 也就是 fiber.memoizedState 的指针
+
+## useState 基本实现
+
+```javascript
+function useState(initialState) {
+  let hook
+  if (isMount) {
+    hook = {
+      queue: {
+        pending: null,
+      },
+      memoizedState: initialState,
+      next: null,
+    }
+    if (!fiber.memoizedState) {
+      fiber.memoizedState = hook
+    } else {
+      workInProgressHook.next = hook
+    }
+    workInProgressHook = hook
+  } else {
+    hook = workInProgressHook
+    workInProgressHook = workInProgressHook.next
+  }
+
+  let baseState = hook.memoizedState
+  if (hook.queue.pending) {
+    let firstUpdate = hook.queue.pending.next
+
+    do {
+      const action = firstUpdate.action
+      baseState = action(baseState)
+      firstUpdate = firstUpdate.next
+    } while (firstUpdate !== hook.queue.pending.next)
+
+    hook.queue.pending = null
+  }
+  hook.memoizedState = baseState
+
+  return [baseState, dispatchAction.bind(null, hook.queue)]
+}
+```
+
+## Hooks 数据结构
+
+在真实的 Hooks 中，组件 mount 时的 hook 与 update 时的 hook 来源于不同的对象，这类对象在源码中被称为 dispatcher。
+一般是通过对应 fiber 的以下条件判断 isMount。
+current === null || current.memoizedState === null
+
+在 FunctionComponent render 时，会从 ReactCurrentDispatcher.current（即当前 dispatcher）中寻找需要的 hook。
+
+```javascript
+// mount时的Dispatcher
+const HooksDispatcherOnMount: Dispatcher = {
+  useCallback: mountCallback,
+  useContext: readContext,
+  useEffect: mountEffect,
+  useImperativeHandle: mountImperativeHandle,
+  useLayoutEffect: mountLayoutEffect,
+  useMemo: mountMemo,
+  useReducer: mountReducer,
+  useRef: mountRef,
+  useState: mountState,
+  // ...省略
+}
+
+// update时的Dispatcher
+const HooksDispatcherOnUpdate: Dispatcher = {
+  useCallback: updateCallback,
+  useContext: readContext,
+  useEffect: updateEffect,
+  useImperativeHandle: updateImperativeHandle,
+  useLayoutEffect: updateLayoutEffect,
+  useMemo: updateMemo,
+  useReducer: updateReducer,
+  useRef: updateRef,
+  useState: updateState,
+  // ...省略
+}
+
+ReactCurrentDispatcher.current =
+  current === null || current.memoizedState === null
+    ? HooksDispatcherOnMount
+    : HooksDispatcherOnUpdate
+```
+
+除了这两个 dispatcher，还有其他的 dispatcher 例如 ContextOnlyDispatcher
+
+```javascript
+export const ContextOnlyDispatcher: Dispatcher = {
+useCallback: throwInvalidHookError,
+useContext: throwInvalidHookError,
+useEffect: throwInvalidHookError,
+useImperativeHandle: throwInvalidHookError,
+useLayoutEffect: throwInvalidHookError,
+...
+}
+```
+
+## useState 和 useReducer
+
+它们源码如下
+
+```javascript
+function useState(initialState) {
+  var dispatcher = resolveDispatcher()
+  return dispatcher.useState(initialState)
+}
+function useReducer(reducer, initialArg, init) {
+  var dispatcher = resolveDispatcher()
+  return dispatcher.useReducer(reducer, initialArg, init)
+}
+```
+
+useState 即 reducer 参数为 basicStateReducer 的 useReducer
+mount 时这两个 Hook 的唯一区别为 queue 参数的 lastRenderedReducer 字段,update 时它们都调用同一个函数 updateReducer
+
+```javascript
+function mountState<S>(
+  initialState: (() => S) | S
+): [S, Dispatch<BasicStateAction<S>>] {
+  // 创建并返回当前的hook
+  const hook = mountWorkInProgressHook()
+
+  // ...赋值初始state
+
+  // 创建queue
+  const queue = (hook.queue = {
+    pending: null,
+    dispatch: null,
+    lastRenderedReducer: basicStateReducer,
+    lastRenderedState: (initialState: any),
+  })
+
+  // ...创建dispatch
+  return [hook.memoizedState, dispatch]
+}
+
+function basicStateReducer<S>(state: S, action: BasicStateAction<S>): S {
+  return typeof action === "function" ? action(state) : action
+}
+
+function updateReducer<S, I, A>(
+  reducer: (S, A) => S,
+  initialArg: I,
+  init?: (I) => S
+): [S, Dispatch<A>] {
+  // 获取当前hook
+  const hook = updateWorkInProgressHook()
+  const queue = hook.queue
+
+  queue.lastRenderedReducer = reducer
+
+  // ...同update与updateQueue类似的更新逻辑
+
+  const dispatch: Dispatch<A> = (queue.dispatch: any)
+  return [hook.memoizedState, dispatch]
+}
+```
