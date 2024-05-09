@@ -530,3 +530,110 @@ React 选择最后一次可复用的节点 index 为 lastPlacedIndex，从 0 开
 
 _当 child !== null 且 key 相同且 type 不同时执行 deleteRemainingChildren 将 child 及其兄弟 fiber 都标记删除。_
 _当 child !== null 且 key 不同时仅将 child 标记删除。_
+
+# 状态更新
+
+## 触发状态更新的方法
+
+1. ReactDOM.render (根组件)
+2. this.setState (类组件)
+3. this.forceUpdate (类组件)
+4. useState (函数组件)
+5. useReducer (函数组件)
+   根组件和类组件共用一套 Update 结构
+
+## render 阶段开始
+
+调用 performSyncWorkOnRoot 或 performConcurrentWorkOnRoot 来进入同步或异步更新
+
+## 状态更新流程
+
+它们都会在触发状态更新的 fiber 上创建 Update 对象,然后调用 markUpdateLaneFromFiberToRoot，将更新标记从当前 fiber 一直传递到 root fiber，然后调用 scheduler 的 ensureRootIsScheduled，决定以同步还是异步的方式调度本次更新。其中，ensureRootIsScheduled 会根据 newCallbackPriority === SyncLanePriority 调用 performSyncWorkOnRoot 或 performConcurrentWorkOnRoot 开启 render 阶段
+
+## 心智模型
+
+当高优先级出现时，中断当前更新，等待高优先级更新完成后再基于高优先级更新的结果进行更新。这样可以保证高优先级任务的优先级，提高用户体验。
+
+## update 结构
+
+```javascript
+const update: Update<*> = {
+  eventTime,
+  lane,
+  suspenseConfig,
+  tag: UpdateState,
+  payload: null,
+  callback: null,
+  next: null,
+}
+```
+
+update 是一个链表结构，每个 update 都有一个 next 指针指向下一个 update，当一个组件有多个状态更新时，会形成一个 update 链表，被保存在 fiber.updateQueue。
+
+## updateQueue 结构
+
+updateQueue 有三种类型，其中针对 HostComponent 的类型是保存 props 的,针对 FunctionComponent 的类型是保存 hooks 的,针对 ClassComponent 和 HostRoot 的类型是保存 state 的，即以下类型。
+
+```javascript
+const queue: UpdateQueue<State> = {
+  baseState: fiber.memoizedState,
+  firstBaseUpdate: null,
+  lastBaseUpdate: null,
+  shared: {
+    pending: null,
+  },
+  effects: null,
+}
+```
+
+baseState：本次更新前该 Fiber 节点的 state，Update 基于该 state 计算更新后的 state;
+firstBaseUpdate 与 lastBaseUpdate：本次更新前该 Fiber 节点已保存的 Update。以链表形式存在，链表头为 firstBaseUpdate，链表尾为 lastBaseUpdate。之所以在更新产生前该 Fiber 节点内就存在 Update，是由于*某些 Update 优先级较低所以在上次 render 阶段由 Update 计算 state 时被跳过*。
+shared.pending：触发更新时，产生的 Update 会保存在 shared.pending 中形成单向环状链表。当由 Update 计算 state 时这个环会被剪开并连接在 lastBaseUpdate 后面,shared.pending 始终指向最后一个插入的 update。
+
+_剪开环的操作: lastBaseUpdate.next = shared.pending.next，shared.pending.next = null，lastBaseUpdate = shared.pending。_
+
+## 优先级
+
+React 会调用 Scheduler 提供的方法 runWithPriority。
+该方法接收一个优先级常量与一个回调函数作为参数。回调函数会以优先级高低为顺序排列在一个定时器中并在合适的时间触发。
+_优先级最终会反映到 update.lane 变量上。_
+
+## update 执行
+
+根据 fiber 节点的 firstBaseUpdate 与 lastBaseUpdate 依次执行，但优先级不够的会被跳过，且 update 之间可能有依赖关系，所以被跳过的 update 及其后面所有 update 会成为下次更新的 baseUpdate。（即 u1 -- u2）。
+在 commit 阶段结尾会再调度一次更新。在该次更新中会基于 baseState 中 firstBaseUpdate 保存的 u1->u2，开启一次新的 render 阶段。
+因此，u2 对应的更新执行了两次，相应的 render 阶段的生命周期勾子 componentWillXXX 也会触发两次。这也是为什么这些勾子会被标记为 unsafe\_。
+
+_当有 Update 被跳过时，下次更新的 baseState !== 上次更新的 memoizedState。_ 通过这种方式，React 保证了最终的状态一定和用户触发的交互一致
+
+## ReactDOM.render
+
+ReactDOM.render 会调用 legacyRenderSubtreeIntoContainer 方法，该方法会调用 createFiberRoot 方法完成 fiberRootNode 和 rootFiber 的创建以及关联。并初始化 updateQueue。
+
+// 连接 rootFiber 与 fiberRootNode
+root.current = uninitializedFiber;
+uninitializedFiber.stateNode = root;
+
+## this.setState
+
+this.setState 内会调用 this.updater.enqueueSetState 方法。
+该方法内就是创建 update 对象并通过 enqueueUpdate 将其插入到 fiber.updateQueue.shared.pending 中以及通过 scheduleUpdateOnFiber 调度 update。
+
+## this.forceUpdate
+
+调用 this.updater.enqueueForceUpdate 方法，除了赋值 update.tag = ForceUpdate;以及没有 payload 外，其余与 this.setState 相同。
+赋值 update.tag = ForceUpdate 是为了在 render 阶段判断 ClassComponent 是否需要更新时跳过 shouldComponentUpdate 方法。
+
+```javascript
+const shouldUpdate =
+  checkHasForceUpdateAfterProcessing() ||
+  checkShouldComponentUpdate(
+    workInProgress,
+    ctor,
+    oldProps,
+    newProps,
+    oldState,
+    newState,
+    nextContext
+  )
+```
