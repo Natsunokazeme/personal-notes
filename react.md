@@ -51,7 +51,7 @@ payload: 'Buy milk'
 
 reducer 是一个函数，接收当前的 state 和一个 action 对象，必要时决定如何更新状态，并返回新状态。函数签名是：(state, action) => newState，在其内部根据 action 执行不同的状态更新
 注：仅使用 state 和 action 参数计算新的状态值
-禁止直接修改 state。必须通过复制现有的 state 并对复制的值进行更改的方式来做 不可变更新（immutable updates）。
+禁止直接修改 state。必须通过复制现有的 state 并对复制的值进行更改的方式来做 不可变更新(immutable updates)。
 禁止任何异步逻辑、依赖随机值或导致其他“副作用”的代码
 
 ## store#
@@ -191,7 +191,7 @@ react 中，数据单向流动，父组件的数据可以通过 props 传递给�
 :paramName – 匹配一段位于 /、? 或 # 之后的 URL。 命中的部分将被作为一个参数
 () – 在它内部的内容被认为是可选的
 
-- – 匹配任意字符（非贪婪的）直到命中下一个字符或者整个 URL 的末尾，并创建一个 splat 参数
+- – 匹配任意字符(非贪婪的)直到命中下一个字符或者整个 URL 的末尾，并创建一个 splat 参数
 
 优先级：自上而下，深度优先遍历
 
@@ -285,9 +285,9 @@ document.getElementById('app')
 
 Fiber 是 react 16 及以后采用的架构，相比较之前的 Reconciler-Renderer 架构变成了 Scheduler-Reconciler-Renderer;
 
-Scheduler（调度器）—— 调度任务的优先级，高优任务优先进入 Reconciler
-Reconciler（协调器）—— 负责找出变化的组件
-Renderer（渲染器）—— 负责将变化的组件渲染到页面上
+Scheduler(调度器)—— 调度任务的优先级，高优任务优先进入 Reconciler
+Reconciler(协调器)—— 负责找出变化的组件
+Renderer(渲染器)—— 负责将变化的组件渲染到页面上
 
 Reconciler 工作的阶段被称为 render 阶段。因为在该阶段会调用组件的 render 方法。
 Renderer 工作的阶段被称为 commit 阶段。就像你完成一个需求的编码后执行 git commit 提交代码。commit 阶段会把 render 阶段提交的信息渲染在页面上。
@@ -383,10 +383,10 @@ renderLanes,
 
 通过 commitRoot(fiberRootNode)开始，不可中断
 Renderer 渲染的阶段
-commit 阶段的主要工作（即 Renderer 的工作流程）分为三部分：
-before mutation 阶段（执行 DOM 操作前）
-mutation 阶段（执行 DOM 操作）
-layout 阶段（执行 DOM 操作后）
+commit 阶段的主要工作(即 Renderer 的工作流程)分为三部分：
+before mutation 阶段(执行 DOM 操作前)
+mutation 阶段(执行 DOM 操作)
+layout 阶段(执行 DOM 操作后)
 
 ### before mutation 阶段
 
@@ -494,7 +494,7 @@ _采用 fiber 后，生命周期的执行顺序发生了变化，fiber 的生命
 
 diff 算法决定是否复用
 通过比较 current Fiber(已存在的 fiber 节点)和更新后的 JSX 对象来生成 workInProgress Fiber(新的 fiber 节点)
-从 Diff 的入口函数 reconcileChildFibers 出发，该函数会根据 newChild（即 JSX 对象）类型调用不同的处理函数。
+从 Diff 的入口函数 reconcileChildFibers 出发，该函数会根据 newChild(即 JSX 对象)类型调用不同的处理函数。
 
 ## 单节点 diff
 
@@ -515,7 +515,7 @@ let i = 0，遍历 newChildren(JSX 对象)，将 newChildren[i]与 oldFiber 比�
 如果不可复用，分两种情况：
 key 不同导致不可复用，立即跳出整个遍历，第一轮遍历结束。
 key 相同 type 不同导致不可复用，会将 oldFiber 标记为 DELETION，并继续遍历。
-如果 newChildren 遍历完（即 i === newChildren.length - 1）或者 oldFiber 遍历完（即 oldFiber.sibling === null），跳出遍历，第一轮遍历结束。
+如果 newChildren 遍历完(即 i === newChildren.length - 1)或者 oldFiber 遍历完(即 oldFiber.sibling === null)，跳出遍历，第一轮遍历结束。
 
 此时分为两种情况：
 
@@ -547,6 +547,10 @@ _当 child !== null 且 key 不同时仅将 child 标记删除。_
 调用 performSyncWorkOnRoot 或 performConcurrentWorkOnRoot 来进入同步或异步更新
 
 ## 状态更新流程
+
+更新: _触发事件--> 在对应 fiber 节点上创建 update 对象-->从 fiber 节点向上遍历到 root-->调度更新-->render 阶段-->commit 阶段_
+
+创建：_创建 fiberRootNode、rootFiber、updateQueue(`legacyCreateRootFromDOMContainer`)--> 创建 Update 对象(`updateContainer`)--> 从 fiber 到 root(`markUpdateLaneFromFiberToRoot`)-->调度更新(`ensureRootIsScheduled`)--> render 阶段(`performSyncWorkOnRoot` 或 `performConcurrentWorkOnRoot`)--> commit 阶段(`commitRoot`)_
 
 它们都会在触发状态更新的 fiber 上创建 Update 对象,然后调用 markUpdateLaneFromFiberToRoot，将更新标记从当前 fiber 一直传递到 root fiber，然后调用 scheduler 的 ensureRootIsScheduled，决定以同步还是异步的方式调度本次更新。其中，ensureRootIsScheduled 会根据 newCallbackPriority === SyncLanePriority 调用 performSyncWorkOnRoot 或 performConcurrentWorkOnRoot 开启 render 阶段
 
@@ -600,7 +604,7 @@ _优先级最终会反映到 update.lane 变量上。_
 
 ## update 执行
 
-根据 fiber 节点的 firstBaseUpdate 与 lastBaseUpdate 依次执行，但优先级不够的会被跳过，且 update 之间可能有依赖关系，所以被跳过的 update 及其后面所有 update 会成为下次更新的 baseUpdate。（即 u1 -- u2）。
+根据 fiber 节点的 firstBaseUpdate 与 lastBaseUpdate 依次执行，但优先级不够的会被跳过，且 update 之间可能有依赖关系，所以被跳过的 update 及其后面所有 update 会成为下次更新的 baseUpdate。(即 u1 -- u2)。
 在 commit 阶段结尾会再调度一次更新。在该次更新中会基于 baseState 中 firstBaseUpdate 保存的 u1->u2，开启一次新的 render 阶段。
 因此，u2 对应的更新执行了两次，相应的 render 阶段的生命周期勾子 componentWillXXX 也会触发两次。这也是为什么这些勾子会被标记为 unsafe\_。
 
@@ -613,6 +617,13 @@ ReactDOM.render 会调用 legacyRenderSubtreeIntoContainer 方法，该方法会
 // 连接 rootFiber 与 fiberRootNode
 root.current = uninitializedFiber;
 uninitializedFiber.stateNode = root;
+
+## react 三种模式
+
+react 有三种模式对应三个入口函数，分别是
+legacy -- ReactDOM.render(<App />, rootNode)
+blocking -- ReactDOM.createBlockingRoot(rootNode).render(<App />)
+concurrent -- ReactDOM.createRoot(rootNode).render(<App />)
 
 ## this.setState
 
