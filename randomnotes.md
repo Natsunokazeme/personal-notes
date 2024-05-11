@@ -135,4 +135,5 @@ declare module "*.svg" {
 88. navigator.sendBeacon(url,data)用于发送数据到服务器,该方法会在页面卸载时发送数据,即使页面卸载了,也会发送数据,该方法会返回一个布尔值,表示是否发送成功
 89. navigator.online 用于判断当前是否联网,返回一个布尔值,表示是否联网 也可以在 window 上监听 online 和 offline 事件来判断联网变更
 90. navigator.connection 用于获取网络连接信息,返回一个 connection 对象,包含 downlink,downlinkMax,rtt,saveData 等属性,用于获取网络连接信息
-91.
+91. 宏任务执行完会把控制权交给浏览器,微任务执行完会继续执行下一个微任务,从这个角度看,requestAnimationFrame 是宏任务
+92. useDeferredValue 返回一个延迟响应的值，该值可能“延后”的最长时间为 timeoutMs。 const deferredValue = useDeferredValue(value, { timeoutMs: 2000 });

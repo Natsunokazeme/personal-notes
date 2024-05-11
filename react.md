@@ -850,3 +850,233 @@ function updateReducer<S, I, A>(
   return [hook.memoizedState, dispatch]
 }
 ```
+
+## useEffect
+
+flushPassiveEffects 内部会设置优先级，并执行 flushPassiveEffectsImpl。
+flushPassiveEffectsImpl 主要做三件事：
+
+1. 调用该 useEffect 在上一次 render 时的销毁函数
+2. 调用该 useEffect 在本次 render 时的回调函数
+3. 如果存在同步任务，不需要等待下次事件循环的宏任务，提前执行他
+   从 v16.13.0 开始，useEffect 的优先级被设置为 NormalPriority，即优先级最低，会在页面渲染后（layout 阶段后）异步执行。
+
+针对 1，useEffect 的执行需要保证所有组件 useEffect 的销毁函数必须都执行完后才能执行任意一个组件的 useEffect 的回调函数。
+这是因为多个组件间可能共用同一个 ref，而销毁函数可能会修改这个 ref，所以需要保证销毁函数执行完后再执行回调函数。
+同理，useLayoutEffect 也是如此，只是它的优先级是 ImmediatePriority，即优先级最高，会在 layout 阶段前执行。
+
+```javascript
+// pendingPassiveHookEffectsUnmount中保存了所有需要执行销毁的useEffect
+const unmountEffects = pendingPassiveHookEffectsUnmount
+pendingPassiveHookEffectsUnmount = []
+for (let i = 0; i < unmountEffects.length; i += 2) {
+  const effect = ((unmountEffects[i]: any): HookEffect)
+  const fiber = ((unmountEffects[i + 1]: any): Fiber)
+  const destroy = effect.destroy
+  effect.destroy = undefined
+
+  if (typeof destroy === "function") {
+    // 销毁函数存在则执行
+    try {
+      destroy()
+    } catch (error) {
+      captureCommitPhaseError(fiber, error)
+    }
+  }
+}
+
+function schedulePassiveEffects(finishedWork: Fiber) {
+  const updateQueue: FunctionComponentUpdateQueue | null =
+    (finishedWork.updateQueue: any)
+  const lastEffect = updateQueue !== null ? updateQueue.lastEffect : null
+  if (lastEffect !== null) {
+    const firstEffect = lastEffect.next
+    let effect = firstEffect
+    do {
+      const {next, tag} = effect
+      if (
+        (tag & HookPassive) !== NoHookEffect &&
+        (tag & HookHasEffect) !== NoHookEffect
+      ) {
+        // 向`pendingPassiveHookEffectsUnmount`数组内`push`要销毁的effect
+        enqueuePendingPassiveHookEffectUnmount(finishedWork, effect)
+        // 向`pendingPassiveHookEffectsMount`数组内`push`要执行回调的effect
+        enqueuePendingPassiveHookEffectMount(finishedWork, effect)
+      }
+      effect = next
+    } while (effect !== firstEffect)
+  }
+}
+```
+
+向 pendingPassiveHookEffectsUnmount 数组内 push 数据的操作发生在 layout 阶段 commitLayoutEffectOnFiber 方法内部的 schedulePassiveEffects 方法中。
+
+针对 2，create 阶段与销毁类似，不同的是 try 执行回调函数并赋值 destroy 函数
+
+```javascript
+try {
+  const create = effect.create
+  effect.destroy = create()
+} catch (error) {
+  captureCommitPhaseError(fiber, error)
+}
+```
+
+## useRef
+
+```javascript
+function mountRef<T>(initialValue: T): {|current: T|} {
+  // 获取当前useRef hook
+  const hook = mountWorkInProgressHook()
+  // 创建ref
+  const ref = {current: initialValue}
+  hook.memoizedState = ref
+  return ref
+}
+
+function updateRef<T>(initialValue: T): {|current: T|} {
+  // 获取当前useRef hook
+  const hook = updateWorkInProgressHook()
+  // 返回保存的数据
+  return hook.memoizedState
+}
+```
+
+hook.memoizedState 保存 ref 的值,它仅仅是一个包含 current 属性的对象。
+
+ref 的工作流程可以分为两部分：
+render 阶段为含有 ref 属性的 fiber 添加 Ref effectTag
+commit 阶段为包含 Ref effectTag 的 fiber 执行对应操作
+
+组件对应 fiber 被赋值 Ref effectTag 需要满足的条件：
+fiber 类型为 HostComponent、ClassComponent、ScopeComponent（这种情况我们不讨论）
+对于 mount，workInProgress.ref !== null，即存在 ref 属性
+对于 update，current.ref !== workInProgress.ref，即 ref 属性改变
+
+## useMemo 和 useCallback
+
+```javascript
+function mountMemo<T>(
+  nextCreate: () => T,
+  deps: Array<mixed> | void | null
+): T {
+  // 创建并返回当前hook
+  const hook = mountWorkInProgressHook()
+  const nextDeps = deps === undefined ? null : deps
+  // 计算value
+  const nextValue = nextCreate()
+  // 将value与deps保存在hook.memoizedState
+  hook.memoizedState = [nextValue, nextDeps]
+  return nextValue
+}
+
+function updateMemo<T>(
+  nextCreate: () => T,
+  deps: Array<mixed> | void | null
+): T {
+  // 返回当前hook
+  const hook = updateWorkInProgressHook()
+  const nextDeps = deps === undefined ? null : deps
+  const prevState = hook.memoizedState
+
+  if (prevState !== null) {
+    if (nextDeps !== null) {
+      const prevDeps: Array<mixed> | null = prevState[1]
+      // 判断update前后value是否变化
+      if (areHookInputsEqual(nextDeps, prevDeps)) {
+        // 未变化
+        return prevState[0]
+      }
+    }
+  }
+  // 变化，重新计算value
+  const nextValue = nextCreate()
+  hook.memoizedState = [nextValue, nextDeps]
+  return nextValue
+}
+```
+
+useCallback 与 useMemo 创建时的不同就是 nextCreate: () => T 变成了 callback: T；
+
+# concurrent 模式
+
+在 react 16.6 之后，react 的引入了 scheduler，用于时间切片和调度任务的优先级
+Scheduler 将需要被执行的回调函数作为 MessageChannel 的回调执行。如果当前宿主环境不支持 MessageChannel，则使用 setTimeout。
+注：MessageChannel 是一个异步通信机制，比 setTimeout 更先执行的宏任务。
+每次遍历前，都会通过 Scheduler 提供的 shouldYield 方法判断是否需要中断遍历，使浏览器有时间渲染。
+是否中断的依据，最重要的一点便是每个任务的剩余时间是否用完。
+在 Scheduler 中，为任务分配的初始剩余时间为 5ms，随着应用运行，会通过 fps 动态调整分配给任务的可执行时间。
+
+## 优先级调度
+
+```javascript
+function unstable_runWithPriority(priorityLevel, eventHandler) {
+  switch (priorityLevel) {
+    case ImmediatePriority:
+    case UserBlockingPriority:
+    case NormalPriority:
+    case LowPriority:
+    case IdlePriority:
+      break
+    default:
+      priorityLevel = NormalPriority
+  }
+
+  var previousPriorityLevel = currentPriorityLevel
+  currentPriorityLevel = priorityLevel
+
+  try {
+    return eventHandler()
+  } finally {
+    currentPriorityLevel = previousPriorityLevel
+  }
+}
+
+var timeout
+switch (priorityLevel) {
+  case ImmediatePriority:
+    timeout = IMMEDIATE_PRIORITY_TIMEOUT
+    break
+  case UserBlockingPriority:
+    timeout = USER_BLOCKING_PRIORITY_TIMEOUT
+    break
+  case IdlePriority:
+    timeout = IDLE_PRIORITY_TIMEOUT
+    break
+  case LowPriority:
+    timeout = LOW_PRIORITY_TIMEOUT
+    break
+  case NormalPriority:
+  default:
+    timeout = NORMAL_PRIORITY_TIMEOUT
+    break
+}
+
+var expirationTime = startTime + timeout
+
+// Times out immediately
+var IMMEDIATE_PRIORITY_TIMEOUT = -1
+// Eventually times out
+var USER_BLOCKING_PRIORITY_TIMEOUT = 250
+var NORMAL_PRIORITY_TIMEOUT = 5000
+var LOW_PRIORITY_TIMEOUT = 10000
+// Never times out
+var IDLE_PRIORITY_TIMEOUT = maxSigned31BitInt
+```
+
+一共有 5 个优先级，commit 阶段的起点 commitRoot 方法的优先级为 ImmediateSchedulerPriority。
+ImmediateSchedulerPriority 即 ImmediatePriority 的别名，为最高优先级，会立即执行。
+
+Scheduler 存在两个队列：
+timerQueue：保存未就绪任务
+taskQueue：保存已就绪任务
+每当有新的未就绪的任务被注册，我们将其插入 timerQueue 并根据开始时间重新排列 timerQueue 中任务的顺序。
+当 timerQueue 中有任务就绪，即 startTime <= currentTime，我们将其取出并加入 taskQueue。
+取出 taskQueue 中最早过期的任务并执行他。
+
+## lane 模型
+
+React 的优先级模型,是通过使用 31 位的二进制表示 31 条赛道，位数越小的赛道优先级越高，某些相邻的赛道拥有相同优先级。
+Lane 模型是一种用于标识更新优先级的概念，而 Scheduler 是负责根据这些优先级信息来动态调度任务执行的机制。
+Lane 模型主要关注于标识和管理更新的优先级，它是一种静态的概念，用于确定哪些更新应该被认为是紧急的。
+Scheduler 则是负责实际的任务调度和执行，它根据 Lane 中的优先级信息，动态地决定何时执行哪些任务，以保证应用的响应性和性能。
