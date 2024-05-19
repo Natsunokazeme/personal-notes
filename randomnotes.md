@@ -130,9 +130,10 @@ declare module "*.svg" {
     1. FPS(frame per second) 每秒帧数,一般 60 帧为流畅,低于 30 帧为卡顿,通过 requestAnimationFrame 来获取每一帧的时间,计算是否掉帧
     2. Performance API,通过 performance.timing 来获取页面加载时间,通过 performance.getEntries()来获取页面资源加载时间,通过 performance.memory 来获取页面内存使用情况
     3. PerformanceObserver API,通过 performanceObserver 来监听页面性能,通过 performanceObserver.observe()来监听页面性能,通过 performanceObserver.disconnect()来停止监听页面性能
+    4. navigation.connection,通过 navigator.connection 来获取网络连接信息,通过 navigator.onLine 来判断当前是否联网
 86. html 原生弹窗 自带 dialog，独立于 body， 可通过 open 属性控制是否打开，也可以通过 element.showModal()和 close()方法控制打开和关闭.好处是不会被其他元素遮挡，且用户只能操作弹窗，不能操作其他元素
 87. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
-88. navigator.sendBeacon(url,data)用于发送数据到服务器,该方法会在页面卸载时发送数据,即使页面卸载了,也会发送数据,该方法会返回一个布尔值,表示是否发送成功
+88. navigator.sendBeacon(url,data)用于发送数据到服务器,该方法会在页面卸载时发送数据,即使页面卸载了,也会发送数据,该方法会返回一个布尔值,表示是否发送成功, post 请求,常与 visibilitychange 事件一起使用,当页面不可见时,发送数据
 89. navigator.online 用于判断当前是否联网,返回一个布尔值,表示是否联网 也可以在 window 上监听 online 和 offline 事件来判断联网变更
 90. navigator.connection 用于获取网络连接信息,返回一个 connection 对象,包含 downlink,downlinkMax,rtt,saveData 等属性,用于获取网络连接信息
 91. 宏任务执行完会把控制权交给浏览器,微任务执行完会继续执行下一个微任务,从这个角度看,requestAnimationFrame 是宏任务

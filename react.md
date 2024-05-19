@@ -805,7 +805,7 @@ function useReducer(reducer, initialArg, init) {
 }
 ```
 
-useState 即 reducer 参数为 basicStateReducer 的 useReducer
+_useState 即 reducer 参数为 basicStateReducer 的 useReducer_
 mount 时这两个 Hook 的唯一区别为 queue 参数的 lastRenderedReducer 字段,update 时它们都调用同一个函数 updateReducer
 
 ```javascript

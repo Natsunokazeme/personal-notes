@@ -22,6 +22,39 @@ export class MyPromise {
       }
     }
 
+    this.race = (promises) => {
+      return new MyPromise((resolve, reject) => {
+        for (let i = 0; i < promises.length; i++) {
+          if (promises[i] instanceof MyPromise) {
+            promises[i].then(resolve, reject)
+          } else {
+            resolve(promises[i])
+          }
+        }
+      })
+    }
+
+    this.all = (promises) => {
+      return new MyPromise((resolve, reject) => {
+        const result = []
+        for (let i = 0; i < promises.length; i++) {
+          if (promises[i] instanceof MyPromise) {
+            promises[i].then(
+              (value) => {
+                result.push(value)
+                if (result.length === promises.length) {
+                  resolve(result)
+                }
+              },
+              (reason) => {
+                reject(reason)
+              }
+            )
+          }
+        }
+      })
+    }
+
     try {
       executor(this.resolved, this.rejected)
     } catch (error) {
@@ -37,7 +70,34 @@ export class MyPromise {
       }
       return this
     }
+
+    this.catch = (onRejected) => {
+      if (this.status === REJECTED) {
+        onRejected(this.reason)
+      }
+      return this
+    }
   }
 }
 
-new MyPromise(())
+new MyPromise()
+  .race([
+    new MyPromise((resolve) => {
+      setTimeout(() => {
+        resolve(1)
+      }, 1000)
+    }),
+    new MyPromise((resolve) => {
+      setTimeout(() => {
+        resolve(2)
+      }, 2000)
+    }),
+    new MyPromise((resolve) => {
+      setTimeout(() => {
+        resolve(3)
+      }, 3000)
+    }),
+  ])
+  .then((value) => {
+    console.log(value)
+  })
