@@ -596,36 +596,6 @@ cookie 能设置生命周期,生命周期一到则无效,默认关闭页面时�
 Token,其实就是服务端生成的一串加密字符串,储存在本地用于认证客户端身份,由服务端设定失效时间。
 优势：无状态、防 csrf(跨域请求攻击)、多站点使用,支持移动平台、性能快
 
-# _如何优化页面的加载速度_
-
-总结：1.网络原理 2.资源引入 3.代码
-1、网络原理 服务器响应时间:有独立的服务器,提高 Web 服务器的质量,移除不必要的插件
-2、网络原理 浏览器缓存 :减少 HTTP 请求,从而提高网站加载速度
-3、资源引入 gzip 压缩:它的工作原理是在发送 HTML 和 CSS 文件到浏览器之前压缩文件大小
-4、异步脚本:网页负载就不必依赖于这些异步脚本
-5、网络原理 内容分发网络（CDN）:CDN 是位于不同地理位置的服务器组成的网络。每个服务器都拥有所有网站的文件副本。有网站访问者请求文件和网页时就可以直接从就近网站服务器发送过来（也可以是从负载最小的服务器）
-6、优化 JavaScript、HTML 和 CSS:删除所有不必要的空 格和注释从而减小文件大小
-7、资源引入 置于顶部的样式表和底部的脚本
-8、资源引入 避免阻塞型的 JavaScript 和 CSS
-9、资源引入 JavaScript 的延迟解析
-10、启用 Keep Alive:用户请求网页时浏览器首先需访问 HTML 文件,然后它才读取这些文件,并请求与其他资料相关联。如果“Keep Alive”选项被禁止,下载网站的进程就会增加从而拖累网站速度。启用 KeepAlive 的另一个好处是,可以减少 CPU 使用
-11、图像和文件格式:建议使用 JPEG 格式,而不是 GIF 和 PNG 图像,除非图像包含 Alpha 因子或者是透明的
-12、优化代码：不使用内联 CSS
-13、资源引入 文件分离:可以增加并行下载的数量
-14、网络原理 尽量减少 HTTP 请求:减少网站上的对象数量；最小化网站上的重定向数量；使用 CSS Sprites 技术；结合 JavaScripts 和 CSS
-15、资源引入 去掉不必要的插件
-16、网络原理 减少 DNS 查询(DNS lookups)
-
-# _一个页面从输入 url 到加载完成的过程都发生了什么,请详细说明_
-
-1. 首先,在浏览器地址栏中输入 url,浏览器解析出域名
-2. 浏览器先查看浏览器缓存-系统缓存-路由器缓存,如果缓存中没有对应 ip,会按域名服务器顺序向域名服务器发送查询请求,直到查到结果,如果找不到 ip,浏览器会报错。
-3. 浏览器根据 ip 地址向服务器发起 tcp 连接,与浏览器建立 tcp 三次握手
-4. 握手成功后,浏览器向服务器发送 http 请求,请求数据包，若为 https 协议，会进行 ssl 握手
-5. 服务器处理收到的请求,处理完成后将数据返回至浏览器
-6. 浏览器收到 HTTP 响应,开始解析 html 源码,发现 head 里有个 base 标签,里面有个 url,于是又发起了一个请求.
-7. 浏览器解析完成后渲染页面:生成 Dom 树、解析 css 样式、js 交互
-
 # _浏览器渲染过程_
 
 浏览器渲染的过程主要包括以下五步：
@@ -1220,6 +1190,73 @@ array flat 会去空槽。在非数组对象上调用 flat 需要对象有 lengt
 25. setInterval(function,interval,[arg1,arg2,......argn])//默认语法,interval 设置间隔时间。之后的参数为传入 function 的值。
 26. script 标签的 defer 属性，表示脚本会在文档解析完毕后执行，但是在 DOMContentLoaded 事件之前执行，如果有多个 defer 脚本，会按照顺序执行，不会阻塞 DOM 解析，但是会阻塞 DOMContentLoaded 事件。async 属性表示脚本会在文档解析完毕后立即执行，但是不会阻塞 DOM 解析，也不会阻塞 DOMContentLoaded 事件，如果有多个 async 脚本，会按照加载完成的顺序执行，不一定是顺序执行，async 脚本不会阻塞其他资源的加载，比如图片，css 等，但是会阻塞其他 async 脚本的执行，async 脚本一定会在页面的 load 事件之前执行，但是不一定在 DOMContentLoaded 事件之前执行。
 27. _script 默认是会阻碍 HTML 解析的，只有下载好并执行完脚本才会继续解析 HTML，defer 就是下载不阻碍 html 解析，执行会等到 html 解析完再执行，async 是下载不阻碍，执行可能阻碍解析，一旦下载好就立即执行_
+28. js _任何不在函数内部的代码的上下文都是全局上下文，谁最后调用的函数，函数里 this 就指向谁_
+29. js _箭头函数中 this 的值总是等于外部作用域的 this_
+30. js _普通函数在调用时产生上下文，箭头函数没有上下文,会去外部作用域找，找不到就是 undefined_
+31. js 把一个函数当成参数传递到另一个函数的时候，也会发生隐式丢失的问题，且与包裹着它的函数的 this 指向无关。在非严格模式下，会把该函数的 this 绑定到 window 上，严格模式下绑定到 undefined。settimeout 的回调函数也是如此。
+32. 定时器的调用对象是 window，所以定时器里的 this 指向 window，严格模式下指向 undefined
+33. var 会挂在到 window 上，let 和 const 不会，var 在上下文里初始化为 undefined，let 和 const 在上下文里初始化为 uninitialized
+34. this 例题
+
+```javascript
+var obj2 = {
+  a: 2,
+  foo1: () => {
+    console.log(this.a) //3
+  },
+  foo2: function () {
+    console.log(this) //obj2
+    function inner() {
+      console.log(this) //window
+      console.log(this.a) //3
+    }
+    inner()
+  },
+}
+var a = 3
+obj2.foo1() //箭头函数的this指向外层作用域,作用域只有window和function,所以this指向window
+obj2.foo2()
+// inner()被调用时没有指定调用对象，所以this指向window，window.a为3
+```
+
+35. js _new ,通过该方法会创建一个对象实例，原理如下:_
+    在内存中创建一个新对象。
+    这个新对象内部的 prototype 特性被赋值为构造函数的 prototype 属性。
+    构造函数内部的 this 被赋值为这个新对象（即 this 指向新对象）。
+    执行构造函数内部的代码（给新对象添加属性）。
+    如果构造函数返回对象，则返回该对象；否则，返回刚创建的新对象(空对象)
+36. js Symbol Symbol.hasInstance 就是 instanceof 的原理
+37. js **typeof 的原理是判断二进制，二进制前三位储存类型信息**
+38. js BigInt()或数字后加 n 表示大数，向下取整，和 number 类型宽松相等，可以和 number 类型比较
+39. js Symbol.for(key),查找全局里键为 key 的 symbol，若没有则会新建一个 symbol 并返回
+40. js Symbol.keyFor(symbol),如果全局注册表中查找到该 symbol，则返回该 symbol 的 key 值，返回值为字符串类型。否则返回 undefined
+41. bom cookie 也受跨域限制
+42. js Object.assign(target,source1,source2...)，将 source1,source2...的属性浅复制到 target 上，若属性名相同，则后面的会覆盖前面的
+43. js Object.defineProperty(obj,prop,descriptor),用于给对象添加属性，descriptor 为属性描述符，包含 value,writable(false),enumerable(false),configurable(false),get,set 等属性
+44. bom 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,websocket,service worker,IndexedDB,SharedWorker,广播等方式
+45. js Object.is(a,b)用于判断两个值是否相等，ES6 新特性，与===唯二不同的是，Object.is(0,-0)为 false,Object.is(NaN,NaN)为 true
+46. dom shadow Dom 是一种浏览器技术，用于将一个 DOM 节点和其子节点封装起来，使其与外部的 DOM 节点隔离，外部的 DOM 节点无法访问 shadowDom 里的节点，shadowDom 里的节点也无法访问外部的 DOM 节点.video 这个元素就曾用 shadow Dom 封装内部结构的一系列的按钮和其他控制器。 通过 Element.attachShadow()生成一个 shadow Root 并添加到指定元素上
+47. js websocket 在 js 内通过 new WebSocket(url)得到一个 websocket 对象，通过该对象的 onopen,onmessage,onclose,onerror 等方法来监听 websocket 的连接，消息，关闭，错误等事件，通过该对象的 send 方法来发送消息，通过该对象的 close 方法来关闭连接
+48. js json 解析出错会抛异常
+49. js 通过 json 深拷贝对象，可以通过 JSON.parse(JSON.stringify(obj))来实现，但是该方法有缺陷，会忽略 undefined，symbol，函数，正则等类型，还有循环引用的问题，并且字符串转化会带来额外性能开销
+50. js == 会进行类型转换，=== 不会进行类型转换
+51. bom 一帧的时间不固定，一帧指的是浏览器渲染一次页面所需要的时间，如果一帧的时间过长，那么就会导致掉帧，掉帧会导致页面卡顿
+52. bom cookie 可记录用户行为，停留时间等用户特征，还可以保存登录状态，也可以记录当前协议或 ip 等，若发生异常可要求用户二次验证，防止 csrf 攻击
+53. js removeEventListener 的第二个参数必须和 addEventListener 的第二个参数一致，指向同一内存地址，否则无法移除事件。匿名函数无法移除
+54. js json 深拷贝坏处 1.忽略 undefined,symbol,函数,正则等类型 2.循环引用报错 3.Date,类型转化为字符串 4.error,正则,set,map 等类型转化为空对象 5.原型链丢失
+55. js structuredClone 不能拷贝函数,且是新语法,有对应的 polyfill 可支持旧版本浏览器
+56. js 赋值也是先取值再赋值, let object.child = object = {child:1} //object.child 为 undefined.
+57. bom localStorage 坏处: 1.存储容量小,浏览器一般 5m 2.存储的数据不安全,都能访问 3.只能同步操作 4.只能存储字符串类型 5.不支持 web worker
+58. js debugger 时，所有代码都会暂停，包括异步代码，所有的事件也不会被触发。
+59. js string.charCodeAt() 返回指定索引处的 UTF-16 代码单元值,string.codePointAt() 返回指定索引处的字符的 Unicode 编码点//ascii 码表被包含于 UTF-16 编码中
+60. js string.substr(start,len)已被废弃,不传 len 时,默认为到末尾,推荐使用 string.substring(start,end)替换
+61. js object 属性名只能是字符串或 symbol 类型,若不是,会自动转化为字符串,并且非数字属性名会按添加顺序被排序，数字属性名会按升序排序
+62. bom navigator.sendBeacon(url,data)用于发送数据到服务器,该方法会在页面卸载时发送数据,即使页面卸载了,也会发送数据,该方法会返回一个布尔值,表示是否发送成功, post 请求,常与 visibilitychange 事件一起使用,当页面不可见时,发送数据
+63. bom navigator.online 用于判断当前是否联网,返回一个布尔值,表示是否联网 也可以在 window 上监听 online 和 offline 事件来判断联网变更
+64. bom navigator.connection 用于获取网络连接信息,返回一个 connection 对象,包含 downlink,downlinkMax,rtt,saveData 等属性,用于获取网络连接信息
+65. js 宏任务执行完会把控制权交给浏览器,微任务执行完会继续执行下一个微任务,从这个角度看,requestAnimationFrame 是宏任务
+66. bom scrollTo 用于滚动到指定位置,scrollTo(x,y)滚动到指定位置,scrollTo(options)滚动到指定位置,scrollTo(options)包含 top,left,behavior 等属性,用于设置滚动位置,滚动行为等,behavior 有 auto,smooth 两种,auto 为瞬间滚动,smooth 为平滑滚动
+67. bom audio window.AudioContext 创建一个音频上下文,通过该对象的 createMediaElementSource(audio)来创建一个音频源,通过该对象的 createAnalyser()来创建一个音频分析器,通过该对象的 createGain()来创建一个音频增益器,通过该对象的 createBiquadFilter()来创建一个音频滤波器,通过该对象的 createOscillator()来创建一个音频振荡器；通过该对象的 createBufferSource()来创建一个音频缓冲源,通过该对象的 createBuffer()来创建一个音频缓冲区,通过该对象的 decodeAudioData()来解码音频数据;其中音频源,音频分析器,音频增益器,音频滤波器,音频振荡器,音频缓冲源,音频缓冲区,音频数据都可以通过 connect()和 disconnect()来连接和断开连接; audioCtx.destination 为音频输出目标,audioCtx.currentTime 为当前时间,audioCtx.state 为音频上下文状态,audioCtx.sampleRate 为音频采样率,audioCtx.suspend()暂停音频上下文,audioCtx.resume()恢复音频上下文
 
 JavaScript 日期
 new Date() 创建日期对象,默认是当前时间,如果想创建一个特定的时间,可以传入参数,参数可以是日期字符串,也可以是时间戳;参数无效时,返回 Invalid Date
@@ -1297,13 +1334,8 @@ Number() 可安全转换 BigInt 为数字(BigInt 过大丢失精度)
 
 BOM 储存大数据
 indexedDB 是浏览器提供的本地数据库,可以存储大量数据,但是不支持 sql 查询,类似 nosql,只能通过游标来查询,游标是一个指针,指向数据库中的某个位置,可以通过游标来遍历数据库中的数据,限制同源策略,只能在同源网站下访问同源数据库
+web sql 和 indexedDB 类似，都是储存在浏览器的方式，更像关系型数据库，目前只有 chrome 支持,已被 deprecated
 
-# _图像加载太慢_
+通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。
 
-    1.  可以使用懒加载,即当图像进入可视区域时,再加载图像(html5 中 img 标签 有 loading lazy 直接实现) 前端级别
-    2.  预加载,即提前加载图像 前端级别
-    3.  预览图,即先加载一张缩略图,然后再加载完整图像 后端级别
-    4.  调整图像分辨率,即根据显示图像的大小,加载合适的图像
-    5.  图像压缩,即减少图像的大小
-    6.  图像 CDN 加速,即使用 CDN 加速图像加载 后端级别
-    7.  图像缓存,即使用浏览器缓存图像,通过设置响应头的 Cache-Control 和 Expires 字段来实现(该方法能缓存比 localStorage 更多的数据并且加载更快)
+http http 在响应体没完全返回时,浏览器会一直等待,此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果

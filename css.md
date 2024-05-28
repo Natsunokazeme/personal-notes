@@ -1,4 +1,4 @@
-CSS
+aCSS
 
 # 背景及尺寸
 
@@ -523,6 +523,11 @@ overflow 不为 visible 的元素
 51. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
 52. _:first-of-type,伪类 当匹配到的元素是父元素中其类型的第一个元素时生效;:first-child 伪类 当匹配到的元素是父元素中的第一个元素时生效_
 53. :nth-of-type(an+b) 伪类 当匹配到的元素是父元素中其类型的第 an+b 个元素时生效，n 从 0 开始计数;:nth-of-type(2n+1)可直接写为:nth-of-type(odd)
+54. css outline-offset, 控制 outline 相对于边框的偏移
+55. css 属性 tabindex 设置该元素能否通过 tab 键 focus，小于 0 不能，0 可以，大于 0 按 tabindex 值优先级 focus
+56. css padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。
+57. css animation pause 可以暂停动画,通过 animation-play-state 属性设置为 paused 来暂停动画,设置为 running 来继续动画, 通过设置 animation-delay 结合 animation-play-state 来实现动画的暂停位置
+58. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
 
 SCSS
 

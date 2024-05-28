@@ -1080,3 +1080,11 @@ React 的优先级模型,是通过使用 31 位的二进制表示 31 条赛道�
 Lane 模型是一种用于标识更新优先级的概念，而 Scheduler 是负责根据这些优先级信息来动态调度任务执行的机制。
 Lane 模型主要关注于标识和管理更新的优先级，它是一种静态的概念，用于确定哪些更新应该被认为是紧急的。
 Scheduler 则是负责实际的任务调度和执行，它根据 Lane 中的优先级信息，动态地决定何时执行哪些任务，以保证应用的响应性和性能。
+
+# react tips
+
+1. react _State hooks 原理：state hooks 是在 fiber 节点里以链表形式储存的，因此是按照顺序读取，若 state hooks 写在 if 或 for 里，某一次没执行的话，会造成之后所有的 state hooks 的读取位置错误_
+2. react useReducer,用法类似 redux，是 useState 的基础，例: const [val,dispatch] = useReducer(reducer,initVal)
+3. react hooks 为什么不能在循环，条件判断，嵌套函数中使用，因为 hooks 是按顺序读取的，如果在循环，条件判断，嵌套函数中使用，那么 hooks 的读取位置就会发生错误，导致读取到错误的值
+4. react hooks 和 class 组件的区别
+5. react useDeferredValue 返回一个延迟响应的值，该值可能“延后”的最长时间为 timeoutMs。 const deferredValue = useDeferredValue(value, { timeoutMs: 2000 });

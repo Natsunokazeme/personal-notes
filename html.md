@@ -50,7 +50,7 @@ body 元素定义了 HTML 文档的主体。这个元素拥有一个开始标签
 
 ### link HTML 外部资源链接元素 (link) 规定了当前文档与外部资源的关系。该元素最常用于链接样式表，此外也可以被用来创建站点图标(比如 PC 端的“favicon”图标和移动设备上用以显示在主屏幕的图标) 。
 
-meta meta 元素表示那些不能由其它 HTML 元相关（meta-related）元素（(base、link, script、style 或 title）之一表示的任何 Metadata 信息。
+meta meta 元素表示那些不能由其它 HTML 元相关（meta-related）元素（base、link, script、style 或 title）之一表示的任何 Metadata 信息。
 style style 元素包含文档的样式信息或者文档的部分内容。默认情况下，该标签的样式信息通常是 CSS 的格式。
 title HTML title 元素 定义文档的标题，显示在 Browser 的标题栏或标签页上。它只应该包含文本，若是包含有标签，则它包含的任何标签都将被忽略。
 nav HTML nav 元素表示页面的一部分，其目的是在当前文档或其他文档中提供导航链接。导航部分的常见示例是菜单，目录和索引。
@@ -123,8 +123,10 @@ img src="example_not_exist.gif" alt="这个是一个图片" /
 # 超链 a
 
 在新的页面打开超链
-## target 
-a标签的打开方式
+
+## target
+
+a 标签的打开方式
 <a href="http://www.12306.cn" target="\_blank">http://www.12306.cn</a>
 
 ## title
@@ -210,8 +212,8 @@ post 必须在 form 上通过 method="post" 显示指定
 select size="3" multiple="multiple"
 使用多选，用 ctrl 或者 shift 进行多选
 对 option 元素设置 selected="selected" 属性，默认选中该 option
-**option的value值只能设置string类型，如果设置为数字，会被自动转换为字符串**
-**不能手动设置option展开，只能通过用户交互事件来展开**
+**option 的 value 值只能设置 string 类型，如果设置为数字，会被自动转换为字符串**
+**不能手动设置 option 展开，只能通过用户交互事件来展开**
 
 # 新约
 
@@ -257,7 +259,7 @@ html 是一种基本的 web 网页设计语言，xhtml 是一个基于 xml 的�
 # _简述一下 src 与 href 的区别_
 
 src 用于替换当前元素资源；href 用于在当前文档和引用资源之间确立联系。
-src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置，需要下载且下载时会暂停其他活动(img下载时不阻塞)
+src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置，需要下载且下载时会暂停其他活动(img 下载时不阻塞)
 href 是 Hypertext Reference 的缩写，指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，不会暂停其他活动
 
 # 行内元素有哪些，块级元素有哪些？
@@ -292,3 +294,13 @@ advanced HTML
 7. **onDrop 事件和 onDragOver 事件都是标准 html5 里的事件,前者是被拖拽元素释放到目标元素上触发的,后者是被拖拽元素在目标元素上移动时触发的.onDrop 事件只能在目标元素上触发,而 onDragOver 事件可以在任何元素上触发,所以在目标元素上触发 onDragOver 事件时,要阻止默认行为.**
 8. event.dataTransfer,用于拖拽期间传递存放数据.
 9. stopPropagation() 方法阻止事件冒泡到父元素,但是不会阻止事件传递到当前元素的其他监听器 preventDefault() 方法阻止事件的默认行为,如 a 标签的跳转;
+10. script 标签的 defer 属性，表示脚本会在文档解析完毕后执行，但是在 DOMContentLoaded 事件之前执行，如果有多个 defer 脚本，会按照顺序执行，不会阻塞 DOM 解析，但是会阻塞 DOMContentLoaded 事件。async 属性表示脚本会在文档解析完毕后立即执行，但是不会阻塞 DOM 解析，也不会阻塞 DOMContentLoaded 事件，如果有多个 async 脚本，会按照加载完成的顺序执行，不一定是顺序执行，async 脚本不会阻塞其他资源的加载，比如图片，css 等，但是会阻塞其他 async 脚本的执行，async 脚本一定会在页面的 load 事件之前执行，但是不一定在 DOMContentLoaded 事件之前执行。
+11. _script 默认是会阻碍 HTML 解析的，只有下载好并执行完脚本才会继续解析 HTML，defer 就是下载不阻碍 html 解析，执行会等到 html 解析完再执行，async 是下载不阻碍，执行可能阻碍解析，一旦下载好就立即执行_
+12. html iframe 和宿主页面通信一般通过 postMessage API 通信，postMessage API 接收两个参数，第一个 x hu 参数为要发送的消息，第二个参数为接收消息的页面的 origin，origin 为协议+域名+端口，若不指定，则默认为\*，表示接收所有消息，但不推荐这样做，因为这样会有安全隐患，若 origin 不匹配，则会抛出异常，postMessage API 会返回一个 Promise 对象，可以通过该对象的 then 方法来接收消息，也可以通过监听 message 事件来接收消息，message 事件的 event 对象的 data 属性为接收到的消息，origin 属性为发送消息的页面的 origin，source 属性为发送消息的页面的 window 对象
+13. html picture 标签,内部有 0 到多个 source 标签和一个 img 标签,source 标签有 srcset 属性,用于指定不同的图片的 url,还有一个 media,用来匹配符合的媒体查询.浏览器会根据当前 Z 设备的分辨率来选择合适的图片,若没有合适的图片,则会选择最后一个 source 标签的图片,若没有 source 标签,则会选择 picture 标签的子元素 img 的 src 属性的图片
+14. html svg 一般不会改变宽高比,可以通过 preserveAspectRatio 属性设置为 none 来达到拉伸自适应的效果
+15. html form 元素的 action 属性用于指定表单提交的地址，method 属性用于指定提交方式，若不指定，则默认将 method 属性设置为 get，若不指定 action 属性，则默认将 action 属性设置为当前页面的 url。因此当前页面的 url 会发生改变，通过 query params 传递 form 参数。(angular 阻止了 form 的 action 和 method)
+16. html script 上的 crossorigin 属性,用于设置 script 标签的跨域属性,属性值为 anonymous,表示允许跨域,但是跨域时不允许携带 cookie,属性值为 use-credentials,表示允许跨域,并且允许携带 cookie,若不设置该属性,则默认为 same-origin,表示不允许跨域
+17. html 在 HTML 中，通过拖放操作（drag and drop）触发`onDrop`事件需要满足以下条件：1.设置元素的`draggable`属性为`true`，表示元素可拖动。2. 监听`dragover`事件并调用`event.preventDefault()`，以允许元素放置。 3.监听`drop`事件并阻止默认行为，以处理放置操作。
+18. html 原生弹窗 自带 dialog，独立于 body， 可通过 open 属性控制是否打开，也可以通过 element.showModal()和 close()方法控制打开和关闭.好处是不会被其他元素遮挡，且用户只能操作弹窗，不能操作其他元素
+19. canvas 默认大小为 300\*150,通过设置 canvas.width,canvas.height 来设置画布大小,通过设置 canvas.style.width,canvas.style.height 来设置画布样式大小,通过设置 canvas.getContext('2d').scale(x,y)来设置画布缩放比例

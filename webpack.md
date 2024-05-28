@@ -231,3 +231,16 @@ u 和 glifyjs-webpack-plugin 插件类似，可以在单文件内删除未引用
 _单页面应用开启动态路由_ 2days
 _在 devServer 中配置 historyApiFallback: true, 使得单页面应用开启动态路由，也可以自定义要重定向的页面_
 刷新页面时服务器会直接请求对应 url 的文件，而这个文件并不存在，导致 404 错误。当 historyApiFallback 为 true 时，所有的 404 都会重定向到 index.html 并且不改变 history，之后 index.html 里的代码会解析 history 并返回对应路由的资源。
+
+webpack tips
+
+1. webpack 默认是将所有的模块打包成一个 js 文件，这样会造成初次加载时 js 文件过大，等待时间过长，所以需要将 js 文件分割成多个文件，这样可以实现按需加载，提高加载速度。
+2. webpack svg 可通过 svgr 转化为 react 组件引入,但 typescript 里需要声明 svg 模块,否则会报错
+   `typescript
+declare module "*.svg" {
+  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
+  export default content
+}
+`
+3. webpack 打包后的 dist 是在浏览器而不是 node 环境下运行的，所以不能使用 node 的模块
+4. webpack 的 definePlugin 插件可以定义全局变量，如 process.env.NODE_ENV，这样可以传递 node 环境变量到浏览器环境

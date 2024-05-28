@@ -17,3 +17,6 @@
 17. netstat 查看网络状态
 18. ps 查看进程状态
 19. cat 查看文件内容
+20. linux 创建虚拟机后 要为虚拟机安装执行环境,我以 node 为例,node 版本不能太高,centOS7 不支持,node 版本不能太低,nest 无法执行,推荐 14 版本 node.node 下载安装之后要把 node 添加到环境变量方便所有目录下都能使用,node 版本控制工具 nvm
+21. ping ls kill cd echo code yum node nvm git which whereis vi sudo !! mkdir rm ip wget tar service
+22. Linux 分为很多版本,其中 centOS 是 red hat 发行的版本,不同版本的命令和资源库不同,我用的 centOS7

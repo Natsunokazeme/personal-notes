@@ -296,3 +296,5 @@ onCleanup() 在 effect 中使用，用于注册清理函数，当 effect 被销�
 17. angular icon registry,用于注册 svg 图标为 mat-icon,并且可以设置图标的颜色,大小等属性.通过 MatIconRegistry 这个 service 的 addSvgIcon()方法注册图标,然后通过 MatIcon 组件的 svgIcon 属性使用图标.
 18. angular sanitizer 用于过滤 html 标签,防止 xss 攻击；sanitizer.bypassSecurityTrustResourceUrl() 方法用于信任资源 url,防止 angular 报错.若不通过该方法,angular 会认为该 url 不安全,不会加载该资源.(踩坑 0.5day)
 19. angular 里 pipeline 设置
+20. angular 对原生 html 元素的属性进行了封装，如 input 的 value 属性，angular 里用 ngModel 代替。
+21. angular angular ngfor 的 trackFor 相当于 react 的 key，用于优化性能，trackFor 的值为 trackBy 的值，trackBy 的值为函数，函数的参数为 index 和 item，返回值为 trackFor 的值
