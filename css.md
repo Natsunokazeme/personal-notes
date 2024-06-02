@@ -468,7 +468,7 @@ overflow 不为 visible 的元素
 3. height 不在 transition 里，会导致 transition 失效，可用 max-height 代替
 4. background: url() no-repeat left 10px top 10px; 可以设置背景图片的位置
 5. transform 设置元素的变换，如 translate(x,y)平移，scale(x,y)缩放，roate(x)旋转，skew(x,y)倾斜，matrix(a,b,c,d,e,f)矩阵变换
-6. transition 规定过渡效果，第一个参数是属性，第二个参数是过渡时间，第三个参数是过渡函数，第四个参数是延迟时间
+6. transition 规定过渡效果，第一个参数是属性，第二个参数是过渡时间，第三个参数是过渡函数，第四个参数是延迟时间;例如 transition: width 2s linear 1s;
 7. 巧用兄弟选择器，如.a+.a{margin-top:10px}，可用来设置相邻元素的间距
 8. 多列布局：column-count: 3; column-gap: 10px; column-rule: 1px solid #ccc; column-span: all; column-width: 200px; 可直接将元素分成多列，可设置间距，边框，跨列，列宽
 9. word-break: break-all; 可以让单词在任意位置断开,方便折行显示
@@ -508,26 +508,25 @@ overflow 不为 visible 的元素
 36. sticky 要求父元素高度比自身高，且 overflow 不为 hidden。
 37. inline-flex 让元素 flex 的同时可指定宽高
 38. fill:currentColor 使 svg 和 path 的颜色继承父元素的颜色，但只能用与 html 标签，不能用于 image url 和 background-image
-39. 创建基础组建时样式不重要，可以通过 deep selector 来覆盖
-40. _input 不是一个 container，不能有子元素，因此伪元素不会生效_
-41. 推荐用 last-of-type:mr-0 来替代 first-of-type:ml-0,因为换行后下一行元素第一个元素会有 margin-left
-42. _选择器权重:权重是相加比较的，id 永远 > class 永远 > 标签 .权重大小比较只在同级之间比较，不同级之间不比较..权重相同的情况下，后面的样式会覆盖前面的样式.伪类和属性选择器权重和类相同，伪元素权重和标签相同。组合选择器不更改权重规则。级与级之间的权重差根据浏览器实现而不同，因此当级的权重差为 1 个字节时，256 个 class 累计的权重就会超过 1 个字节，发生溢出，进而可能覆盖 id 的权重。_
-43. background-image 可以设置多个，用逗号隔开，前一个会覆盖后一个，可使用 linear-gradient()设置渐变色
-44. linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
-45. :target 选择器，选中当前页面的锚点，可用于锚点跳转
-46. css 变量 用--xxx: value;使用 var(--xxx)调用 value
-47. css 默认继承的属性有 color,font-size 等和文字相关的属性以及 visibility,cursor 等和显示相关的属性
-48. video 的 videoHeight 和 videoWidth 属性是只读的,且只有在视频加载完成后才能获取到正确的值,即原生视频的大小
-49. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小
-50. transform 里的 scale 会把元素整体缩放，但 Event Listener 不会改变监听区域
-51. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
-52. _:first-of-type,伪类 当匹配到的元素是父元素中其类型的第一个元素时生效;:first-child 伪类 当匹配到的元素是父元素中的第一个元素时生效_
-53. :nth-of-type(an+b) 伪类 当匹配到的元素是父元素中其类型的第 an+b 个元素时生效，n 从 0 开始计数;:nth-of-type(2n+1)可直接写为:nth-of-type(odd)
-54. css outline-offset, 控制 outline 相对于边框的偏移
-55. css 属性 tabindex 设置该元素能否通过 tab 键 focus，小于 0 不能，0 可以，大于 0 按 tabindex 值优先级 focus
-56. css padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。
-57. css animation pause 可以暂停动画,通过 animation-play-state 属性设置为 paused 来暂停动画,设置为 running 来继续动画, 通过设置 animation-delay 结合 animation-play-state 来实现动画的暂停位置
-58. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
+39. _input 不是一个 container，不能有子元素，因此伪元素不会生效_
+40. 推荐用 last-of-type:mr-0 来替代 first-of-type:ml-0,因为换行后下一行元素第一个元素会有 margin-left
+41. _选择器权重:权重是相加比较的，id 永远 > class 永远 > 标签 .权重大小比较只在同级之间比较，不同级之间不比较..权重相同的情况下，后面的样式会覆盖前面的样式.伪类和属性选择器权重和类相同，伪元素权重和标签相同。组合选择器不更改权重规则。级与级之间的权重差根据浏览器实现而不同，因此当级的权重差为 1 个字节时，256 个 class 累计的权重就会超过 1 个字节，发生溢出，进而可能覆盖 id 的权重。_
+42. background-image 可以设置多个，用逗号隔开，前一个会覆盖后一个，可使用 linear-gradient()设置渐变色
+43. linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
+44. :target 选择器，选中当前页面的锚点，可用于锚点跳转
+45. css 变量 用--xxx: value;使用 var(--xxx)调用 value
+46. css 默认继承的属性有 color,font-size 等和文字相关的属性以及 visibility,cursor 等和显示相关的属性
+47. video 的 videoHeight 和 videoWidth 属性是只读的,且只有在视频加载完成后才能获取到正确的值,即原生视频的大小
+48. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小
+49. transform 里的 scale 会把元素整体缩放，但 Event Listener 不会改变监听区域
+50. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
+51. _:first-of-type,伪类 当匹配到的元素是父元素中其类型的第一个元素时生效;:first-child 伪类 当匹配到的元素是父元素中的第一个元素时生效_
+52. :nth-of-type(an+b) 伪类 当匹配到的元素是父元素中其类型的第 an+b 个元素时生效，n 从 0 开始计数;:nth-of-type(2n+1)可直接写为:nth-of-type(odd)
+53. css outline-offset, 控制 outline 相对于边框的偏移
+54. css 属性 tabindex 设置该元素能否通过 tab 键 focus，小于 0 不能，0 可以，大于 0 按 tabindex 值优先级 focus
+55. css padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。
+56. css animation pause 可以暂停动画,通过 animation-play-state 属性设置为 paused 来暂停动画,设置为 running 来继续动画, 通过设置 animation-delay 结合 animation-play-state 来实现动画的暂停位置
+57. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
 
 SCSS
 
@@ -543,3 +542,14 @@ tailwindcss
 1. dark: hover:xxx 用于 dark 模式下的 hover 效果, 启用 dark 模式需要在上层元素上加上 class="dark"
 2. 响应式设计 sm md lg xl 2xl //默认最小值 sm: 640px md: 768px lg: 1024px xl: 1280px 2xl: 1536px
 3. custom theme 可以通过在 tailwind.config.js 中添加 theme 来自定义主题覆盖 tailwind 默认主题
+
+# tailwind css 优缺点
+
+1. 优点
+   1. 体积小，只有 20kb
+   2. 可以快速构建页面
+   3. 可以自定义主题
+   4. 可以通过配置文件来自定义
+   5. 可以通过 jit 来按需加载
+2. 缺点
+   css 优先级低，通过 css 里 apply tailwind 来提高优先级

@@ -443,6 +443,10 @@ document.getElementById 通过 id 获取元素节点
 document.getElementsByTagName 通过标签名称获取元素节点
 document.getElementsByClassName 通过类名获取元素节点
 document.getElementsByName 通过表单元素的 name 获取元素节点
+document.querySelector 通过 css 选择器获取第一个匹配的元素节点
+document.querySelectorAll 通过 css 选择器获取所有匹配的元素节点
+返回类型则是 HTMLCollection，后者是 NodeList
+
 表单元素都有 name 属性,通过 getElementsByName 可以根据 name 属性的值,获取元素节点。
 获取属性节点
 获取元素节点,然后通过元素节点的 attributes 获取其下所有的属性节点。
@@ -1030,7 +1034,7 @@ advanced js
 33. 虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染
 34. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
 35. var let const, var 会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let 和 const 不会变量提升,且不可重复声明,const 声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是 es6 新增的
-    37.function.length 返回函数的参数个数
+
 
 JS 新约
 
