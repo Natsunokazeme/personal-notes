@@ -316,7 +316,7 @@ workInProgressFiber.alternate === currentFiber;
 
 渲染完成后,fiberRoot 的 current 属性指向 workInProgressFiber 的根节点,workInProgressFiber 变成 currentFiber,然后 workInProgressFiber 又指向 null,这样就完成了替换,下次状态更新再产生一个新的 workInProgressFiber。
 
-通过判断 currentFiber.alternate 是否存在,来判断是否是第一次渲染,如果是第一次渲染,则直接创建 DOM 节点,如果不是,则可以复用 DOM 节点
+通过判断 currentFiber.alternate 是否存在,来判断是否是第一次渲染,如果是第一次渲染,则直接创建 DOM 节点,如果不是,则可以通过 diff 算法判断是否复用 DOM 节点
 
 ## render 阶段
 
@@ -376,7 +376,7 @@ renderLanes,
 
 ### effectList
 
-在 commit 阶段需要对每一个 fiber 节点进行操作，但是不是每一个 fiber 节点都需要操作，比如说函数组件，它没有 dom 节点，所以不需要操作，所以需要一个 effectList 来记录哪些 fiber 节点需要操作，哪些不需要操作。
+在 commit 阶段需要对每一个 fiber 节点进行操作，但是不是每一个 fiber 节点都需要操作 dom，比如说函数组件，它没有 dom 节点，所以不需要操作，所以需要一个 effectList 来记录哪些 fiber 节点需要操作 dom，哪些不需要操作。
 每个执行完 completeWork 并且存在 effectTag 的 fiber 节点都会被添加到 effectList 中，effectList 是一个单链表，每个 fiber 节点都有一个 nextEffect 属性指向下一个 fiber 节点。这个单向链表还有一个属性叫做 firstEffect，指向第一个需要操作的 fiber 节点，还有一个属性叫做 lastEffect，指向最后一个需要操作的 fiber 节点。
 
 ## commit 阶段
@@ -513,8 +513,8 @@ diff 算法决定是否复用
 let i = 0，遍历 newChildren(JSX 对象)，将 newChildren[i]与 oldFiber 比较，判断 DOM 节点是否可复用。
 如果可复用，i++，继续比较 newChildren[i]与 oldFiber.sibling，可以复用则继续遍历。
 如果不可复用，分两种情况：
-key 不同导致不可复用，立即跳出整个遍历，第一轮遍历结束。
-key 相同 type 不同导致不可复用，会将 oldFiber 标记为 DELETION，并继续遍历。
+步骤三 key 不同导致不可复用，立即跳出整个遍历，第一轮遍历结束。
+步骤四 key 相同 type 不同导致不可复用，会将 oldFiber 标记为 DELETION，并继续遍历。
 如果 newChildren 遍历完(即 i === newChildren.length - 1)或者 oldFiber 遍历完(即 oldFiber.sibling === null)，跳出遍历，第一轮遍历结束。
 
 此时分为两种情况：

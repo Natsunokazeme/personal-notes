@@ -117,17 +117,20 @@ babel-plugin-transform-runtime 会将代码中的工具函数替换成 babel-run
 ## 代码分割
 
 1. 在入口配置项里配置 dependOn,可以将多个入口模块的公共模块抽出来单独打包
+
+   ```javascript
    entry: {
-   index: {
-   import: './src/index.js',
-   dependOn: 'shared',
+      index: {
+         import: './src/index.js',
+         dependOn: 'shared',
+      },
+      another: {
+         import: './src/another-module.js',
+         dependOn: 'shared',
+      },
+      shared: 'lodash',
    },
-   another: {
-   import: './src/another-module.js',
-   dependOn: 'shared',
-   },
-   shared: 'lodash',
-   },
+   ```
 
 2. SplitChunksPlugin 插件可以将公共的依赖模块提取到已有的入口 chunk 中，或者提取到一个新生成的 chunk。通过 optimization.splitChunks.cacheGroups 来自定义单独打包的模块及其规则,splitChunks.chunks 有 all async init
    ```javascript
@@ -244,3 +247,7 @@ declare module "*.svg" {
 `
 3. webpack 打包后的 dist 是在浏览器而不是 node 环境下运行的，所以不能使用 node 的模块
 4. webpack 的 definePlugin 插件可以定义全局变量，如 process.env.NODE_ENV，这样可以传递 node 环境变量到浏览器环境
+
+# webpack 的 hash chunkhash contenthash 分别是什么
+
+hash 所有文件哈希值相同； chunkhash 根据不同的入口文件(Entry)进行依赖文件解析、构建对应的 chunk，生成对应的哈希值； contenthash 计算与文件内容本身相关，主要用在 css 抽取 css 文件时

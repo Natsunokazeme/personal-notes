@@ -891,6 +891,7 @@ JavaScript 是单线程的。
 
 # _任务分为宏任务和微任务_
 
+宏任务即处理完之后会将控制权交给浏览器,浏览器再将控制权交给下一个宏任务,、
 微任务即当前正在处理的任务
 宏任务按照任务队列依次将任务传进微任务处理
 遇到 new Promise()的需要立即执行
@@ -941,14 +942,16 @@ ES7 提供的 async 函数相当于 generator 函数的语法糖(即高效简化
    await
    await 的语句执行完才执行后面的语句
 
-JavaScript 操作 http
+# JavaScript 操作 http
+
 fetch
 fetch()方法提供了一种简单,合理的方式来跨网络异步获取资源。取代原生的 XMLHttpRquest
 fetch 接受两个参数,url 和 init,其中 url 参数是必须的,而 init 参数是可选的, init 是一个对象,在里面可以对这个请求进行配置,例如设置请求方法(默认 GET 方法)设置请求头等；如果不传入 init 参数,将会采用默认的配置.
 返回一个包含 Promise 对象,在这个对象的 resolve 方法中可以访问到请求的结果,是一个 Response 对象。在之后的 then 中对 response 进行进一步操作
 javascript 模块（modules）
 
-事件传播
+# 事件传播
+
 一般情况下,事件会从根元素往下传播直到目标元素,这个阶段称为捕捉。到达目标元素之后触发事件,称为目标阶段,之后事件再从目标元素传导到根元素,称为冒泡阶段。事件的默认触发机制为冒泡触发。
 event.stopPropagation()
 阻止事件在 DOM 中继续传播,即取消进一步的事件捕获或冒泡,防止再触发定义在别的节点上的监听函数,但是不包括在当前节点上新定义的事件监听函数。
@@ -961,20 +964,26 @@ MutationObserver(callback())
 const observer = new MutationObserver(callback());
 // 以上述配置开始观察目标节点
 observer.observe(targetNode, config);
-事件冒泡
+
+# 事件冒泡
+
 事件冒泡是 HTML DOM API 中事件传播的一种
 方式,当一个事件发生在另一个元素中的一个元素中,并且两个元素都注册了该事件的句柄时。通过冒泡,事件首先由最内部的元素捕获和处理,然后传播到外部元素。执行从该事件开始,并转到其父元素。然后执行传递给父元素,以此类推,直到 body 元素。
-事件捕捉
+
+# 事件捕捉
+
 当鼠标点击或者触发 dom 事件时,浏览器会从根节点开始由外到内进行事件传播,即点击了子元素,如果父元素通过事件捕获方式注册了对应的事件的话,会先触发父元素绑定的事件。
 
-事件监听
+# 事件监听
+
 addEventListener()方法,用于向指定元素添加事件句柄,它可以更简单的控制事件,语法为
 element.addEventListener(event, function, useCapture);
 第一个参数是事件的类型(如 "click" 或 "mousedown").
 第二个参数是事件触发后调用的函数。
 第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。false 冒泡,true 捕获,默认 false。在 DOM 标准事件模型中,是先捕获后冒泡。
 
-事件委托
+# 事件委托
+
 事件委托指的是,不在事件的发生地（直接 dom）上设置监听函数,而是在其父元素上设置监听函数,通过事件冒泡,父元素可以监听到子元素上事件的触发,通过判断事件发生元素 DOM 的类型,来做出不同的响应。
 好处：比较合适动态元素的绑定,新添加的子元素也会有监听函数,也可以有事件触发机制。
 事件触发
@@ -983,12 +992,18 @@ element.addEventListener(event, function, useCapture);
 
 # _事件循环(Event Loop)_
 
+JS 是单线程的,即同一时间只能执行一个任务,但是 JS 可以通过事件循环来实现异步操作。
+node 和浏览器的事件循环机制是不同的,但是都是基于事件循环机制的。
+就浏览器的事件循环而言，主要分为宏任务队列和微任务队列。浏览器自身还有渲染周期。
+浏览器会先执行一个宏任务，然后执行微任务，然后再执行下一个宏任务。所有任务结束之后执行渲染。
+浏览器自身带有智能调度机制确保页面渲染不会被完全阻塞(如 setInternal 0 会在下一个宏任务执行)。
+
 JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入任务队列；
 同步任务进入主线程后一直执行,直到主线程空闲后,才会去任务队列中查看是否有可执行的异步任务,如果有就推入主线程中执行；
 异步任务分为微任务和宏任务，当微任务执行完之后执行宏任务，宏任务可能包含异步代码，先将宏任务的同步代码执行完之后再执行任务队列中的微任务，然后再执行下一个宏任务
 事件循环是一个先进先出（FIFO）队列,这说明回调是按照它们被加入队列的顺序执行的。
 
-advanced js
+# advanced js
 
 1. _structuredClone(A, { transfer }) 可以用来深拷贝对象,第二个参数还可以指定从原对象转移属性至新对象_
 2. 下载功能实现
@@ -1026,17 +1041,16 @@ advanced js
 25. console 台里不出现后端请求原因分析：1.mocked http request。2 特殊的 http 请求不被 console 台获取 3.network 做了筛选
 26. 在浏览器 debug(未编译的代码),直接打开控制台的 source,在里面直接加断点,通过 cmd+shift+p 搜索文件
 27. Array.prototype.flatMap() 会先使用映射函数映射每个元素,然后将结果压缩成一个新数组。它与 map 和 深度值 1 的 flat 几乎相同,但 flatMap 通常在合并成一种方法的效率更高。
-28. number.toString(2) 将 number 转化为二进制字符串
+28. _number.toString(2) 将 number 转化为二进制字符串_
 29. function.length 返回函数的参数个数
 30. lambda 演算 ℷx.x+1(1) 表示对 x 的 ℷ 演算,ℷx 声明这是参数为 x 的 ℷ 演算,ℷx.x+1 表示传入 x 后返回 x+1,ℷx.x(1)表示传入 1 后返回 2
 31. 柯利化,将函数作为参数传入另一个函数。
-32. parseInt 第二个参数表示进制,2-36,默认为 0(根据字符串前缀判断)
+32. _parseInt 第二个参数表示进制,2-36,默认为 0(根据字符串前缀判断)_
 33. 虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染
 34. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
 35. var let const, var 会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let 和 const 不会变量提升,且不可重复声明,const 声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是 es6 新增的
 
-
-JS 新约
+# JS 新约
 
 1. javascript 代码必须放在 script 标签中
    script 标签可以放在 html 的任何地方,一般建议放在 head 标签里
@@ -1073,25 +1087,25 @@ JS 新约
 
 10. 4 种变量类型判断
 
-    # 使用 typeof 来进行判断数据类型
+    1. 使用 typeof 来进行判断数据类型
 
     typeof 可以识别出基本类型 boolean,number,undefined,string,symbol,bigInt 但是不能识别 null。不能识别引用数据类型,会把 null、array、object 统一归为 object 类型,但是可以识别出 function。
     例：console.log(typeof bool); //Boolean
 
-    # instanceof
+    2. instanceof
 
     instanceof 不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
     但是可以检测出引用类型,如 array、object、function,同时对于是使用 new 声明的类型,它还可以检测出多层继承关系。
     instanceof 一般用来检测对象类型,以及继承关系。
     arrname instanceof Array;// return true
 
-    # constructor
+    3. constructor
 
     null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
     console.log(arr.constructor === Array);// true
     必须通过 构造函数声明的对象,才有 constructor 属性,否则没有。
 
-    # Object.prototype.toString.call
+    4. Object.prototype.toString.call
 
     console.log(Object.prototype.toString.call(num));//[object Number]
     该方法直接返回对应类型的字符串
@@ -1248,27 +1262,30 @@ obj2.foo2()
 52. bom cookie 可记录用户行为，停留时间等用户特征，还可以保存登录状态，也可以记录当前协议或 ip 等，若发生异常可要求用户二次验证，防止 csrf 攻击
 53. js removeEventListener 的第二个参数必须和 addEventListener 的第二个参数一致，指向同一内存地址，否则无法移除事件。匿名函数无法移除
 54. js json 深拷贝坏处 1.忽略 undefined,symbol,函数,正则等类型 2.循环引用报错 3.Date,类型转化为字符串 4.error,正则,set,map 等类型转化为空对象 5.原型链丢失
-55. js structuredClone 不能拷贝函数,且是新语法,有对应的 polyfill 可支持旧版本浏览器
+55. js _structuredClone 不能拷贝函数,且是新语法,有对应的 polyfill 可支持旧版本浏览器_
 56. js 赋值也是先取值再赋值, let object.child = object = {child:1} //object.child 为 undefined.
 57. bom localStorage 坏处: 1.存储容量小,浏览器一般 5m 2.存储的数据不安全,都能访问 3.只能同步操作 4.只能存储字符串类型 5.不支持 web worker
 58. js debugger 时，所有代码都会暂停，包括异步代码，所有的事件也不会被触发。
 59. js string.charCodeAt() 返回指定索引处的 UTF-16 代码单元值,string.codePointAt() 返回指定索引处的字符的 Unicode 编码点//ascii 码表被包含于 UTF-16 编码中
 60. js string.substr(start,len)已被废弃,不传 len 时,默认为到末尾,推荐使用 string.substring(start,end)替换
 61. js object 属性名只能是字符串或 symbol 类型,若不是,会自动转化为字符串,并且非数字属性名会按添加顺序被排序，数字属性名会按升序排序
-62. bom navigator.sendBeacon(url,data)用于发送数据到服务器,该方法会在页面卸载时发送数据,即使页面卸载了,也会发送数据,该方法会返回一个布尔值,表示是否发送成功, post 请求,常与 visibilitychange 事件一起使用,当页面不可见时,发送数据
+62. bom _navigator.sendBeacon(url,data)用于发送数据到服务器,该方法会在页面卸载时发送数据,即使页面卸载了,也会发送数据,该方法会返回一个布尔值,表示是否发送成功, post 请求,常与 visibilitychange 事件一起使用,当页面不可见时,发送数据_
 63. bom navigator.online 用于判断当前是否联网,返回一个布尔值,表示是否联网 也可以在 window 上监听 online 和 offline 事件来判断联网变更
 64. bom navigator.connection 用于获取网络连接信息,返回一个 connection 对象,包含 downlink,downlinkMax,rtt,saveData 等属性,用于获取网络连接信息
 65. js 宏任务执行完会把控制权交给浏览器,微任务执行完会继续执行下一个微任务,从这个角度看,requestAnimationFrame 是宏任务
 66. bom scrollTo 用于滚动到指定位置,scrollTo(x,y)滚动到指定位置,scrollTo(options)滚动到指定位置,scrollTo(options)包含 top,left,behavior 等属性,用于设置滚动位置,滚动行为等,behavior 有 auto,smooth 两种,auto 为瞬间滚动,smooth 为平滑滚动
 67. bom audio window.AudioContext 创建一个音频上下文,通过该对象的 createMediaElementSource(audio)来创建一个音频源,通过该对象的 createAnalyser()来创建一个音频分析器,通过该对象的 createGain()来创建一个音频增益器,通过该对象的 createBiquadFilter()来创建一个音频滤波器,通过该对象的 createOscillator()来创建一个音频振荡器；通过该对象的 createBufferSource()来创建一个音频缓冲源,通过该对象的 createBuffer()来创建一个音频缓冲区,通过该对象的 decodeAudioData()来解码音频数据;其中音频源,音频分析器,音频增益器,音频滤波器,音频振荡器,音频缓冲源,音频缓冲区,音频数据都可以通过 connect()和 disconnect()来连接和断开连接; audioCtx.destination 为音频输出目标,audioCtx.currentTime 为当前时间,audioCtx.state 为音频上下文状态,audioCtx.sampleRate 为音频采样率,audioCtx.suspend()暂停音频上下文,audioCtx.resume()恢复音频上下文
+68. SSE, webRTC 也可用于服务端和客户端双向传输数据
 
-JavaScript 日期
+# JavaScript 日期
+
 new Date() 创建日期对象,默认是当前时间,如果想创建一个特定的时间,可以传入参数,参数可以是日期字符串,也可以是时间戳;参数无效时,返回 Invalid Date
 需要注意的是,getMonth()返回的月数,是基零的,0 代表 1 月份
 所以需要+1
 通过 getDay()获取,今天是本周的第几天。与 getMonth()一样,返回值是基 0 的。0 代表星期天,1 代表星期一,以此类推。
 
-JavaScript 字符串
+# JavaScript 字符串
+
 转义字符：为了防止字符串中的’,”,\等特殊符号被误解
 \' ' 单引号
 \" " 双引号
@@ -1315,7 +1332,8 @@ var y = x.split(" ");//通过空格分隔 split(" "),得到数组
 var z = x.split(" ",2);//通过空格分隔 split(" ",2),得到数组,并且只保留前两个
 注： 第二个参数可选,表示返回数组的长度
 
-JavaScript 数字
+# JavaScript 数字
+
 JavaScript 数值始终是 64 位的浮点数,此格式用 64 位存储数值,其中 0 到 51 存储数字（片段）,52 到 62 存储指数,63 位存储符号。
 在所有数字运算中,JavaScript 会尝试将字符串转换为数字。
 
@@ -1336,10 +1354,11 @@ parseInt(string, radix) 2<=radix<=36
 parseFloat(string) 转换为浮点数  
 Number() 可安全转换 BigInt 为数字(BigInt 过大丢失精度)
 
-BOM 储存大数据
+# BOM 储存大数据
+
 indexedDB 是浏览器提供的本地数据库,可以存储大量数据,但是不支持 sql 查询,类似 nosql,只能通过游标来查询,游标是一个指针,指向数据库中的某个位置,可以通过游标来遍历数据库中的数据,限制同源策略,只能在同源网站下访问同源数据库
 web sql 和 indexedDB 类似，都是储存在浏览器的方式，更像关系型数据库，目前只有 chrome 支持,已被 deprecated
 
 通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。
 
-http http 在响应体没完全返回时,浏览器会一直等待,此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果
+http http 在响应体没完全返回时,浏览器会一直等待,_如果采用的是 fetch 请求_，此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果
