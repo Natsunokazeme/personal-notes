@@ -17,3 +17,8 @@
 
 9.  组件上的单向绑定属性的相对位置会影响组件内属性更新的先后顺序
 10. 创建基础组建时样式不重要，可以通过 deep selector 来覆盖
+11. bom DOMParser 浏览器自带的原生解析 html 字符串为 dom 的 api
+    ```javascript
+    const parser = new DOMParser()
+    const doc = parser.parseFromString("<div>hello world</div>", "text/html")
+    ```
