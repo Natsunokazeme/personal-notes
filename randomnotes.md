@@ -22,3 +22,11 @@
     const parser = new DOMParser()
     const doc = parser.parseFromString("<div>hello world</div>", "text/html")
     ```
+12. gpu 加速方法 transform 代替 top，left 等属性；will-change；position：fixed；animation；video；opacity;filter;
+13. 精灵图：将多个小图合并成一张大图，通过 background-position 来显示不同的小图,可以减少 http 请求,提高页面性能
+14. font-spider:字体压缩工具,可以将页面中用到的字体文件中未使用的字符删除,减少字体文件大小,提高页面性能
+15. 自定义 font 压缩方案：针对 spa，首页采用 font-spider 静态压缩到打包到文件里，同时背后加载全量字体，这样 其他页也可以用
+16. DNS 预解析：通过 link 标签的 rel="dns-prefetch" 属性，可以让浏览器在空闲时预先解析 DNS，提高网站的访问速度
+17. Brotli 压缩：Brotli 是一种新的压缩算法，比 gzip 压缩率更高，可以减少文件大小，提高页面加载速度
+18. 域名分片：由于浏览器限制了每个域（domain）的活动连接数，为了同时下载更多资源，将静态资源放在不同的域名下，可以提高并行下载的数量，加快页面加载速度；但是需要注意，域名分片会增加 DNS 查询次数，可能会影响页面加载速度
+19. 流式加载：通过将页面分成多个区块，按需加载，可以提高页面加载速度，减少首屏加载时间
