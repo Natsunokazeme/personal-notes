@@ -220,7 +220,7 @@ return true;
 对 ES6+语法支持更好，压缩算法更好
 u 和 glifyjs-webpack-plugin 插件类似，可以在单文件内删除未引用的代码和不可达的代码，减少打包体积
 
-# 打包体积优化
+# _打包体积优化_
 
 1. 静态引用，只引用需要的模块，而不是通过 `import * from xxx `的形式动态引入
 2. 通过 include exclude 来限制 loader 的作用范围,避免不必要的 loader 的执行
@@ -229,7 +229,7 @@ u 和 glifyjs-webpack-plugin 插件类似，可以在单文件内删除未引用
 5. 通过 terser-webpack-plugin 插件来压缩代码，减少打包体积
 6. 将小型图片转换成 base64 的形式，减少 http 请求，提升页面加载速度
 7. optimization 配置，提取公用代码
-8. 压缩资源 gzip 压缩 compression-webpack-plugin
+8. 压缩资源 gzip 压缩算法 brotli 压缩算法 compression-webpack-plugin
 
 _单页面应用开启动态路由_ 2days
 _在 devServer 中配置 historyApiFallback: true, 使得单页面应用开启动态路由，也可以自定义要重定向的页面_

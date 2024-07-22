@@ -120,3 +120,22 @@ useEffect 是 React 提供的一个 Hook，用于处理副作用。它接收两�
 1. RXJS 是一个响应式编程库，用于处理异步数据流，提供了丰富的操作符和工具函数，可以方便地处理复杂的异步数据流。Promise 是一个异步编程模型，用于处理异步操作，提供了 then 和 catch 方法，可以方便地处理异步操作的成功和失败。
 2. RXJS 支持多个值的处理，可以处理多个值的数据流，提供了丰富的操作符和工具函数，可以方便地处理复杂的异步数据流。Promise 只支持单个值的处理，只能处理单个值的异步操作，提供了 then 和 catch 方法，可以方便地处理异步操作的成功和失败。
 3. RXJS 支持取消操作，可以通过 unsubscribe 方法取消订阅，避免内存泄漏。Promise 不支持取消操作，一旦创建就无法取消，可能导致内存泄漏。
+
+## ffmpeg 视频转化 gif 命令行
+
+1. ffmpeg -i input.mp4 -vf "fps=10,scale=320:-1:flags=lanczos" -c:v gif output.gif
+
+## ts 函数重载和方法重载
+
+它们都是多个方法或函数公用一个变量名，调用时根据传入参数的不同，自动调用不同的方法或函数。函数重载是指在函数声明时，根据参数的不同，定义多个函数体，调用时根据传入参数的类型和个数，自动调用对应的函数体。方法重载是指在类中定义多个同名方法，根据参数的不同，定义多个方法体，调用时根据传入参数的类型和个数，自动调用对应的方法体。
+
+## readonly 和 const 的区别
+
+readonly 用于修饰类的属性，表示属性只读，不能修改。const 用于修饰变量，表示变量只读，不能修改。
+
+## 动画分类
+
+1. CSS 动画：通过 CSS 属性实现动画效果，如 transition、animation。
+2. JavaScript 动画：通过 JavaScript 代码实现动画效果，如 requestAnimationFrame、Tween.js。
+3. Canvas 动画：通过 Canvas 绘图实现动画效果，如 Canvas API、WebGL。
+4. SVG 动画：通过 SVG 图形实现动画效果，如 SMIL、Snap.svg。
