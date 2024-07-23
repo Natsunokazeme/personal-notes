@@ -50,7 +50,7 @@ Plugin 就是插件，基于事件流框架 Tapable，插件可以扩展 Webpack
 Loader 在 module.rules 中配置，作为模块的解析规则，类型为数组。每一项都是一个 Object，内部包含了 test(类型文件)、loader、options (参数)等属性。
 Plugin 在 plugins 中单独配置，类型为数组，每一项是一个 Plugin 的实例，参数都通过构造函数传入。
 
-# Webpack 的构建流程是什么？从读取配置到输出文件这个过程尽量说全
+# _Webpack 的构建流程是什么？从读取配置到输出文件这个过程尽量说全_
 
 初始化参数：从配置文件和命令行语句中读取与合并参数，得出最终的参数
 开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译
@@ -251,3 +251,7 @@ declare module "*.svg" {
 # webpack 的 hash chunkhash contenthash 分别是什么
 
 hash 所有文件哈希值相同； chunkhash 根据不同的入口文件(Entry)进行依赖文件解析、构建对应的 chunk，生成对应的哈希值； contenthash 计算与文件内容本身相关，主要用在 css 抽取 css 文件时
+
+# 为什么有了 babel 还需要 polyfill
+
+babel 只是一个转码器，只能转换新的语法，而不能转换新的 API，比如 Iterator、Generator、Set、Map、Proxy、Reflect、Symbol、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign）都不会转码。这时就需要 polyfill 来解决这个问题

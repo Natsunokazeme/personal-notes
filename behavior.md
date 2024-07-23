@@ -139,3 +139,19 @@ readonly 用于修饰类的属性，表示属性只读，不能修改。const �
 2. JavaScript 动画：通过 JavaScript 代码实现动画效果，如 requestAnimationFrame、Tween.js。
 3. Canvas 动画：通过 Canvas 绘图实现动画效果，如 Canvas API、WebGL。
 4. SVG 动画：通过 SVG 图形实现动画效果，如 SMIL、Snap.svg。
+
+## 前端成果难点亮点
+
+1. 发现性能问题，页面加载慢，用户体验差
+2. 优化页面性能，减少页面加载时间。
+3. 图片懒加载
+4. webpack 打包优化
+5. ssr 和 ssg(未实现)
+6. 重构逻辑，提高代码质量
+7. 防抖节流
+8. CDN（未实现）
+9. 缓存（未实现）
+10. 脚本异步加载
+11. 动画 GPU 加速
+12. font-spider(未实现)
+13. fetch 流式读取请求(未实现)

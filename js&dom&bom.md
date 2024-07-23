@@ -619,12 +619,14 @@ Token,其实就是服务端生成的一串加密字符串,储存在本地用于�
 重排（重构/回流/reflow）：当渲染树中的一部分(或全部)因为元素的规模尺寸,布局,隐藏等改变而需要重新构建, 这就称为回流(reflow)。每个页面至少需要一次回流,就是在页面第一次加载的时候。
 重绘和重排的关系：在回流的时候,浏览器会使渲染树中受到影响的部分失效,并重新构造这部分渲染树,完成回流后,浏览器会重新绘制受影响的部分到屏幕中,该过程称为重绘。所以,重排必定会引发重绘,但重绘不一定会引发重排。
 
-减少重绘重排的方法有：
+# 减少重绘重排的方法
+
 不在布局信息改变时做 DOM 查询,
 使用 csstext,className 一次性改变属性
 const stylesheet = document.styleSheets[0];//CSSOM
 stylesheet.cssRules[0].style.backgroundColor = "aqua";
 使用 fragment
+少用 table 布局
 
 # _强缓存和协商缓存_
 
@@ -756,11 +758,6 @@ clientTop：表示边框 border 的厚度,在未指定的情况下一般为 0
 scrollTop：滚动后被隐藏的高度,获取对象相对于由 offsetParent 属性指定的父坐标(css 定位的元素或 body 元素)距离顶端的高度。
 offsetTop: 当前元素相对于 offset 顶部内边距的距离
 
-# js 拖拽功能的实现
-
-首先是三个事件,分别是 mousedown,mousemove,mouseup
-当鼠标点击按下的时候,需要一个 tag 标识此时已经按下,可以执行 mousemove 里面的具体方法。
-
 # JS 的语言特性
 
 运行在客户端浏览器上；
@@ -768,6 +765,10 @@ offsetTop: 当前元素相对于 offset 顶部内边距的距离
 是弱类型语言,较为灵活；
 与操作系统无关,跨平台的语言；
 脚本语言、解释性语言
+
+# 生成没有原型的对象
+
+Object.create(null) 生成没有原型的对象,即没有继承 Object.prototype 的属性和方法,但是可以使用 hasOwnProperty 等方法。
 
 # this 的指向
 
@@ -958,12 +959,6 @@ event.stopPropagation()
 event.target //事件触发的起源对象
 event.currentTarget //事件触发的当前对象
 event.srcElement //event.target 的 IE 版本
-MutationObserver(callback())
-在指定的 DOM 发生变化时被调用。
-例：// 创建一个观察器实例并传入回调函数
-const observer = new MutationObserver(callback());
-// 以上述配置开始观察目标节点
-observer.observe(targetNode, config);
 
 # 事件冒泡
 
@@ -1034,7 +1029,7 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
 18. getElementsByClassName() 方法返回 NodeList 对象,不是数组
 19. scrollHeight 元素全部高度;clientHeight:包括 padding 的可见区域高度;offsetHeight:包括 border,滚动条的可见区域高度;scrollTop:滚动条向下滚动的距离,也就是元素被遮住的高度;scrollLeft:滚动条向左滚动的距离,也就是元素被遮住的宽度;
 20. Element.getBoundingClientRect() // 返回 DOMRect 对象，包含相对于视图窗口的左上角来计算的 x,y,top,right,left,bottom,width,height,其中 width 和 height 属性是包含了 padding 和 border-width；
-21. requestAnimFrame(callback) 下一次重绘前调用回调函数
+21. requestAnimationFrame(callback) 下一次重绘前调用回调函数,返回一个 id,可用 cancelAnimationFrame(id) 来取消回调函数
 22. 在 safari 里 video 不能在 js 里 play,必须在用户交互事件里 play。
 23. 在 safari 里 canvas 不能在 js 里 toDataURL,必须在用户交互事件里 toDataURL.
 24. 在 safari 的 graphies 里,canvas 的 toDataURL 会导致内存泄漏,所以在 safari 里不要用 canvas 的 toDataURL
@@ -1049,6 +1044,12 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
 33. 虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染
 34. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
 35. var let const, var 会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let 和 const 不会变量提升,且不可重复声明,const 声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是 es6 新增的
+36. MutationObserver(callback())
+    在指定的 DOM 发生变化时被调用。
+    例：// 创建一个观察器实例并传入回调函数
+    const observer = new MutationObserver(callback());
+    // 以上述配置开始观察目标节点
+    observer.observe(targetNode, config);
 
 # JS 新约
 
@@ -1179,7 +1180,7 @@ Array.from() 从类数组对象或者可迭代对象中创建一个新的数组�
 array flat 会去空槽。在非数组对象上调用 flat 需要对象有 length 属性,否则会报错,并根据 length 从键 0 开始按序读键值,当键值不为数组时,会直接将其加入到新数组中,当键值为数组时,会根据 flat 参数 depth 将其展开后加入到新数组中。
 
 14. this 指向,在普通函数和匿名内部,this 是在函数内的,在箭头函数中,this 只能向外查找的,且不可修改
-15. readOnly 的属性无法通过...展开
+15. readOnly 的属性无法通过...展开,只存在于对象中
 16. 前端模糊查询, 通过 string.includes()判断是否包含来过滤
 17. array.fill(val)是浅拷贝,如果 val 是对象,则每个元素都指向同一个对象,会造成修改一个元素,其他元素也会改变
 18. img 渲染到 canvas,canvas.getContext('2d').drawImage(img,0,0)会报错,因为 img 没有加载完成,可以在 img.onload 里执行 drawImage
@@ -1239,10 +1240,10 @@ obj2.foo2()
 
 35. js _new ,通过该方法会创建一个对象实例，原理如下:_
     在内存中创建一个新对象。
-    这个新对象内部的 prototype 特性被赋值为构造函数的 prototype 属性。
+    这个新对象内部的 proto 特性被赋值为构造函数的 prototype 属性。
     构造函数内部的 this 被赋值为这个新对象（即 this 指向新对象）。
     执行构造函数内部的代码（给新对象添加属性）。
-    如果构造函数返回对象，则返回该对象；否则，返回刚创建的新对象(空对象)
+    如果构造函数有返回，则返回该值；否则，返回刚创建的新对象(空对象)
 36. js Symbol Symbol.hasInstance 就是 instanceof 的原理
 37. js **typeof 的原理是判断二进制，二进制前三位储存类型信息**
 38. js BigInt()或数字后加 n 表示大数，向下取整，和 number 类型宽松相等，可以和 number 类型比较
@@ -1276,8 +1277,7 @@ obj2.foo2()
 66. bom scrollTo 用于滚动到指定位置,scrollTo(x,y)滚动到指定位置,scrollTo(options)滚动到指定位置,scrollTo(options)包含 top,left,behavior 等属性,用于设置滚动位置,滚动行为等,behavior 有 auto,smooth 两种,auto 为瞬间滚动,smooth 为平滑滚动
 67. bom audio window.AudioContext 创建一个音频上下文,通过该对象的 createMediaElementSource(audio)来创建一个音频源,通过该对象的 createAnalyser()来创建一个音频分析器,通过该对象的 createGain()来创建一个音频增益器,通过该对象的 createBiquadFilter()来创建一个音频滤波器,通过该对象的 createOscillator()来创建一个音频振荡器；通过该对象的 createBufferSource()来创建一个音频缓冲源,通过该对象的 createBuffer()来创建一个音频缓冲区,通过该对象的 decodeAudioData()来解码音频数据;其中音频源,音频分析器,音频增益器,音频滤波器,音频振荡器,音频缓冲源,音频缓冲区,音频数据都可以通过 connect()和 disconnect()来连接和断开连接; audioCtx.destination 为音频输出目标,audioCtx.currentTime 为当前时间,audioCtx.state 为音频上下文状态,audioCtx.sampleRate 为音频采样率,audioCtx.suspend()暂停音频上下文,audioCtx.resume()恢复音频上下文
 68. SSE, webRTC 也可用于服务端和客户端双向传输数据
-69. intersectionObserver 是浏览器提供的 api,用于监听元素是否进入视口,从而实现懒加载,接受两个参赛，一个成功后的 callback 一个 options 对象,其中 root 为监听的根元素,默认为 null(即浏览器视口),rootMargin 为根元素的边距,threshold 为元素进入视口的比例,0 到 1 之间，默认为 0,即只要有一个像素可见，回调就会运行,可以设置为 0.1,即元素进入视口 10% 时触发;root 必须为监听目标的祖先元素,否则会报错
-
+69. intersectionObserver 是浏览器提供的 api,用于监听元素是否进入视口,从而实现懒加载,接受两个参数，一个成功后的 callback 一个 options 对象,其中 root 为监听的根元素,默认为 null(即浏览器视口),rootMargin 为根元素的边距,threshold 为元素进入视口的比例,0 到 1 之间，默认为 0,即只要有一个像素可见，回调就会运行,可以设置为 0.1,即元素进入视口 10% 时触发;root 必须为监听目标的祖先元素,否则会报错
 
     ```javascript
     const observer = new IntersectionObserver(
