@@ -340,21 +340,20 @@ JavaScript 版本 ES5
 • 属性 Getter 和 Setter
 • 新的对象属性和方法
 
-JavaScript 版本 ES6
-新特性
-• let
-• const
-• 幂 (\*\*)
-• 默认参数值
-• Array.find()
-• Array.findIndex()
-• set 和 map 数据结构
-• promise 对象
-• Generator 函数
-• symbol
-• 箭头函数
-• Class（类）
-• module（模块）
+- _ES6 新特性_
+  • let
+  • const
+  • 幂 (\*\*)
+  • 默认参数值
+  • Array.find()
+  • Array.findIndex()
+  • set 和 map 数据结构
+  • promise 对象
+  • Generator 函数
+  • symbol
+  • 箭头函数
+  • Class（类）
+  • module（模块）
 
 箭头函数
 箭头函数表达式的语法比函数表达式更简洁,并且没有自己的 this,arguments,super 或 new.target。箭头函数表达式更适用于那些本来需要匿名函数的地方,并且它不能用作构造函数。
