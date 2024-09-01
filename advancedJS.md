@@ -205,7 +205,7 @@ SSR 实现都是基于 Node，但 Node 原生不支持 ES6 的模块化也不能
 SSG(预渲染，Static Site Generation)是静态站点生成，是在构建时生成的，不需要服务端，所以不需要 express，只需要 webpack 打包，然后将打包后的文件放到服务器上就可以了。
 因为是在构建时生成的，所以不支持动态数据，只能用静态数据，所以只适合一些不需要动态数据的网站如 policy 或一个相同的入口。但 SSG 的优点是首屏加载速度快，SEO 好，不需要服务端，所以成本低。
 
-# web workers
+# **web workers**
 
 用于 js 的多线程处理，但是 workers 和主代码运行在完全分离的环境中，只有通过相互发送消息来进行交互。特别是，这意味着 workers 不能访问 DOM（窗口、文档、页面元素等等,一般用于处理一些耗时的任务，比如计算。
 
@@ -215,6 +215,20 @@ command: 'generate',
 quota: quota
 });
 worker.addEventListener('message', message => {//todo})
+worker.terminate()
+worker.onerror()
+worker.onmessage = (event) => {
+console.log(event.data)
+}
+
+# service worker
+
+service worker 是一个运行在浏览器上的脚本，它通过 HTTP 协议与主进程进行通信，从而实现主进程与浏览器的通信。
+service worker 的主要作用是监听浏览器的请求，然后根据请求返回响应，比如缓存静态资源，拦截请求，代理请求等等。也可推送消息给客户端。
+通过 navigator.serviceWorker.register('./sw.js') 注册 service worker，然后通过 service worker 的 fetch 事件监听请求，然后返回响应。
+service worker 的生命周期：独立于网页生命周期，install -> activate -> fetch -> idle -> terminate(passive)
+service worker 作用域：service worker 只能监听当前域名下的请求，不能监听跨域的请求。
+service worker 更新方法：浏览器会检测 service worker 脚本更新，然后新的 service worker 先 install，再 activate，activate 会覆盖之前的旧 service worker。
 
 # 序列化动画，即上一个动画结束后，下一个动画才开始。
 

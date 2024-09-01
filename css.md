@@ -84,6 +84,7 @@ padding: 上 右 下 左
 //写 1 个值时默认上下左右全为该值，否则按照上 右 下 左,依顺时针的方向依次赋值。如果缺少左内边距的值，则使用右内边距的值。
 如果缺少下内边距的值，则使用上内边距的值。
 如果缺少右内边距的值，则使用上内边距的值。
+padding 的百分比是相对于父元素的宽度计算的
 
 # 元素外边距 margin
 
@@ -403,7 +404,8 @@ border-radius: 100px 100px 0 0;//从左上开始顺时针，右上，右下，�
 
 先画一条 1px 的线再缩放 transfrom：scale（0.5）； 2. 渐变 background-image: linear-gradient(0deg, #f00 50%, transparent 50%);
 
-css animation 和 transition 的区别
+# css animation 和 transition 的区别
+
 Animation 和 transition 大部分属性是相同的，他们都是随时间改变元素的属性值，他们的主要区别是 transition 需要触发一个事件才能改变属性，而 animation 不需要触发任何事件的情况下能随时间改变属性值，并且 transition 为 2 帧，从 from .... to，而 animation 可以一帧一帧的。
 
 # visibility=hidden, opacity=0，display:none 的区别
@@ -432,7 +434,9 @@ position 为 fixed 和 absolute 的元素
 display 为 inline-block、table-cell、table-caption，flex，inline-flex 的元素
 overflow 不为 visible 的元素
 
-元素在容器中居中 1.父元素固定宽高，利用定位及设置子元素 margin 值为自身的一半。 2.父元素固定宽高，子元素设置 position: absolute，margin：auto 平均分配 margin
+# 元素在容器中居中
+
+1.父元素固定宽高，利用定位及设置子元素 margin 值为自身的一半。 2.父元素固定宽高，子元素设置 position: absolute，margin：auto 平均分配 margin
 3.css3 属性 transform。子元素设置 position: absolute; left: 50%; top: 50%;transform: translate(-50%,-50%);即可。 4.将父元素设置成 display: table, 子元素设置为单元格 display: table-cell。 5.弹性布局 display: flex。设置 align-items: center; justify-content: center
 
 1. 父元素弹性布局 display: flex, 子元素设置 margin：auto
@@ -473,60 +477,76 @@ overflow 不为 visible 的元素
 8. 多列布局：column-count: 3; column-gap: 10px; column-rule: 1px solid #ccc; column-span: all; column-width: 200px; 可直接将元素分成多列，可设置间距，边框，跨列，列宽
 9. word-break: break-all; 可以让单词在任意位置断开,方便折行显示
 10. _在移动端浏览器中，100vh 包含了 top search bar 高度。会影响布局,可用 innerHeight 代替_
-11. translate 以当前位置为出发点进行移动，但还是推荐 animation
-12. _image 经常有 3px margin at bottom 是因为 the image behaving like a character of text。可设置 vertical-align;_ (节省一次时间
-13. _padding 使用百分比时是按照宽度来计算的_
-14. 宽高相等，1 使用 vw，vh,2 使用 js,3 aspect-ratio: 1/1;
-15. grid 的 1fr 可代替高和宽部分 calc
-16. input type 为 number 时右侧会有按钮，影响布局，可通过 input[type='number']::-webkit-inner-spin-button {-webkit-appearance: none;}隐藏掉
-17. clear:both 清除 float
-18. input 和 select 都自带 outline
-19. aspect-ratio 可以设置宽高比，可以用 css 来设置宽高比，可以用 style 来设置宽高比，可以用 className 来设置宽高比
-20. _为使 overflow 有效果，块级容器必须有一个指定的高度（height 或者 max-height）或者将 white-space 设置为 nowrap。_
-21. display:flex-root ,将该元素变成 block formatting context
-22. box-shadow: x y fuzzy-r diffusion-r color
-23. overflow:hidden 是根据父元素的 boder 内边距来计算的，可通过 position absolute 来跳出父元素的 border
-24. overflow:clip 类似于 overflow:hidden，但是 hidden 可通过 js 设置 scroll，clip 不能设置 scroll
-25. font awesome 可以用字体的特殊符号表示 icon
-26. _pointer-events:none;可以使元素及其子元素不响应鼠标事件,但也会造成 cursor 样式失效_
-27. _触摸屏的浏览器自带下拉刷新，可通过 touch-action 来设置为 none 来禁止触摸屏下当前元素区域(不能继承)的触摸效果来禁止下拉刷新_
-28. _overscroll-behavior:滚动到该 scroll 的边界时的滚动溢出效果，为 auto 时，会继续滚动相邻的 scroll 或触发页面触底效果甚至下拉刷新，为 contain 时，页面效果不变，但不会滚动相邻 scroll，为 none 时，不滚动也不触发。_
-29. _阻止页面下拉刷新，在 body 里设置 css overscroll-behavior:none 和 overflow:hidden_
-30. background-clip 基于当前元素设置 background 的 延伸距离，text 是基于文字，padding-box 是基于 padding，border-box 是基于 border，content-box 是基于 content;
-31. _flex: 1; == flex: 1 1 0; flex:auto == flex: 1 1 auto;flex:none==flex:0 0 auto;flex: initial == flex:0 1 auto flex:0==flex:0 1 0_
-32. order: 1; 该属性规定了弹性容器中的可伸缩项目在布局时的顺序。元素按照 order 属性的值的升序进行布局，可以为负值。
-33. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高 css 关键字的性能
+11. rpx,规定手机屏幕宽度为 750rpx，然后根据手机实际宽度计算出 1rpx 的宽度，如 375px 的屏幕，1rpx=0.5px
+12. translate 以当前位置为出发点进行移动，但还是推荐 animation
+13. _image 经常有 3px margin at bottom 是因为 the image behaving like a character of text。可设置 vertical-align;_ (节省一次时间
+14. _padding 使用百分比时是按照宽度来计算的_
+15. 宽高相等，1 使用 vw，vh,2 使用 js,3 aspect-ratio: 1/1;
+16. grid 的 1fr 可代替高和宽部分 calc
+17. input type 为 number 时右侧会有按钮，影响布局，可通过 input[type='number']::-webkit-inner-spin-button {-webkit-appearance: none;}隐藏掉
+18. clear:both 清除 float
+19. input 和 select 都自带 outline
+20. aspect-ratio 可以设置宽高比，可以用 css 来设置宽高比，可以用 style 来设置宽高比，可以用 className 来设置宽高比
+21. _为使 overflow 有效果，块级容器必须有一个指定的高度（height 或者 max-height）或者将 white-space 设置为 nowrap。_
+22. display:flex-root ,将该元素变成 block formatting context
+23. box-shadow: x y fuzzy-r diffusion-r color
+24. overflow:hidden 是根据父元素的 border 内边距来计算的，可通过 position absolute 来跳出父元素的 border
+25. overflow:clip 类似于 overflow:hidden，但是 hidden 可通过 js 设置 scroll，clip 不能设置 scroll
+26. font awesome 可以用字体的特殊符号表示 icon
+27. _pointer-events:none;可以使元素及其子元素不响应鼠标事件,但也会造成 cursor 样式失效_
+28. _触摸屏的浏览器自带下拉刷新，可通过 touch-action 来设置为 none 来禁止触摸屏下当前元素区域(不能继承)的触摸效果来禁止下拉刷新_
+29. _overscroll-behavior:滚动到该 scroll 的边界时的滚动溢出效果，为 auto 时，会继续滚动相邻的 scroll 或触发页面触底效果甚至下拉刷新，为 contain 时，页面效果不变，但不会滚动相邻 scroll，为 none 时，不滚动也不触发。_
+30. _阻止页面下拉刷新，在 body 里设置 css overscroll-behavior:none 和 overflow:hidden_
+31. background-clip 基于当前元素设置 background 的 延伸距离，text 是基于文字，padding-box 是基于 padding，border-box 是基于 border，content-box 是基于 content;
+32. _flex: 1; == flex: 1 1 0; flex:auto == flex: 1 1 auto;flex:none==flex:0 0 auto;flex: initial == flex:0 1 auto flex:0==flex:0 1 0_
+33. order: 1; 该属性规定了弹性容器中的可伸缩项目在布局时的顺序。元素按照 order 属性的值的升序进行布局，可以为负值。
+34. will-change: css-key-word; 会让浏览器提前开启 GPU 加速，提高 css 关键字的性能
     _补充知识:一般来说,元素在进行一些操作如 3D 变换时会被单独处理到一个图层渲染，并在之后合成到主图层.此时通过 GPU 而不是 CPU 渲染的话,性能会得到提升.因此，之前我们会用 transform: translate3d(0, 0, 0);之类的语句欺骗浏览器加速该元素渲染_
-34. css 属性选择器
+35. css 属性选择器
     a[title='1'] // title 为 1 的 a 标签
     a[title^='1'] // title 以 1 开头的 a 标签
     a[title$='1'] // title 以 1 结尾的 a 标签
     a[title*='1'] // title 包含 1 的 a 标签
     a[title~='1'] // title 是一个以空格作为分隔的值列表，其中至少有一个值 为 1 的 a 标签
     a[title|='1'] // title 是一个以连字符作为分隔的值列表，其中至少有一个值 为 1 的 a 标签
-35. _accent-color:#fff ; // 设置 checkbox 勾选颜色_
-36. sticky 要求父元素高度比自身高，且 overflow 不为 hidden。
-37. inline-flex 让元素 flex 的同时可指定宽高
-38. fill:currentColor 使 svg 和 path 的颜色继承父元素的颜色，但只能用与 html 标签，不能用于 image url 和 background-image
-39. _input 不是一个 container，不能有子元素，因此伪元素不会生效_
-40. 推荐用 last-of-type:mr-0 来替代 first-of-type:ml-0,因为换行后下一行元素第一个元素会有 margin-left
-41. _选择器权重:权重是相加比较的，id 永远 > class 永远 > 标签 .权重大小比较只在同级之间比较，不同级之间不比较..权重相同的情况下，后面的样式会覆盖前面的样式.伪类和属性选择器权重和类相同，伪元素权重和标签相同。组合选择器不更改权重规则。级与级之间的权重差根据浏览器实现而不同，因此当级的权重差为 1 个字节时，256 个 class 累计的权重就会超过 1 个字节，发生溢出，进而可能覆盖 id 的权重。_
-42. background-image 可以设置多个，用逗号隔开，前一个会覆盖后一个，可使用 linear-gradient()设置渐变色
-43. linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
-44. :target 选择器，选中当前页面的锚点，可用于锚点跳转
-45. css 变量 用--xxx: value;使用 var(--xxx)调用 value
-46. css 默认继承的属性有 color,font-size 等和文字相关的属性以及 visibility,cursor 等和显示相关的属性
-47. video 的 videoHeight 和 videoWidth 属性是只读的,且只有在视频加载完成后才能获取到正确的值,即原生视频的大小
-48. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小
-49. transform 里的 scale 会把元素整体缩放，但 Event Listener 不会改变监听区域
-50. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
-51. _:first-of-type,伪类 当匹配到的元素是父元素中其类型的第一个元素时生效;:first-child 伪类 当匹配到的元素是父元素中的第一个元素时生效_
-52. :nth-of-type(an+b) 伪类 当匹配到的元素是父元素中其类型的第 an+b 个元素时生效，n 从 0 开始计数;:nth-of-type(2n+1)可直接写为:nth-of-type(odd)
-53. css outline-offset, 控制 outline 相对于边框的偏移
-54. css 属性 tabindex 设置该元素能否通过 tab 键 focus，小于 0 不能，0 可以，大于 0 按 tabindex 值优先级 focus
-55. css padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。
-56. css animation pause 可以暂停动画,通过 animation-play-state 属性设置为 paused 来暂停动画,设置为 running 来继续动画, 通过设置 animation-delay 结合 animation-play-state 来实现动画的暂停位置
-57. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
+36. _accent-color:#fff ; // 设置 checkbox 勾选颜色_
+37. sticky 要求父元素高度比自身高，且 overflow 不为 hidden。
+38. inline-flex 让元素 flex 的同时可指定宽高
+39. fill:currentColor 使 svg 和 path 的颜色继承父元素的颜色，但只能用与 html 标签，不能用于 image url 和 background-image
+40. _input 不是一个 container，不能有子元素，因此伪元素不会生效_
+41. 推荐用 last-of-type:mr-0 来替代 first-of-type:ml-0,因为换行后下一行元素第一个元素会有 margin-left
+42. _选择器权重:权重是相加比较的，id 永远 > class 永远 > 标签 .权重大小比较只在同级之间比较，不同级之间不比较..权重相同的情况下，后面的样式会覆盖前面的样式.伪类和属性选择器权重和类相同，伪元素权重和标签相同。组合选择器不更改权重规则。级与级之间的权重差根据浏览器实现而不同，因此当级的权重差为 1 个字节时，256 个 class 累计的权重就会超过 1 个字节，发生溢出，进而可能覆盖 id 的权重。_
+43. background-image 可以设置多个，用逗号隔开，前一个会覆盖后一个，可使用 linear-gradient()设置渐变色
+44. linear-gradient()设置渐变色，可设置角度，颜色，渐变点位置和颜色
+45. :target 选择器，选中当前页面的锚点，可用于锚点跳转
+46. css 变量 用--xxx: value;使用 var(--xxx)调用 value
+47. _css 默认继承的属性有 color,font-size 等和文字相关的属性以及 visibility,cursor 等和显示相关的属性_
+48. video 的 videoHeight 和 videoWidth 属性是只读的,且只有在视频加载完成后才能获取到正确的值,即原生视频的大小
+49. css clamp(min,val,max) 将值限制在 min 和 max 之间, val 为期望值 可用于动态改变 font-size;font-size: clamp(1rem, 10vw, 2rem); 根据窗口大小改变字体大小
+50. transform 里的 scale 会把元素整体缩放，但 Event Listener 不会改变监听区域
+51. 子元素若不想受父元素 scale 影响，可以设置 transform:scale(1/scale)，或者将父元素和子元素都设置 transform-style:preserve-3d;这样他们不会在同一图层上，或者直接想办法取出来
+52. _:first-of-type,伪类 当匹配到的元素是父元素中其类型的第一个元素时生效;:first-child 伪类 当匹配到的元素是父元素中的第一个元素时生效_
+53. :nth-of-type(an+b) 伪类 当匹配到的元素是父元素中其类型的第 an+b 个元素时生效，n 从 0 开始计数;:nth-of-type(2n+1)可直接写为:nth-of-type(odd)
+54. css outline-offset, 控制 outline 相对于边框的偏移
+55. css 属性 tabindex 设置该元素能否通过 tab 键 focus，小于 0 不能，0 可以，大于 0 按 tabindex 值优先级 focus
+56. _css padding-inline 根据文本方向(direction)和书写模式(writing-mode)设置 padding. 在日文的竖直书写模式和阿拉伯文的从右到左文本方向下比较有用。_
+57. css animation pause 可以暂停动画,通过 animation-play-state 属性设置为 paused 来暂停动画,设置为 running 来继续动画, 通过设置 animation-delay 结合 animation-play-state 来实现动画的暂停位置
+58. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
+59. css @layer 规则：将 css 规则写入一个 layer 内，不同 layer 之间的 css 选择器权重不会相互影响，可以提高 css 的可维护性，layer 可嵌套，注意：non-layered css 会应用在 layer 层级后,也就是会覆盖 layer 层级的 css；layer 之间按照初次声明时的先后顺序确定优先级，越后优先级越高； 常用于创建公共组件的基本样式
+
+```css
+p {
+  color: rebeccapurple;
+}
+
+@layer type {
+  .box p {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: green;
+  }
+}
+```
 
 SCSS
 
@@ -553,3 +573,5 @@ tailwindcss
    5. 可以通过 jit 来按需加载
 2. 缺点
    css 优先级低，通过 css 里 apply tailwind 来提高优先级
+
+据说 tailwind 就是通过 layer 来实现 css 的隔离

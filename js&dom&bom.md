@@ -320,8 +320,7 @@ ECMAScript 通常缩写为 ES。
 所有浏览器都完全支持 ECMAScript 3。
 所有现代浏览器都完全支持 ECMAScript 5。
 
-JavaScript 版本 ES5
-新特性
+**JavaScript 版本 ES5 新特性**
 • "use strict" 指令
 • String.trim()
 • Array.isArray()
@@ -340,20 +339,20 @@ JavaScript 版本 ES5
 • 属性 Getter 和 Setter
 • 新的对象属性和方法
 
-- _ES6 新特性_
-  • let
-  • const
-  • 幂 (\*\*)
-  • 默认参数值
-  • Array.find()
-  • Array.findIndex()
-  • set 和 map 数据结构
-  • promise 对象
-  • Generator 函数
-  • symbol
-  • 箭头函数
-  • Class（类）
-  • module（模块）
+**ES6 新特性**
+• let
+• const
+• 幂 (\*\*)
+• 默认参数值
+• Array.find()
+• Array.findIndex()
+• set 和 map 数据结构
+• _promise 对象_
+• Generator 函数
+• symbol
+• _箭头函数_
+• Class（类）
+• module（模块）
 
 箭头函数
 箭头函数表达式的语法比函数表达式更简洁,并且没有自己的 this,arguments,super 或 new.target。箭头函数表达式更适用于那些本来需要匿名函数的地方,并且它不能用作构造函数。
@@ -387,9 +386,8 @@ promise.finally()
 无论如何最终都会执行的语句,类似 Java 多线程
 promise.allSettled() 方法返回一个在所有给定的 promise 已被决议或被拒绝后决议的 promise,并带有一个对象数组,每个对象表示对应的 promise 结果。
 
-JavaScript 对象
+# JavaScript 函数
 
-JavaScript 函数
 匿名函数（没有名称的函数）
 存放在变量中的函数不需要函数名。他们总是使用变量名调用。
 使用表达式定义的函数不会被提升。即 var x = function(){};用等号定义的函数。
@@ -432,7 +430,8 @@ func.call(this, "eat", "bananas") == func.apply(this, ["eat", "bananas"])。
 function.prototype.bind
 类似 call，但返回的是改变 this 之后的函数，需要调用函数才执行
 
-DOM
+# DOM
+
 DOM 是 Document Object Model( 文档对象模型 )的缩写。
 DOM 是把 html 里面的各种数据当作对象进行操作的一种思路。
 比如一个超链,作为一个 DOM 对象,就可以使其隐藏,修改其 href 指向的地址。
@@ -483,7 +482,8 @@ DOM 元素样式 1.一个元素节点的 style 属性即对应的 css,通过获�
 例：d1.css("background-color","green");//修改代号为 d1 的 DOM 的背景颜色
 注：Javascript 并不提供这样的解决方案,但是到了 JQuery 就提供了这样的解决方案
 
-DOM 事件
+# DOM 事件
+
 onfocus 获取焦点事件
 onblur 失去焦点事件
 onmousedown 鼠标按下事件
@@ -559,8 +559,8 @@ removeAttribute 删除属性节点
    注: replaceChild 第一个参数是保留的节点,第二个参数是被替换的节点
    parentNode.replaceChild(kept,replaced);
 
-插入节点
-appendChild 追加节点 只能加在最后面
+_插入节点_
+_appendChild 追加节点 只能加在最后面_
 
 _insertBefore 在前方插入节点 在指定位置插入节点_
 
@@ -748,11 +748,11 @@ content.onmousemove = throttle(count,1000);//
 mouseover：当鼠标移入元素或其子元素都会触发事件,所以有一个冒泡时重复触发的过程。对应的移除事件是 mouseout
 mouseenter：当鼠标移除元素本身（不包含元素的子元素）会触发事件,也就是不会冒泡,对应的移除事件是 mouseleave
 
-# js 的各种位置,比如 clientHeight,scrollHeight,offsetHeight ,以及 scrollTop, offsetTop,clientTop 的区别？
+# element 的各种位置,比如 clientHeight,scrollHeight,offsetHeight ,以及 scrollTop, offsetTop,clientTop 的区别？
 
-clientHeight：表示的是可视区域的高度,不包含 border 和滚动条
-offsetHeight：表示可视区域的高度,包含了 border 和滚动条
-scrollHeight：表示了所有区域的高度,包含了因为滚动被隐藏的部分。
+clientHeight：表示的是元素的内部高度,不包含 border 和滚动条，单位 px，特例：body 的 clientHeight 返回视口高度
+offsetHeight：表示可视区域的高度,包含了 border 和滚动条，单位 px
+scrollHeight：表示了所有区域的高度,包含了因为滚动被隐藏的部分。单位 px
 clientTop：表示边框 border 的厚度,在未指定的情况下一般为 0
 scrollTop：滚动后被隐藏的高度,获取对象相对于由 offsetParent 属性指定的父坐标(css 定位的元素或 body 元素)距离顶端的高度。
 offsetTop: 当前元素相对于 offset 顶部内边距的距离
@@ -871,7 +871,7 @@ return clone; //返回这个对象
 寄生组合继承
 核心：通过寄生方式,砍掉父类的实例属性,这样,在调用两次父类的构造的时候,就不会初始化两次实例方法/属性,避免的组合继承的缺点
 
-# 闭包
+# **闭包**
 
 一个函数和对其周围状态（lexical environment,词法环境）的引用捆绑在一起（或者说函数被引用包围）,这样的组合就是闭包（closure）。也就是说,闭包让你可以在一个内层函数中访问到其外层函数的作用域。当内层函数在其他地方被调用时,就可以继续访问到外层函数的作用域,而不是被立即释放。
 在 JavaScript 中,每当创建一个函数,闭包就会在函数创建的同时被创建出来。闭包包含在函数创建时作用域中的所有变量。
@@ -990,7 +990,7 @@ JS 是单线程的,即同一时间只能执行一个任务,但是 JS 可以通�
 node 和浏览器的事件循环机制是不同的,但是都是基于事件循环机制的。
 就浏览器的事件循环而言，主要分为宏任务队列和微任务队列。浏览器自身还有渲染周期。
 浏览器会先执行一个宏任务，然后执行微任务，然后再执行下一个宏任务。所有任务结束之后执行渲染。
-浏览器自身带有智能调度机制确保页面渲染不会被完全阻塞(如 setInternal 0 会在下一个宏任务执行)。
+_浏览器自身带有智能调度机制确保页面渲染不会被完全阻塞_(如 setInternal 0 会在下一个宏任务执行)。
 
 JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入任务队列；
 同步任务进入主线程后一直执行,直到主线程空闲后,才会去任务队列中查看是否有可执行的异步任务,如果有就推入主线程中执行；
@@ -1036,7 +1036,7 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
 26. lambda 演算 ℷx.x+1(1) 表示对 x 的 ℷ 演算,ℷx 声明这是参数为 x 的 ℷ 演算,ℷx.x+1 表示传入 x 后返回 x+1,ℷx.x(1)表示传入 1 后返回 2
 27. 柯利化,将函数作为参数传入另一个函数。
 28. _parseInt 第二个参数表示进制,2-36,默认为 0(根据字符串前缀判断)_
-29. 虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染
+29. _虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染_
 30. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
 31. var let const, var 会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let 和 const 不会变量提升,且不可重复声明,const 声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是 es6 新增的
 32. MutationObserver(callback())
@@ -1053,8 +1053,7 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
    如果有多段 script 代码,会按照从上到下,顺序执行,因此引入第三方库的时候,一定要注意顺序
 2. document 代表浏览器的文档部分, window 代表浏览器的窗口部分,Document 对象是 Window 对象的一部分,可通过 window.document 属性对其进行访问。同理,history 也是 window 的属性
 3. 完整的 javascript 由语言基础,BOM 和 DOM 组成。
-4. js 内存管理的垃圾回收算法，最初是引用计数垃圾收集，即当一个对象没有被引用时被回收。现在主流的是标记清除算法，即当一个对象从 root 不可达时被回收。即全局对象作为 root。这样可以避免循环引用的问题。
-   当两个对象相互引用为属性时，他们的引用计数都不为 0，但是他们都不可达，所以会被回收。
+4. _js 内存管理的垃圾回收算法，最初是引用计数垃圾收集，即当一个对象没有被引用时被回收。现在主流的是标记清除算法，即当一个对象从 root 不可达时被回收。即全局对象作为 root。这样可以避免循环引用的问题。当两个对象相互引用为属性时，他们的引用计数都不为 0，但是他们都不可达，所以会被回收。_
 5. js 内存模型分为堆，栈，队列，堆用来存储对象，栈用来存储帧，队列用来存储消息。当消息被处理时会被移出队列，并且会创建一个帧，帧中包含了函数的参数，局部变量，返回地址等信息。当函数执行完毕时，帧会被移出栈。若帧中的函数调用了其他函数，则会创建新的帧并压入栈中。直到所有帧都被移出栈，函数执行完毕。开始处理下一个消息。
 6. string.padStart(a,b) 在 string 前添加字符串 b 直到整个 string 长度大于等于 a
 7. JavaScript 基本数据类型 undefined,Boolean,Number,String,null,symbol,bigint
@@ -1076,52 +1075,48 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
    var d=3.14;//有小数点表示浮点数
    var e=3.14e2;//使用 e 的幂表示科学计数法
 
-9. String 字符串
-   与 java 不同的是,javascript 中没有字符的概念,只有字符串,所以单引号和双引号,都用 来表示字符串。
-   var 动态类型
-   变量的类型是动态的,当值是整数的时候,就是 Number 类型,当值是字符串的时候,就是 String 类型
+9. 4 种变量类型判断
 
-10. 4 种变量类型判断
+   1. 使用 typeof 来进行判断数据类型
 
-    1. 使用 typeof 来进行判断数据类型
+   typeof 可以识别出基本类型 boolean,number,undefined,string,symbol,bigInt 但是不能识别 null。不能识别引用数据类型,会把 null、array、object 统一归为 object 类型,但是可以识别出 function。
+   例：console.log(typeof bool); //Boolean
 
-    typeof 可以识别出基本类型 boolean,number,undefined,string,symbol,bigInt 但是不能识别 null。不能识别引用数据类型,会把 null、array、object 统一归为 object 类型,但是可以识别出 function。
-    例：console.log(typeof bool); //Boolean
+   2. instanceof
 
-    2. instanceof
+   instanceof 不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
+   但是可以检测出引用类型,如 array、object、function,同时对于是使用 new 声明的类型,它还可以检测出多层继承关系。
+   instanceof 一般用来检测对象类型,以及继承关系。
+   arrname instanceof Array;// return true
 
-    instanceof 不能识别出基本的数据类型 number、boolean、string、undefined、null、symbol。
-    但是可以检测出引用类型,如 array、object、function,同时对于是使用 new 声明的类型,它还可以检测出多层继承关系。
-    instanceof 一般用来检测对象类型,以及继承关系。
-    arrname instanceof Array;// return true
+   3. constructor
 
-    3. constructor
+   null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
+   console.log(arr.constructor === Array);// true
+   必须通过 构造函数声明的对象,才有 constructor 属性,否则没有。
 
-    null、undefined 没有 construstor 属性,因此 constructor 不能判断 undefined 和 null。
-    console.log(arr.constructor === Array);// true
-    必须通过 构造函数声明的对象,才有 constructor 属性,否则没有。
+   4. Object.prototype.toString.call
 
-    4. Object.prototype.toString.call
+   console.log(Object.prototype.toString.call(num));//[object Number]
+   该方法直接返回对应类型的字符串,但无法判断是 Number()还是直接赋值生成的
 
-    console.log(Object.prototype.toString.call(num));//[object Number]
-    该方法直接返回对应类型的字符串
-
-11. 数字转换为字符串
+10. 数字转换为字符串
     const a = 123;
     a.toString(); //默认模式为 10 进制
     a.toString(2)；//将数字 a 转换为基模式下二进制。
     注意,不能直接用 123.toString(),因为这样会被当成小数点,所以要用 123..toString()或者 123 .toString()或者(123).toString()
 
-12. 转换为数字
+11. 转换为数字
     Number()和 parseInt()的区别
     Number()和 parseInt()一样,都可以用来进行数字的转换
     区别在于,当转换的内容包含非数字的时候,Number() 会返回 NaN(Not a Number)
     parseInt() 要看情况,如果以数字开头,就会返回开头的合法数字部分,如果以非数字开头,则返回 NaN,并且第二个参数是进制,默认 10 进制,2-36 的整数
 
-13. 数组 Array
+12. 数组 Array
     在非数组对象上调用数组方法时，一般会获取对象的 length 属性,若无则初始化为 0，然后根据 length 来进行遍历。但是如果对象的 length 属性不是一个有效的数字，那么就会导致数组方法无法正常运行。
 
 稀疏数组:数组中的某些位置没有任何值,这时候我们说这个数组是稀疏数组。如[,1,] 有两个元素,第一个元素是一个空槽,即 empty;
+_map 方法会跳过空槽_
 
 push,unshift 用于在数组的末尾或者开头插入 n 个元素,并且返回数组的长度,会修改原数组.
 注意:push 和 unshift 可通过 Array.prototype 作用在非数组对象上,它会先读取对象的 length 属性,若没有就设为 0,若有则加上新添加的元素长度,然后将新元素加到对应的 key 为 index 的属性上(若已存在则覆盖),最后返回新的 length 属性值。
@@ -1201,7 +1196,7 @@ array flat 会去空槽。在非数组对象上调用 flat 需要对象有 lengt
     返回一个数字对象的基本数字类型
     var b = a.valueOf()// 将 a 的 类型从 Number 类变为 number 并赋值给 b
 
-25. setInterval(function,interval,[arg1,arg2,......argn])//默认语法,interval 设置间隔时间。之后的参数为传入 function 的值。
+25. setInterval(function,interval,[arg1,arg2,......argn])//默认语法,interval 设置间隔时间。_之后的参数为传入 function 的值。_
 26. script 标签的 defer 属性，表示脚本会在文档解析完毕后执行，但是在 DOMContentLoaded 事件之前执行，如果有多个 defer 脚本，会按照顺序执行，不会阻塞 DOM 解析，但是会阻塞 DOMContentLoaded 事件。async 属性表示脚本会在文档解析完毕后立即执行，但是不会阻塞 DOM 解析，也不会阻塞 DOMContentLoaded 事件，如果有多个 async 脚本，会按照加载完成的顺序执行，不一定是顺序执行，async 脚本不会阻塞其他资源的加载，比如图片，css 等，但是会阻塞其他 async 脚本的执行，async 脚本一定会在页面的 load 事件之前执行，但是不一定在 DOMContentLoaded 事件之前执行。
 27. _script 默认是会阻碍 HTML 解析的，只有下载好并执行完脚本才会继续解析 HTML，defer 就是下载不阻碍 html 解析，执行会等到 html 解析完再执行，async 是下载不阻碍，执行可能阻碍解析，一旦下载好就立即执行_
 28. js _任何不在函数内部的代码的上下文都是全局上下文，谁最后调用的函数，函数里 this 就指向谁_
@@ -1233,7 +1228,7 @@ obj2.foo2()
 // inner()被调用时没有指定调用对象，所以this指向window，window.a为3
 ```
 
-35. js _new ,通过该方法会创建一个对象实例，原理如下:_
+35. js **new ,通过该方法会创建一个对象实例，原理如下:**
     在内存中创建一个新对象。
     这个新对象内部的 proto 特性被赋值为构造函数的 prototype 属性。
     构造函数内部的 this 被赋值为这个新对象（即 this 指向新对象）。
@@ -1247,10 +1242,10 @@ obj2.foo2()
 41. bom cookie 也受跨域限制
 42. js Object.assign(target,source1,source2...)，将 source1,source2...的属性浅复制到 target 上，若属性名相同，则后面的会覆盖前面的
 43. js Object.defineProperty(obj,prop,descriptor),用于给对象添加属性，descriptor 为属性描述符，包含 value,writable(false),enumerable(false),configurable(false),get,set 等属性
-44. bom 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,websocket,service worker,IndexedDB,SharedWorker,广播等方式
+44. **bom 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,websocket,service worker,IndexedDB,SharedWorker,broadCastChannel API 广播等方式**
 45. js Object.is(a,b)用于判断两个值是否相等，ES6 新特性，与===唯二不同的是，Object.is(0,-0)为 false,Object.is(NaN,NaN)为 true
 46. dom shadow Dom 是一种浏览器技术，用于将一个 DOM 节点和其子节点封装起来，使其与外部的 DOM 节点隔离，外部的 DOM 节点无法访问 shadowDom 里的节点，shadowDom 里的节点也无法访问外部的 DOM 节点.video 这个元素就曾用 shadow Dom 封装内部结构的一系列的按钮和其他控制器。 通过 Element.attachShadow()生成一个 shadow Root 并添加到指定元素上
-47. js websocket 在 js 内通过 new WebSocket(url)得到一个 websocket 对象，通过该对象的 onopen,onmessage,onclose,onerror 等方法来监听 websocket 的连接，消息，关闭，错误等事件，通过该对象的 send 方法来发送消息，通过该对象的 close 方法来关闭连接
+47. _js websocket 在 js 内通过 new WebSocket(url)得到一个 websocket 对象，通过该对象的 onopen,onmessage,onclose,onerror 等方法来监听 websocket 的连接，消息，关闭，错误等事件，通过该对象的 send 方法来发送消息，通过该对象的 close 方法来关闭连接_
 48. js json 解析出错会抛异常
 49. js 通过 json 深拷贝对象，可以通过 JSON.parse(JSON.stringify(obj))来实现，但是该方法有缺陷，会忽略 undefined，symbol，函数，正则等类型，还有循环引用的问题，并且字符串转化会带来额外性能开销
 50. js == 会进行类型转换，=== 不会进行类型转换
@@ -1272,7 +1267,7 @@ obj2.foo2()
 66. bom scrollTo 用于滚动到指定位置,scrollTo(x,y)滚动到指定位置,scrollTo(options)滚动到指定位置,scrollTo(options)包含 top,left,behavior 等属性,用于设置滚动位置,滚动行为等,behavior 有 auto,smooth 两种,auto 为瞬间滚动,smooth 为平滑滚动
 67. bom audio window.AudioContext 创建一个音频上下文,通过该对象的 createMediaElementSource(audio)来创建一个音频源,通过该对象的 createAnalyser()来创建一个音频分析器,通过该对象的 createGain()来创建一个音频增益器,通过该对象的 createBiquadFilter()来创建一个音频滤波器,通过该对象的 createOscillator()来创建一个音频振荡器；通过该对象的 createBufferSource()来创建一个音频缓冲源,通过该对象的 createBuffer()来创建一个音频缓冲区,通过该对象的 decodeAudioData()来解码音频数据;其中音频源,音频分析器,音频增益器,音频滤波器,音频振荡器,音频缓冲源,音频缓冲区,音频数据都可以通过 connect()和 disconnect()来连接和断开连接; audioCtx.destination 为音频输出目标,audioCtx.currentTime 为当前时间,audioCtx.state 为音频上下文状态,audioCtx.sampleRate 为音频采样率,audioCtx.suspend()暂停音频上下文,audioCtx.resume()恢复音频上下文
 68. SSE, webRTC 也可用于服务端和客户端双向传输数据
-69. intersectionObserver 是浏览器提供的 api,用于监听元素是否进入视口,从而实现懒加载,接受两个参数，一个成功后的 callback 一个 options 对象,其中 root 为监听的根元素,默认为 null(即浏览器视口),rootMargin 为根元素的边距,threshold 为元素进入视口的比例,0 到 1 之间，默认为 0,即只要有一个像素可见，回调就会运行,可以设置为 0.1,即元素进入视口 10% 时触发;root 必须为监听目标的祖先元素,否则会报错
+69. **intersectionObserver 是浏览器提供的 api,用于监听元素是否进入视口,从而实现懒加载,接受两个参数，一个成功后的 callback 一个 options 对象,其中 root 为监听的根元素,默认为 null(即浏览器视口),rootMargin 为根元素的边距,threshold 为元素进入视口的比例,0 到 1 之间，默认为 0,即只要有一个像素可见，回调就会运行,可以设置为 0.1,即元素进入视口 10% 时触发;root 必须为监听目标的祖先元素,否则会报错**
 
     ```javascript
     const observer = new IntersectionObserver(
@@ -1290,6 +1285,24 @@ obj2.foo2()
       }
     )
     ```
+
+70. bom DOMParser 浏览器自带的原生解析 html 字符串为 dom 的 api，解析错误不会抛异常，而是返回一个 body 内为空的 document 对象,解析成功则返回一个 body 包含解析后 dom 的 document 对象
+
+    ```javascript
+    const parser = new DOMParser()
+    const doc = parser.parseFromString("<div>hello world</div>", "text/html")
+    ```
+
+71. js _weakMap 是一种弱引用的 map，其键值对中的键是弱引用，当键被垃圾回收时，值也会被回收，可以用来存储一些临时数据，防止内存泄漏，也因此不能遍历，不能清空，不能获取大小，不能判断是否为空；只有 set，get，has，delete 方法_
+72. js 每个函数调用都有自己的上下文，上下文里包含了函数内定义的所有变量和函数；执行函数时，函数上下文会被推入栈中，函数执行完毕后，函数上下文会被弹出栈，函数上下文的生命周期与函数的执行过程一致;
+73. js 代码执行时，访问变量的顺序是按作用域链来的,当访问变量时，会从当前作用域开始查找，如果找不到，会沿着作用域链向上查找，直到全局上下文或者找到，如果找不到，会报错
+74. js 函数的参数被认为是当前上下文；
+75. 临时上下文，在 try/catch 的 catch 和 with 语句中，会创建一个临时上下文，用于存储异常信息和 with 语句中的对象，当 try/catch 和 with 语句执行完毕后，临时上下文会被销毁；
+76. js with(xxx){} 语句会创建一个临时上下文，将 xxx 对象作为临时上下文，当 with 语句执行完毕后，临时上下文会被销毁，不推荐使用，会导致代码可读性降低，性能降低，容易出错
+77. js 块级作用域：在块级作用域由{}界定
+78. js 由于变量提升，for(var xxx)中的变量 xxx 会被提升到 for 循环外部，所以在循环外部也可以访问到 xxx，但是在循环外部 xxx 的值是循环结束后的值
+79. js Object.freeze() 方法可以冻结一个对象，使其不可修改，不可扩展，不可删除，不可配置，但是修改时不报错，只是不生效
+80. js 垃圾回收 标记清理 的原理就是变量是否在上下文中被引用，如果没有引用，就会被标记为可回收
 
 # JavaScript 日期
 
@@ -1316,7 +1329,7 @@ JavaScript 字符串方法
 方法 search()搜索特定字符串的位置
 
 提取字符串
-slice(start, end) 若参数为负代表从最后一位往前计数
+slice(start, end) 若*参数为负*代表从最后一位往前计数
 substring(start, end) 0<start,end<length
 substr(start, length) 第二个参数代表截取的长度,如果首个参数为负,则从字符串的结尾计算位置。(已废弃)
 
@@ -1375,4 +1388,4 @@ web sql 和 indexedDB 类似，都是储存在浏览器的方式，更像关系�
 
 通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。
 
-http http 在响应体没完全返回时,浏览器会一直等待,_如果采用的是 fetch 请求_，此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果
+http 在响应体没完全返回时,浏览器会一直等待,_如果采用的是 fetch 请求_，此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果

@@ -199,7 +199,9 @@ form method="get" action="https://how2j.cn/study/login.jsp"
 使用 method="post" 也可以提交数据
 post 不会在地址栏显示提交的参数
 如果要提交二进制数据，比如上传文件，必须采用 post 方式
-get 和 post 的区别
+
+# get 和 post 的区别
+
 get 是 form 默认的提交方式
 如果通过一个超链访问某个地址，是 get 方式；如果在地址栏直接输入某个地址，是 get 方式。提交数据会在浏览器显示出来，不可以用于提交二进制数据，比如上传文件
 post 必须在 form 上通过 method="post" 显示指定
@@ -233,7 +235,7 @@ element data-_="somevalue"
 html5：!DOCTYPE html
 HTML4 三种文档类型：Strict、Transitional 以及 Frameset。
 
-# HTML5 的新特性：
+# _HTML5 的新特性：_
 
 新的内容标签：header nav content footer article aside
 更好的单元格体系:
@@ -243,14 +245,15 @@ HTML4 三种文档类型：Strict、Transitional 以及 Frameset。
 地理(Geolocation) API
 网页存储(Web storage) API:localStorage,sessionStorage
 拖拽释放(Drag and drop) API
-新的表单控件 calander date time email url search
+新的表单控件 calender date time email url search
 新的 input 类型 color date datetime datetime-local email
 
 # html5 有哪些新特性，如何处理 html5 新标签的浏览器兼容问题，如何区分 html 和 html5？
 
-1.h5 不基于 SGML，主要是关于图像、位置、存储、多任务等功能的增加；canvas、video、audio、本地离线存储：localStorage 长期存储数据，网页关闭后数据不丢失；sessionStorage 的数据在网页关闭后自动删除；语义化更好的内容元素：article/footer/header/nav/section;表单控件：calendar date、time、email、search；新的技术：webworker、websocket、geolocation
-因此不需要对 dtd 进行引用，但是需要 doctype 来规范浏览器的行为，而 html 基于 sgml，所以需要对 dtd 进行引用，才能告知浏览器文档使用的文档类型
-2.ie8/7/6 支持通过 document.createElement 方法产生的标签，可以利用这一特性让浏览器支持 h5 新标签，浏览器支持新标签后还需要添加标签默认的样式，当然也可以使用成熟的框架例 3.如何区分 h5 和 html：doctype 声明、新增的结构元素/功能元素
+1. h5 不基于 SGML，主要是关于图像、位置、存储、多任务等功能的增加；canvas、video、audio、本地离线存储：localStorage 长期存储数据，网页关闭后数据不丢失；sessionStorage 的数据在网页关闭后自动删除；语义化更好的内容元素：article/footer/header/nav/section;表单控件：calendar date、time、email、search；新的技术：webworker、websocket、geolocation
+   因此不需要对 dtd 进行引用，但是需要 doctype 来规范浏览器的行为，而 html 基于 sgml，所以需要对 dtd 进行引用，才能告知浏览器文档使用的文档类型
+2. ie8/7/6 支持通过 document.createElement 方法产生的标签，可以利用这一特性让浏览器支持 h5 新标签，浏览器支持新标签后还需要添加标签默认的样式，当然也可以使用成熟的框架例如 html5shiv 来让浏览器支持 h5 新标签
+3. 如何区分 h5 和 html：doctype 声明、新增的结构元素/功能元素
 
 # xhtml 和 html 有什么区别
 
@@ -259,7 +262,7 @@ html 是一种基本的 web 网页设计语言，xhtml 是一个基于 xml 的�
 # _简述一下 src 与 href 的区别_
 
 src 用于替换当前元素资源；href 用于在当前文档和引用资源之间确立联系。
-src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置，需要下载且下载时会暂停其他活动(img 下载时不阻塞)
+src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置，需要下载且下载时会暂停其他活动
 href 是 Hypertext Reference 的缩写，指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，不会暂停其他活动
 
 # 行内元素有哪些，块级元素有哪些？
@@ -279,8 +282,10 @@ f. 不够语义
 
 对 web 标准以及 w3c 的理解和认识
 标签闭合，标签小写，不乱嵌套，提高机器人搜索几率，使用外链 css 和 js 脚本，结构行为表现的分离，文件下载与页面速度更快，内容能被更多的用户访问，内容能被更广泛的设备所访问，更少的代码和组件，容易维护改版方便，不需要变动页面内容，提高网站易用性;语义化的 html 即直观的认识标签，对搜索引擎的抓取有好处
-rem em rpx px fr vw vh ch
-px 像素，rpx 微信独有，自适应屏幕，规定屏幕宽 750rpx；em 绑定当前字体大小；rem 绑定 html 字体大小 fr 网格布局剩余宽度的分配 vw 自适应视口,1vw 为视口宽度 1%，vh 代表视口高度 1% ch 数字 0 的宽度
+
+# _rem em rpx px fr vw vh ch_
+
+px 像素，rpx 微信推广的，自适应屏幕，规定屏幕宽 750rpx；em 绑定当前字体大小；rem 绑定 html 字体大小 fr 网格布局剩余宽度的分配 vw 自适应视口,1vw 为视口宽度 1%，vh 代表视口高度 1% ch 数字 0 的宽度
 
 advanced HTML
 

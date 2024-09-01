@@ -140,6 +140,10 @@ readonly 用于修饰类的属性，表示属性只读，不能修改。const �
 3. Canvas 动画：通过 Canvas 绘图实现动画效果，如 Canvas API、WebGL。
 4. SVG 动画：通过 SVG 图形实现动画效果，如 SMIL、Snap.svg。
 
+## spa 和 mpa 的区别
+
+spa 是单页面应用，mpa 是多页面应用，spa 是一个 html 内通过 ajax 请求数据和 BOM 更改路由，动态更新页面内容，mpa 是多个 html 通过请求不同的页面实现 document 跳转，刷新整个页面；spa 优点是用户体验好，页面切换快，缺点是首屏加载慢，seo 不友好；mpa 优点是首屏加载快，seo 友好，缺点是页面切换慢，用户体验差
+
 ## 前端成果难点亮点
 
 1. 发现性能问题，页面加载慢，用户体验差
@@ -155,3 +159,8 @@ readonly 用于修饰类的属性，表示属性只读，不能修改。const �
 11. 动画 GPU 加速
 12. font-spider(未实现)
 13. fetch 流式读取请求(未实现)
+
+## cookie 跨域
+
+一般情况下，cookie 遵循同源策略，即 cookie 不能跨域访问。但是可以通过设置 cookie 的 domain 属性来实现跨域访问。domain 属性用于指定 cookie 的域名，当 domain 属性设置为顶级域名时，cookie 可以被该域名下的所有子域名访问。
+也可以设置 sameSite 属性为 lax 或 none，来实现跨域访问。

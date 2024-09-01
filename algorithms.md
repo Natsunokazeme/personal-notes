@@ -163,3 +163,7 @@ md5 算法和 sha-256 算法的区别
 线索二叉树是一种特殊的二叉树,所有原本为空的右子节点指针改为指向该节点在中序序列中的后继，所有原本为空的左子节点指针改为指向该节点的中序序列的前驱。因此线索二叉树能线性遍历二叉树。
 ![https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Threaded_tree.svg/800px-Threaded_tree.svg.png
 ]
+
+# 数位dp
+
+foo(i,mask,limit)

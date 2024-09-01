@@ -255,3 +255,8 @@ hash 所有文件哈希值相同； chunkhash 根据不同的入口文件(Entry)
 # 为什么有了 babel 还需要 polyfill
 
 babel 只是一个转码器，只能转换新的语法，而不能转换新的 API，比如 Iterator、Generator、Set、Map、Proxy、Reflect、Symbol、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign）都不会转码。这时就需要 polyfill 来解决这个问题
+
+# webpack 打包 css 原理
+
+1. 通过 css-loader 将 css 文件转换成 style-loader 能识别的对象
+2. 通过 style-loader 生成 style 标签并将对象插入到该标签中
