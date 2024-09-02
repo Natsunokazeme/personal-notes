@@ -324,12 +324,15 @@ HTTP 协议本身是无状态的。什么是无状态呢，即服务器无法判
 cookie 机制
 当用户第一次访问并登陆一个网站的时候，cookie 的设置以及发送会经历以下 4 个步骤：
 客户端发送一个请求到服务器 --》 服务器发送一个 HttpResponse 响应到客户端，其中包含 Set-Cookie 的头部 --》 客户端保存 cookie，之后向服务器发送请求时，HttpRequest 请求中会包含一个 Cookie 的头部 --》服务器返回响应数据
+
 Cookie 属性
 NAME=VALUE 键值对，可以设置要保存的 Key/Value，注意这里的 NAME 不能和其他属性项的名字一样
 Expires 过期时间，在设置的某个时间点后该 Cookie 就会失效
 Domain 生成该 Cookie 的域名，如 domain="www.baidu.com"
 Path 该 Cookie 是在当前的哪个路径下生成的，如 path=/wp-admin/
 Secure 如果设置了这个属性，那么只会在 SSH 连接时才会回传该 Cookie
+SameSite 属性用来控制浏览器是否允许跨域请求携带该 Cookie
+HttpOnly 属性用来控制 Cookie 是否允许客户端 JavaScript 访问，默认为 false，表示允许。
 
 Cookie 中的 maxAge 用来表示 Cookie 的有效期, 单位为秒。Cookie 中通过 getMaxAge()和 setMaxAge(int maxAge)来读写该属性。maxAge 有 3 种值，分别为正数，负数和 0。
 如果 maxAge 属性为正数，则表示该 Cookie 会在 maxAge 秒之后自动失效。
@@ -338,7 +341,7 @@ Cookie 中的 maxAge 用来表示 Cookie 的有效期, 单位为秒。Cookie 中
 maxAge 只是一个只读属性
 
 修改或者删除 Cookie
-HttpServletResponse 提供的 Cookie 操作只有一个 addCookie(Cookie cookie)，所以想要修改 Cookie 只能使用一个同名的 Cookie 来覆盖原先的 Cookie。如果要删除某个 Cookie，则只需要新建一个同名的 Cookie，并将 maxAge 设置为 0，并覆盖原来的 Cookie 即可。
+HttpServerResponse 提供的 Cookie 操作只有一个 addCookie(Cookie cookie)，所以想要修改 Cookie 只能使用一个同名的 Cookie 来覆盖原先的 Cookie。如果要删除某个 Cookie，则只需要新建一个同名的 Cookie，并将 maxAge 设置为 0，并覆盖原来的 Cookie 即可。
 
 # _多路复用_
 
@@ -357,3 +360,14 @@ csrf(cross-site request forgery) 跨站请求伪造，是一种利用用户已�
 ## sql 注入
 
 sql 注入是一种利用 sql 语句传递并执行恶意 sql 代码的攻击方式。攻击者可以通过 sql 注入获取数据库中的数据，甚至可以获取数据库的控制权。
+
+# _cookie 和 session 的区别和用法_
+
+存储位置：cookie 数据存放在客户的浏览器上,session 数据放在服务器上。
+安全性：cookie 不是很安全,是明文,别人可以分析存放在本地的 COOKIE 并进行 COOKIE 欺骗。考虑到安全应当使用 session
+限制：单个 cookie 保存的数据不能超过 4K,很多浏览器都限制一个站点最多保存 20 个 cookie。session 会在一定时间内保存在服务器上。当访问增多,会比较占用你服务器的性能考虑到减轻服务器性能方面,应当使用 COOKIE。
+
+# json web token
+
+Token,其实就是服务端生成的一串加密字符串,储存在本地用于认证客户端身份,_由服务端设定失效时间_。
+优势：无状态、防 csrf(跨域请求攻击)、多站点使用,支持移动平台、性能快

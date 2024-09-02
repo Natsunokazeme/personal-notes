@@ -16,3 +16,10 @@
 9.  创建基础组建时样式不重要，可以通过 deep selector 来覆盖
 10. sdk：软件开发工具包，用于提供软件开发所需的工具和接口，简化开发流程，提高开发效率
 11. tdk：标题、关键词、描述，是网页的三大核心元素，用于提高网页在搜索引擎中的排名
+12. new Date(xxx)其实是调用了 new Date(Date.parse(xxx));
+13. new Date(num1,...nums) 其实是隐藏的调用 new Date(Date.UTC(num1,...nums));num1 是年份，num2 是月份，num3 是日期，num4 是时，num5 是分，num6 是秒，num7 是毫秒，如果省略，则默认为 0；
+14. 原始数据类型可以直接调用方法如 xxx.split();这是因为 js 在访问 xxx 时会根据 xxx 创建一个临时对象(new String(xxx))，然后再调用方法，得到结果后销毁临时对象
+15. 前端鉴权方式：1.token 2.cookie 3.session.4.单点登录 5.OAuth2.0
+16. requestAnimationFrame 和 requestIdleCallback 区别：1.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，2.requestAnimationFrame 是异步的，requestIdleCallback 是同步的，3.requestAnimationFrame 是 60 帧，requestIdleCallback 是 1 帧，4.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，5.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，6.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，
+17. requestIdleCallback 的回调函数会在浏览器当前帧空闲时执行，若果当前帧没有空闲时间，则回调函数会在下一帧空闲时执行
+18. 防止内存泄露，用 weakSet 和 weakMap，尤其是将绑定了监听事件的 dom 放进 weakMap，防止内存泄露。

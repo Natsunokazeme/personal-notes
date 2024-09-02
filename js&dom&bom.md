@@ -581,7 +581,7 @@ var array = ‘{“arrayname”:[‘+'{"firstName":"Bill","lastName":"Gates" },'
 '{"firstName":"Steve","lastName":"Jobs" },' +
 '{"firstName":"Elon","lastName":"Musk" }]}';
 
-# cookie 和 session 的区别和用法
+# _cookie 和 session 的区别和用法_
 
 存储位置：cookie 数据存放在客户的浏览器上,session 数据放在服务器上。
 安全性：cookie 不是很安全,是明文,别人可以分析存放在本地的 COOKIE 并进行 COOKIE 欺骗。考虑到安全应当使用 session
@@ -596,7 +596,7 @@ cookie 能设置生命周期,生命周期一到则无效,默认关闭页面时�
 
 # token
 
-Token,其实就是服务端生成的一串加密字符串,储存在本地用于认证客户端身份,由服务端设定失效时间。
+Token,其实就是服务端生成的一串加密字符串,储存在本地用于认证客户端身份,_由服务端设定失效时间_。
 优势：无状态、防 csrf(跨域请求攻击)、多站点使用,支持移动平台、性能快
 
 # _浏览器渲染过程_
