@@ -1,14 +1,17 @@
-1. nextjs有自带的Image组件，可以实现图片懒加载，但是需要在next.config.js中配置；有自带的Header组件，可修改header内容；自带的Link组件(与a的区别是Link是局部刷新，a是整个页面刷新)；自带Script组件，可在页面中引入js文件，可懒加载以及加载成功后的回调函数；
-2. nextjs的路由是基于文件系统的，所以在pages目录下的文件都是路由，比如pages/index.js对应的路由是/，pages/about.js对应的路由是/about
-3. nextjs的css是基于css modules的，所以在css文件中的类名都是局部的，不会影响其他组件的样式，如果想要全局的样式，可以在\_app.js中引入css文件，组件引用css module文件的时候需要使用import styles from './index.css'，然后在组件中使用styles.className的方式来使用css module中的样式
-4. pages/_app.js是全局的组件，可以在这个组件中引入全局的css文件以及keep state，比如登录状态
-5. nextjs都是pre-rendering生成html的(即在server端生成html后再传给client端)，这能显著提高seo。pre-rendering分为static generation和server-side rendering，static generation是在build的时候生成html，server-side rendering是在每次请求的时候生成html。nextjs默认是static generation，如果想要server-side rendering，可以在getInitialProps中返回数据，然后在页面中使用props来使用数据
-6. getStaticProps和getServerSideProps是nextjs的两个新的api，可以在页面中使用，都只在server端执行，getStaticProps是在build time内运行的一个异步函数，将得到的data作为props传给html，只能在page内使用，getServerSideProps是在每次请求的时候生成html
-7. getStaticPaths是nextjs的一个新的api，可以在page中使用，只在server端执行，getStaticPaths是在build time内运行的一个异步函数，返回一个对象，对象中包含paths和fallback，paths是一个数组，数组中包含了所有需要预渲染的路径，fallback是一个布尔值，如果是false，表示当访问的路径不在paths中时，会返回404，如果是blocking，表示当访问的路径不在paths中时，会返回404，但是会在后台生成html，当再次访问时，会返回生成的html
-8. 动态路由：在pages目录下创建一个page 如[id].js，然后在组件中配置getStaticPaths的path，path是一个包含id的对象的数组，如：
+1. nextjs 有自带的 Image 组件，可以实现图片懒加载，但是需要在 next.config.js 中配置；有自带的 Header 组件，可修改 header 内容；自带的 Link 组件(与 a 的区别是 Link 是局部刷新，a 是整个页面刷新)；自带 Script 组件，可在页面中引入 js 文件，可懒加载以及加载成功后的回调函数；
+2. nextjs 的路由是基于文件系统的，所以在 pages 目录下的文件都是路由，比如 pages/index.js 对应的路由是/，pages/about.js 对应的路由是/about
+3. nextjs 的 css 是基于 css modules 的，所以在 css 文件中的类名都是局部的，不会影响其他组件的样式，如果想要全局的样式，可以在\_app.js 中引入 css 文件，组件引用 css module 文件的时候需要使用 import styles from './index.css'，然后在组件中使用 styles.className 的方式来使用 css module 中的样式
+4. pages/\_app.js 是全局的组件，可以在这个组件中引入全局的 css 文件以及 keep state，比如登录状态
+5. nextjs 都是 pre-rendering 生成 html 的(即在 server 端生成 html 后再传给 client 端)，这能显著提高 seo。pre-rendering 分为 static generation 和 server-side rendering，static generation 是在 build 的时候生成 html，server-side rendering 是在每次请求的时候生成 html。nextjs 默认是 static generation，如果想要 server-side rendering，可以在 getInitialProps 中返回数据，然后在页面中使用 props 来使用数据
+6. getStaticProps 和 getServerSideProps 是 nextjs 的两个新的 api，可以在页面中使用，都只在 server 端执行，getStaticProps 是在 build time 内运行的一个异步函数，将得到的 data 作为 props 传给 html，只能在 page 内使用，getServerSideProps 是在每次请求的时候生成 html
+7. getStaticPaths 是 nextjs 的一个新的 api，可以在 page 中使用，只在 server 端执行，getStaticPaths 是在 build time 内运行的一个异步函数，返回一个对象，对象中包含 paths 和 fallback，paths 是一个数组，数组中包含了所有需要预渲染的路径，fallback 是一个布尔值，如果是 false，表示当访问的路径不在 paths 中时，会返回 404，如果是 blocking，表示当访问的路径不在 paths 中时，会返回 404，但是会在后台生成 html，当再次访问时，会返回生成的 html
+8. 动态路由：在 pages 目录下创建一个 page 如[id].js，然后在组件中配置 getStaticPaths 的 path，path 是一个包含 id 的对象的数组，如：
    [{
-      params: {
-        id: '1',
-      },
-    }]
-然后通过getStaticProps获取id；
+   params: {
+   id: '1',
+   },
+   }]
+   然后通过 getStaticProps 获取 id；
+9. layout,template,page,not-found,loading，这 5 个文件是 nextjs 的默认文件，可以路由目录下创建，如 layout.js，template.js，page.js，not-found.js，loading.js，layout.js 是页面的布局，template.js 是页面的模板，page.js 是页面的内容，not-found.js 是 404 页面，loading.js 是页面加载时的 loading 页；
+10. _layout 和 template 是当前页及其子页面的外层布局，在进入当前路由及其子路由时，都会将 page 作为 children 传入给 layout 和 template。layout 和 template 的区别是进入子路由时，layout 会保持状态不会重新渲染，而 template 会重新渲染；_
+11.

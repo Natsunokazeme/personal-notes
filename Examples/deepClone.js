@@ -18,3 +18,5 @@ const obj = {a: 1}
 obj.b = obj
 const cloned = deepClone(obj)
 console.log(cloned) // { a: 1, b: [Circular] }
+//去除循环引用
+const map = new Map()

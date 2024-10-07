@@ -23,3 +23,4 @@
 16. requestAnimationFrame 和 requestIdleCallback 区别：1.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，2.requestAnimationFrame 是异步的，requestIdleCallback 是同步的，3.requestAnimationFrame 是 60 帧，requestIdleCallback 是 1 帧，4.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，5.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，6.requestAnimationFrame 是浏览器原生的 api，requestIdleCallback 是 web-api，
 17. requestIdleCallback 的回调函数会在浏览器当前帧空闲时执行，若果当前帧没有空闲时间，则回调函数会在下一帧空闲时执行
 18. 防止内存泄露，用 weakSet 和 weakMap，尤其是将绑定了监听事件的 dom 放进 weakMap，防止内存泄露。
+19. vdom 比 dom 更快，因为 vdom 是虚拟的，不需要真实 dom，而 dom 是真实的，需要操作真实 dom，所以 vdom 更快，而且减少了重排和重绘的次数

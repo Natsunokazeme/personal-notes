@@ -284,6 +284,8 @@ spa 是单页面应用，mpa 是多页面应用，spa 是一个 html 内通过 a
 
 一般情况下，cookie 遵循同源策略，即 cookie 不能跨域访问。但是可以通过设置 cookie 的 domain 属性来实现跨域访问。domain 属性用于指定 cookie 的域名，当 domain 属性设置为顶级域名时，cookie 可以被该域名下的所有子域名访问。
 也可以设置 sameSite 属性为 lax 或 none，来实现跨域访问。
+lax 是默认值，表示允许跨域请求，但是只能通过 GET 方法以及标签，连接，预请求，表单，不允许 POST 等方法，
+none 表示无跨域设置，必须同时设置 secure 属性，表示只能通过 HTTPS 协议访问，否则不生效
 
 **canvas 跨域**
 

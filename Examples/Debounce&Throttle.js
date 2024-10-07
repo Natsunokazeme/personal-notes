@@ -1,3 +1,4 @@
+// 防抖函数 在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。
 const debounce = (fn, delay, immediate = false) => {
   let timer = null
   if (immediate) {
@@ -27,6 +28,7 @@ const log = debounce((message) => {
 log("Hello") // 如果在1秒内没有再次调用，将会输出 'Hello'
 log("World")
 
+//节流函数，每隔一段时间，只执行一次函数
 const throttle = (fn, delay) => {
   let flag = true
   return function (...args) {
