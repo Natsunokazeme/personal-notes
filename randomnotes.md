@@ -24,3 +24,8 @@
 17. requestIdleCallback 的回调函数会在浏览器当前帧空闲时执行，若果当前帧没有空闲时间，则回调函数会在下一帧空闲时执行
 18. 防止内存泄露，用 weakSet 和 weakMap，尤其是将绑定了监听事件的 dom 放进 weakMap，防止内存泄露。
 19. vdom 比 dom 更快，因为 vdom 是虚拟的，不需要真实 dom，而 dom 是真实的，需要操作真实 dom，所以 vdom 更快，而且减少了重排和重绘的次数
+20. next js 页面级组件没有 props，否则会在 build 报错，只能通过 url 或其他方式传入数据(1.5h)
+21. git merge 代码时还需注意 merge 方式，Squash 合并会多个提交压缩成一个单一提交的合并方式，不会关联目标分支； Fast-forward 合并后，提交历史会按序保留下来并关联目标分支。所以从 master 合到自己的分支时推荐 fast forward，方便看更改记录和提交历史，从自己分支合到 master 时推荐 squash，这样使 master 分支简化提交历史，避免这些中间提交过于杂乱。(3h)
+22. nvm 和 n 都是管理 node 版本的工具，nvm 是 node 版本管理工具，n 是 nodejs 包管理工具。n 切换版本时不会更改全局模块，可能造成兼容性影响。而 nvm 切换版本会更改全局模块。
+23. beforeUnload 通过 window.addEventListener('beforeunload', warnUserBeforeUnload);监听浏览器关闭事件，在用户关闭浏览器之前，弹出一个警告框，询问用户是否真的要关闭浏览器。
+24. react hook form 的 register 方法只适用于能直接绑定到 input 的表单，如 input, select, textarea 等，而 controller 方法功能更强大，能用于自定义组件等。(1h)
