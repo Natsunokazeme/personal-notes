@@ -29,3 +29,9 @@
 22. nvm 和 n 都是管理 node 版本的工具，nvm 是 node 版本管理工具，n 是 nodejs 包管理工具。n 切换版本时不会更改全局模块，可能造成兼容性影响。而 nvm 切换版本会更改全局模块。
 23. beforeUnload 通过 window.addEventListener('beforeunload', warnUserBeforeUnload);监听浏览器关闭事件，在用户关闭浏览器之前，弹出一个警告框，询问用户是否真的要关闭浏览器。
 24. react hook form 的 register 方法只适用于能直接绑定到 input 的表单，如 input, select, textarea 等，而 controller 方法功能更强大，能用于自定义组件等。(1h)
+
+25. part time 时 workhours 字段
+26. Compensation 到底是 ends on day of the month 还是 annual，monthly，hourly（ui）
+27. Add  fixed allowance 的 payment type
+28. time off 可用天数 类型
+29. element.contains(target) // target 是否为 element 子元素
