@@ -35,3 +35,8 @@
 27. Add  fixed allowance 的 payment type
 28. time off 可用天数 类型
 29. element.contains(target) // target 是否为 element 子元素
+30. useEffect 销毁阶段拿到的 useState 值是初始值，不会随着 update 更新值，因此用 useRef 替代 useState
+31. dotenv，可以覆盖 build 时的环境变量
+32. next build 默认用生产环境，且不能修改，如果想 build 时使用 dev 环境可配合 dotenv
+33. next dev 默认用开发环境，next build 默认用生产环境
+34.
