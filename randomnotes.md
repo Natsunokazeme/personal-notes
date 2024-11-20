@@ -39,4 +39,10 @@
 31. dotenv，可以覆盖 build 时的环境变量
 32. next build 默认用生产环境，且不能修改，如果想 build 时使用 dev 环境可配合 dotenv
 33. next dev 默认用开发环境，next build 默认用生产环境
-34.
+34. next getServerSideProps 获取 serverside render 时的 动态 props
+35. next getStaticProps 获取 static render 时的异步 props,都只在 server 上运行，且 build 后不会有代码给 client 端
+36. swr 更好的异步获取方式
+37. svgr 转化 svg 为 react 组件时会通过 svgo 进行压缩，svgo 会去掉 viewBox 等一些 svg 属性，可通过 override 阻止这一默认行为，保留原始 viewBox(3h)
+38. react hook form 的 reset 部分 reset form 时会导致其他 field 为 undefined
+39. mui datePicker 的 slot 设置 textfield 时会导致 slotProp 的 textfield 失效
+40.
