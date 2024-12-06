@@ -45,4 +45,13 @@
 37. svgr 转化 svg 为 react 组件时会通过 svgo 进行压缩，svgo 会去掉 viewBox 等一些 svg 属性，可通过 override 阻止这一默认行为，保留原始 viewBox(3h)
 38. react hook form 的 reset 部分 reset form 时会导致其他 field 为 undefined
 39. mui datePicker 的 slot 设置 textfield 时会导致 slotProp 的 textfield 失效
-40.
+40. mui data grid 要用 flex container 包起来，否则会一直增加高度
+41. zustand 因为 react 的优先调度更新机制，可能不会立即更新值，要获取最新值可通过 store.getState()拿到
+42. svgr 里的 svgo 会将 svg 中的 id 进行压缩转化，可能造成 id 冲突，可采用 minify：false 阻止这一默认行为
+43. html type 为 number 的 input 时，浏览器会校验输入值是否合法，若不合法就会变成 previousValue,例如 e.target.value 从 123 变成 '111.'会变成 123
+44. input pattern，校验输入是否符合 pattern
+45. input step 控制值的步进间隔，默认 1
+46. input setSelectionRange 方法，控制选中的区域，也就是光标，不能用于 type number
+47. react hook form setValue 不会标记 field 为 dirty
+48. 工厂方法模式 抽出公共类，公共类中规定了通用方法以及其返回类型，新实例通过公共类创建并且重写其中的通用方法来满足特定逻辑，但返回的类型得基于公共类中规定的返回
+49. 原型方法模式 在原型中实现 clone 方法，生成新实例时通过原型的 clone 方法复制当前实例的属性
