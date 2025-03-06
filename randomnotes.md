@@ -72,3 +72,53 @@
 64. react react19 新钩子 useActionState，用于处理 action 和 state 的关系，类似于 useReducer，但是更加灵活，可以自定义 action 和 state 的关系；
 65. docker docker 默认会限制 node 内存大小为 2G，可以通过 ENV NODE_OPTIONS="--max-old-space-size=4096"
     来设置内存大小
+66. react lazy 用于懒加载组件 用法
+    ```js
+    import {lazy} from "react"
+    const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"))
+    ```
+67. react suspense 用于处理组件的加载状态以及捕获错误，用法
+    ```js
+    import {Suspense} from "react"
+    ;<Suspense fallback={<div>Loading...</div>}>
+      <MarkdownPreview />
+    </Suspense>
+    ```
+68. react cache 用于服务端渲染时缓存数据，用法
+
+    ```js
+    import {cache} from "react"
+    import calculateMetrics from "lib/metrics"
+
+    const getMetrics = cache(calculateMetrics)
+
+    function Chart({data}) {
+      const report = getMetrics(data)
+      // ...
+    }
+    ```
+
+69. react memo 用于缓存组件，避免 props 未改变时重复渲染，用法
+
+    ```js
+    import {memo} from "react"
+    const MemoizedComponent = memo(SomeComponent, arePropsEqual?)//默认是浅比较
+    ```
+
+70. react startTransition 用于在后台渲染 UI 的一部分，会将 action 内的 state 更新标记为 transition。用法
+    ```js
+    import {startTransition} from "react"
+    startTransition(() => {
+      // update state
+    })
+    ```
+    startTransition 与 useTransition 非常相似，但它不提供 isPending 标志来跟踪一个 Transition 是否正在进行。
+71. react createPortal 用于将组件渲染到指定的 dom 节点上，用法
+    ```js
+    import {createPortal} from "react"
+    const Modal = ({children}) => {
+      return createPortal(children, document.body)
+    }
+    ```
+    portal 只改变 DOM 节点的所处位置。在其他方面，渲染至 portal 的 JSX 的行为表现与作为 React 组件的子节点一致。该子节点可以访问由父节点树提供的 context 对象、事件将从子节点依循 React 树冒泡到父节点。
+72.
