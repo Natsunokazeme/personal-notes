@@ -67,3 +67,8 @@
 59. 为了防止页面崩溃，在获取后端数据时都应该加?来防止抛出异常，如：data?.name?.age
 60. 正则表达式 $1 的作用是引用正则表达式中第一个捕获的分组（即 (\..\*?) 匹配到的内容），并将匹配的部分替换为这个分组的内容。
 61. 正则表达式 注意 new RegExp()中的字符串需要转义，如：new RegExp('\\$1')，而不是 new RegExp('\$1')(3h)
+62. react useImperativeHandle,暴露组件的内部方法给父组件。 父组件通过 ref 获取子组件的实例，可以通过 ref.current 调用子组件的方法
+63. react react19 部分新特性， 1.ref 直接作为 props 传递；2.组件中可直接写 meta，title，link 标签，react 会将它们自动提升至 head 里
+64. react react19 新钩子 useActionState，用于处理 action 和 state 的关系，类似于 useReducer，但是更加灵活，可以自定义 action 和 state 的关系；
+65. docker docker 默认会限制 node 内存大小为 2G，可以通过 ENV NODE_OPTIONS="--max-old-space-size=4096"
+    来设置内存大小
