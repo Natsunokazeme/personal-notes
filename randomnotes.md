@@ -123,3 +123,5 @@
     portal 只改变 DOM 节点的所处位置。在其他方面，渲染至 portal 的 JSX 的行为表现与作为 React 组件的子节点一致。该子节点可以访问由父节点树提供的 context 对象、事件将从子节点依循 React 树冒泡到父节点。
 72. css line-clamp 用于限制文本行数，正整数，最小值为 1，文本内容超过限制行数时会自动显示省略号。注意需要设置 display: -webkit-box 以及-webkit-box-orient: vertical 才能生效。这是为了兼容以前的浏览器。
     原理：子元素高度超过规定文本行数\*字体大小时，超出元素高度的内容会被隐藏掉，如果小于规定文本行数\*字体大小时，会自动调整高度，不会有任何影响。(移动端 safari 会出现子元素超出高度的问题 2h)
+    总之就是慎用，不建议元素内再套元素
+73. react hooks form 获取 ArrayFields 的 field 值时，需要通过 getValue 方法获取，而不是直接通过 field.value 获取，因为 react 的更新机制，field.value 不会立即更新，而是在下一次 render 时才会更新，而 getValue 方法会立即获取最新值 (1h)
