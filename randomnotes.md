@@ -125,3 +125,13 @@
     原理：子元素高度超过规定文本行数\*字体大小时，超出元素高度的内容会被隐藏掉，如果小于规定文本行数\*字体大小时，会自动调整高度，不会有任何影响。(移动端 safari 会出现子元素超出高度的问题 2h)
     总之就是慎用，不建议元素内再套元素
 73. react hooks form 获取 ArrayFields 的 field 值时，需要通过 getValue 方法获取，而不是直接通过 field.value 获取，因为 react 的更新机制，field.value 不会立即更新，而是在下一次 render 时才会更新，而 getValue 方法会立即获取最新值 (1h)
+74. react hooks form 的 useFieldArray 的 update 和 reset 方法会导致 field 的 unmount 和 remount,会导致相应的组件重新触发生命周期，如果不想 unmount 和 remount，可以通过 setValue(`fields${index}.xxx`,value) 方法设置值。
+75. react hooks form getValue 虽然能同步获取最新值，但不会触发重新渲染，建议通过 watch 的方式获取最新值，watch 会在值改变时触发重新渲染
+76. react hooks form 的 useWatch 方法可以监听值的同时不触发重新渲染，适用于监听值的同时不需要重新渲染的场景。
+77. 移动端兼容问题 在 iOS 设备（Safari）上，如果输入框的 font-size 小于 16px，点击时 Safari 会自动放大页面，以提高可读性。可通过添加 Meta 标签来禁止缩放，如：
+    ```html
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    ```
