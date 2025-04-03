@@ -135,3 +135,8 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     ```
+78. typescript 要么都有，要么都没有的类型可以通过交叉类型来实现，如：
+    ```ts
+    type A = B & (C | Partial<Record<keyof C, never>>)
+    Partial<Record<keyof C, never>> //代表 所有 C 相关字段都不能出现。
+    ```
