@@ -1310,6 +1310,8 @@ new Date() 创建日期对象,默认是当前时间,如果想创建一个特定�
 需要注意的是,getMonth()返回的月数,是基零的,0 代表 1 月份
 所以需要+1
 通过 getDay()获取,今天是本周的第几天。与 getMonth()一样,返回值是基 0 的。0 代表星期天,1 代表星期一,以此类推。
+new Date(xxx)其实是调用了 new Date(Date.parse(xxx));
+new Date(num1,...nums) 其实是隐藏的调用 new Date(Date.UTC(num1,...nums));num1 是年份，num2 是月份，num3 是日期，num4 是时，num5 是分，num6 是秒，num7 是毫秒，如果省略，则默认为 0；
 
 # JavaScript 字符串
 
@@ -1359,6 +1361,9 @@ var y = x.split(" ");//通过空格分隔 split(" "),得到数组
 var z = x.split(" ",2);//通过空格分隔 split(" ",2),得到数组,并且只保留前两个
 注： 第二个参数可选,表示返回数组的长度
 
+_实操不行_
+原始数据类型可以直接调用方法如 xxx.split();这是因为 js 在访问 xxx 时会根据 xxx 创建一个临时对象(new String(xxx))，然后再调用方法，得到结果后销毁临时对象
+
 # JavaScript 数字
 
 JavaScript 数值始终是 64 位的浮点数,此格式用 64 位存储数值,其中 0 到 51 存储数字（片段）,52 到 62 存储指数,63 位存储符号。
@@ -1388,4 +1393,62 @@ web sql 和 indexedDB 类似，都是储存在浏览器的方式，更像关系�
 
 通过 react 和 angular 等框架加载的网站最开始都只有一个 root 节点，不利于 SEO，所以需要在服务端渲染，将所有的节点都渲染出来，这样搜索引擎就能爬取到所有的节点，提高 SEO。但 ssr 也有缺点，首屏加载速度慢，因为需要在服务端渲染，所以需要等待服务端渲染完毕才能返回给客户端，因此可以通过 SSG 来解决这个问题，SSG 是在构建时就将所有的节点都渲染出来，这样就不需要等待服务端渲染了，提高了首屏加载速度。适用于内容不经常变化的网站或页面。
 
-http 在响应体没完全返回时,浏览器会一直等待,_如果采用的是 fetch 请求_，此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果
+# requestIdleCallback
+
+requestIdleCallback(callback, options) 是浏览器提供的 api，用于在浏览器空闲时执行回调函数，若果当前帧没有空闲时间，则回调函数会在下一帧空闲时执行。callback 函数会在浏览器空闲时被调用，options 对象可以设置 timeout 属性，表示超时时间，单位为毫秒，如果超时，则会强制执行 callback 函数，若不设置可能会导致 callback 函数一直不执行。
+
+```javascript
+requestIdleCallback(
+  (deadline) => {
+    while (deadline.timeRemaining() > 0) {
+      // do something
+      //如果deadline.timeRemaining() > 0,表示当前帧还有空闲时间,可以继续执行
+    }
+  },
+  {timeout: 1000}
+)
+```
+
+# requestAnimationFrame 和 requestIdleCallback 区别
+
+| 特性         | requestAnimationFrame        | requestIdleCallback        |
+| ------------ | ---------------------------- | -------------------------- |
+| 触发时机     | 每帧渲染前（高优先级）       | 浏览器空闲时（低优先级）   |
+| 频率         | 与屏幕刷新率同步（如 60fps） | 不固定，依赖主线程空闲时间 |
+| 用途         | 动画、视觉更新               | 后台任务埋点等非关键逻辑   |
+| 是否阻塞渲染 | 是（在渲染前执行）           | 否（在渲染后执行）         |
+| 自动节流     | 页面隐藏时暂停               | 无自动节流，但依赖空闲时间 |
+| 超时控制     | 无                           | 支持 timeout 参数强制执行  |
+
+# http
+
+在响应体没完全返回时,浏览器会一直等待,_如果采用的是 fetch 请求_，此时可使用 response.body.getReader()来获取响应体的 reader 对象,通过 reader.read()来读取响应体,reader.read()返回一个 promise 对象,通过该对象的 then 方法来获取响应体的数据,通过 reader.cancel()来取消读取响应体。这样就可以在响应体没完全返回时就开始处理响应体的数据,达到 GPT 的效果
+
+# weakSet 和 weakMap
+
+Map 和 Set 会阻止垃圾回收，如果键或值不再使用但仍然被 Map/Set 引用，会导致内存泄漏。
+WeakMap 和 WeakSet 不会阻止垃圾回收，一旦健或值没有强引用就可以被垃圾回收掉，适用于临时数据存储或私有数据管理。如检测循环引用和 DOM 节点关联数据(在操作 DOM 时，可以用 WeakMap 存储与 DOM 节点关联的数据，当 DOM 被移除时，没有强引用，数据自动回收。)
+。但是 WeakMap 和 WeakSet 不能遍历，不能获取大小，不能清空，不能判断是否为空；只有 set/add，get，has，delete 方法
+
+# 虚拟 dom
+
+虚拟 dom 是对真实 dom 的抽象表示。
+
+1. 减少直接 DOM 操作（批量更新）
+   Diff 算法：虚拟 DOM 会先计算新旧 DOM 树的差异（Diffing），然后 只更新变化的部分（批量更新），而不是直接操作整个 DOM。
+2. 提高性能
+   虚拟 DOM 的 diff 算法会尽量减少对真实 DOM 的操作，避免频繁的重排和重绘，提高性能。
+3. 兼容性
+   虚拟 DOM 可以在不同的浏览器和平台上运行，避免了服务器/native 没有 dom 的缺陷。
+4. **缺点** 额外的内存开销：需要维护虚拟 DOM 树。
+   首次渲染可能稍慢：需要先构建虚拟 DOM，再渲染真实 DOM。
+   不适用于超高性能场景：如 60FPS 游戏，仍需直接操作 DOM/Canvas。
+
+# BOM beforeUnload
+
+通过 window.addEventListener('beforeunload', warnUserBeforeUnload);监听浏览器关闭事件，在用户关闭浏览器之前，弹出一个警告框，询问用户是否真的要关闭浏览器，并可以执行相应逻辑。
+注：一般会添加 event.preventDefault(); // 阻止默认行为 才可以弹窗
+
+# BOM element.contains(target)
+
+//判断 target 是否为 element 子元素
