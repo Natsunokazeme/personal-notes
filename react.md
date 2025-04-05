@@ -259,10 +259,13 @@ root.render(<App/>)
 13. _setState 会把它的多次调用合成一次，只 render 一次,遇上 setTimeout，setState 会变成同步(18 之后改成异步并发,即多个不同 setState 合并在同一次 render)_
 
 14. _react 视图挂载_
-    ReactDOM.createPortal(
-    this.props.children,
-    domNode
-    );
+    ```js
+    import {createPortal} from "react"
+    const Modal = ({children}) => {
+      return createPortal(children, parentNode)
+    }
+    ```
+    portal 只改变 DOM 节点的所处位置。在其他方面，渲染至 portal 的 JSX 的行为表现与作为 React 组件的子节点一致。该子节点可以访问由父节点树提供的 context 对象、事件将从子节点依循 React 树冒泡到父节点。
     将子元素挂载到一个不同的 DOM 节点上，这个节点存在于当前组件的层级之外。可用于父组件有 overflow: hidden 或 z-index 样式，但是需要子组件能够在视觉上“跳出”其容器的情况。
 
 React-dom API
@@ -1114,6 +1117,50 @@ Scheduler 则是负责实际的任务调度和执行，它根据 Lane 中的优�
 4. react hooks 和 class 组件的区别
 5. react useDeferredValue 返回一个延迟响应的值，该值可能“延后”的最长时间为 timeoutMs。 const deferredValue = useDeferredValue(value, { timeoutMs: 2000 });
 6. react 的自定义 hook 其实就是将自定义 hook 内的代码执行了一遍
+7. **react 组件渲染时会重新创造函数和变量**
+8. useEffect 销毁阶段拿到的 useState 值是初始值，不会随着 update 更新值，因此用 useRef 替代 useState
+9. react useImperativeHandle,暴露组件的内部方法给父组件。 父组件通过 ref 获取子组件的实例，可以通过 ref.current 调用子组件的方法
+10. react lazy 用于懒加载组件 用法
+    ```js
+    import {lazy} from "react"
+    const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"))
+    ```
+11. react suspense 用于处理组件的加载状态以及捕获错误，用法
+    ```js
+    import {Suspense} from "react"
+    ;<Suspense fallback={<div>Loading...</div>}>
+      <MarkdownPreview />
+    </Suspense>
+    ```
+12. react cache 用于服务端渲染时缓存数据，用法
+
+    ```js
+    import {cache} from "react"
+    import calculateMetrics from "lib/metrics"
+
+    const getMetrics = cache(calculateMetrics)
+
+    function Chart({data}) {
+      const report = getMetrics(data)
+      // ...
+    }
+    ```
+
+13. react memo 用于缓存组件，避免 props 未改变时重复渲染，用法
+
+    ```js
+    import {memo} from "react"
+    const MemoizedComponent = memo(SomeComponent, arePropsEqual?)//默认是浅比较
+    ```
+
+14. react startTransition 用于在后台渲染 UI 的一部分，会将 action 内的 state 更新标记为 transition。用法
+    ```js
+    import {startTransition} from "react"
+    startTransition(() => {
+      // update state
+    })
+    ```
+    startTransition 与 useTransition 非常相似，但它不提供 isPending 标志来跟踪一个 Transition 是否正在进行。
 
 # componentDidCatch
 
@@ -1145,4 +1192,8 @@ ReactDOM.stopProfileEventLogging()
 6. useDeferredValue 和 useTransition 一样，都是标记了一次非紧急更新。useTransition 是处理一段逻辑，而 useDeferredValue 是产生一个新状态，它是延时状态
 7. 给第三方的 hook
 
-**react 组件渲染时会重新创造函数和变量**
+# react19 新特性
+
+1. ref 直接作为 props 传递；
+2. 组件中可直接写 meta，title，link 标签，react 会将它们自动提升至 head 里
+3. 新钩子 useActionState，用于处理 action 和 state 的关系，类似于 useReducer，但是更加灵活，可以自定义 action 和 state 的关系；

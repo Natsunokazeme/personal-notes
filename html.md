@@ -309,3 +309,7 @@ advanced HTML
 17. html 在 HTML 中，通过拖放操作（drag and drop）触发`onDrop`事件需要满足以下条件：1.设置元素的`draggable`属性为`true`，表示元素可拖动。2. 监听`dragover`事件并调用`event.preventDefault()`，以允许元素放置。 3.监听`drop`事件并阻止默认行为，以处理放置操作。
 18. html 原生弹窗 自带 dialog，独立于 body， 可通过 open 属性控制是否打开，也可以通过 element.showModal()和 close()方法控制打开和关闭.好处是不会被其他元素遮挡，且用户只能操作弹窗，不能操作其他元素
 19. canvas 默认大小为 300\*150,通过设置 canvas.width,canvas.height 来设置画布大小,通过设置 canvas.style.width,canvas.style.height 来设置画布样式大小,通过设置 canvas.getContext('2d').scale(x,y)来设置画布缩放比例
+20. html type 为 number 的 input 时，浏览器会校验输入值是否合法，若不合法就会变成 previousValue,例如 e.target.value 从 123 变成 '111.'会变成 123
+21. input pattern，校验输入是否符合 pattern
+22. input step 控制值的步进间隔，默认 1
+23. input setSelectionRange 方法，控制选中的区域，也就是光标，不能用于 type number

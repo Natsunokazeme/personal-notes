@@ -86,4 +86,42 @@ Button with data-bs-target
 
 # svgr
 
-打包时会将 svg 转化为 react 组件，可以通过配置文件进行配置，如是否压缩等，默认会压缩，但会去掉 viewBox 等属性，可以通过配置文件进行配置，保留原始 viewBox
+1. 打包时会将 svg 转化为 react 组件，可以通过 override 配置文件进行配置，如是否压缩等，默认会压缩但会去掉 viewBox 等属性，可更改配置保留原始 viewBox(3h)
+2. svgr 里的 svgo 会将 svg 中的 id 进行压缩转化，可能造成 id 冲突，可采用 minify：false 阻止这一默认行为
+
+# react-hooks-form
+
+1. react hook form 的 register 方法只适用于能直接绑定到 input 的表单，如 input, select, textarea 等，而 controller 方法功能更强大，能用于自定义组件等。(1h)
+2. react hook form 的 reset 部分 reset form 时会导致其他 field 为 undefined
+3. react hooks form 获取 ArrayFields 的 field 值时，需要通过 getValue 方法获取，而不是直接通过 field.value 获取，因为 react 的更新机制，field.value 不会立即更新，而是在下一次 render 时才会更新，而 getValue 方法会立即获取最新值 (1h)
+4. react hooks form 的 useFieldArray 的 update 和 reset 方法会导致 field 的 unmount 和 remount,会导致相应的组件重新触发生命周期，如果不想 unmount 和 remount，可以通过 setValue(`fields${index}.xxx`,value) 方法设置值。
+5. react hooks form getValue 虽然能同步获取最新值，但不会触发重新渲染，建议通过 watch 的方式获取最新值，watch 会在值改变时触发重新渲染
+6. react hooks form 的 useWatch 方法可以监听值的同时不触发重新渲染，适用于监听值的同时不需要重新渲染的场景。
+7. react hook form setValue 不会标记 field 为 dirty
+
+# zustand
+
+1. zustand 因为 react 的优先调度更新机制，可能不会立即更新值，要获取最新值可通过 store.getState()拿到
+
+# mui
+
+1. mui datePicker 的 slot 设置 textfield 时会导致 slotProp 的 textfield 失效
+2. mui data grid 要用 flex container 包起来，否则会一直增加高度
+3. mui 中, click calendar input 会触发两次 focus，后面一次可能比较晚导致触发 popper 的 blur，可用 setTimeout 解决。原理未知
+4. mui 中， textField 的 label 并没有垂直居中，而是写死了 transform，一旦更改 TextField 的高度，label 就会偏移
+5. mui 可直接在 sx 中设置不同断点的样式，如：
+
+```js
+sx={{
+  display: { xs: "none", sm: "block" },
+  backgroundColor: { xs: "red", sm: "blue" },
+}}
+```
+
+# react-pdf
+
+1. react pdf View 组件内报错会导致整个 View 组件为空，因此推荐每个 Text 包一个 View 组件，防止因为一个组件报错导致所有区域为空(2 days)
+
+# dotenv
+
+可以覆盖 build 时的环境变量

@@ -14,4 +14,8 @@
    然后通过 getStaticProps 获取 id；
 9. layout,template,page,not-found,loading，这 5 个文件是 nextjs 的默认文件，可以路由目录下创建，如 layout.js，template.js，page.js，not-found.js，loading.js，layout.js 是页面的布局，template.js 是页面的模板，page.js 是页面的内容，not-found.js 是 404 页面，loading.js 是页面加载时的 loading 页；
 10. _layout 和 template 是当前页及其子页面的外层布局，在进入当前路由及其子路由时，都会将 page 作为 children 传入给 layout 和 template。layout 和 template 的区别是进入子路由时，layout 会保持状态不会重新渲染，而 template 会重新渲染；_
-11.
+11. next js 页面级组件没有 props，否则会在 build 报错，只能通过 url 或其他方式传入数据(1.5h)
+12. next build 默认用生产环境，且不能修改，如果想 build 时使用 dev 环境可配合 dotenv
+13. next dev 默认用开发环境，next build 默认用生产环境
+14. next getServerSideProps 获取 serverside render 时的 动态 props
+15. next getStaticProps 获取 static render 时的异步 props,都只在 server 上运行，且 build 后不会有代码给 client 端

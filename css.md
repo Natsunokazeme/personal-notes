@@ -1,4 +1,4 @@
-aCSS
+CSS
 
 # 背景及尺寸
 
@@ -533,6 +533,9 @@ overflow 不为 visible 的元素
 57. css animation pause 可以暂停动画,通过 animation-play-state 属性设置为 paused 来暂停动画,设置为 running 来继续动画, 通过设置 animation-delay 结合 animation-play-state 来实现动画的暂停位置
 58. css backdrop 伪元素,用于设置模态框背景,通过 backdrop-filter 属性设置背景模糊效果,通过 backdrop-background-color 设置背景颜色,通过 backdrop-filter 设置背景滤镜效果
 59. css @layer 规则：将 css 规则写入一个 layer 内，不同 layer 之间的 css 选择器权重不会相互影响，可以提高 css 的可维护性，layer 可嵌套，注意：non-layered css 会应用在 layer 层级后,也就是会覆盖 layer 层级的 css；layer 之间按照初次声明时的先后顺序确定优先级，越后优先级越高； 常用于创建公共组件的基本样式
+60. css line-clamp 用于限制文本行数，正整数，最小值为 1，文本内容超过限制行数时会自动显示省略号。注意需要设置 display: -webkit-box 以及-webkit-box-orient: vertical 才能生效。这是为了兼容以前的浏览器。
+    原理：子元素高度超过规定文本行数\*字体大小时，超出元素高度的内容会被隐藏掉，如果小于规定文本行数\*字体大小时，会自动调整高度，不会有任何影响。(移动端 safari 会出现子元素超出高度的问题 2h)
+    总之就是慎用，不建议元素内再套元素
 
 ```css
 p {

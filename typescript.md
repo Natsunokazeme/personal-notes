@@ -31,3 +31,9 @@ function pickCard(x): any {
 //先检查第一个重载，不符则第二个重载，再不符报错
 
 1. ts enum 可以直接当类型用，也可以当值用，当值用时，可以通过 enum[key]来取值
+2. typescript 要么都有，要么都没有的类型可以通过交叉类型来实现，如：
+   ```ts
+   type A = B & (C | Partial<Record<keyof C, never>>)
+   Partial<Record<keyof C, never>> //代表 所有 C 相关字段都不能出现。
+   ```
+   相比于 type A = (B & C) | B ，A 不会在 B&Partial<C>时报错
