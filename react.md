@@ -1197,3 +1197,12 @@ ReactDOM.stopProfileEventLogging()
 1. ref 直接作为 props 传递；
 2. 组件中可直接写 meta，title，link 标签，react 会将它们自动提升至 head 里
 3. 新钩子 useActionState，用于处理 action 和 state 的关系，类似于 useReducer，但是更加灵活，可以自定义 action 和 state 的关系；
+
+# React 应用的宏观包结构
+
+## 基础包结构
+
+1. react
+2. react-dom
+3. react-reconciler
+4. scheduler

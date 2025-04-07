@@ -242,6 +242,23 @@ settimeout 是在任务队列清空之后才开始执行,settimeout 之间主要
 执行构造函数内部的代码（给新对象添加属性）。
 如果构造函数有返回，则返回该值；否则，返回刚创建的新对象(空对象)
 
+```javascript
+function myNew(constructor, ...args) {
+  // 1. 创建一个新对象，并将其原型指向构造函数的prototype
+  const obj = Object.create(constructor.prototype)
+
+  // 2. 调用构造函数，并将this绑定到新对象
+  const result = constructor.apply(obj, args)
+
+  // 3. 如果构造函数返回了一个对象，则返回该对象，否则返回新对象
+  return result instanceof Object ? result : obj
+}
+
+// 使用自定义的new
+const mary = myNew(Person, "Mary", 25)
+mary.sayHello() // 输出: Hello, my name is Mary
+```
+
 **bom 不同页面间通信，可以通过 localStorage,sessionStorage,cookie,postMessage,iframe,websocket,service worker,IndexedDB,SharedWorker,broadCastChannel API 广播等方式**
 
 **onDrop 事件和 onDragOver 事件都是标准 html5 里的事件,前者是被拖拽元素释放到目标元素上触发的,后者是被拖拽元素在目标元素上移动时触发的.onDrop 事件只能在目标元素上触发,而 onDragOver 事件可以在任何元素上触发,所以在目标元素上触发 onDragOver 事件时,要阻止默认行为.**
