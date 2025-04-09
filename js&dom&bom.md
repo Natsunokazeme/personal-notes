@@ -1266,7 +1266,7 @@ obj2.foo2()
 65. js 宏任务执行完会把控制权交给浏览器,微任务执行完会继续执行下一个微任务,从这个角度看,requestAnimationFrame 是宏任务
 66. bom scrollTo 用于滚动到指定位置,scrollTo(x,y)滚动到指定位置,scrollTo(options)滚动到指定位置,scrollTo(options)包含 top,left,behavior 等属性,用于设置滚动位置,滚动行为等,behavior 有 auto,smooth 两种,auto 为瞬间滚动,smooth 为平滑滚动
 67. bom audio window.AudioContext 创建一个音频上下文,通过该对象的 createMediaElementSource(audio)来创建一个音频源,通过该对象的 createAnalyser()来创建一个音频分析器,通过该对象的 createGain()来创建一个音频增益器,通过该对象的 createBiquadFilter()来创建一个音频滤波器,通过该对象的 createOscillator()来创建一个音频振荡器；通过该对象的 createBufferSource()来创建一个音频缓冲源,通过该对象的 createBuffer()来创建一个音频缓冲区,通过该对象的 decodeAudioData()来解码音频数据;其中音频源,音频分析器,音频增益器,音频滤波器,音频振荡器,音频缓冲源,音频缓冲区,音频数据都可以通过 connect()和 disconnect()来连接和断开连接; audioCtx.destination 为音频输出目标,audioCtx.currentTime 为当前时间,audioCtx.state 为音频上下文状态,audioCtx.sampleRate 为音频采样率,audioCtx.suspend()暂停音频上下文,audioCtx.resume()恢复音频上下文
-68. SSE, webRTC 也可用于服务端和客户端双向传输数据
+68. webRTC 也可用于服务端和客户端双向传输数据
 69. **intersectionObserver 是浏览器提供的 api,用于监听元素是否进入视口,从而实现懒加载,接受两个参数，一个成功后的 callback 一个 options 对象,其中 root 为监听的根元素,默认为 null(即浏览器视口),rootMargin 为根元素的边距,threshold 为元素进入视口的比例,0 到 1 之间，默认为 0,即只要有一个像素可见，回调就会运行,可以设置为 0.1,即元素进入视口 10% 时触发;root 必须为监听目标的祖先元素,否则会报错**
 
     ```javascript
