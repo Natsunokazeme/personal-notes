@@ -164,6 +164,13 @@ md5 算法和 sha-256 算法的区别
 ![https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Threaded_tree.svg/800px-Threaded_tree.svg.png
 ]
 
-# 数位dp
+# 数位 dp
 
 foo(i,mask,limit)
+
+# 图
+
+1. 有向图，无向图，连通图，非连通图，加权图，非加权图，循环图，非循环图
+2. 树是一个无向连通非循环图
+3. prim'S 算法最小生成树 从已连接的节点开始，每次加入权重最小且不达成循环图的节点
+4. kruskal'S 算法最小生成树 将所有可相连节点间的权重进行排序，依次加入权重最小且不达成循环图的节点

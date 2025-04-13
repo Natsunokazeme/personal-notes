@@ -1,4 +1,5 @@
-AJAX(Async JavaScript and XML)。
+# AJAX(Async JavaScript and XML)。
+
 AJAX 是一种用于创建快速动态网页的技术。
 通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
 传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。
@@ -66,10 +67,13 @@ xhr.open()：打开 URL 请求。
 xhr.send()：表示发送 ajax。
 setRequestHeader(): 设置请求头。这个属性在必须在 xhr.open()后面。
 
-axios
+# axios
+
 axios 是使用 promise 封装的 ajax。axios 不是一个类是一个方法。
 axios.get().then().catch()的方式，也可 axios({//set axios }).then()
 
-fetch
+# fetch
+
 fetch 是 ES8 中新增的 api，是 http 的数据请求方式，是 XMLHttpRequest 的一种代替方案，fetch 第一个参数是请求的地址，第二个参数(可选)是请求的配置项，返回一个 promise 对象。fetch 默认是 get 请求，跨域请求需要设置 mode: 'cors'，请求头需要设置 headers: {'Content-Type': 'application/json'}。
 别用 fetch,有坑。 fetch mode: cors, no-cors, same-origin,填 cors\*无效
+fetch 可以支持流式请求，当请求没有完成时，response.body.getReader()会返回一个 reader 对象，reader.read()会返回一个 promise 对象，resolve 的时候会返回一个对象，包含 done 和 value 属性，done 表示是否读取完成，value 是读取的内容。可以通过 reader.read()来读取流式请求的内容。达到 chatgpt 文本输出的效果。

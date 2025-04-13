@@ -1,5 +1,6 @@
 # 常见 loader 有哪些？
 
+svgr-loader：将 SVG 转换成 React 组件
 sass-loader：将 SCSS/SASS 代码转换成 CSS
 css-loader：加载 CSS，支持模块化、压缩、文件导入等特性
 style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS
@@ -227,7 +228,7 @@ u 和 glifyjs-webpack-plugin 插件类似，可以在单文件内删除未引用
 3. 将一些不常变化的第三方库通过 cdn 的形式引入，减少打包体积
 4. 合理使用 plugin，例如 moment 库，可以通过 webpack 的 IgnorePlugin 来忽略掉 moment 的 locale 文件，减少打包体积
 5. 通过 terser-webpack-plugin 插件来压缩代码，减少打包体积
-6. 将小型图片转换成 base64 的形式，减少 http 请求，提升页面加载速度
+6. 将小型图片转换成 base64 的形式，减少 http 请求，提升页面加载速度(打包体积会变大但页面更流畅)
 7. optimization 配置，提取公用代码
 8. 压缩资源 gzip 压缩算法 brotli 压缩算法 compression-webpack-plugin
 

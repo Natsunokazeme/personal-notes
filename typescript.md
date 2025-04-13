@@ -20,8 +20,6 @@ never any void enum
 
 typescript 断言前！表示该类型为非空(undefined||null),?表示该类型如果存在则为？之后的类型
 
-this 可通过箭头函数绑定到箭头函数父函数固定对象
-
 _函数重载：当希望根据函数的传入参数类型执行不同方法时进行的函数类型检查_
 function pickCard(x: {suit: string; card: number; }[]): number;//重载 1
 function pickCard(x: number): {suit: string; card: number; };//重载 2
