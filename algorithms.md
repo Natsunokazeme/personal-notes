@@ -174,3 +174,100 @@ foo(i,mask,limit)
 2. 树是一个无向连通非循环图
 3. prim'S 算法最小生成树 从已连接的节点开始，每次加入权重最小且不达成循环图的节点
 4. kruskal'S 算法最小生成树 将所有可相连节点间的权重进行排序，依次加入权重最小且不达成循环图的节点
+
+# KMP 算法
+
+KMP（Knuth-Morris-Pratt ）算法是一种 高效的字符串匹配算法，用于在一个主字符串（text）中查找一个子字符串（pattern）的出现位置。
+它的核心思想是 利用已匹配的信息避免不必要的回溯，将时间复杂度从朴素算法的 O(n×m) 优化到 O(n + m)（其中 n 是主字符串长度，m 是子字符串长度）。
+通过 预处理子字符串，构建一个 部分匹配表（Partial Match Table, PMT）（也称为 next 数组），记录 pattern 自身的 最长相同前后缀，从而在匹配失败时 跳过不必要的比较。
+当 text[i] 和 pattern[j] 不匹配 时：KMP 算法 利用 PMT[j-1] 直接 跳过 pattern 前面 PMT[j-1] 个字符，继续匹配：j = PMT[j-1]（避免 i 回退）。
+
+```javascript
+function computePMT(pattern) {
+  const pmt = [0] // PMT[0] = 0,第一个字符没有相同前后缀
+  let len = 0 // 当前最长公共前后缀长度
+
+  for (let i = 1; i < pattern.length; ) {
+    if (pattern[i] === pattern[len]) {
+      // 匹配成功
+      len++
+      pmt[i] = len
+      i++
+    } else {
+      if (len !== 0) {
+        len = pmt[len - 1] // 回退到前一个匹配点
+      } else {
+        pmt[i] = 0
+        i++
+      }
+    }
+  }
+  return pmt
+}
+function KMP(text, pattern) {
+  const pmt = computePMT(pattern)
+  let i = 0 // text 的指针
+  let j = 0 // pattern 的指针
+
+  while (i < text.length) {
+    if (text[i] === pattern[j]) {
+      i++
+      j++
+      if (j === pattern.length) {
+        return i - j // 匹配成功，返回起始位置
+      }
+    } else {
+      if (j > 0) {
+        j = pmt[j - 1] // 跳过已匹配的部分,回退到前一个匹配点
+      } else {
+        i++ // 第一个字符就不匹配，直接移动 i
+      }
+    }
+  }
+
+  return -1 // 未找到
+}
+```
+
+# 最大堆最小堆
+
+最大堆是一个完全二叉树,每个节点的值都大于等于其左右子节点的值,最小堆是一个完全二叉树,每个节点的值都小于等于其左右子节点的值。注意的是，上层节点的值不一定大于下层节点的值。只能保证父节点的值大于等于子节点的值，舅节点的值不一定大于等于子节点的值。
+
+根节点为最大值，取出根节点后，最后一个节点放到根节点的位置，然后将根节点与子节点交换下沉到合适的位置。下沉的过程是将当前节点与左右子节点中较大的一个进行交换，直到当前节点大于等于左右子节点的值为止。
+每次取值的时间复杂度为 O(log n)，空间复杂度为 O(1)。
+
+```javascript
+function heapify(arr, n, i) {
+  let largest = i // 初始化最大值为根节点
+  const left = 2 * i + 1 // 左子节点
+  const right = 2 * i + 2 // 右子节点
+
+  if (left < n && arr[left] > arr[largest]) {
+    largest = left
+  }
+
+  if (right < n && arr[right] > arr[largest]) {
+    largest = right
+  }
+
+  if (largest !== i) {
+    ;[arr[i], arr[largest]] = [arr[largest], arr[i]] // 交换
+    heapify(arr, n, largest) // 递归下沉
+  }
+}
+
+function heapSort(arr) {
+  const n = arr.length
+
+  // 构建最大堆
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(arr, n, i)
+  }
+
+  // 提取元素
+  for (let i = n - 1; i > 0; i--) {
+    ;[arr[0], arr[i]] = [arr[i], arr[0]] // 将当前根节点与最后一个节点交换
+    heapify(arr, i, 0) // 下沉
+  }
+}
+```
