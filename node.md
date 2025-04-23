@@ -14,3 +14,9 @@
    4. nodejs 有自己的事件循环机制，浏览器有自己的事件循环机制
    5. nodejs 有自己的文件系统，浏览器没有文件系统
    6. nodejs 有自己的网络请求模块，浏览器有自己的网络请求模块
+
+# Node 特有异步 api
+
+1.  queueMicrotask() 在任何 I/O 事件或 timer 事件之前执行
+2.  process.nextTick() 在当前操作完成后立即执行，类似于 Promise.resolve().then()，但是它会在微任务队列的最前面执行
+3.  setImmediate() 在 I/O 事件之后，timer 事件之前执行。它会在 poll 状态执行完成之后立即执行，类似与 setTimeout(()=>{},0).但是如果是在同步脚本中触发，它们俩的执行顺序不确定
