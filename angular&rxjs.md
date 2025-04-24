@@ -86,7 +86,8 @@ EventEmitter 事件传出
 引入 angularmaterial 的知识点 1.在 materialV9 及以上版本时需按需引入组件 module2.引入是写在 module 内,按需 import 之后在
 @NgModule({imports:[]})内写入,引入到核心 module3.在需要使用该组件时直接使用对应的组件名
 
-RxJS
+# RxJS
+
 operator
 fromEvent
 forkjoin

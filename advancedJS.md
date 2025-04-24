@@ -229,9 +229,3 @@ service worker 的主要作用是监听浏览器的请求，然后根据请求�
 service worker 的生命周期：独立于网页生命周期，install -> activate -> fetch -> idle -> terminate(passive)
 service worker 作用域：service worker 只能监听当前域名下的请求，不能监听跨域的请求。
 service worker 更新方法：浏览器会检测 service worker 脚本更新，然后新的 service worker 先 install，再 activate，activate 会覆盖之前的旧 service worker。
-
-# 序列化动画，即上一个动画结束后，下一个动画才开始。
-
-animate1.animate().finished.then(()=>animate2.animate())
-animate() 方法返回 Animation 对象。这个对象有一个 finished 属性，这是会在一个在动画播放结束时兑现（fulfilled）的 Promise。所以我们可以利用这个 Promise 获得开始下一个动画的时机。
-也可以直接使用 animation.onfinish = (event) => { //todo }

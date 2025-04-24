@@ -17,5 +17,5 @@
 11. next js 页面级组件没有 props，否则会在 build 报错，只能通过 url 或其他方式传入数据(1.5h)
 12. next build 默认用生产环境，且不能修改，如果想 build 时使用 dev 环境可配合 dotenv
 13. next dev 默认用开发环境，next build 默认用生产环境
-14. next getServerSideProps 获取 serverside render 时的 动态 props
-15. next getStaticProps 获取 static render 时的异步 props,都只在 server 上运行，且 build 后不会有代码给 client 端
+14. next _getServerSideProps_ 获取 serverside render 时的 动态 props
+15. next _getStaticProps_ 获取 static render 时的异步 props,都只在 server 上运行，且 build 后不会有代码给 client 端
