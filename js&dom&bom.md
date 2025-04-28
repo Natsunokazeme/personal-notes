@@ -997,6 +997,24 @@ JS 会首先判断代码是同步还是异步,同步进入主线程,异步进入
 异步任务分为微任务和宏任务，当微任务执行完之后执行宏任务，宏任务可能包含异步代码，先将宏任务的同步代码执行完之后再执行任务队列中的微任务，然后再执行下一个宏任务
 事件循环是一个先进先出（FIFO）队列,这说明回调是按照它们被加入队列的顺序执行的。
 
+## 常见的宏任务包括：
+
+setTimeout 和 setInterval 回调
+I/O 操作（文件读写、网络请求等）
+UI 渲染（浏览器）
+setImmediate（Node.js 特有）
+requestAnimationFrame（浏览器）
+事件回调（如 click、scroll 等 DOM 事件）
+MessageChannel 消息通信
+postMessage 跨文档通信
+
+## 常见的微任务包括：
+
+Promise.then() / Promise.catch() / Promise.finally() 回调
+MutationObserver 回调（DOM 变更观察）
+queueMicrotask() 添加的微任务
+process.nextTick（Node.js 特有，优先级高于其他微任务）
+
 # advanced js
 
 1. _structuredClone(A, { transfer }) 可以用来深拷贝对象,第二个参数还可以指定从原对象转移属性至新对象_
