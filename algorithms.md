@@ -281,3 +281,52 @@ function heapSort(arr) {
   }
 }
 ```
+
+# 动态规划
+
+动态规划是一种将复杂问题分解为更简单的子问题的方法。它通过存储子问题的结果来避免重复计算，从而提高效率。也就是后面的解决方案依赖于前面的解法。
+最重要的是推导出状态转移方程，可先从前几个初始状态推导出后面的状态。
+动态规划通常用于解决最优化问题，如最短路径、背包问题、最长公共子序列等。
+
+一个常见的动态规划场景就是多维动态规划
+
+## 背包问题
+
+背包问题是一个经典的动态规划问题，通常有两种类型：0-1 背包问题和完全背包问题。
+0-1 背包问题是指每个物品只能选择一次，而完全背包问题是指每个物品可以选择多次。
+0-1 背包问题的状态转移方程为：
+
+```
+dp[i][j] = max(dp[i-1][j], dp[i-1][j-w[i]] + v[i])
+```
+
+其中 dp[i][j] 表示前 i 个物品放入容量为 j 的背包中能获得的最大价值，w[i] 和 v[i] 分别表示第 i 个物品的重量和价值。
+完全背包问题的状态转移方程为：
+
+```
+dp[i][j] = max(dp[i-1][j], dp[i][j-w[i]] + v[i])
+```
+
+其中 dp[i][j] 表示前 i 个物品放入容量为 j 的背包中能获得的最大价值，w[i] 和 v[i] 分别表示第 i 个物品的重量和价值。
+
+```javascript
+function knapsack(weights, values, capacity) {
+  const n = weights.length
+  const dp = Array.from({length: n + 1}, () => Array(capacity + 1).fill(0))
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 0; j <= capacity; j++) {
+      if (weights[i - 1] <= j) {
+        dp[i][j] = Math.max(
+          dp[i - 1][j],
+          dp[i - 1][j - weights[i - 1]] + values[i - 1]
+        )
+      } else {
+        dp[i][j] = dp[i - 1][j]
+      }
+    }
+  }
+
+  return dp[n][capacity]
+}
+```
