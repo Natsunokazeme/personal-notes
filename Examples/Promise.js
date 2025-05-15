@@ -50,6 +50,65 @@ export class MyPromise {
                 reject(reason)
               }
             )
+          } else {
+            result.push(promises[i])
+            if (result.length === promises.length) {
+              resolve(result)
+            }
+          }
+        }
+      })
+    }
+
+    this.allSettled = (promises) => {
+      return new MyPromise((resolve, reject) => {
+        const res = []
+        const addRe = (value) => {
+          res.push({
+            status: FULFILLED,
+            value: value,
+          })
+          if (res.length === promises.length) {
+            resolve(res)
+          }
+        }
+        for (let i = 0; i < promises.length; i++) {
+          if (promises[i] instanceof MyPromise) {
+            promises[i].then(addRe, (reason) => {
+              res.push({
+                status: REJECTED,
+                reason: reason,
+              })
+              if (res.length === promises.length) {
+                resolve(res)
+              }
+            })
+          } else {
+            res.push({
+              status: FULFILLED,
+              value: promises[i],
+            })
+            if (res.length === promises.length) {
+              resolve(res)
+            }
+          }
+        }
+      })
+    }
+
+    this.any = (promises) => {
+      return new MyPromise((resolve, reject) => {
+        const reasons = []
+        for (let i = 0; i < promises.length; i++) {
+          if (promises[i] instanceof MyPromise) {
+            promises[i].then(resolve, (reason) => {
+              reasons.push(reason)
+              if (reasons.length === promises.length) {
+                reject(reasons)
+              }
+            })
+          } else {
+            resolve(promises[i])
           }
         }
       })
