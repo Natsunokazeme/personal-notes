@@ -94,13 +94,14 @@ Button with data-bs-target
 1. react hook form 的 register 方法只适用于能直接绑定到 input 的表单，如 input, select, textarea 等，而 controller 方法功能更强大，能用于自定义组件等。(1h)
 2. react hook form 的 reset 部分 reset form 时会导致其他 field 为 undefined
 3. react hook form 获取 ArrayFields 的 field 值时，需要通过 getValue 方法获取，而不是直接通过 field.value 获取，因为 react 的更新机制，field.value 不会立即更新，而是在下一次 render 时才会更新，而 getValue 方法会立即获取最新值 (1h)
-4. react hook form 的 useFieldArray 的 update 和 reset 方法会导致 field 的 unmount 和 remount,会导致相应的组件重新触发生命周期，如果不想 unmount 和 remount，可以通过 setValue(`fields${index}.xxx`,value) 方法设置值。
-5. react hook form getValue 虽然能同步获取最新值，但不会触发重新渲染，建议通过 watch 的方式获取最新值，watch 会在值改变时触发重新渲染
-6. react hook form 的 useWatch 方法可以监听值的同时不触发重新渲染，适用于监听值的同时不需要重新渲染的场景。
-7. react hook form setValue 不会标记 field 为 dirty
-8. react hook form 的 formState 的 isDirty 会根据初始值和当前值进行比较，如果初始值和当前值相同，则 isDirty 为 false，否则为 true。
-9. react hook form 的 formState 的 isTouched 是异步的，不会获取到最新值。
-10. react hook form 的 field.onChange(undefined) 并不会将字段的值设置为 undefined。相反，RHF 会将字段的值重置为其 defaultValue，这是由于 RHF 的内部机制将 undefined 视为触发默认值回退的信号，而不是一个有效的字段值。
+4. 因为 field.value 不会立即更新，所以 watch 也不会立即获取到最新值，而是会在下一次 render 时才会获取到最新值，所以如果需要立即获取最新值，可以通过 getValue 方法获取。（0.5h）
+5. react hook form 的 useFieldArray 的 update 和 reset 方法会导致 field 的 unmount 和 remount,会导致相应的组件重新触发生命周期，如果不想 unmount 和 remount，可以通过 setValue(`fields${index}.xxx`,value) 方法设置值。
+6. react hook form getValue 虽然能同步获取最新值，但不会触发重新渲染，建议通过 watch 的方式获取最新值，watch 会在值改变时触发重新渲染
+7. react hook form 的 useWatch 方法可以监听值的同时不触发重新渲染，适用于监听值的同时不需要重新渲染的场景。
+8. react hook form setValue 不会标记 field 为 dirty
+9. react hook form 的 formState 的 isDirty 会根据初始值和当前值进行比较，如果初始值和当前值相同，则 isDirty 为 false，否则为 true。
+10. react hook form 的 formState 的 isTouched 是异步的，不会获取到最新值。
+11. react hook form 的 field.onChange(undefined) 并不会将字段的值设置为 undefined。相反，RHF 会将字段的值重置为其 defaultValue，这是由于 RHF 的内部机制将 undefined 视为触发默认值回退的信号，而不是一个有效的字段值。
 
 # zustand
 

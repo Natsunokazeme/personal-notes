@@ -19,3 +19,8 @@
 13. next dev 默认用开发环境，next build 默认用生产环境
 14. next _getServerSideProps_ 获取 serverside render 时的 动态 props
 15. next _getStaticProps_ 获取 static render 时的异步 props,都只在 server 上运行，且 build 后不会有代码给 client 端
+16. next ssr 和 ssg 生成完整的 html 分 2 种情况，
+    1. 直接在页面中使用 getStaticProps 或 getServerSideProps，生成的 html 会在 build 时生成，且不会在 client 端运行
+    2. 在页面中使用 getInitialProps，生成的 html 会在每次请求时生成，且会在 client 端运行
+17. next 的 server 组件可以直接用 async await 来获取数据，且不需要在页面中使用 getStaticProps 或 getServerSideProps，直接在组件中使用即可，甚至可以直接用 sql 语句来获取数据，且不会在 client 端暴露
+18. next 的 suspense 组件可以实现 组件加载时的 loading 效果，且可以在组件中使用 async await 来获取数据。
