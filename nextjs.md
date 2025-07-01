@@ -23,4 +23,3 @@
     1. 直接在页面中使用 getStaticProps 或 getServerSideProps，生成的 html 会在 build 时生成，且不会在 client 端运行
     2. 在页面中使用 getInitialProps，生成的 html 会在每次请求时生成，且会在 client 端运行
 17. next 的 server 组件可以直接用 async await 来获取数据，且不需要在页面中使用 getStaticProps 或 getServerSideProps，直接在组件中使用即可，甚至可以直接用 sql 语句来获取数据，且不会在 client 端暴露
-18. next 的 suspense 组件可以实现 组件加载时的 loading 效果，且可以在组件中使用 async await 来获取数据。

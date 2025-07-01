@@ -43,7 +43,7 @@ class Clock extends React.Component {
 
 redux 是一个状态管理库，用于管理 react 应用的状态，redux 的核心是 store，store 是一个对象，包含了所有的状态，store 通过 reducer 来更新状态，reducer 是一个函数，接收当前的 state 和一个 action 对象，必要时决定如何更新状态，并返回新状态。
 
-## Action#
+## Action
 
 action 是一个具有 type 字段的普通 JavaScript 对象,用于描述事件，type 为描述事件的字段，payload 为事件的附加信息
 例：const addTodoAction = {
@@ -51,20 +51,20 @@ type: 'todos/todoAdded',
 payload: 'Buy milk'
 }
 
-## Reducer#
+## Reducer
 
 reducer 是一个函数，接收当前的 state 和一个 action 对象，必要时决定如何更新状态，并返回新状态。函数签名是：(state, action) => newState，在其内部根据 action 执行不同的状态更新
 注：仅使用 state 和 action 参数计算新的状态值
 禁止直接修改 state。必须通过复制现有的 state 并对复制的值进行更改的方式来做 不可变更新(immutable updates)。
 禁止任何异步逻辑、依赖随机值或导致其他“副作用”的代码
 
-## store#
+## store
 
 store 是通过传入一个 reducer 来创建的，并且有一个名为 getState 的方法，它返回 reducer 处理后的 state
 const store = configureStore({ reducer: counterReducer })
 store.getState()
 
-## Dispatch#
+## Dispatch
 
 Redux store 有一个方法叫 dispatch。更新 state 的唯一方法是调用 store.dispatch() 并传入一个 action 对象
 store.dispatch({ type: 'counter/increment' })
@@ -76,7 +76,7 @@ type: 'counter/increment'
 }
 }
 
-## Selector#
+## Selector
 
 Selector 函数可以从 store 状态树中提取指定的片段。随着应用变得越来越大，会遇到应用程序的不同部分需要读取相同的数据，selector 可以避免重复这样的读取逻辑
 const selectCounterValue = state => state.value
@@ -226,7 +226,7 @@ Profiler 需要两个参数：第一个参数：是 id，用于表识唯一性�
 
 # React.memo()
 
-是一个高阶组件，接收两个参数，第一个是组件，第二个是比较更新前后的 props 控制组件是否渲染的函数，默认返回 true 不渲染，false 渲染,通过 Object.is 比较 prop。 memo 与 PureComponent 非常类似，但它只会对函数 props 进行比较。
+是一个高阶组件，接收两个参数，第一个是组件，第二个是比较更新前后的 props 控制组件是否渲染的函数，默认返回 true 不渲染，false 渲染,通过 Object.is 比较 prop。 memo 与 PureComponent 非常类似，一个用于函数组件，一个用于类组件。
 
 # useMemo 和 useCallback 的区别
 
