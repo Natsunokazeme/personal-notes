@@ -261,3 +261,52 @@ babel 只是一个转码器，只能转换新的语法，而不能转换新的 A
 
 1. 通过 css-loader 将 css 文件转换成 style-loader 能识别的对象
 2. 通过 style-loader 生成 style 标签并将对象插入到该标签中
+
+# webpack 打包优化实例
+
+1. 代码分割（Code Splitting）
+   场景：单页应用（SPA）首屏加载慢，主包过大。
+   优化方案：
+   动态导入（Dynamic Imports）：将非首屏代码拆分为异步块。
+
+```javascript
+// 异步加载组件
+const Home = () => import(/* webpackChunkName: "home" */ "./views/Home.vue")
+```
+
+加快首屏加载速度，按需加载其他页面。
+
+2. Tree Shaking
+   ES6 模块化：确保使用 import { map } from 'lodash-es' 而非 import \_ from 'lodash'。
+   Lodash 体积从 500KB→50KB（仅保留使用的方法）。
+
+3. 缓存组（Cache Groups）
+
+   ```javascript
+   optimization: {
+   splitChunks: {
+    cacheGroups: {
+      commons: {
+        test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+        name: 'vendors',
+        chunks: 'all',
+      },
+    },
+   },
+   }
+   ```
+
+   提取公共依赖模块，减少重复打包。
+
+4. 图片压缩（Image Minimization）
+   使用 image-minimizer-webpack-plugin 减少图片体积，无损视觉质量。
+5. 持久化缓存（Persistent Caching）
+   二次构建时全量重新编译，耗时较长。设置 cache，仅编译变更的模块。
+   ```javascript
+   module.exports = {
+     cache: {
+       type: "filesystem", // 使用文件系统缓存
+       buildDependencies: {config: [__filename]},
+     },
+   }
+   ```
