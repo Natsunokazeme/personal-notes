@@ -391,3 +391,18 @@ sql 注入是一种利用 sql 语句传递并执行恶意 sql 代码的攻击方
 Token,其实就是服务端生成的一串加密字符串,储存在本地用于认证客户端身份,_由服务端设定失效时间_。
 优势：无状态、防 csrf(跨域请求攻击)、多站点使用,支持移动平台、性能快
 缺点：无法废止，可能被 XSS 攻击，加密解密的性能开销
+
+# _强缓存和协商缓存_
+
+HTTP Cache 是我们开发中接触最多的缓存,它分为强缓存和协商缓存。
+强缓存：直接从本地副本比对读取,不去请求服务器,返回的状态码是 200。
+协商缓存：会去服务器比对,若没改变才直接读取本地缓存,返回的状态码是 304。
+强缓存：expires,cache-control(未设置 no-cache 和 no-store),
+协商缓存：pragma(只有 no-cache),cache-control(设置 no-cache),last-modified,etag。
+no-store：不缓存,直接请求最新资源。
+优先级：pragma>cache-control>expires>last-modified&&etag
+expires：是一个缓存字段,以格林尼治时间表示过期时间点,与客户端时间相比是否过期,受客户端时间影响。
+cache-control：HTTP1.1 新增,值有 max-age,s-maxage（是一个时间长度字段,表示还有多少秒过期,且 s-maxage 的优先级高于 max-age）；还有 public 和 private（前者表示客户端和服务器端都能缓存,后者只能客户端缓存,默认值是 private,当设置了 s-maxage 的时候表示允许代理服务器缓存,相当于 public）；no-cache 和 no-store,no-cache 表示向服务器验证当前资源是否更新,no-store 则直接请求服务器的当前资源,不询问是否更新。
+last-modified: ,以格林尼治时间记录资源最后修改的时间,启用后会在请求头中返回 if-modified-since 字段（记录上一次修改的时间）,若两者不一致则更新 last-modified 并返回修改后的资源。
+etag: 是基于资源的内容编码生成的一串唯一的标识字符串,启用后请求头会带有 if-none-match 字段,对比两者即可。
+浏览器刷新：F5 刷新,刷新按钮,网页右键刷新；CTRL+F5 刷新（硬性重新加载）,清空其他缓存并强行设置 no-cache,直接重新请求资源
