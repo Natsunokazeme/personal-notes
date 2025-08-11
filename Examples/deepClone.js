@@ -1,15 +1,18 @@
-function deepClone(obj) {
+function deepClone(obj, seen = new WeakSet()) {
   if (obj === null || typeof obj !== "object") {
     return obj
   }
-
+  if (seen.has(obj)) {
+    throw new Error("Circular reference detected")
+  }
+  seen.add(obj)
   if (Array.isArray(obj)) {
-    return obj.map(deepClone)
+    return obj.map((item) => deepClone(item, seen))
   }
 
   const cloned = {}
   for (let key in obj) {
-    cloned[key] = deepClone(obj[key])
+    cloned[key] = deepClone(obj[key], seen)
   }
   return cloned
 }

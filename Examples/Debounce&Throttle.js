@@ -34,8 +34,9 @@ const throttle = (fn, delay) => {
   return function (...args) {
     if (!flag) return
     flag = false
+    fn.apply(this, args)
+    //立即执行
     setTimeout(() => {
-      fn.apply(this, args)
       flag = true
     }, delay)
   }

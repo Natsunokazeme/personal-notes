@@ -18,6 +18,9 @@ Function.prototype.apply = function (context, args) {
 Function.prototype.bind = function (context, ...args) {
   const fn = this
   return function (...newArgs) {
-    return fn.apply(context, args.concat(newArgs))
+    // 如果没有传入 context，则默认指向 window
+    context = context || window
+    context.fn = fn
+    return context.fn(...args, ...newArgs)
   }
 }

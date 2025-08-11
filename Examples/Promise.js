@@ -84,13 +84,7 @@ export class MyPromise {
               }
             })
           } else {
-            res.push({
-              status: FULFILLED,
-              value: promises[i],
-            })
-            if (res.length === promises.length) {
-              resolve(res)
-            }
+            addRe(promises[i])
           }
         }
       })

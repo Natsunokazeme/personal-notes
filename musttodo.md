@@ -406,3 +406,21 @@ cache-control：HTTP1.1 新增,值有 max-age,s-maxage（是一个时间长度�
 last-modified: ,以格林尼治时间记录资源最后修改的时间,启用后会在请求头中返回 if-modified-since 字段（记录上一次修改的时间）,若两者不一致则更新 last-modified 并返回修改后的资源。
 etag: 是基于资源的内容编码生成的一串唯一的标识字符串,启用后请求头会带有 if-none-match 字段,对比两者即可。
 浏览器刷新：F5 刷新,刷新按钮,网页右键刷新；CTRL+F5 刷新（硬性重新加载）,清空其他缓存并强行设置 no-cache,直接重新请求资源
+
+# _浏览器渲染过程_
+
+浏览器渲染的过程主要包括以下五步：
+
+1. 浏览器将获取的 HTML 文档解析成 DOM 树。
+2. 处理 CSS 标记,构成层叠样式表模型 CSSOM(CSS Object Model)。
+3. 将 DOM 和 CSSOM 合并为渲染树(rendering tree),代表一系列将被渲染的对象。
+   渲染树的每个 renderer 包含一个 dom 对象和计算过的样式规则,它被称之为布局 layout。具体显示的时候，每一个 renderer 都相当于一个矩形区域，即 css 盒子模型的概念
+4. 布局阶段 浏览器使用一种流式处理的方法,只需要一次绘制操作就可以布局所有的元素，此阶段所有相对值都会转化为屏幕上的绝对值。
+5. 绘制 将渲染树的各个节点绘制到屏幕上,这一步被称为绘制 painting。
+
+# prototype、constructor、**proto**
+
+①**proto**和 constructor 属性是对象所独有的；② prototype 属性是函数所独有的,因为函数也是一种对象,所以函数也拥有**proto**和 constructor 属性。
+**proto**属性的作用就是当访问一个对象的属性时,如果该对象内部不存在这个属性,那么就会去它的**proto**属性所指向的那个对象（父对象）里找,一直找,直到**proto**属性的终点 null,再往上找就相当于在 null 上取值,会报错。通过**proto**属性将对象连接起来的这条链路即我们所谓的原型链。
+prototype 属性的作用就是让该函数所实例化的对象们都可以找到公用的属性和方法,即 f1.**proto** === Foo.prototype。
+constructor 属性的含义就是指向该对象的构造函数,所有函数（此时看成对象了）最终的构造函数都指向 Function。
