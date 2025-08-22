@@ -1,4 +1,5 @@
 function deepClone(obj, seen = new WeakSet()) {
+  //推荐用WeakSet，防止内存泄露
   if (obj === null || typeof obj !== "object") {
     return obj
   }
@@ -11,7 +12,9 @@ function deepClone(obj, seen = new WeakSet()) {
   }
 
   const cloned = {}
+  //此处还可以进一步注意原型链。推荐用Object.Keys或者Object.getOwnPropertyNames，Reflect.ownKeys()
   for (let key in obj) {
+    // 会遍历原型链上的可枚举属性
     cloned[key] = deepClone(obj[key], seen)
   }
   return cloned

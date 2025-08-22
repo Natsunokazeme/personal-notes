@@ -330,3 +330,19 @@ function knapsack(weights, values, capacity) {
   return dp[n][capacity]
 }
 ```
+
+## 完全背包问题
+
+指每个物品可以选择多次,是排列不是组合，需要去重
+
+dp[i] += dp[v-i]
+
+每一次遍历 coin 时都不会再新增之前出现过的 coin 了
+
+```javascript
+for (const coin of coins) {
+  for (let j = coin; j <= amount; j++) {
+    dp[j] += dp[amount - j]
+  }
+}
+```

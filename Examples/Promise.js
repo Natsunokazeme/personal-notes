@@ -154,3 +154,105 @@ new MyPromise()
   .then((value) => {
     console.log(value)
   })
+
+class NewPromise {
+  constructor(executor) {
+    this.status = PENDING
+    this.value = undefined
+    this.reason = undefined
+    this.resolved = (value) => {
+      if (this.status == PENDING) {
+        this.value = value
+        this.status = FULFILLED
+        return this.value
+      }
+    }
+    this.rejected = (reason) => {
+      if (this.status == PENDING) {
+        this.reason = reason
+        this.status = REJECTED
+        return this.reason
+      }
+    }
+
+    try {
+      executor(this.resolved, this.rejected)
+    } catch (e) {
+      this.rejected(e)
+    }
+
+    this.then = (valueAction, reasonAction) => {
+      if ((this.status = FULFILLED)) {
+        valueAction(this.value)
+      }
+      if ((this.status = REJECTED)) {
+        reasonAction(this.reason)
+      }
+      return this
+    }
+
+    this.catch = (reasonAction) => {
+      if ((this.status = REJECTED)) {
+        reasonAction(this.reason)
+      }
+      return this
+    }
+
+    this.all = (promises) => {
+      // 检查输入是否为可迭代对象
+      if (!Array.isArray(promises)) {
+        return NewPromise.reject(new TypeError("Argument must be an array"))
+      }
+
+      // 处理空数组情况
+      if (promises.length === 0) {
+        return NewPromise.resolve([])
+      }
+      //all要么报出最先reject的要么所有成功的
+      const len = promises.length
+      const res = new Array(len)
+      let remain = len
+      return new NewPromise((resolve, reject) => {
+        for (let i = 0; i < len; i++) {
+          if (promises[i] instanceof NewPromise) {
+            promises[i].then(
+              (value) => {
+                res[i] = value
+                remain--
+                if (remain === 0) {
+                  resolve(res)
+                }
+              },
+              (reason) => {
+                reject(reason)
+              }
+            )
+          } else {
+            NewPromise.resolved(promises[i]).then((value) => {
+              res[i] = value
+              remain--
+              if (remain === 0) {
+                resolve(res)
+              }
+            })
+          }
+        }
+      })
+    }
+
+    this.race = (promises) => {
+      return new NewPromise((resolve, reject) => {
+        for (const promise of promises) {
+          return NewPromise.resolve(promise).then(
+            (value) => {
+              resolve(value)
+            },
+            (reason) => {
+              reject(reason)
+            }
+          )
+        }
+      })
+    }
+  }
+}
