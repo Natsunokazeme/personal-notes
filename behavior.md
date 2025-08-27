@@ -160,7 +160,7 @@ spa 是单页面应用，mpa 是多页面应用，spa 是一个 html 内通过 a
 12. font-spider(未实现)
 13. fetch 流式读取请求(未实现)
 
-## cookie 跨域
+# 行为总结
 
-一般情况下，cookie 遵循同源策略，即 cookie 不能跨域访问。但是可以通过设置 cookie 的 domain 属性来实现跨域访问。domain 属性用于指定 cookie 的域名，当 domain 属性设置为顶级域名时，cookie 可以被该域名下的所有子域名访问。
-也可以设置 sameSite 属性为 lax 或 none，来实现跨域访问。
+1. 讲解项目重点，难点不够流畅
+2. 讲解业务不够准确，逻辑清晰
