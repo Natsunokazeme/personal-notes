@@ -26,7 +26,7 @@ function pickCard(x: number): {suit: string; card: number; };//重载 2
 function pickCard(x): any {
 //function code
 }
-//先检查第一个重载，不符则第二个重载，再不符报错
+//先检查第一个重载，不符则下一个重载，都不符报错
 
 1. ts enum 可以直接当类型用，也可以当值用，当值用时，可以通过 enum[key]来取值
 2. typescript 要么都有，要么都没有的类型可以通过交叉类型来实现，如：

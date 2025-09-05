@@ -363,7 +363,7 @@ ECMAScript 通常缩写为 ES。
 高级语法：//加括号的函数体返回对象字面量表达式：params => ({foo: bar})
 this：箭头函数不会创建自己的 this,它只会从自己的作用域链的上一层继承 this。
 
-# promise
+# **promise**
 
 Promise 对象用于表示一个异步操作的最终完成 (或失败)及其结果值。
 本质上 Promise 是一个函数返回的对象,我们可以在它上面绑定回调函数,这样我们就不需要在一开始把回调函数作为参数传入这个函数了。
@@ -642,9 +642,9 @@ last-modified: ,以格林尼治时间记录资源最后修改的时间,启用后
 etag: 是基于资源的内容编码生成的一串唯一的标识字符串,启用后请求头会带有 if-none-match 字段,对比两者即可。
 浏览器刷新：F5 刷新,刷新按钮,网页右键刷新；CTRL+F5 刷新（硬性重新加载）,清空其他缓存并强行设置 no-cache,直接重新请求资源
 
-# 跨域
+# **跨域**
 
-源：如果两个页面（接口）的协议,端口或者域名都相同,那么两个页面就有相同的源。
+源：如果两个页面（接口）的协议,端口和域名都相同,那么两个页面就有相同的源。
 浏览器为了安全会限制跨域 http 请求
 解决方案
 1、 CORS
@@ -672,11 +672,11 @@ alert(JSON.stringify(res));
 客户端和服务器之间存在持久的连接,而且双方都可以随时开始发送数据,绕过 http 协议。发送给后端,利用后端代理
 5、 location.href location.href 不受浏览器跨域限制
 6、 postMessage
-window.postMessage(message,targetOrigin) 方法是 html5 新引进的特性,可以使用它来向其它的 window 对象发送消息,无论这个 window 对象是属于同源或不同源,接受的 window 通过 addEventListener('message',function(){})来监听消息事件,接受到消息后可以对数据进行处理。
+window.postMessage(message,targetOrigin) 方法是 html5 新引进的特性,_可以使用它来向其它的 window 对象发送消息_,无论这个 window 对象是属于同源或不同源,接受的 window 通过 addEventListener('message',function(){})来监听消息事件,接受到消息后可以对数据进行处理。
 
 # js 内存泄漏
 
-1. 闭包
+1. 闭包(Promise 一直 pending，全局方法)
 2. 全局变量
 3. 定时器如 setInterval
 4. 递归的终止条件
@@ -687,7 +687,7 @@ window.postMessage(message,targetOrigin) 方法是 html5 新引进的特性,可�
 1. Hash 路由 利用 url 上 hash 的改变,以#开头
 2. history 路由 基于 html5 规范,利用 history.pushState || history.replaceState 来进行路由控制。
 
-# ES6 中 let、const 和 var 的区别
+# _ES6 中 let、const 和 var 的区别_
 
 一,var 定义的变量,作用域是整个封闭函数,是全域的；let 和 const 声明形成块作用域;作用域是在块级或者字块中；
 二,变量提升：不论通过 var 声明的变量处于当前作用于的第几行,都会提升到作用域的最顶部。而 let 声明的变量不会在顶部初始化,凡是在 let 声明之前使用该变量都会报错（引用错误 ReferenceError）；即 var 可以先使用再定义
@@ -876,6 +876,8 @@ return clone; //返回这个对象
 一个函数和对其周围状态（lexical environment,词法环境）的引用捆绑在一起（或者说函数被引用包围）,这样的组合就是闭包（closure）。也就是说,闭包让你可以在一个内层函数中访问到其外层函数的作用域。当内层函数在其他地方被调用时,就可以继续访问到外层函数的作用域,而不是被立即释放。
 在 JavaScript 中,每当创建一个函数,闭包就会在函数创建的同时被创建出来。闭包包含在函数创建时作用域中的所有变量。
 函数在定义时的词法作用域以外的地方被调用就会形成闭包。闭包使得函数可以继续访问定义时的词法作用域
+
+可以通过将 var 替换成 let 优化
 
 # 原型链
 
@@ -1093,7 +1095,7 @@ process.nextTick（Node.js 特有，优先级高于其他微任务）
    var d=3.14;//有小数点表示浮点数
    var e=3.14e2;//使用 e 的幂表示科学计数法
 
-9. 4 种变量类型判断
+9. _4 种变量类型判断_
 
    1. 使用 typeof 来进行判断数据类型
 

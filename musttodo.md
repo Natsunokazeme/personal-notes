@@ -297,6 +297,38 @@ optimization: {
 
 spa 是单页面应用，mpa 是多页面应用，spa 是一个 html 内通过 ajax 请求数据和 BOM 更改路由，动态更新页面内容，mpa 是多个 html 通过请求不同的页面实现 document 跳转，刷新整个页面；spa 优点是用户体验好，页面切换快，缺点是首屏加载慢，seo 不友好；mpa 优点是首屏加载快，seo 友好，缺点是页面切换慢，用户体验差
 
+# **跨域**
+
+源：如果两个页面（接口）的协议,端口和域名都相同,那么两个页面就有相同的源。
+浏览器为了安全会限制跨域 http 请求
+解决方案
+1、 CORS
+（Cross-Origin Resource Sharing）,跨域资源共享
+当使用 XMLHttpRequest 发送请求时,如果浏览器发现请求违反了同源策略就会自动加上一个额外的 http 请求头 origin；后端在接受到请求后确定响应后会在 Response Headers 中加入一个属性 Access-Control-Allow-Origin；浏览器判断响应中的 Access-Control-Allow-Origin 值是否和当前的地址相同,匹配成功后才继续响应处理,否则报错
+缺点：忽略 cookie,浏览器版本有一定要求
+2、 代理
+服务端请求不会跨域的特性；
+前端向服务器发送请求,经过代理,请求需要的服务器资源,让接口和当前站点同域。
+缺点：需要额外的代理服务器
+3、 JSONP 等
+标签能跨域加载资源的特性,但是 js 读不到其中的内容。<script src="..."></script>,<img>,<link>,<iframe>等。代表为 JSONP：通过动态创建<script src=”anotherOrigin”>,再请求一个带参网址实现跨域通信。缺点：易受 xss 攻击,只能用 get 请求
+例：<script>
+var script = document.createElement('script');
+script.type = 'text/javascript';
+// 传参并指定回调执行函数为 onBack
+script.src = 'http://www.domain2.com:8080/
+login?user=admin&callback=onBack';
+document.head.appendChild(script);
+// 回调执行函数
+function onBack(res) {
+alert(JSON.stringify(res));
+} </script>
+4、 websocket
+客户端和服务器之间存在持久的连接,而且双方都可以随时开始发送数据,绕过 http 协议。发送给后端,利用后端代理
+5、 location.href location.href 不受浏览器跨域限制
+6、 postMessage
+window.postMessage(message,targetOrigin) 方法是 html5 新引进的特性,可以使用它来向其它的 window 对象发送消息,无论这个 window 对象是属于同源或不同源,接受的 window 通过 addEventListener('message',function(){})来监听消息事件,接受到消息后可以对数据进行处理。
+
 **cookie 跨域**
 
 一般情况下，cookie 遵循同源策略，即 cookie 不能跨域访问。但是可以通过设置 cookie 的 domain 属性来实现跨域访问。domain 属性用于指定 cookie 的域名，当 domain 属性设置为顶级域名时，cookie 可以被该域名下的所有子域名访问。
