@@ -21,4 +21,8 @@
 
 14. 为了防止页面崩溃，在获取后端数据时都应该加?来防止抛出异常，如：data?.name?.age
 15. ES6 模块<script type="module">默认具有 defer 行为。
-16.
+16. 断点续传如何具体实现
+17. jwt
+18. react key
+19. vite 和 webpack 区别
+20. 安全与攻击

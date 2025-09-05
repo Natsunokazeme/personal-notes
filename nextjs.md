@@ -17,9 +17,10 @@
 11. next js 页面级组件没有 props，否则会在 build 报错，只能通过 url 或其他方式传入数据(1.5h)
 12. next build 默认用生产环境，且不能修改，如果想 build 时使用 dev 环境可配合 dotenv
 13. next dev 默认用开发环境，next build 默认用生产环境
-14. next _getServerSideProps_ 获取 serverside render 时的 动态 props
-15. next _getStaticProps_ 获取 static render 时的异步 props,都只在 server 上运行，且 build 后不会有代码给 client 端
-16. next ssr 和 ssg 生成完整的 html 分 2 种情况，
+14. _next 基于 page router 用 getServerSideProps*和*getStaticProps，基于 app router 用 async/await + fetch_
+15. next _getServerSideProps_ 获取 serverside render 时的 动态 props
+16. next _getStaticProps_ 获取 static render 时的异步 props,都只在 server 上运行，且 build 后不会有代码给 client 端
+17. next ssr 和 ssg 生成完整的 html 分 2 种情况，
     1. 直接在页面中使用 getStaticProps 或 getServerSideProps，生成的 html 会在 build 时生成，且不会在 client 端运行
     2. 在页面中使用 getInitialProps，生成的 html 会在每次请求时生成，且会在 client 端运行
-17. next 的 server 组件可以直接用 async await 来获取数据，且不需要在页面中使用 getStaticProps 或 getServerSideProps，直接在组件中使用即可，甚至可以直接用 sql 语句来获取数据，且不会在 client 端暴露
+18. next 的 server 组件可以直接用 async await 来获取数据，且不需要在页面中使用 getStaticProps 或 getServerSideProps，直接在组件中使用即可，甚至可以直接用 sql 语句来获取数据，且不会在 client 端暴露
