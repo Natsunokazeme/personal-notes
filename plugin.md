@@ -40,7 +40,7 @@ Button with data-bs-target
 
 # _husky_
 
-用于在执行 git 命令时执行 script 脚本命令
+用于在执行 git 命令时执行 script 脚本命令,常用来规范 commit 信息
 
 # _immer.js_
 

@@ -43,7 +43,7 @@ serviceworker-webpack-plugin：为网页应用增加离线缓存功能
 ModuleConcatenationPlugin: 开启 Scope Hoisting
 speed-measure-webpack-plugin: 可以看到每个 Loader 和 Plugin 执行耗时 (整个打包耗时、每个 Plugin 和 Loader 耗时)
 
-# Loader 和 Plugin 的区别？
+# _Loader 和 Plugin 的区别？_
 
 Loader 本质就是一个函数，在该函数中对接收到的内容进行转换，返回转换后的结果。
 因为 Webpack 只认识 JavaScript，所以 Loader 就成了翻译官，对其他类型的资源进行转译的预处理工作。
@@ -134,31 +134,40 @@ babel-plugin-transform-runtime 会将代码中的工具函数替换成 babel-run
    ```
 
 2. SplitChunksPlugin 插件可以将公共的依赖模块提取到已有的入口 chunk 中，或者提取到一个新生成的 chunk。通过 optimization.splitChunks.cacheGroups 来自定义单独打包的模块及其规则,splitChunks.chunks 有 all async init
-   ```javascript
-   optimization: {
-    splitChunks: {
-      chunks: 'async',
-      minSize: 20000,//生成 chunk 的最小体积（以 bytes 为单位）。
-      minRemainingSize: 0,
-      minChunks: 1,//拆分前必须共享模块的最小 chunks 数。
-      maxAsyncRequests: 30,
-      maxInitialRequests: 30,
-      enforceSizeThreshold: 50000,
-      cacheGroups: {
-        defaultVendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          reuseExistingChunk: true,
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
-        },
-      },
-    },
+
+async 仅处理异步加载的 chunk (通过 import() 动态导入的模块)，默认值。 减少初始加载时间，提升首屏性能 同步代码中的公共模块不会被提取，可能导致重复打包
+initial 仅处理同步加载的 chunk (入口文件直接引入的模块) 可能造成重复打包
+all 同时处理同步和异步的 chunk，允许他们共享公共模块
+
+```javascript
+optimization: {
+ splitChunks: {
+   chunks: 'async',
+   minSize: 20000,//生成 chunk 的最小体积（以 bytes 为单位）。
+   minRemainingSize: 0,
+   minChunks: 1,//拆分提取前必须被不同模块引用的最小 chunks 数。
+   maxAsyncRequests: 30,
+   maxInitialRequests: 30,
+   enforceSizeThreshold: 50000,
+   cacheGroups: {
+     defaultVendors: {
+       test: /[\\/]node_modules[\\/]/,
+       priority: -10,
+       reuseExistingChunk: true,
+     },
+     default: {
+       minChunks: 2,
+       priority: -20,
+       reuseExistingChunk: true,
+     },
    },
-   ```
+ },
+},
+```
+
+# chunks
+
+打包好 chunks 后，加载页面时会请求 chunks，如果未优化会一次请求很多 chunks 造成加载速度变慢
 
 # manifest 是什么，它的作用是什么？
 

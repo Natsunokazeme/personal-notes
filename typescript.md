@@ -35,3 +35,10 @@ function pickCard(x): any {
    Partial<Record<keyof C, never>> //代表 所有 C 相关字段都不能出现。
    ```
    相比于 type A = (B & C) | B ，A 不会在 B&Partial<C>时报错
+3. type 和 interface 的区别，interface 可以继承，type 不能，type 可以用来定义联合，interface 不能
+4. 可变元组类型，类似 unknown 和 T extends unknown
+5. partial pick omit required readonly record Extract 等
+6. as const 断言：使用 as const 可以将对象或数组的字面量断言为不可变（只读）的类型
+   ```ts
+   const colors = ["red", "green", "blue"] as const // 类型为 readonly ["red", "green", "blue"]
+   ```

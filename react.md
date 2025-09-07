@@ -206,6 +206,8 @@ react 中，数据单向流动，父组件的数据可以通过 props 传递给�
 接收一个渲染函数，React 将会把 ref 当作第二个参数传入这个函数，这样就可以在函数组件内部使用 ref 了。可用于隔代 ref 获取引用，react 不允许 ref 通过 props 传递，因为组件上已经有 ref 这个属性,在组件调和过程中，已经被特殊处理，forwardRef 出现就是解决这个问题，把 ref 转发到自定义的 forwardRef 定义的属性上，让 ref，可以通过 props 传递。
 例：const NewFather = React.forwardRef((props,ref)=><Father grandRef={ref} {...props} /> )
 
+_注：react19 之后不需要 forwardRef，直接用 ref 传递即可_
+
 # 高阶组件 HOC
 
 将组件作为参数，并返回一个新的组件。新的组件会渲染传入的组件，同时还会提供额外的功能如混入 prop。HOC 通常用于代码复用、逻辑抽象和状态抽象。
@@ -1113,26 +1115,25 @@ Scheduler 则是负责实际的任务调度和执行，它根据 Lane 中的优�
 
 1. react _State hooks 原理：state hooks 是在 fiber 节点里以链表形式储存的，因此是按照顺序读取，若 state hooks 写在 if 或 for 里，某一次没执行的话，会造成之后所有的 state hooks 的读取位置错误_
 2. react useReducer,用法类似 redux，是 useState 的基础，例: const [val,dispatch] = useReducer(reducer,initVal)
-3. react hooks 为什么不能在循环，条件判断，嵌套函数中使用，因为 hooks 是按顺序读取的，如果在循环，条件判断，嵌套函数中使用，那么 hooks 的读取位置就会发生错误，导致读取到错误的值
-4. react hooks 和 class 组件的区别
-5. react useDeferredValue 返回一个延迟响应的值，该值可能“延后”的最长时间为 timeoutMs。 const deferredValue = useDeferredValue(value, { timeoutMs: 2000 });
-6. react 的自定义 hook 其实就是将自定义 hook 内的代码执行了一遍
-7. **react 组件渲染时会重新创造函数和变量**
-8. useEffect 销毁阶段拿到的 useState 值是初始值，不会随着 update 更新值，因此用 useRef 替代 useState
-9. react useImperativeHandle,暴露组件的内部方法给父组件。 父组件通过 ref 获取子组件的实例，可以通过 ref.current 调用子组件的方法
-10. react lazy 用于懒加载组件 用法
-    ```js
-    import {lazy} from "react"
-    const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"))
-    ```
-11. react suspense 用于处理组件的加载状态以及捕获错误，用法
+3. react hooks 和 class 组件的区别
+4. react useDeferredValue 返回一个延迟响应的值，该值可能“延后”的最长时间为 timeoutMs。 const deferredValue = useDeferredValue(value, { timeoutMs: 2000 });
+5. react 的自定义 hook 其实就是将自定义 hook 内的代码执行了一遍
+6. **react 组件渲染时会重新创造函数和变量**
+7. useEffect 销毁阶段拿到的 useState 值是初始值，不会随着 update 更新值，因此用 useRef 替代 useState
+8. react useImperativeHandle,暴露组件的内部方法给父组件。 父组件通过 ref 获取子组件的实例，可以通过 ref.current 调用子组件的方法
+9. react lazy 用于懒加载组件 用法
+   ```js
+   import {lazy} from "react"
+   const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"))
+   ```
+10. react suspense 用于处理组件的加载状态以及捕获错误，用法
     ```js
     import {Suspense} from "react"
     ;<Suspense fallback={<div>Loading...</div>}>
       <MarkdownPreview />
     </Suspense>
     ```
-12. react cache 用于服务端渲染时缓存数据，用法
+11. react cache 用于服务端渲染时缓存数据，用法
 
     ```js
     import {cache} from "react"
@@ -1146,14 +1147,14 @@ Scheduler 则是负责实际的任务调度和执行，它根据 Lane 中的优�
     }
     ```
 
-13. react memo 用于缓存组件，避免 props 未改变时重复渲染，用法
+12. react memo 用于缓存组件，避免 props 未改变时重复渲染，用法
 
     ```js
     import {memo} from "react"
     const MemoizedComponent = memo(SomeComponent, arePropsEqual?)//默认是浅比较
     ```
 
-14. react startTransition 用于在后台渲染 UI 的一部分，会将 action 内的 state 更新标记为 transition。用法
+13. react startTransition 用于在后台渲染 UI 的一部分，会将 action 内的 state 更新标记为 transition。用法
     ```js
     import {startTransition} from "react"
     startTransition(() => {
