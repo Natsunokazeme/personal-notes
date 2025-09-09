@@ -24,8 +24,8 @@ rel text 规定当前文档与被链接文档之间的关系。
 target 属性规定在何处打开被链接文档：
 \_self：默认值，在当前窗口打开 URL
 \_blank：在一个新的窗口中打开 URL
-\_parent：在父窗口中打开 URL
-\_top：在顶层窗口中打开 URL
+\_parent：在父窗口中打开 URL 主要用在 iframe
+\_top：在顶层窗口中打开 URL 主要用在 iframe
 
 某个 iframe 的 name 值：在某个 frame 中打开 URL
 
@@ -289,7 +289,7 @@ px 像素，rpx 微信推广的，自适应屏幕，规定屏幕宽 750rpx；em 
 
 advanced HTML
 
-1. 表单里第一个 button 的 type 默认为 submit，可能误触发表单提交
+1. _表单里第一个 button 的 type 默认为 submit，可能误触发表单提交_
 2. select 和 option 的 value 必须是字符串，不能是数字，否则会报错,如果是对象，可以用 JSON.stringify 来转换成字符串
 3. select 标签 无法在 js 里打开 droplist，必须在用户交互事件里打开
 4. 双层 slot

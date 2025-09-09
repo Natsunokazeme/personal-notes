@@ -183,10 +183,11 @@ sticky
 
 # 清除浮动
 
-1、 使用伪元素来应用 clear:both 清除浮动(::after,注意：作用于浮动元素的父亲）
+1、 使用伪元素来应用 clear:both 清除浮动（::after,注意：作用于浮动元素的父亲）
 2、 flex 或 grid
 3、 父级定义 overflow:hidden
 //在添加 overflow 属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。当元素设置了 overflow 样式且值不位 visible 时，该元素就构建了一个 BFC，BFC 在计算高度时，内部浮动元素的高度也要计算在内，也就是说技术 BFC 区域内只有一个浮动元素，BFC 的高度也不会发生塌缩，所以达到了清除浮动的目的，
+就是创建 BFC 或者设置 clear 就行
 
 # overflow
 
@@ -224,14 +225,11 @@ display:flow-root 直接建立 BFC
 
 # CSS 盒模型
 
+将每个元素视为一个矩形的盒子（box）。这个盒子由内到外依次由四个部分构成：内容（content）、内边距（padding）、边框（border） 和外边距（margin）。
 包括 IE 盒子模型和标准的 W3C 盒子模型。
 box-sizing：border-box,content-box.
 IE 盒子模型：width 表示 content+padding+border 这三个部分的宽度
 标准 W3C 盒子模型： width 只表示 content 宽度
-水平居中
-内容居中
-通过设置属性 align="center" 居中的内容
-通过样式 style="text-align:center" 居中的内容
 
 # 弹性布局
 
@@ -374,13 +372,6 @@ link 是 html 自带标签，@import 是 css 特有语法，link 不会暂停解
 
 4.选择器｛属性 1：值 1；属性 2：值 2；....｝
 
-盒模型
-CSS 盒子模型(Box Model)
-所有 HTML 元素可以看作盒子，在 CSS 中，"box model"这一术语是用来设计和布局时使用。
-box
-CSS 盒模型本质上是一个盒子，封装周围的 HTML 元素，它包括：边距，边框，填充，和实际内容。边框(border)、边界/边距(margin)、补白/填充(padding)、内容区(content)
-盒模型允许我们在其它元素和周围元素边框之间的空间放置元素。
-
 画一个三角形
 div {
 width:0px;
@@ -467,7 +458,7 @@ overflow 不为 visible 的元素
 
 # advanced css
 
-1. :is() css 伪类 匹配列表中任意一个选择器可以选择的元素,但不能匹配伪元素; :where() css 伪类 优先级为 0 匹配列表中任意一个选择器可以选择的元素; :has() css 伪类 匹配列表中任意一个选择器的父元素; :not() css 伪类 匹配不满足列表中任意一个选择器的元素。除 not 外都是可容错的选择器。
+1. :is(a,b,c) css 伪类 匹配列表中任意一个*选择器*可以选择的元素,但不能匹配伪元素; :where() css 伪类 优先级为 0 匹配列表中任意一个选择器可以选择的元素; :has() css 伪类 匹配列表中任意一个选择器的父元素; :not() css 伪类 匹配不满足列表中任意一个选择器的元素。除 not 外都是可容错的选择器。
 2. ::placeholder 是设置 placeholder 样式的伪元素，只能设置字体并且 inspect 里看不到。
 3. height 不在 transition 里，会导致 transition 失效，可用 max-height 代替
 4. background: url() no-repeat left 10px top 10px; 可以设置背景图片的位置

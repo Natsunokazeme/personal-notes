@@ -879,7 +879,7 @@ return clone; //返回这个对象
 
 可以通过将 var 替换成 let 优化
 
-# 原型链
+# _原型链_
 
 每个实例对象（ object ）都有一个私有属性（称之为 **proto** ）指向它的构造函数的原型对象（prototype ）。该原型对象也有一个自己的原型对象( **proto** ) ,层层向上直到一个对象的原型对象为 null。根据定义,null 没有原型,并作为这个原型链中的最后一个环节。
 
@@ -939,9 +939,8 @@ ES7 提供的 async 函数相当于 generator 函数的语法糖(即高效简化
 
 1. async 函数内部 return 语句返回的值,会成为 then 方法回调函数的参数。
 2. 只有 async 函数内部的异步操作执行完,才会执行 then 方法指定的回调函数。
-3. 正常情况下,await 命令后面是一个 Promise 对象。如果不是,会被转成一个立即 resolve 的 Promise 对象。
+3. **正常情况下,await 命令后面是一个 Promise 对象。如果不是,会被转成一个立即 resolve 的 Promise 对象。**
 4. 只要一个 await 语句后面的 Promise 变为 reject,那么整个 async 函数都会中断执行。_可通过 try catch 捕获错误_。
-   await
    await 的语句执行完才执行后面的语句
 
 # JavaScript 操作 http
@@ -1056,7 +1055,7 @@ process.nextTick（Node.js 特有，优先级高于其他微任务）
 26. lambda 演算 ℷx.x+1(1) 表示对 x 的 ℷ 演算,ℷx 声明这是参数为 x 的 ℷ 演算,ℷx.x+1 表示传入 x 后返回 x+1,ℷx.x(1)表示传入 1 后返回 2
 27. 柯利化,将函数作为参数传入另一个函数。
 28. _parseInt 将字符串转化为数字， 第二个参数表示进制,2-36,默认为 10(为 0 时也默认为 10),不在范围内返回 NaN_
-29. _虚拟滚动,只渲染可视区域的 dom,其他的 dom 不渲染,可用于大数据量的渲染。为此,父元素即为可视区域 overflow:scroll,需要一个子元素撑起实际滚动的高度,虚拟滚动通过监听滚动距离来计算出真实滚动情况下刚好位于可视区域的 dom 进行渲染_
+29. _虚拟滚动,虚拟滚动只创建和渲染固定数量的 DOM 元素,可用于大数据量的渲染，一般会创建可视区域加上两个缓冲区的 DOM 元素_
 30. 函数是一等公民,会自动变量提升至顶部,且函数声明优先于变量声明,后命名的会覆盖前命名的函数
 31. var let const, var 会变量提升,但仅仅是声明提升,赋值不会,var 可重复声明,并且会覆盖前面的声明,let 和 const 不会变量提升,且不可重复声明,const 声明的变量不可修改,但是如果是引用类型,引用的值是可以修改的, let const 都是 es6 新增的
 32. MutationObserver(callback())
@@ -1070,12 +1069,12 @@ process.nextTick（Node.js 特有，优先级高于其他微任务）
 
 1. javascript 代码必须放在 script 标签中
    script 标签可以放在 html 的任何地方,一般建议放在 head 标签里
-   如果有多段 script 代码,会按照从上到下,顺序执行,因此引入第三方库的时候,一定要注意顺序
+   如果有多段 script 代码,会按照从上到下,顺序执行,因此引入第三方库的时候,一定要注意顺序，加上 async 标签会打乱顺序，defer 则不会
 2. document 代表浏览器的文档部分, window 代表浏览器的窗口部分,Document 对象是 Window 对象的一部分,可通过 window.document 属性对其进行访问。同理,history 也是 window 的属性
 3. 完整的 javascript 由语言基础,BOM 和 DOM 组成。
 4. _js 内存管理的垃圾回收算法，最初是引用计数垃圾收集，即当一个对象没有被引用时被回收。现在主流的是标记清除算法，即当一个对象从 root 不可达时被回收。即全局对象作为 root。这样可以避免循环引用的问题。当两个对象相互引用为属性时，他们的引用计数都不为 0，但是他们都不可达，所以会被回收。_
 5. js _内存模型分为堆，栈，队列，堆用来存储对象，栈用来存储帧，队列用来存储消息。当消息被处理时会被移出队列，并且会创建一个帧，帧中包含了函数的参数，局部变量，返回地址等信息。当函数执行完毕时，帧会被移出栈。若帧中的函数调用了其他函数，则会创建新的帧并压入栈中。直到所有帧都被移出栈，函数执行完毕。开始处理下一个消息。_
-6. string.padStart(a,b) 在 string 前添加字符串 b 直到整个 string 长度大于等于 a
+6. string.padStart(num,b) 在 string 前添加字符串 b 直到整个 string 长度大于等于 num
 7. JavaScript 基本数据类型 undefined,Boolean,Number,String,null,symbol,bigint
    undefined 声明了但未赋值
    Boolean 布尔
@@ -1380,9 +1379,6 @@ x.localeCompare(y)
 var y = x.split(" ");//通过空格分隔 split(" "),得到数组
 var z = x.split(" ",2);//通过空格分隔 split(" ",2),得到数组,并且只保留前两个
 注： 第二个参数可选,表示返回数组的长度
-
-_实操不行_
-原始数据类型可以直接调用方法如 xxx.split();这是因为 js 在访问 xxx 时会根据 xxx 创建一个临时对象(new String(xxx))，然后再调用方法，得到结果后销毁临时对象
 
 # JavaScript 数字
 

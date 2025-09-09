@@ -26,3 +26,4 @@
 18. react key
 19. vite 和 webpack 区别
 20. 安全与攻击
+21. setTimeout 等 timer 在 await 后的用法并不会等到 timer 执行完才完成 await，而是获取到 timer 的 Id 也就是注册好任务之后就完成 await 了
