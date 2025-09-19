@@ -41,3 +41,29 @@ const throttle = (fn, delay) => {
     }, delay)
   }
 }
+
+//全局保存state状态，防止因组件渲染重新执行
+let hookStates = [] // 存储所有 state，类似fiber节点上的hooks链表
+let hookIndex = 0 // 当前执行到第几个 hook
+
+function myUseState(initialValue) {
+  const currentIndex = hookIndex
+
+  if (hookStates[currentIndex] === undefined) {
+    hookStates[currentIndex] =
+      typeof initialValue === "function" ? initialValue() : initialValue
+  }
+
+  const setState = (newValue) => {
+    if (typeof newValue === "function") {
+      hookStates[currentIndex] = newValue(hookStates[currentIndex])
+    } else {
+      hookStates[currentIndex] = newValue
+    }
+    render() // 触发“重新渲染”，在真实 React 里是调度 Fiber 更新
+  }
+
+  const value = hookStates[currentIndex]
+  hookIndex++
+  return [value, setState]
+}

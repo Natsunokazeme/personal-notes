@@ -130,6 +130,12 @@ diff 算法决定是否复用
 通过比较 current Fiber(已存在的 fiber 节点)和更新后的 JSX 对象来生成 workInProgress Fiber(新的 fiber 节点)
 从 Diff 的入口函数 reconcileChildFibers 出发，该函数会根据 newChild(即 JSX 对象)类型调用不同的处理函数。
 
+## 时间复杂度优化
+
+1. 只比较同级节点
+2. 类型不同直接销毁重建
+3. 通过 key 比较，哈希表优化
+
 ## 单节点 diff
 
 即 newChild 不是数组类型；先比较 key(默认 null)，再比较 type，都相同则可以复用，否则标记旧 dom 节点为删除，新建 fiber 节点。
