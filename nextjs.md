@@ -24,3 +24,22 @@
     1. 直接在页面中使用 getStaticProps 或 getServerSideProps，生成的 html 会在 build 时生成，且不会在 client 端运行
     2. 在页面中使用 getInitialProps，生成的 html 会在每次请求时生成，且会在 client 端运行
 18. next 的 server 组件可以直接用 async await 来获取数据，且不需要在页面中使用 getStaticProps 或 getServerSideProps，直接在组件中使用即可，甚至可以直接用 sql 语句来获取数据，且不会在 client 端暴露
+19. next 的 use client 不是纯 CSR，而是默认混合渲染：先 SSR 生成静态 HTML（提升首屏性能）。再 CSR 处理动态逻辑（如状态更新、副作用）。
+20. 纯 CSR 需要禁用 ssr
+    ```javascript
+    import dynamic from "next/dynamic"
+    const ClientOnlyComponent = dynamic(() => import("./MyClient"), {
+      ssr: false, // 关闭服务端渲染
+    })
+    ```
+21. 使用 useEffect 的组件必然是 CSR（客户端渲染）。
+22. ISR 命中缓存快，到期后后台再生；
+    ```javascript
+    // 页面/路由级
+    export const revalidate = 300 // 5 分钟再生
+    // 或请求级
+    await fetch(url, {next: {revalidate: 300}})
+    ```
+23. # app router 和 page router 的区别
+    1. page router 将路由都放在 pages 文件夹下自动生成，app router 更新，通过 page.index 所在位置生成
+    2. ，app router 是 RSC+ streaming SSR，直接通过 await fetch 获取数据
