@@ -30,6 +30,7 @@
 22. react server component
 23. ISR
 24. streaming SSR
-25. zustand 实现原理
+25. zustand 实现原理 一个极简的可订阅状态容器，通过手动 subscribe 精确通知组件，
+    再用 selector 控制渲染粒度，从而实现高性能状态同步。
 26. SEO 优化手段
     1. SEO 定义
