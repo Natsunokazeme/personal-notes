@@ -451,6 +451,15 @@ last-modified: ,以格林尼治时间记录资源最后修改的时间,启用后
 etag: 是基于资源的内容编码生成的一串唯一的标识字符串,启用后请求头会带有 if-none-match 字段,对比两者即可。
 浏览器刷新：F5 刷新,刷新按钮,网页右键刷新；CTRL+F5 刷新（硬性重新加载）,清空其他缓存并强行设置 no-cache,直接重新请求资源
 
+# **从输入 url 到浏览器渲染完成过程**
+
+1. DNS 查询，获取域名对应的 IP 地址
+2. TCP 连接，建立 TCP 连接
+3. HTTP 请求，发送 HTTP 请求
+4. HTTP 响应，接收 HTTP 响应
+5. 获取 HTML 文档
+6. 浏览器渲染
+
 # **浏览器渲染过程**
 
 浏览器渲染的过程主要包括以下五步：
@@ -471,7 +480,7 @@ constructor 属性的含义就是指向该对象的构造函数,所有函数（�
 
 # zustand 与 redux 优缺点
 
-优点：更加简单，不需要写 action reducer 等复杂的模版代码；内置中间件;体积更小
+优点：更加简单，不需要写 action reducer 等复杂的模版代码；中间件不用配置;体积更小
 
 # _Fiber 架构_
 
@@ -534,6 +543,7 @@ js 的事件循环机制是依赖于执行栈的，执行栈就是当前正在�
 
 **正常情况下,await 命令后面是一个 Promise 对象。如果不是,会被转成一个立即 resolve 的 Promise 对象。**
 只要一个 await 语句后面的 Promise 变为 reject,那么整个 async 函数都会中断执行。_可通过 try catch 捕获错误_。
+基于 yield 实现
 
 # 虚拟滚动
 
@@ -571,3 +581,24 @@ zustand 极简，轻量、高性能，不依赖于 react，适合中小型项目
 redux 生态丰富，适合大型项目
 jutai 原子化状态管理，灵活性高
 mobx 响应式，自动追踪依赖，组件更新精确
+
+# next-intl 原理
+
+useTranslations() 实际上是一个从 NextIntlClientProvider 的 React Context 读取翻译函数的 hook。当 React Context 中的翻译函数发生变化时，会触发重新渲染，props.children 更新，触发 diff 算法，更新 dom
+
+# zustand 的原理
+
+核心思想是 基于闭包 + 订阅模式 来实现状态共享，在 useStore 内部实现了 React 的 useSyncExternalStore hook 组件更新。
+因此状态共享可以在非 react 环境使用
+
+# 动态修改语言包
+
+通过后端获取 json 文件，前端动态加载
+优点：1. 无需重新打包 2. 方便多端管理 3. 减少前端打包体积
+缺点：1. 服务器压力 2. 网络影响大(可设置缓存和 CDN)
+
+# react 优化
+
+1. useMemo 和 useCallback
+2. diff 算法优化
+3. react profiler

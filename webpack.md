@@ -43,7 +43,7 @@ serviceworker-webpack-plugin：为网页应用增加离线缓存功能
 ModuleConcatenationPlugin: 开启 Scope Hoisting
 speed-measure-webpack-plugin: 可以看到每个 Loader 和 Plugin 执行耗时 (整个打包耗时、每个 Plugin 和 Loader 耗时)
 
-# _Loader 和 Plugin 的区别？_
+# _*Loader 和 Plugin 的区别？*_
 
 Loader 本质就是一个函数，在该函数中对接收到的内容进行转换，返回转换后的结果。
 因为 Webpack 只认识 JavaScript，所以 Loader 就成了翻译官，对其他类型的资源进行转译的预处理工作。

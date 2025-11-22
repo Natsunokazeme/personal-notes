@@ -27,10 +27,23 @@
 19. vite 和 webpack 区别
 20. 安全与攻击
 21. setTimeout 等 timer 在 await 后的用法并不会等到 timer 执行完才完成 await，而是获取到 timer 的 Id 也就是注册好任务之后就完成 await 了
-22. react server component
-23. ISR
-24. streaming SSR
-25. zustand 实现原理 一个极简的可订阅状态容器，通过手动 subscribe 精确通知组件，
+22. react server component, 只在服务器上运行的组件，nextjs 没有 use client 默认用 rsc。 与 ssr 不同的是，它通过 RSC payload 的方式传输而不是完整的 html，因此减少 js 体积，简化数据传输
+23. streaming SSR
+24. zustand 实现原理 一个极简的可订阅状态容器，通过手动 subscribe 精确通知组件，
     再用 selector 控制渲染粒度，从而实现高性能状态同步。
-26. SEO 优化手段
-    1. SEO 定义
+25. SEO 优化手段
+    1. SEO 定义 search engine optimization
+    2. meta 标签
+    3. link 标签
+    4. 标签语义化 用 Heading 标签 title 标签等
+26. isNaN()和 Number.isNaN()的区别
+    isNaN()判断是否是 NaN，会自动转换参数为 number 再比较
+    Number.isNaN()判断是否是 NaN，不转换，ES6 新增
+27. # monorepo 特点
+    Monorepo 是把多个项目放在一个仓库里，通过统一依赖、共享代码、自动构建与测试来提升大型团队和多项目的开发效率。
+    1. 所有项目 / 包共享同一个仓库
+    2. 统一依赖管理（single dependency tree）
+    3. 可以互相引用本地包（本地联动）
+    4. 更强的跨项目重用能力
+    5. 测试、构建、Lint、发布可统一管理
+    6. 更好的版本一致性 项目可锁定某个包版本：
