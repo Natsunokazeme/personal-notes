@@ -602,3 +602,7 @@ useTranslations() 实际上是一个从 NextIntlClientProvider 的 React Context
 1. useMemo 和 useCallback
 2. diff 算法优化
 3. react profiler
+
+# fiber 是什么，带来什么优化
+
+fiber 是 React 内部的数据结构，用于管理 React 组件的渲染过程，包含了组件的状态、子节点、ref 等信息，是 React 的性能优化的基础。
